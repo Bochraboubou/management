@@ -13,6 +13,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { OrganisationComponent } from './organisation/organisation.component';
 import { DetailComponent } from './detail/detail.component';
+import { MenuMycpmComponent } from './menu-mycpm/menu-mycpm.component';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { DetailComponent } from './detail/detail.component';
     AddEntrepriseModalComponent,
     EntreprisePopupComponent,
     OrganisationComponent,
-    DetailComponent
+    DetailComponent,
+    MenuMycpmComponent,
+   
   ],
   imports: [
     BrowserModule,

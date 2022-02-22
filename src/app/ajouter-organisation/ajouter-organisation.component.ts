@@ -52,22 +52,7 @@ export class AjouterOrganisationComponent implements OnInit {
     this.organisationService.addOrganisation(addOrganisationForm.value).subscribe(
        (Response:Organisation)=>{
         console.log(Response);
-        this.idOrgan=Response.id;
-        for (let i = 0; i < this.entreprises.length; i++)
-        {
-          this.EntrepriseService.addEntreprise(this.idOrgan,this.entreprises[i]).subscribe(
-            (Response:Entreprise)=>{
-              console.log(Response);
-             // this.getOrganisations();
-            },
-            (error:HttpErrorResponse)=>{
-              error.message;
-              console.log("entreprise not added but dont worry bochra you wil did it")
-              
-            }
-          );
-        }
-        
+      
        // this.getOrganisations();
         addOrganisationForm.reset();
       },
@@ -79,15 +64,7 @@ export class AjouterOrganisationComponent implements OnInit {
   }
   
 
-  //ajouter une organisation
-  public onAddEntreprise(addEntrepriseForm:NgForm):void{
-    document.getElementById('add-entrep-form')?.click();
-    this.entreprise=addEntrepriseForm.value;
-    this.entreprises.push(addEntrepriseForm.value);
-    console.log(this.entreprise);
-    for (let i = 0; i < this.entreprises.length; i++){
-      console.log("la liste d'entreprise est "+this.entreprises[i].nom)
-    }
+  
    
     
    
@@ -103,7 +80,7 @@ export class AjouterOrganisationComponent implements OnInit {
         addEntrepriseForm.reset();
       }
     );*/
-  }
+  
   
   
 

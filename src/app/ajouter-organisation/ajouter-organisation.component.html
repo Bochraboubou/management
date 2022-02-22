@@ -32,86 +32,12 @@
             <label for="m_d_oeuvrage">M_d'oeuvrage</label>
             <input type="text" ngModel name="m_d_oeuvrage" class="form-control" id="m_d_oeuvrage" placeholder="M_d'oeuvrage" required>
           </div>
-          <div class="col-md-3 mb-3">
-            <button type="button" class="btn btn-secondary" (click)="onOpenAddEntrepModal()">Associer une Entreprise</button>
+        
           </div>
-          <!--tableau d'entreprises-->
-          <div>
-            <table class="table table-dark table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Nom</th>
-                  <th scope="col">Code</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Adresse</th>
-                  <th scope="col">Tel</th>
-                  <th scope="col">Gouvernerat</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let e of entreprises,let i= index">
-                  <th scope="row">{{i}}</th>
-                  <td>{{e.nom}}</td>
-                  <td>{{e.code}}</td>
-                  <td>{{e.email}}</td>
-                  <td>{{e.adresse}}</td>
-                  <td>{{e.tel}}</td>
-                  <td>{{e.gouvernerat}}</td>
-                </tr>
-              </tbody>
-            </table>
-
-          </div>
-        </div>
         <button class="btn btn-primary" type="submit">Submit form</button>
       </form>
 </div>
 
 
  
-  <!-- Add Entreprise modall -->
-<div class="modal fade" id="addEntrapModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 class="modal-title" id="exampleModalLongTitle">Ajouter une Entreprise</h3>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <form #addEntrepriseForm="ngForm" (ngSubmit)="onAddEntreprise(addEntrepriseForm)">
-                <div class="form-group">
-                   <label for="nom">Nom</label>
-                   <input type="text" ngModel name="nom"  class="form-control" id="n" placeholder="nom" required>
-                </div>
-                <div class="form-group">
-                   <label for="code">Code Entreprise</label>
-                   <input type="text" ngModel name="code"  class="form-control" id="code" placeholder="code" required>
-                </div>
-                <div class="form-group">
-                   <label for="mail">Email</label>
-                   <input type="email" ngModel name="mail" class="form-control" id="mail" placeholder="mail" required>
-                </div>
-                <div class="form-group">
-                   <label for="adresse">Adresse</label>
-                   <input type="text" ngModel name="adresse"  class="form-control" id="adresse" placeholder="adresse" required>
-                </div>
-                <div class="form-group">
-                   <label for="tel">Numéro du télephone</label>
-                   <input type="text" ngModel name="tel"  class="form-control" id="tel" placeholder="tel" required>
-                </div>
-                <div class="form-group">
-                    <label for="gouvernerat">Gouvernerat</label>
-                    <input type="text" ngModel name="gouvernerat"  class="form-control" id="gouvernerat" placeholder="gouvernerat" required>
-                 </div>
-                <div class="modal-footer">
-                   <button type="button" id="add-entrep-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                   <button [disabled]="addEntrepriseForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
-                </div>
-                </form>
-        </div>
-      </div>
-    </div>
-  </div>
+ 

@@ -5,8 +5,10 @@ import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/d
 import { EntreprisePopupComponent } from '../entreprise-popup/entreprise-popup.component';
 import { Entreprise } from '../model/Entreprise';
 import { Organisation } from '../model/Organisation';
+import { Secteur } from '../model/Secteur';
 import { EntrepriseServiceService } from '../service/entreprise-service.service';
 import { OrganisationServiceService } from '../service/organisation-service.service';
+import { SecteurService } from '../service/secteur.service';
 
 @Component({
   selector: 'app-ajouter-organisation',
@@ -17,11 +19,23 @@ export class AjouterOrganisationComponent implements OnInit {
   entreprises:Entreprise[]=[];
   idOrgan!: number;
   entreprise!: Entreprise;
+  secteurs!: Secteur[];
+  
 
-  constructor(private dialogRef:MatDialog,private organisationService:OrganisationServiceService,private EntrepriseService:EntrepriseServiceService) { }
+  constructor(private dialogRef:MatDialog,private organisationService:OrganisationServiceService,private EntrepriseService:EntrepriseServiceService,private secteurService:SecteurService) { }
 
   ngOnInit(): void {
-  }
+    this.getSecteurs();
+    this.organisationService.getOneOrganisation(5).subscribe(
+      (response:Organisation)=>{
+        console.log(response);
+      },
+      (error:HttpErrorResponse)=>{
+        alert(error.message);
+       }
+    );
+      }
+  
   openDialog()
     {
       const dialogConfig = new MatDialogConfig();
@@ -33,19 +47,7 @@ export class AjouterOrganisationComponent implements OnInit {
     // https://material.angular.io/components/dialog/overview
     const modalDialog = this.dialogRef.open(EntreprisePopupComponent, dialogConfig);
   }
-    
-  public onOpenAddEntrepModal():void{
-    const container=document.getElementById('main-container');
-    const button=document.createElement('button');
-    button.type='button';
-    button.style.display='none';
-    button.setAttribute('data-toggle','modal');
-    button.setAttribute('data-target','#addEntrapModal');
-    container?.appendChild(button);
-    button.click();
-    
-
-  }
+ 
 
   //ajouter une organisation
   public onAddOrganisation(addOrganisationForm:NgForm):void{
@@ -62,6 +64,18 @@ export class AjouterOrganisationComponent implements OnInit {
       }
     );
   }
+  //récuperer la liste des secteurs d'activités
+  public getSecteurs():void
+  {
+    this.secteurService.getSecteurs().subscribe(
+      (response:Secteur[])=>{
+        this.secteurs=response;
+      },
+      (error:HttpErrorResponse)=>{
+        alert(error.message);
+       }
+    );
+      }
   
 
   

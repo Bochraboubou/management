@@ -248,18 +248,18 @@
           </a>
           <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
               <li>
-                  <a routerLink="/organisations">
-                    <i class="bi bi-circle"></i><span>Consulter votre organisation</span>
+                  <a routerLink="/mycpm/marchee">
+                    <i class="bi bi-circle"></i><span>Ajouter un marché</span>
                   </a>
                 </li>
             <li>
-              <a routerLink="/addOrganisation">
+              <a routerLink="/mycpm/marchee">
                 <i class="bi bi-circle"></i><span>gérer les métiers</span>
               </a>
             </li>
             <li>
-              <a href="components-accordion.html">
-                <i class="bi bi-circle"></i><span>inviter des entreprises</span>
+              <a routerLink="/mycpm/detailOrganisation">
+                <i class="bi bi-circle"></i><span>consulter vote organisation</span>
               </a>
             </li>
             <li>
@@ -423,7 +423,7 @@
   
     </aside><!-- End Sidebar-->
   
-    <main id="main" class="main">
+    <main id="main" class="main" style="width: 1900px;">
   
       <div class="pagetitle">
         <h1>Dashboard</h1>
@@ -443,7 +443,7 @@
             <div class="row">
   
               
-              <div class="bochra"><h1 style="color: blue;">Bienvenue</h1></div>
+              <div class="bochra"><h1 style="color: blue;">Bienvenue dans l'espace de My CPM</h1></div>
               <div class="container_fluid">
                 <router-outlet></router-outlet>
               </div>

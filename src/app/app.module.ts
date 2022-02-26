@@ -14,6 +14,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { OrganisationComponent } from './organisation/organisation.component';
 import { DetailComponent } from './detail/detail.component';
 import { MenuMycpmComponent } from './menu-mycpm/menu-mycpm.component';
+import { MarcheeComponent } from './espaceMyCPM/marchee/marchee.component';
+import { DetailOrganisationComponent } from './espaceMyCPM/detail-organisation/detail-organisation.component';
+import { EntreprisesComponent } from './espaceMyCPM/entreprises/entreprises.component';
 
 
 @NgModule({
@@ -26,6 +29,9 @@ import { MenuMycpmComponent } from './menu-mycpm/menu-mycpm.component';
     OrganisationComponent,
     DetailComponent,
     MenuMycpmComponent,
+    MarcheeComponent,
+    DetailOrganisationComponent,
+    EntreprisesComponent,
    
   ],
   imports: [

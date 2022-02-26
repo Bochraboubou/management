@@ -21,4 +21,9 @@ export class OrganisationServiceService {
   {
     return this.http.get<Organisation[]>(`${this.apiServeUrl}/admin/organisations`);
   }
+
+  public getOneOrganisation(organId:number): Observable<Organisation>
+  {
+    return this.http.get<Organisation>(`${this.apiServeUrl}/admin/oneorganisations/${organId}`);
+  }
 }

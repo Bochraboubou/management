@@ -1,0 +1,121 @@
+<div class="container" id="main-container">
+  <div class="row">
+    <strong><h1 style="color: darkblue;">Ajouter un marché</h1></strong>
+    <div class="col">
+      <form #addEntrepriseForm="ngForm" >
+          <div class="col-md-4 mb-3">
+             <label for="nom">Nom</label>
+             <input type="text" ngModel name="secteur"  class="form-control" id="nom"  required>
+          </div>
+  
+          <div class="col-md-4 mb-3">
+              <label for="secteur"> Secteur d'activité</label>
+              <select ngModel name="secteur_d_activite" id="secteur" class="form-select" placeholder="Secteur d'activité" aria-label="Default select example">
+                <!--<option selected>choisir une option</option>-->
+                <option   *ngFor="let met of metiers"
+                [value]="met.nomMetier">
+                {{met.nomMetier}}
+              </option>
+              </select>
+            </div>
+  
+          <div class="col-md-4 mb-3">
+             <label for="code">Code Marché</label>
+             <input type="text" ngModel name="code"  class="form-control" id="code" placeholder="code" required>
+          </div>
+          <br>
+  
+          <div class="col-md-6 mb-3">
+              <label for="capex">Budget</label>
+              <div class="form-check">
+                <div class="choice">
+                    <input class="form-check-input" type="radio" name="budget" id="capex" value="Capex" ngModel/>
+                    <label class="form-check-label" for="capex">Capex</label>
+                </div>
+                <div class="choice">
+                    <input class="form-check-input" type="radio" name="budget" id="oeuvrage" value="Opex" ngModel/>
+                    <label class="form-check-label" for="opex">Opex</label>
+                </div>
+              </div> 
+              </div>
+  
+              <div class="col-md-6 mb-3">
+                  <label for="tel">Type</label>
+                  <div class="form-check">
+                    <div class="choice">
+                        <input class="form-check-input" type="radio" name="type" id="projet" value="Projet" ngModel/>
+                        <label class="form-check-label" for="projet">Projet</label>
+                    </div>
+                    <div class="choice">
+                      <input class="form-check-input" type="radio" name="type" id="mc" value="MC" ngModel/>
+                      <label class="form-check-label" for="mc">MC</label>
+                  </div>
+                </div> 
+              </div>  
+  
+          <div class="col-md-4 mb-3">
+             <label for="montant">Montant</label>
+             <input type="number" ngModel name="montant" class="form-control" id="montant" placeholder="montant" required>
+          </div>
+  
+          <div class="col-md-4 mb-3">
+             <label for="delais">Delais</label>
+             <input type="number" ngModel name="delais"  class="form-control" id="delais" placeholder="delais" required>
+          </div>
+          <br>
+  
+          <div>
+            <button class="btn btn-primary" type="submit">Submit form</button>
+          </div>
+  
+          </form>
+  </div>
+  
+  <div class="col">
+    <button type="button" class="btn btn-info" (click)="onOpenBCModal()">Associer une B_Commande</button>
+  </div>
+  </div>
+</div>
+<!-- Add Bonde Commande modall -->
+<div class="modal fade" id="addBCModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLongTitle">Ajouter une Entreprise</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form #addEntrepriseForm="ngForm" >
+              <div class="form-group">
+                 <label for="nom">Numero Bonde Commande</label>
+                 <input type="text" ngModel name="nom"  class="form-control" id="n" placeholder="numéro" required>
+              </div>
+              <div class="form-group">
+                 <label for="code">Montant</label>
+                 <input type="text" ngModel name="code"  class="form-control" id="code" placeholder="montant" required>
+              </div>
+              <div class="form-group">
+                 <label for="mail">Delais</label>
+                 <input type="email" ngModel name="mail" class="form-control" id="mail" placeholder="delails" required>
+              </div>
+              <div>
+                <label for="mail">Entreprise</label>
+                <select class="form-select" aria-label="Default select example">
+                  <option value="1">Simo</option>
+                  <option value="2">Ardia</option>
+                  <option value="3">AppGo</option>
+                </select>
+              </div>
+              <br>
+              
+              <div class="modal-footer">
+                 <button type="button" id="add-entrep-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                 <button [disabled]="addEntrepriseForm.invalid" type="submit" class="btn btn-primary" >Save</button>
+              </div>
+              </form>
+      </div>
+    </div>
+  </div>
+</div>

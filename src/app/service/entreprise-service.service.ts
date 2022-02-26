@@ -16,4 +16,9 @@ export class EntrepriseServiceService {
   {
     return this.http.post<Entreprise>(`${this.apiServeUrl}/admin/organisations/${organId}/entreprises`,entreprise);
   }
+//récuperer les entreprises
+  public getEntreprise(organId:number): Observable<Entreprise[]>
+  {
+    return this.http.get<Entreprise[]>(`${this.apiServeUrl}/admin/organisations/${organId}/entreprises`);
+  }
 }

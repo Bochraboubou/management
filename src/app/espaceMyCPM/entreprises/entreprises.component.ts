@@ -18,6 +18,9 @@ export class EntreprisesComponent implements OnInit {
   id!: number;
   entreprises!: Entreprise[];
   idOrgan!: number;
+  alertEntrepExsist:boolean=false;
+  alertSuccess:boolean=false;
+
   
   
 
@@ -25,9 +28,10 @@ export class EntreprisesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getOrgans();
+    this.getEntreprises(5);
   }
 
-  //récuperer la liste des entreprises
+  //récuperer la liste des entreprises disponibles
   public getOrgans():void
   {
     this.organService.getOrganisations().subscribe(
@@ -44,7 +48,7 @@ export class EntreprisesComponent implements OnInit {
         console.log(this.id);
       }
 
-
+//récuperer l'entreprise
       public getOrganisation(organId:number){
         this.organService.getOneOrganisation(organId).subscribe(
           (response:Organisation)=>{
@@ -61,18 +65,53 @@ export class EntreprisesComponent implements OnInit {
       }
 //associer l'entreprise
       public onAddEntreprise(addEntrepriseForm:NgForm):void{
-          this.entrepriseService.addEntreprise(5,addEntrepriseForm.value).subscribe(
-            (Response:Entreprise)=>{
-              console.log(Response);
-             // this.getOrganisations();
+        for (let i = 0; i < this.entreprises.length; i++) {
+          if(this.entreprises[i].nom===this.organisation.nom){
+            this.alertEntrepExsist=true;
+            break;
+
+          }
+        }
+          if(this.alertEntrepExsist==false){
+            this.entrepriseService.addEntreprise(5,addEntrepriseForm.value).subscribe(
+              (Response:Entreprise)=>{
+                console.log(Response);
+                this.entreprises.push(Response);
+                this.alertSuccess=true;
+                addEntrepriseForm.reset();
+              },
+              (error:HttpErrorResponse)=>{
+                error.message;
+                console.log("entreprise not added but dont worry bochra you wil did it");
+               
+                
+              }
+            );
+          }
+
+          
+          
+        }
+         
+
+         //récuperer la liste des entreprises deja associées
+
+ 
+        public getEntreprises(organId:number):void
+        {
+          this.entrepriseService.getEntreprises(organId).subscribe(
+            (response:Entreprise[])=>{
+              this.entreprises=response;
+              
             },
             (error:HttpErrorResponse)=>{
-              error.message;
-              console.log("entreprise not added but dont worry bochra you wil did it")
-              
-            }
+              alert(error.message);
+             }
           );
-        }
+      
+            }
+          
+  
     
 
 }

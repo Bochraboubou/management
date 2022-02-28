@@ -20,6 +20,8 @@ export class EntreprisesComponent implements OnInit {
   idOrgan!: number;
   alertEntrepExsist:boolean=false;
   alertSuccess:boolean=false;
+  idOrganisation:number=5;
+  
 
   
   
@@ -28,21 +30,22 @@ export class EntreprisesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getOrgans();
-    this.getEntreprises(5);
+    this.getEntreprises(this.idOrganisation);
   }
 
   //récuperer la liste des entreprises disponibles
   public getOrgans():void
   {
-    this.organService.getOrganisations().subscribe(
-      (response:Organisation[])=>{
+    this.organService.getOrganisations().subscribe({
+      next: (response:Organisation[]) => {
         this.organs=response;
         
       },
-      (error:HttpErrorResponse)=>{
+      error: (error:HttpErrorResponse) => {
         alert(error.message);
-       }
-    );
+       },
+      complete: () => console.info('complete') 
+  })
       }
       public affich():void{
         console.log(this.id);
@@ -50,17 +53,18 @@ export class EntreprisesComponent implements OnInit {
 
 //récuperer l'entreprise
       public getOrganisation(organId:number){
-        this.organService.getOneOrganisation(organId).subscribe(
-          (response:Organisation)=>{
+        this.organService.getOneOrganisation(organId).subscribe({
+          next: (response:Organisation) => {
             this.organisation=response;
             console.log(response);
             console.log(this.organisation.email);
             
           },
-          (error:HttpErrorResponse)=>{
+          error: (error:HttpErrorResponse) => {
             alert(error.message);
-           }
-        );
+           },
+          complete: () => console.info('complete') 
+      })
 
       }
 //associer l'entreprise
@@ -99,15 +103,16 @@ export class EntreprisesComponent implements OnInit {
  
         public getEntreprises(organId:number):void
         {
-          this.entrepriseService.getEntreprises(organId).subscribe(
-            (response:Entreprise[])=>{
+          this.entrepriseService.getEntreprises(organId).subscribe({
+            next: (response:Entreprise[]) => {
               this.entreprises=response;
               
             },
-            (error:HttpErrorResponse)=>{
+            error: (error:HttpErrorResponse) => {
               alert(error.message);
-             }
-          );
+             },
+            complete: () => console.info('complete') 
+        })
       
             }
           

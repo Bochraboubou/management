@@ -5,6 +5,7 @@ export interface Marchee{
     secteurd_activitee:string;
     metier:string;
     code:string;
+    designation:string;
     budget:string;
     type:string;
     montant:number;

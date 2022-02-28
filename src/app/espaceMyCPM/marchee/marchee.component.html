@@ -3,14 +3,13 @@
     <strong><h1 style="color: darkblue;">Ajouter un marché</h1></strong>
     <div class="col">
       <form #addEntrepriseForm="ngForm" >
+        <div class="col-md-4 mb-3">
+          <label for="secteur">Secteur d'activité</label>
+          <input type="text" ngModel="{{organisation?.secteur_d_activite}}" name="secteur_d_activite"  class="form-control" id="secteur" placeholder="secteur d'activité" required>
+       </div>
           <div class="col-md-4 mb-3">
-             <label for="nom">Nom</label>
-             <input type="text" ngModel name="secteur"  class="form-control" id="nom"  required>
-          </div>
-  
-          <div class="col-md-4 mb-3">
-              <label for="secteur"> Secteur d'activité</label>
-              <select ngModel name="secteur_d_activite" id="secteur" class="form-select" placeholder="Secteur d'activité" aria-label="Default select example">
+              <label for="metier"> Metier</label>
+              <select ngModel name="metier" id="metier" class="form-select" placeholder="Metier" aria-label="Default select example">
                 <!--<option selected>choisir une option</option>-->
                 <option   *ngFor="let met of metiers"
                 [value]="met.nomMetier">
@@ -23,7 +22,11 @@
              <label for="code">Code Marché</label>
              <input type="text" ngModel name="code"  class="form-control" id="code" placeholder="code" required>
           </div>
-          <br>
+
+          <div class="col-md-4 mb-3">
+            <label for="designation">Designation</label>
+            <input type="text" ngModel name="designation"  class="form-control" id="designation"  required>
+         </div>
   
           <div class="col-md-6 mb-3">
               <label for="capex">Budget</label>
@@ -65,7 +68,7 @@
           <br>
   
           <div>
-            <button class="btn btn-primary" type="submit">Submit form</button>
+            <button class="btn btn-primary" type="submit">Enregistrer</button>
           </div>
   
           </form>
@@ -119,3 +122,4 @@
     </div>
   </div>
 </div>
+

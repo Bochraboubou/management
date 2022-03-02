@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { BondeCommande } from 'src/app/model/BondeCommande';
 import { Entreprise } from 'src/app/model/Entreprise';
 import { Marchee } from 'src/app/model/Marchee';
 import { Metier } from 'src/app/model/Metier';
@@ -31,6 +32,9 @@ export class MarcheeComponent implements OnInit {
   marchees:Marchee[]=[];
   showExistMarcheeAlert:boolean=false;
   successMarchee:boolean=false;
+  bondesCommandes: BondeCommande[]=[];
+  idEntrepriseBc!: Entreprise;
+  entrep!: Entreprise;
 
 
 

@@ -4,12 +4,13 @@
     <div class="col">
       <form #addEntrepriseForm="ngForm" >
         <div class="col-md-4 mb-3">
-          <label for="secteur">Secteur d'activité</label>
-          <input type="text" ngModel="{{organisation?.secteur_d_activite}}" name="secteur_d_activite"  class="form-control" id="secteur" placeholder="secteur d'activité" required>
+          <label for="secteurd_activitee">Secteur d'activité</label>
+          <input type="text" ngModel="{{organisation?.secteur_d_activite}}" name="secteurd_activitee"  class="form-control" id="secteurd_activitee" placeholder="secteurd_activitee" required>
        </div>
+
           <div class="col-md-4 mb-3">
               <label for="metier"> Metier</label>
-              <select ngModel name="metier" id="metier" class="form-select" placeholder="Metier" aria-label="Default select example">
+              <select ngModel name="metier" id="metier" class="form-select" placeholder="Metier" aria-label="Default select example" required>
                 <!--<option selected>choisir une option</option>-->
                 <option   *ngFor="let met of metiers"
                 [value]="met.nomMetier">
@@ -17,15 +18,17 @@
               </option>
               </select>
             </div>
+
+            <div class="col-md-4 mb-3">
+              <label for="code">code</label>
+              <input type="text" ngModel name="code"  class="form-control" id="code" placeholder="code" required>
+           </div>
   
-          <div class="col-md-4 mb-3">
-             <label for="code">Code Marché</label>
-             <input type="text" ngModel name="code"  class="form-control" id="code" placeholder="code" required>
-          </div>
+          
 
           <div class="col-md-4 mb-3">
             <label for="designation">Designation</label>
-            <input type="text" ngModel name="designation"  class="form-control" id="designation"  required>
+            <input type="text" ngModel name="designiation"  class="form-control" id="designation"  required>
          </div>
   
           <div class="col-md-6 mb-3">
@@ -58,24 +61,33 @@
   
           <div class="col-md-4 mb-3">
              <label for="montant">Montant</label>
-             <input type="number" ngModel name="montant" class="form-control" id="montant" placeholder="montant" required>
+             <input type="number" ngModel name="montant" class="form-control" id="montant" placeholder="en dinars" required>
           </div>
   
           <div class="col-md-4 mb-3">
              <label for="delais">Delais</label>
-             <input type="number" ngModel name="delais"  class="form-control" id="delais" placeholder="delais" required>
+             <input type="number" ngModel name="delais"  class="form-control" id="delais" placeholder="en jours" required>
           </div>
           <br>
   
           <div>
-            <button class="btn btn-primary" type="submit">Enregistrer</button>
+            <button (click)="onAddMarchee(addEntrepriseForm,idOrgan)" class="btn btn-primary" type="submit" [disabled]="addEntrepriseForm.invalid||successMarchee">Enregistrer</button>
           </div>
+          <div>
+            <br>
+            <div *ngIf="showExistMarcheeAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Attention</strong> code ou designation déja utilisé.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div>
+
+          <div id="toast"><div id="img">Succée</div><div id="desc">Information enregistreés avec succé .</div></div>
   
           </form>
   </div>
   
   <div class="col">
-    <button type="button" class="btn btn-info" (click)="onOpenBCModal()">Associer une B_Commande</button>
+    <button type="button" id="enregistrer" class="btn btn-info" (click)="onOpenBCModal()">Associer une B_Commande</button>
   </div>
   </div>
 </div>
@@ -92,23 +104,25 @@
       <div class="modal-body">
           <form #addEntrepriseForm="ngForm" >
               <div class="form-group">
-                 <label for="nom">Numero Bonde Commande</label>
-                 <input type="text" ngModel name="nom"  class="form-control" id="n" placeholder="numéro" required>
+                 <label for="numero">Numero Bonde Commande</label>
+                 <input type="number" ngModel name="numero"  class="form-control" id="n" placeholder="numéro" required>
               </div>
               <div class="form-group">
-                 <label for="code">Montant</label>
-                 <input type="text" ngModel name="code"  class="form-control" id="code" placeholder="montant" required>
+                 <label for="montant">Montant</label>
+                 <input type="number" ngModel name="montant"  class="form-control" id="montant" placeholder="montant" required>
               </div>
               <div class="form-group">
-                 <label for="mail">Delais</label>
-                 <input type="email" ngModel name="mail" class="form-control" id="mail" placeholder="delails" required>
+                 <label for="delais">Delais</label>
+                 <input type="number" ngModel name="delais" class="form-control" id="delais" placeholder="delais" required>
               </div>
               <div>
-                <label for="mail">Entreprise</label>
-                <select class="form-select" aria-label="Default select example">
-                  <option value="1">Simo</option>
-                  <option value="2">Ardia</option>
-                  <option value="3">AppGo</option>
+                <label for="entreprises">Entreprise</label>
+                <select ngModel name="entreprise" id="entreprise" class="form-select" aria-label="Default select example">
+                  <!--<option selected>choisir une option</option>-->
+                  <option   *ngFor="let entrep of entreprises"
+                  [value]="entrep.id">
+                  {{entrep.nom}}
+                </option>
                 </select>
               </div>
               <br>
@@ -122,4 +136,5 @@
     </div>
   </div>
 </div>
+<h3>hbhhgghfh</h3>
 

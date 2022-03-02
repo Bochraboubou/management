@@ -1,10 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Entreprise } from 'src/app/model/Entreprise';
 import { Marchee } from 'src/app/model/Marchee';
 import { Metier } from 'src/app/model/Metier';
 import { Organisation } from 'src/app/model/Organisation';
 import { Secteur } from 'src/app/model/Secteur';
+import { EntrepriseServiceService } from 'src/app/service/entreprise-service.service';
 import { MarcheeService } from 'src/app/service/marchee.service';
 import { MetierService } from 'src/app/service/metier.service';
 import { OrganisationServiceService } from 'src/app/service/organisation-service.service';
@@ -23,9 +25,16 @@ export class MarcheeComponent implements OnInit {
   idSecteur!: number;
   nomSecteur!: string;
   marchee!: Marchee;
+  entreprises:Entreprise[]=[];
+  idEntreprise!: number;
+  idMarchee!: number;
+  marchees:Marchee[]=[];
+  showExistMarcheeAlert:boolean=false;
+  successMarchee:boolean=false;
 
 
-  constructor(private organService:OrganisationServiceService,private secteurService:SecteurService,private metierService:MetierService,private marcheeService:MarcheeService) { }
+
+  constructor(private organService:OrganisationServiceService,private secteurService:SecteurService,private metierService:MetierService,private marcheeService:MarcheeService,private entrepriseService:EntrepriseServiceService) { }
 
   ngOnInit(): void {
     this.getOrganisationandMetiers(this.idOrgan);
@@ -45,6 +54,8 @@ export class MarcheeComponent implements OnInit {
     button.setAttribute('data-target','#addBCModal');
     container?.appendChild(button);
     button.click();
+    
+    
     
 
   }
@@ -101,19 +112,63 @@ export class MarcheeComponent implements OnInit {
   
   //ajouter marchee
   public onAddMarchee(addMarcheeForm:NgForm,organId:number):void{
-    this.marcheeService.addMarchee(organId,addMarcheeForm.value).subscribe({
-      next: (response:Marchee) =>{
-        this.marchee=response;
-        console.log(response);
+    //chercher lexistance du code avant l'ajout
+    this.marcheeService.getMarcheebyCode(addMarcheeForm.value.code).subscribe({
+      next: (response:Marchee) => {
+        this.showExistMarcheeAlert=true;
+        console.log("code existe deja");
+      },
+      error: (error:HttpErrorResponse) => {
+        this.marcheeService.addMarchee(organId,addMarcheeForm.value).subscribe({
+          next: (response:Marchee) =>{
+            this.marchee=response;
+            this.idMarchee=this.marchee.id;
+            console.log(response);
+            console.log(this.marchee.id);
+            var x = document.getElementById("toast")
+            x!.className = "show";
+            setTimeout(function(){ x!.className = x!.className.replace("show", ""); }, 5000);
+            this.successMarchee=true
         
+    
+            //récuperer les entreprises associés à l'organisations
+            this.entrepriseService.getEntreprises(organId).subscribe({
+              next: (response:Entreprise[]) => {
+                this.entreprises=response;
+                
+              },
+              error: (error:HttpErrorResponse) => {
+                alert(error.message);
+               },
+              complete: () => console.info('complete') 
+          })
+            
+          },
+          error: (error:HttpErrorResponse) => {
+            alert(error.message);
+           },
+          complete: () => console.info('complete') 
+      })
+        
+       },
+      complete: () => console.info('complete') 
+  })
+    
+
+  }
+
+  //recuperer la liste des marchees associee
+  public onGetMarchees():void{
+    this.marcheeService.getMarchees(this.idOrgan).subscribe({
+      next: (response:Marchee[]) => {
+        this.marchees=response;
+        console.log("code du premier marchee"+this.marchees[1].code)
       },
       error: (error:HttpErrorResponse) => {
         alert(error.message);
        },
       complete: () => console.info('complete') 
   })
-
-
   }
 
 }

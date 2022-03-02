@@ -17,4 +17,16 @@ export class MarcheeService {
   {
     return this.http.post<Marchee>(`${this.apiServeUrl}/admin/organisations/${organId}/marchees`,marchee);
   }
+
+  //récuperer les marchees
+  public getMarchees(organId:number): Observable<Marchee[]>
+  {
+    return this.http.get<Marchee[]>(`${this.apiServeUrl}/admin/organisations/${organId}/marchees`);
+  }
+
+   //récuperer le secteur par nom
+   public getMarcheebyCode(codeMarchee:string): Observable<Marchee>
+   {
+     return this.http.get<Marchee>(`${this.apiServeUrl}/admin/marcheebycode/${codeMarchee}`);
+   }
 }

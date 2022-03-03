@@ -7,6 +7,7 @@ import { Marchee } from 'src/app/model/Marchee';
 import { Metier } from 'src/app/model/Metier';
 import { Organisation } from 'src/app/model/Organisation';
 import { Secteur } from 'src/app/model/Secteur';
+import { BondeCommandeService } from 'src/app/service/bonde-commande.service';
 import { EntrepriseServiceService } from 'src/app/service/entreprise-service.service';
 import { MarcheeService } from 'src/app/service/marchee.service';
 import { MetierService } from 'src/app/service/metier.service';
@@ -33,12 +34,13 @@ export class MarcheeComponent implements OnInit {
   showExistMarcheeAlert:boolean=false;
   successMarchee:boolean=false;
   bondesCommandes: BondeCommande[]=[];
-  idEntrepriseBc!: Entreprise;
+  idEntrepriseBc!: number;
   entrep!: Entreprise;
+  bc!: BondeCommande;
 
 
 
-  constructor(private organService:OrganisationServiceService,private secteurService:SecteurService,private metierService:MetierService,private marcheeService:MarcheeService,private entrepriseService:EntrepriseServiceService) { }
+  constructor(private organService:OrganisationServiceService,private secteurService:SecteurService,private metierService:MetierService,private marcheeService:MarcheeService,private entrepriseService:EntrepriseServiceService,private bondeCommandeService:BondeCommandeService) { }
 
   ngOnInit(): void {
     this.getOrganisationandMetiers(this.idOrgan);
@@ -173,6 +175,23 @@ export class MarcheeComponent implements OnInit {
        },
       complete: () => console.info('complete') 
   })
+  }
+
+  // ajouter une bonde commande
+  public addBC(addBCForm:NgForm):void{
+    console.log(this.idEntrepriseBc);
+   this.bondeCommandeService.addBondeCommande(this.idMarchee,this.idEntrepriseBc,addBCForm.value).subscribe({
+      next: (response:BondeCommande) => {
+        this.bc=response;
+        this.bondesCommandes.push(this.bc);
+        console.log("bonde commande"+response)
+      },
+      error: (error:HttpErrorResponse) => {
+        alert(error.message);
+       },
+      complete: () => console.info('complete') 
+  })
+
   }
 
 }

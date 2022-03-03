@@ -88,8 +88,9 @@
   
   <div class="col">
     <button type="button" id="enregistrer" class="btn btn-info" (click)="onOpenBCModal()">Associer une B_Commande</button>
-  </div>
-  <!--tableau de bondes commande-->
+    <br>
+    <br>
+     <!--tableau de bondes commande-->
   <div>
     <table class="table table-dark table-striped">
       <thead>
@@ -109,13 +110,15 @@
           <td>{{bc.montant}</td>
           <td>{{bc.delais}}</td>
           <td>{{entrep.nom}}</td>
-          <td>jhuhh}</td>
+          <td><button type="button" class="btn btn-danger">Spécifier les articles</button></td>
           
         </tr>
       </tbody>
     </table>
 </div>
   </div>
+  </div>
+ 
   
 </div>
 <!-- Add Bonde Commande modall -->
@@ -129,7 +132,7 @@
         </button>
       </div>
       <div class="modal-body">
-          <form #addEntrepriseForm="ngForm" >
+          <form #addBCForm="ngForm" >
               <div class="form-group">
                  <label for="numero">Numero Bonde Commande</label>
                  <input type="number" ngModel name="numero"  class="form-control" id="n" placeholder="numéro" required>
@@ -143,8 +146,8 @@
                  <input type="number" ngModel name="delais" class="form-control" id="delais" placeholder="delais" required>
               </div>
               <div>
-                <label for="entreprises">Entreprise</label>
-                <select ngModel name="entreprise" id="entreprise" class="form-select" aria-label="Default select example">
+                <label for="entreprise">Entreprise</label>
+                <select [(ngModel)]="idEntrepriseBc" name="entreprise" id="entreprise" class="form-select" placeholder="entreprise" aria-label="Default select example">
                   <!--<option selected>choisir une option</option>-->
                   <option   *ngFor="let entrep of entreprises"
                   [value]="entrep.id">
@@ -156,12 +159,12 @@
               
               <div class="modal-footer">
                  <button type="button" id="add-entrep-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                 <button [disabled]="addEntrepriseForm.invalid" type="submit" class="btn btn-primary" >Save</button>
+                 <button [disabled]="addEntrepriseForm.invalid" type="submit" class="btn btn-primary" (click)="addBC(addBCForm)" >Save</button>
               </div>
               </form>
       </div>
     </div>
   </div>
 </div>
-<h3>hbhhgghfh</h3>
+
 

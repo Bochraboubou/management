@@ -1,4 +1,4 @@
-export interface Metier{
+export interface NewUser{
     id:number;
     email:string;
     code :string ;

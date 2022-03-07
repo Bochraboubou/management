@@ -4,16 +4,22 @@
     <div class="col">
       <form #addEntrepriseForm="ngForm" >
         <div class="col-md-4 mb-3">
-          <label for="secteurd_activitee">Secteur d'activité</label>
-          <input type="text" ngModel="{{organisation?.secteur_d_activite}}" name="secteurd_activitee"  class="form-control" id="secteurd_activitee" placeholder="secteurd_activitee" required>
-       </div>
+          <label for="secteur_d_activite"> Secteur</label>
+          <select ngModel (ngModelChange)="getSecteur($event)" name="secteur_d_activite" id="secteur_d_activite" class="form-select" placeholder="secteur_d_activite" aria-label="Default select example" [disabled]="successMarchee" required>
+            <!--<option selected>choisir une option</option>-->
+            <option   *ngFor="let sect of secteurs"
+            [value]="sect.id">
+            {{sect.nomSecteur}}
+          </option>
+          </select>
+        </div>
 
           <div class="col-md-4 mb-3">
               <label for="metier"> Metier</label>
-              <select ngModel name="metier" id="metier" class="form-select" placeholder="Metier" aria-label="Default select example" required>
+              <select [(ngModel)]="idMetier" name="metier" id="metier" class="form-select"  placeholder="Metier" aria-label="Default select example" [disabled]="successMarchee" required>
                 <!--<option selected>choisir une option</option>-->
                 <option   *ngFor="let met of metiers"
-                [value]="met.nomMetier">
+                [value]="met.id">
                 {{met.nomMetier}}
               </option>
               </select>
@@ -21,25 +27,25 @@
 
             <div class="col-md-4 mb-3">
               <label for="code">code</label>
-              <input type="text" ngModel name="code"  class="form-control" id="code" placeholder="code" required>
+              <input type="text" ngModel name="code"  class="form-control" id="code" placeholder="code" [disabled]="successMarchee" required>
            </div>
   
           
 
           <div class="col-md-4 mb-3">
             <label for="designation">Designation</label>
-            <input type="text" ngModel name="designiation"  class="form-control" id="designation"  required>
+            <input type="text" ngModel name="designiation"  class="form-control" id="designation" [disabled]="successMarchee"  required>
          </div>
   
           <div class="col-md-6 mb-3">
               <label for="capex">Budget</label>
               <div class="form-check">
                 <div class="choice">
-                    <input class="form-check-input" type="radio" name="budget" id="capex" value="Capex" ngModel/>
+                    <input class="form-check-input" type="radio" name="budget" id="capex" value="Capex" [disabled]="successMarchee" ngModel/>
                     <label class="form-check-label" for="capex">Capex</label>
                 </div>
                 <div class="choice">
-                    <input class="form-check-input" type="radio" name="budget" id="oeuvrage" value="Opex" ngModel/>
+                    <input class="form-check-input" type="radio" name="budget" id="oeuvrage" value="Opex" [disabled]="successMarchee" ngModel/>
                     <label class="form-check-label" for="opex">Opex</label>
                 </div>
               </div> 
@@ -49,11 +55,11 @@
                   <label for="tel">Type</label>
                   <div class="form-check">
                     <div class="choice">
-                        <input class="form-check-input" type="radio" name="type" id="projet" value="Projet" ngModel/>
+                        <input class="form-check-input" type="radio" name="type" id="projet" value="Projet" [disabled]="successMarchee" ngModel/>
                         <label class="form-check-label" for="projet">Projet</label>
                     </div>
                     <div class="choice">
-                      <input class="form-check-input" type="radio" name="type" id="mc" value="MC" ngModel/>
+                      <input class="form-check-input" type="radio" name="type" id="mc" value="MC" [disabled]="successMarchee" ngModel/>
                       <label class="form-check-label" for="mc">MC</label>
                   </div>
                 </div> 
@@ -61,12 +67,12 @@
   
           <div class="col-md-4 mb-3">
              <label for="montant">Montant</label>
-             <input type="number" ngModel name="montant" class="form-control" id="montant" placeholder="en dinars" required>
+             <input type="number" ngModel name="montant" class="form-control" id="montant" placeholder="en dinars" [disabled]="successMarchee" required>
           </div>
   
           <div class="col-md-4 mb-3">
              <label for="delais">Delais</label>
-             <input type="number" ngModel name="delais"  class="form-control" id="delais" placeholder="en jours" required>
+             <input type="number" ngModel name="delais"  class="form-control" id="delais" placeholder="en jours" [disabled]="successMarchee" required>
           </div>
           <br>
   
@@ -81,18 +87,19 @@
             </div>
           </div>
 
-          <div id="toast"><div id="img">Succée</div><div id="desc">Information enregistreés avec succé .</div></div>
+          <div id="toast"><div id="img">Succée</div><div id="desc">Informations enregistreés avec succé .</div></div>
   
           </form>
   </div>
   
-  <div class="col">
+  <div *ngIf="showExistMarcheeAlert" class="col">
     <button type="button" id="enregistrer" class="btn btn-info" (click)="onOpenBCModal()">Associer une B_Commande</button>
     <br>
+   
     <br>
      <!--tableau de bondes commande-->
   <div>
-    <table class="table table-dark table-striped">
+    <table class="table table-success table-striped">
       <thead>
         <tr>
           <th scope="col">#</th>
@@ -107,10 +114,10 @@
         <tr *ngFor="let bc of bondesCommandes,let i= index">
           <th scope="row">{{i}}</th>
           <td>{{bc.numeros}}</td>
-          <td>{{bc.montant}</td>
+          <td>{{bc.montant}}</td>
           <td>{{bc.delais}}</td>
-          <td>{{entrep.nom}}</td>
-          <td><button type="button" class="btn btn-danger">Spécifier les articles</button></td>
+          <td>{{entreprise.nom}}</td>
+          <td><button type="button" class="btn btn-danger" routerLink="/mycpm/articlesSpecifiees">Spécifier les articles</button></td>
           
         </tr>
       </tbody>
@@ -133,28 +140,37 @@
       </div>
       <div class="modal-body">
           <form #addBCForm="ngForm" >
-              <div class="form-group">
-                 <label for="numero">Numero Bonde Commande</label>
-                 <input type="number" ngModel name="numero"  class="form-control" id="n" placeholder="numéro" required>
-              </div>
-              <div class="form-group">
-                 <label for="montant">Montant</label>
-                 <input type="number" ngModel name="montant"  class="form-control" id="montant" placeholder="montant" required>
-              </div>
-              <div class="form-group">
-                 <label for="delais">Delais</label>
-                 <input type="number" ngModel name="delais" class="form-control" id="delais" placeholder="delais" required>
-              </div>
+            <div class="col-md-4 mb-3">
+              <label for="numeros">numeros</label>
+              <input type="number" ngModel name="numeros" class="form-control" id="numeros" placeholder="numeros" required>
+           </div>
+           
+           <div class="col-md-4 mb-3">
+            <label for="montant">montant</label>
+            <input type="number" ngModel name="montant"  class="form-control" id="montant" placeholder="montant" required>
+          </div>
+          
+          <div class="col-md-4 mb-3">
+            <label for="delais">delais</label>
+            <input type="number" ngModel name="delais"  class="form-control" id="delais" placeholder="delais" required>
+          </div>
+
+          
+          <div class="col-md-4 mb-3">
+            <label for="delais">Entreprise</label>
+            <input type="text" ngModel [ngModelOptions]="{standalone: true}"  class="form-control" id="entreprise" placeholder="codeEntreprise" value="codeEntreprise" required>
+          </div>
+          <!---
               <div>
-                <label for="entreprise">Entreprise</label>
-                <select [(ngModel)]="idEntrepriseBc" name="entreprise" id="entreprise" class="form-select" placeholder="entreprise" aria-label="Default select example">
-                  <!--<option selected>choisir une option</option>-->
+                <label >Entreprise</label>
+                <select [(ngModel)]="idEntrepriseBc" [ngModelOptions]="{standalone: true}" id="entreprise" class="form-select" placeholder="entreprise" aria-label="Default select example">
+                  <option selected>choisir une option</option>
                   <option   *ngFor="let entrep of entreprises"
                   [value]="entrep.id">
                   {{entrep.nom}}
                 </option>
                 </select>
-              </div>
+              </div>-->
               <br>
               
               <div class="modal-footer">
@@ -166,5 +182,4 @@
     </div>
   </div>
 </div>
-
 

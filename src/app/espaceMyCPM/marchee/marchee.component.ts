@@ -2,7 +2,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { BondeCommande } from 'src/app/model/BondeCommande';
-import { Entreprise } from 'src/app/model/Entreprise';
 import { Marchee } from 'src/app/model/Marchee';
 import { Metier } from 'src/app/model/Metier';
 import { Organisation } from 'src/app/model/Organisation';
@@ -22,12 +21,10 @@ import { SecteurService } from 'src/app/service/secteur.service';
 export class MarcheeComponent implements OnInit {
   metiers!: Metier[];
   organisation!: Organisation;
-  idOrgan:number=5;
-  secteur!: Secteur;
+  idOrgan:number=2;
   idSecteur!: number;
-  nomSecteur!: string;
   marchee!: Marchee;
-  entreprises:Entreprise[]=[];
+  entreprises:Organisation[]=[];
   idEntreprise!: number;
   idMarchee!: number;
   marchees:Marchee[]=[];
@@ -35,19 +32,21 @@ export class MarcheeComponent implements OnInit {
   successMarchee:boolean=false;
   bondesCommandes: BondeCommande[]=[];
   idEntrepriseBc!: number;
-  entrep!: Entreprise;
+  entreprise!: Organisation;
   bc!: BondeCommande;
+  secteurs!: Secteur[];
+  idMetier!: number;
+  codeEntreprise!: string;
+
 
 
 
   constructor(private organService:OrganisationServiceService,private secteurService:SecteurService,private metierService:MetierService,private marcheeService:MarcheeService,private entrepriseService:EntrepriseServiceService,private bondeCommandeService:BondeCommandeService) { }
 
   ngOnInit(): void {
-    this.getOrganisationandMetiers(this.idOrgan);
-   // this.getSecteur(this.nomSecteur);
-   // this.getMetiers(this.idSecteur);
-    
-    
+    this.getOrganisation(this.idOrgan);
+    this.onGetSecteurs();
+   
     console.log("heye hey heeey");
     console.log("hello");
   }
@@ -67,45 +66,11 @@ export class MarcheeComponent implements OnInit {
   }
 
   //récuperer l'organisation ,le secteur d'activité et la liste des metiers relatives
-  public getOrganisationandMetiers(organId:number){
+  public getOrganisation(organId:number){
     this.organService.getOneOrganisation(organId).subscribe({
       next: (response:Organisation) => {
         this.organisation=response;
-        this.nomSecteur=this.organisation.secteur_d_activite;
-        console.log(response);
-        console.log(this.nomSecteur);
-
-         //récuperer le secteur par nom
-         this.secteurService.getSecteurbyNom(this.nomSecteur).subscribe({
-          next: (response:Secteur) => {
-            this.secteur=response;
-            this.idSecteur=this.secteur.id;
-            console.log(response);
-            console.log(this.secteur.nomSecteur);
-
-            //récuperer les metiers par secteurs
-            this.metierService.getMetiersBySecteur(this.idSecteur).subscribe({
-              next: (response:Metier[]) =>{
-                this.metiers=response;
-                console.log(response);
-                
-              },
-              error: (error:HttpErrorResponse) => {
-                alert(error.message);
-               },
-              complete: () => console.info('complete') 
-          })
-            
-            
-            
-          },
-          error: (error:HttpErrorResponse) => {
-            alert(error.message);
-           },
-          complete: () => console.info('complete') 
-      })
-        
-        
+        console.log("organisation"+response);
       },
       error: (error:HttpErrorResponse) => {
         alert(error.message);
@@ -125,22 +90,24 @@ export class MarcheeComponent implements OnInit {
         console.log("code existe deja");
       },
       error: (error:HttpErrorResponse) => {
-        this.marcheeService.addMarchee(organId,addMarcheeForm.value).subscribe({
+        this.marcheeService.addMarchee(organId,this.idMetier,addMarcheeForm.value).subscribe({
           next: (response:Marchee) =>{
             this.marchee=response;
             this.idMarchee=this.marchee.id;
-            console.log(response);
-            console.log(this.marchee.id);
+            console.log("marchee"+this.marchee);
+            console.log("id marchee"+this.marchee.id);
             var x = document.getElementById("toast")
             x!.className = "show";
             setTimeout(function(){ x!.className = x!.className.replace("show", ""); }, 5000);
             this.successMarchee=true
+            
         
     
-            //récuperer les entreprises associés à l'organisations
-            this.entrepriseService.getEntreprises(organId).subscribe({
-              next: (response:Entreprise[]) => {
-                this.entreprises=response;
+            //récuperer les entreprises (organisations)
+            this.organService.getOrganisationbyCode(this.codeEntreprise).subscribe({
+              next: (response:Organisation) => {
+                this.entreprise=response;
+                console.log("entreprise ou organisation :  "+this.entreprise)
                 
               },
               error: (error:HttpErrorResponse) => {
@@ -179,18 +146,66 @@ export class MarcheeComponent implements OnInit {
 
   // ajouter une bonde commande
   public addBC(addBCForm:NgForm):void{
+    document.getElementById('addBCModal')?.click();
     console.log(this.idEntrepriseBc);
    this.bondeCommandeService.addBondeCommande(this.idMarchee,this.idEntrepriseBc,addBCForm.value).subscribe({
       next: (response:BondeCommande) => {
         this.bc=response;
         this.bondesCommandes.push(this.bc);
         console.log("bonde commande"+response)
+
+        //recuperer le nom de entrprise associee a la bonde commande
+       /* this.entrepriseService.getEntreprisebyId(this.idEntrepriseBc).subscribe({
+          next: (response:Entreprise) => {
+            this.entrep=response;
+            console.log("entereprise de bc"+response);
+            
+          },
+          error: (error:HttpErrorResponse) => {
+            alert(error.message);
+           },
+          complete: () => console.info('complete') 
+      })*/
       },
       error: (error:HttpErrorResponse) => {
         alert(error.message);
        },
       complete: () => console.info('complete') 
   })
+
+  }
+
+
+  //récuperer la liste des secteurs
+  public onGetSecteurs():void{
+    this.secteurService.getSecteurs().subscribe({
+      next: (response:Secteur[]) => {
+        this.secteurs=response;
+        console.log("secteurs"+this.secteurs)
+      },
+      error: (error:HttpErrorResponse) => {
+        alert(error.message);
+       },
+      complete: () => console.info('complete') 
+  })
+  }
+
+  //event
+  getSecteur(secteurId:number){
+    this.idSecteur=secteurId;
+    console.log("idsecteur"+this.idSecteur);
+     //récuperer les metiers par secteurs
+     this.metierService.getMetiersBySecteur(this.idSecteur).subscribe({
+      next: (response:Metier[]) =>{
+        this.metiers=response;
+        console.log(response);
+        
+      },
+      error: (error:HttpErrorResponse) => {
+        alert(error.message);
+       },
+      complete: () => console.info('complete') 
+  })  
 
   }
 

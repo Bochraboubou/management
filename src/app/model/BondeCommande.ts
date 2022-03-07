@@ -5,5 +5,5 @@ export interface BondeCommande{
     numeros:number;
     montant:number;
     delais:number;
-    listeArticlesUtilisees:Array<ArticleUtilisee>;
+    
 }

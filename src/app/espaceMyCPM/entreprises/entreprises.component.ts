@@ -1,7 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Entreprise } from 'src/app/model/Entreprise';
 import { Organisation } from 'src/app/model/Organisation';
 import { EntrepriseServiceService } from 'src/app/service/entreprise-service.service';
 import { OrganisationServiceService } from 'src/app/service/organisation-service.service';
@@ -16,7 +15,7 @@ export class EntreprisesComponent implements OnInit {
   organisation!: Organisation;
   nom!: string;
   id!: number;
-  entreprises!: Entreprise[];
+  entreprises!: Organisation[];
   idOrgan!: number;
   alertEntrepExsist:boolean=false;
   alertSuccess:boolean=false;
@@ -30,7 +29,7 @@ export class EntreprisesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getOrgans();
-    this.getEntreprises(this.idOrganisation);
+    
   }
 
   //récuperer la liste des entreprises disponibles
@@ -77,7 +76,7 @@ export class EntreprisesComponent implements OnInit {
           }
         }
           if(this.alertEntrepExsist==false){
-            this.entrepriseService.addEntreprise(5,addEntrepriseForm.value).subscribe(
+           /* this.entrepriseService.addEntreprise(5,addEntrepriseForm.value).subscribe(
               (Response:Entreprise)=>{
                 console.log(Response);
                 this.entreprises.push(Response);
@@ -90,7 +89,7 @@ export class EntreprisesComponent implements OnInit {
                
                 
               }
-            );
+            );*/
           }
 
           
@@ -98,23 +97,7 @@ export class EntreprisesComponent implements OnInit {
         }
          
 
-         //récuperer la liste des entreprises deja associées
-
- 
-        public getEntreprises(organId:number):void
-        {
-          this.entrepriseService.getEntreprises(organId).subscribe({
-            next: (response:Entreprise[]) => {
-              this.entreprises=response;
-              
-            },
-            error: (error:HttpErrorResponse) => {
-              alert(error.message);
-             },
-            complete: () => console.info('complete') 
-        })
-      
-            }
+        
           
   
     

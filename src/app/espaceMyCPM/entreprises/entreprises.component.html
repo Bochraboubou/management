@@ -92,20 +92,7 @@
                                   <input type="email" ngModel="{{organisation?.emailDG}}" name="emailDG" class="form-control" id="emailDG" placeholder="Email DG" required>
                                 </div>
                       
-                                <div class="col-md-3 mb-3">
-                                  <label for="nomAdmin">Nom Admin</label>
-                                  <input type="text" ngModel="{{organisation?.nomAdmin}}" name="nomAdmin" class="form-control" id="nomAdmin" placeholder="Nom Admin" required>
-                                </div>
-                      
-                                <div class="col-md-3 mb-3">
-                                  <label for="telAdmin">Tel Admin</label>
-                                  <input type="number" ngModel="{{organisation?.telAdmin}}" name="telAdmin" class="form-control" id="telAdmin" placeholder="Tel Admin" required>
-                                </div>
-                      
-                                <div class="col-md-3 mb-3">
-                                  <label for="emailAdmin">Email Admin</label>
-                                  <input type="email" ngModel="{{organisation?.emailAdmin}}" name="emailAdmin" class="form-control" id="emailAdmin" placeholder="Email Admin" required>
-                                </div>
+                               
                               
         
                              
@@ -146,9 +133,6 @@
             <th scope="col">Nom DG</th>
             <th scope="col">Tel DG</th>
             <th scope="col">Email DG</th>
-            <th scope="col">Nom Admin</th>
-            <th scope="col">Tel Admin</th>
-            <th scope="col">Email Admin</th>
           </tr>
         </thead>
         <tbody>
@@ -166,9 +150,6 @@
             <td>{{e.nomDG}}</td>
             <td>{{e.telDG}</td>
             <td>{{e.emailDG}}</td>
-            <td>{{e.nomAdmin}}</td>
-            <td>{{e.telAdmin}}</td>
-            <td>{{e.emailAdmin}}</td>
           </tr>
         </tbody>
       </table>

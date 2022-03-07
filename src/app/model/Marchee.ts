@@ -2,8 +2,6 @@ import { BondeCommande } from "./BondeCommande";
 
 export interface Marchee{
     id:number;
-    secteurd_activitee:string;
-    metier:string;
     code:string;
     designiation:string;
     budget:string;

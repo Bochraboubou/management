@@ -17,6 +17,7 @@ import { MenuMycpmComponent } from './menu-mycpm/menu-mycpm.component';
 import { MarcheeComponent } from './espaceMyCPM/marchee/marchee.component';
 import { DetailOrganisationComponent } from './espaceMyCPM/detail-organisation/detail-organisation.component';
 import { EntreprisesComponent } from './espaceMyCPM/entreprises/entreprises.component';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { EntreprisesComponent } from './espaceMyCPM/entreprises/entreprises.comp
     MarcheeComponent,
     DetailOrganisationComponent,
     EntreprisesComponent,
+    LoginComponent,
    
   ],
   imports: [

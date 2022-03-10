@@ -33,10 +33,21 @@ export class MarcheeComponent implements OnInit {
   bondesCommandes: BondeCommande[]=[];
   idEntrepriseBc!: number;
   entreprise!: Organisation;
-  bc!: BondeCommande;
+  bondeCommande!: BondeCommande;
   secteurs!: Secteur[];
   idMetier!: number;
+  alerteCodeInexistant:boolean=false;
   codeEntreprise!: string;
+  idEntreprises:Array<number>=[];
+  nomEntreprises:Array<string>=[];
+  newMarchee: Marchee= new Marchee();
+  indiceBC!: number;
+  montantArticle:number= 0;
+ 
+  
+ 
+ 
+  
 
 
 
@@ -47,9 +58,13 @@ export class MarcheeComponent implements OnInit {
     this.getOrganisation(this.idOrgan);
     this.onGetSecteurs();
    
+   
+   
     console.log("heye hey heeey");
     console.log("hello");
   }
+
+  //modal pour l'ajout dune bonde commande
   public onOpenBCModal():void{
     const container=document.getElementById('main-container');
     const button=document.createElement('button');
@@ -59,11 +74,23 @@ export class MarcheeComponent implements OnInit {
     button.setAttribute('data-target','#addBCModal');
     container?.appendChild(button);
     button.click();
-    
-    
-    
 
   }
+
+  //Modal pur le choix des articles dans la BC
+  public onOpenArticlesModal(indicedeBC:number):void{
+   const container=document.getElementById('main-container');
+    const button=document.createElement('button');
+    button.type='button';
+    button.style.display='none';
+    button.setAttribute('data-toggle','modal');
+    this.indiceBC=indicedeBC;
+    button.setAttribute('data-target','#articleModal');
+    container?.appendChild(button);
+    button.click();
+
+  }
+  
 
   //récuperer l'organisation ,le secteur d'activité et la liste des metiers relatives
   public getOrganisation(organId:number){
@@ -99,22 +126,7 @@ export class MarcheeComponent implements OnInit {
             var x = document.getElementById("toast")
             x!.className = "show";
             setTimeout(function(){ x!.className = x!.className.replace("show", ""); }, 5000);
-            this.successMarchee=true
-            
-        
-    
-            //récuperer les entreprises (organisations)
-            this.organService.getOrganisationbyCode(this.codeEntreprise).subscribe({
-              next: (response:Organisation) => {
-                this.entreprise=response;
-                console.log("entreprise ou organisation :  "+this.entreprise)
-                
-              },
-              error: (error:HttpErrorResponse) => {
-                alert(error.message);
-               },
-              complete: () => console.info('complete') 
-          })
+            this.successMarchee=true;
             
           },
           error: (error:HttpErrorResponse) => {
@@ -130,49 +142,54 @@ export class MarcheeComponent implements OnInit {
 
   }
 
-  //recuperer la liste des marchees associee
-  public onGetMarchees():void{
-    this.marcheeService.getMarchees(this.idOrgan).subscribe({
-      next: (response:Marchee[]) => {
-        this.marchees=response;
-        console.log("code du premier marchee"+this.marchees[1].code)
-      },
-      error: (error:HttpErrorResponse) => {
-        alert(error.message);
-       },
-      complete: () => console.info('complete') 
-  })
-  }
 
   // ajouter une bonde commande
   public addBC(addBCForm:NgForm):void{
-    document.getElementById('addBCModal')?.click();
-    console.log(this.idEntrepriseBc);
-   this.bondeCommandeService.addBondeCommande(this.idMarchee,this.idEntrepriseBc,addBCForm.value).subscribe({
-      next: (response:BondeCommande) => {
-        this.bc=response;
-        this.bondesCommandes.push(this.bc);
-        console.log("bonde commande"+response)
+    console.log("codeEntreprise"+this.codeEntreprise)
+    this.organService.getOrganisationbyCode(this.codeEntreprise).subscribe({
+      next: (response:Organisation) => {
+        document.getElementById('addBCModal')?.click();
+        this.entreprise=response;
+        this.idEntrepriseBc=this.entreprise.id;
+        console.log("entreprise ou organisation :  "+this.entreprise);
+        console.log("id de l'entreprise :  "+this.idEntrepriseBc);
+        let bc:BondeCommande = addBCForm.value;
+        bc.idEntrep=this.entreprise.id;
+        bc.nomEntrep=this.entreprise.nom;
+        bc.numeros= 1+ this.newMarchee.listeBondeCommandes.length;
+        this.newMarchee.listeBondeCommandes.push(bc);
+        console.log("longeurrrr   "+this.newMarchee.listeBondeCommandes.length);
+        addBCForm.reset();
+      
+       
+        
+        
 
-        //recuperer le nom de entrprise associee a la bonde commande
-       /* this.entrepriseService.getEntreprisebyId(this.idEntrepriseBc).subscribe({
-          next: (response:Entreprise) => {
-            this.entrep=response;
-            console.log("entereprise de bc"+response);
-            
+        //valider les informations de la bonde commande
+       /* document.getElementById('addBCModal')?.click();
+        console.log(this.idEntrepriseBc);
+         this.bondeCommandeService.addBondeCommande(11,bc.idEntrep,bc).subscribe({
+          next: (response:BondeCommande) => {
+            console.log("bonde commande"+response)
           },
           error: (error:HttpErrorResponse) => {
             alert(error.message);
            },
           complete: () => console.info('complete') 
-      })*/
+          
+      })
+      */
+      
+  
+
+        
       },
       error: (error:HttpErrorResponse) => {
-        alert(error.message);
+        this.alerteCodeInexistant=true;
+        
        },
       complete: () => console.info('complete') 
   })
-
   }
 
 
@@ -185,12 +202,13 @@ export class MarcheeComponent implements OnInit {
       },
       error: (error:HttpErrorResponse) => {
         alert(error.message);
+
        },
       complete: () => console.info('complete') 
   })
   }
 
-  //event
+  //evenement lors du choix d'un secteur
   getSecteur(secteurId:number){
     this.idSecteur=secteurId;
     console.log("idsecteur"+this.idSecteur);
@@ -208,5 +226,10 @@ export class MarcheeComponent implements OnInit {
   })  
 
   }
+
+
+  
+   
+
 
 }

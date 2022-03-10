@@ -1,4 +1,8 @@
 export interface ArticleUtiliseeId{
+    prix:number;
+    quantitee:number;
     bondecommande_id:number;
-    articlei_d:number;
+    articlei_id:number;
+   
+   
 }

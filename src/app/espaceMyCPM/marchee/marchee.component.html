@@ -6,7 +6,7 @@
        <div class="row">
         <div class="col-md-4">
           <label for="secteur_d_activite"> Secteur</label>
-          <select ngModel (ngModelChange)="getSecteur($event)" name="secteur_d_activite" id="secteur_d_activite" class="form-select" placeholder="secteur_d_activite" aria-label="Default select example" [disabled]="successMarchee" required>
+          <select ngModel (ngModelChange)="getMetiers($event)" name="secteur_d_activite" id="secteur_d_activite" class="form-select" placeholder="secteur_d_activite" aria-label="Default select example" [disabled]="successMarchee" required>
             <!--<option selected>choisir une option</option>-->
             <option   *ngFor="let sect of secteurs"
             [value]="sect.id">
@@ -148,20 +148,14 @@
       </div>
       <div class="modal-body">
           <form #addBCForm="ngForm">
-           <!-- <div class="col-md-4 mb-3">
-              <label for="numeros">numeros</label>
-              <input type="number" readonly ngModel name="numeros" class="form-control" id="numeros" placeholder="numeros" [(ngModel)]="1+ newMarchee.listeBondeCommandes.length" required>
-           </div>
-          -->
-           
            <div class="col-md-4 mb-3">
             <label for="montant">montant</label>
-            <input type="number" ngModel name="montant"  class="form-control" id="montant" placeholder="montant" required>
+            <input type="number" [(ngModel)]="montantNewBC" name="montant"  class="form-control" id="montant" placeholder="montant" required>
           </div>
           
           <div class="col-md-4 mb-3">
             <label for="delais">delais</label>
-            <input type="number" ngModel name="delais"  class="form-control" id="delais" placeholder="delais" required>
+            <input type="number" [(ngModel)]="delaisNewBC" name="delais"  class="form-control" id="delais" placeholder="delais" required>
           </div>
 
           
@@ -239,26 +233,27 @@
               <div class="col-lg-9 col-md-8 col-12 mt-4 pt-2 mt-sm-0 pt-sm-0">
                   <div class="tab-content" id="pills-tabContent">
                     <!--espace pour ajouter les articles-->
-                      <div class="tab-pane fade" id="pills-cloud" role="tabpanel" aria-labelledby="pills-cloud-tab" style="background-color: cornflowerblue;">
+                      <div class="tab-pane fade" id="pills-cloud" role="tabpanel" aria-labelledby="pills-cloud-tab">
                         <form #addArticleForm="ngForm">
+
                         <div class="row">
-                          <div class="col-md-4 mb-3">
-                            <label for="montant">Code</label>
-                            <input type="text" ngModel name="code"  class="form-control" id="code" placeholder="code" required>
+                          <label for="montant">Code</label>
+                          <div class="col-md-4">
+                            <input type="text" [(ngModel)]="codeArticle" name="code"  class="form-control" id="code" placeholder="code" required>
                           </div>
                           <div class="col-md-4">
-                            <button type="button" class="btn btn-warning">OK</button>
+                            <button type="button" class="btn btn-warning" (click)="getArticleByCode(codeArticle)">OK</button>
                           </div>
                         </div>
 
                         <div class="row">
                           <div class="col-md-4">
                             <label for="delais">Desigation</label>
-                            <input type="text" ngModel name="designation"  class="form-control" id="designation" placeholder="designation" required>
+                            <input type="text" ngModel="{{newArticle.designation}}" name="designation"  class="form-control" id="designation" placeholder="designation" readonly required>
                           </div>
                           <div class="col-md-4">
                             <label for="delais">Unité</label>
-                            <input type="text"   name="unitee"  class="form-control" id="unitee" placeholder="unitee" required>
+                            <input type="text" ngModel="{{newArticle.unitee}}"   name="unitee"  class="form-control" id="unitee" placeholder="unitee" readonly required>
                           </div>
                         </div>
 
@@ -269,27 +264,29 @@
                           </div>
                           <div class="col-md-4">
                             <label for="delais">Quantitée</label>
-                            <input type="text"   name="quantitee"  class="form-control" id="quantitee" placeholder="quantitee" required>
+                            <input type="text" ngModel name="quantitee"  class="form-control" id="quantitee" placeholder="quantitee" required>
                           </div>
                         </div>
+                        <br>
+
                         <div class="col-md-3 .ms-auto">
-                          <button type="button" class="btn btn-success">Valider l'article</button>
+                          <button type="button" class="btn btn-success" (click)="addNewwArticle(addArticleForm)">Valider l'article</button>
                         </div>
                         <div class="row">
-                          <div><h3 style="color: darkred;">nombre article saisies : {{newMarchee.listeBondeCommandes[indiceBC].montant}}</h3></div>
-                          <div style="color: darkred;"><h3>montant total : {{newMarchee.listeBondeCommandes[indiceBC].listeArticles.length}}</h3></div>
+                          <div class="row"><h3 style="color: darkred;">nombre article saisies : {{newMarchee.listeBondeCommandes[indiceBC]?.listeArticles?.length}} </h3></div>
+                          <div class="row"><h3 style="color: darkred;">montant total {{calculTotalArticles(newMarchee.listeBondeCommandes[indiceBC]?.listeArticles!)}} : </h3></div>
                           
                         </div>
                       
                             <br>
-                            <div *ngIf="alerteCodeInexistant" class="alert alert-danger alert-dismissible fade show" role="alert">
-                              <strong>Attention</strong> code entreprise introubable.
+                            <div *ngIf="alerteCodeArticleIncorrecte" class="alert alert-danger alert-dismissible fade show" role="alert">
+                              <strong>Attention</strong> code incorecte ou metier inspécifié
                               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                             
                             <div class="modal-footer">
                                <button type="button" id="add-entrep-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                               <button [disabled]="addArticleForm.invalid" type="submit" class="btn btn-primary" >Save</button>
+                               <button [disabled]="addArticleForm.invalid" type="submit" class="btn btn-primary">Save</button>
                             </div>
                             </form>
                       </div><!--end teb pane-->
@@ -310,19 +307,20 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr *ngFor="let art of newMarchee.listeBondeCommandes[indiceBC].listeArticles,let i= index">
+                              <tr *ngFor="let art of newMarchee.listeBondeCommandes[indiceBC]?.listeArticles,let i= index">
                                 <th scope="row">{{i}}</th>
                                 <td>{{art.code}}</td>
                                 <td>{{art.designation}}</td>
                                 <td>{{art.unitee}}</td>
                                 <td>{{art.prix}}</td>
                                 <td>{{art.quantitee}}</td>
-                                <td><button type="button" class="btn btn-danger">Spécifier les articles</button></td>
+                                <td><button type="button" class="btn btn-danger">modifier</button></td>
                                 
                               </tr>
                             </tbody>
                           </table>
                       </div>
+                      
                          
                       </div><!--end teb pane-->
 

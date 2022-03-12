@@ -10,5 +10,7 @@ export class BondeCommande{
     listeArticles:Article[]=[];
     idEntrep!: number;
     nomEntrep!: string;
+
+    constructor(){}
     
 }

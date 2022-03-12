@@ -1,17 +1,20 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Article } from 'src/app/model/Article';
 import { BondeCommande } from 'src/app/model/BondeCommande';
 import { Marchee } from 'src/app/model/Marchee';
 import { Metier } from 'src/app/model/Metier';
 import { Organisation } from 'src/app/model/Organisation';
 import { Secteur } from 'src/app/model/Secteur';
+import { ArticleService } from 'src/app/service/article.service';
 import { BondeCommandeService } from 'src/app/service/bonde-commande.service';
 import { EntrepriseServiceService } from 'src/app/service/entreprise-service.service';
 import { MarcheeService } from 'src/app/service/marchee.service';
 import { MetierService } from 'src/app/service/metier.service';
 import { OrganisationServiceService } from 'src/app/service/organisation-service.service';
 import { SecteurService } from 'src/app/service/secteur.service';
+import { ArticlespecifieeComponent } from '../articlespecifiee/articlespecifiee.component';
 
 @Component({
   selector: 'app-marchee',
@@ -24,13 +27,10 @@ export class MarcheeComponent implements OnInit {
   idOrgan:number=2;
   idSecteur!: number;
   marchee!: Marchee;
-  entreprises:Organisation[]=[];
   idEntreprise!: number;
   idMarchee!: number;
-  marchees:Marchee[]=[];
   showExistMarcheeAlert:boolean=false;
   successMarchee:boolean=false;
-  bondesCommandes: BondeCommande[]=[];
   idEntrepriseBc!: number;
   entreprise!: Organisation;
   bondeCommande!: BondeCommande;
@@ -38,11 +38,18 @@ export class MarcheeComponent implements OnInit {
   idMetier!: number;
   alerteCodeInexistant:boolean=false;
   codeEntreprise!: string;
-  idEntreprises:Array<number>=[];
-  nomEntreprises:Array<string>=[];
   newMarchee: Marchee= new Marchee();
+  //newBC=new BondeCommande();
   indiceBC!: number;
-  montantArticle:number= 0;
+  montantArticles:number= 0;
+  montantNewBC!: number;
+  delaisNewBC!: number;
+  newArticle:Article= new Article();
+  alerteCodeArticleIncorrecte:boolean=false;
+  codeArticle!: string;
+
+  
+
  
   
  
@@ -52,7 +59,7 @@ export class MarcheeComponent implements OnInit {
 
 
 
-  constructor(private organService:OrganisationServiceService,private secteurService:SecteurService,private metierService:MetierService,private marcheeService:MarcheeService,private entrepriseService:EntrepriseServiceService,private bondeCommandeService:BondeCommandeService) { }
+  constructor(private organService:OrganisationServiceService,private secteurService:SecteurService,private metierService:MetierService,private marcheeService:MarcheeService,private entrepriseService:EntrepriseServiceService,private bondeCommandeService:BondeCommandeService,private articleService:ArticleService) { }
 
   ngOnInit(): void {
     this.getOrganisation(this.idOrgan);
@@ -62,6 +69,7 @@ export class MarcheeComponent implements OnInit {
    
     console.log("heye hey heeey");
     console.log("hello");
+    //console.log("lll "+this.newBC.listeArticles.length);
   }
 
   //modal pour l'ajout dune bonde commande
@@ -145,7 +153,9 @@ export class MarcheeComponent implements OnInit {
 
   // ajouter une bonde commande
   public addBC(addBCForm:NgForm):void{
-    console.log("codeEntreprise"+this.codeEntreprise)
+    console.log("codeEntreprise"+this.codeEntreprise);
+    console.log("premier element"+this.newMarchee.listeBondeCommandes[0]?.nomEntrep);
+    console.log("deusieme element"+this.newMarchee.listeBondeCommandes[1]?.nomEntrep);
     this.organService.getOrganisationbyCode(this.codeEntreprise).subscribe({
       next: (response:Organisation) => {
         document.getElementById('addBCModal')?.click();
@@ -153,12 +163,33 @@ export class MarcheeComponent implements OnInit {
         this.idEntrepriseBc=this.entreprise.id;
         console.log("entreprise ou organisation :  "+this.entreprise);
         console.log("id de l'entreprise :  "+this.idEntrepriseBc);
-        let bc:BondeCommande = addBCForm.value;
+        let newBC = new BondeCommande();
+
+        newBC.idEntrep=this.entreprise.id;
+        newBC.nomEntrep=this.entreprise.nom;
+        newBC.montant=this.montantNewBC;
+        newBC.delais=this.delaisNewBC;
+
+        newBC.numeros= 1+ this.newMarchee.listeBondeCommandes.length;
+        this.newMarchee.listeBondeCommandes.push(newBC);
+       /* let bc:BondeCommande = new BondeCommande();
+        bc = addBCForm.value;
         bc.idEntrep=this.entreprise.id;
         bc.nomEntrep=this.entreprise.nom;
-        bc.numeros= 1+ this.newMarchee.listeBondeCommandes.length;
-        this.newMarchee.listeBondeCommandes.push(bc);
+        bc.numeros= 1+ this.newMarchee.listeBondeCommandes.length;*/
+       /* this.newMarchee.listeBondeCommandes.push(this.newBC);
         console.log("longeurrrr   "+this.newMarchee.listeBondeCommandes.length);
+        console.log("longeurrrrsszszzsz  montant  "+this.newMarchee.listeBondeCommandes[0].montant);
+        console.log("longeurjgjhghjgjrrr   "+this.newMarchee.listeBondeCommandes[this.newBC.numeros -1].listeArticles.length);
+        this.aaaa.code="gfgff";
+        this.aaaa.designation="deedeed";
+        this.aaaa.unitee="kg";
+        this.aaaa.prix=5576;
+        this.aaaa.quantitee=4566;
+        this.newMarchee.listeBondeCommandes[this.newBC.numeros -1].listeArticles.push(this.aaaa);
+
+        console.log("dedeedde"+this.newMarchee.listeBondeCommandes[this.newBC.numeros -1].listeArticles)*/
+
         addBCForm.reset();
       
        
@@ -179,6 +210,7 @@ export class MarcheeComponent implements OnInit {
           
       })
       */
+      
       
   
 
@@ -209,7 +241,7 @@ export class MarcheeComponent implements OnInit {
   }
 
   //evenement lors du choix d'un secteur
-  getSecteur(secteurId:number){
+  getMetiers(secteurId:number){
     this.idSecteur=secteurId;
     console.log("idsecteur"+this.idSecteur);
      //récuperer les metiers par secteurs
@@ -226,6 +258,48 @@ export class MarcheeComponent implements OnInit {
   })  
 
   }
+
+  //récuperer un article par code and idMetier
+  public getArticleByCode(code:string):void{
+    console.log(this.idMetier)
+    this.articleService.getArticlebyCodeandMetierId(code,this.idMetier).subscribe({
+      next: (response:Article) =>{
+        this.newArticle=response;
+        console.log("new article"+response);
+        
+      },
+      error: (error:HttpErrorResponse) => {
+        this.alerteCodeArticleIncorrecte=true;
+       },
+      complete: () => console.info('complete') 
+  })  
+
+  }
+
+  //Ajouter un nouveau article
+  public addNewwArticle(addArticleForm:NgForm):void{
+    let newArt = new Article();
+    newArt=addArticleForm.value;
+    newArt.id=this.newArticle.id;
+    this.newMarchee.listeBondeCommandes[this.indiceBC].listeArticles.push(newArt);
+   // this.newMarchee.listeBondeCommandes[this.indiceBC].montant += (newArt.prix*newArt.quantitee);
+    addArticleForm.reset();
+  }
+
+
+ // caluler le montant total des articles saisies
+ public calculTotalArticles(listeArtcs:Article[]):number{
+    let montant:number=0;
+    for (let i = 0; i < listeArtcs?.length; i++){
+      montant += (listeArtcs[i].prix * listeArtcs[i].quantitee);
+    }
+    return montant;
+  }
+  
+  
+
+
+  
 
 
   

@@ -9,4 +9,6 @@ export class Marchee{
     montant!: number;
     delais!: number;
     listeBondeCommandes:BondeCommande[]=[];
+
+    constructor(){}
 }

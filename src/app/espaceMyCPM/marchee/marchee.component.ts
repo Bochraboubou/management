@@ -47,6 +47,8 @@ export class MarcheeComponent implements OnInit {
   newArticle:Article= new Article();
   alerteCodeArticleIncorrecte:boolean=false;
   codeArticle!: string;
+  alerteTotalArticle:boolean=false;
+
 
   
 
@@ -296,6 +298,18 @@ export class MarcheeComponent implements OnInit {
     return montant;
   }
   
+  // tester la validité des articles du bonde commande
+ public validerArticles(bondeCom:BondeCommande):void{
+   if(bondeCom.montant == this.calculTotalArticles(bondeCom.listeArticles))
+   {
+     bondeCom.valide=true;
+     document.getElementById('add-article-bComm"')?.click();
+   }
+   else{
+    this.alerteTotalArticle=true;
+   }
+}
+
   
 
 

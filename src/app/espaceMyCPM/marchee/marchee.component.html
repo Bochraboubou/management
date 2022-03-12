@@ -125,7 +125,7 @@
           <td>{{bc.montant}}</td>
           <td>{{bc.delais}}</td>
           <td>{{bc.nomEntrep}}</td>
-          <td><button type="button" class="btn btn-danger" (click)="onOpenArticlesModal(i)">Spécifier les articles</button></td>
+          <td><button type="button" [ngClass]="{'btn btn-success':bc.valide ,'btn btn-danger':!bc.valide}" (click)="onOpenArticlesModal(i)">Spécifier les articles</button></td>
           
         </tr>
       </tbody>
@@ -285,8 +285,13 @@
                             </div>
                             
                             <div class="modal-footer">
-                               <button type="button" id="add-entrep-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                               <button [disabled]="addArticleForm.invalid" type="submit" class="btn btn-primary">Save</button>
+                               <button type="button" id="add-article-bComm" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                               <button type="submit" class="btn btn-primary" (click)="validerArticles(newMarchee.listeBondeCommandes[indiceBC])">Save</button>
+                            </div>
+
+                            <div *ngIf="alerteTotalArticle" class="alert alert-danger alert-dismissible fade show" role="alert">
+                              <strong>Attention</strong> le montant total des articles est differant du montant du bonde commande
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                             </form>
                       </div><!--end teb pane-->
@@ -341,6 +346,7 @@
     </div>
   </div>
 </div>
+
 
 
 

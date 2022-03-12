@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AjouterOrganisationComponent } from './ajouter-organisation/ajouter-organisation.component';
 import { DetailComponent } from './detail/detail.component';
 import { EntreprisePopupComponent } from './entreprise-popup/entreprise-popup.component';
+import { ArticlespecifieeComponent } from './espaceMyCPM/articlespecifiee/articlespecifiee.component';
 import { DetailOrganisationComponent } from './espaceMyCPM/detail-organisation/detail-organisation.component';
 import { EntreprisesComponent } from './espaceMyCPM/entreprises/entreprises.component';
 import { MarcheeComponent } from './espaceMyCPM/marchee/marchee.component';
@@ -22,6 +23,7 @@ const routes: Routes = [
     { path:'popup',component:EntreprisePopupComponent},
     { path:'detailOrganisation',component:DetailOrganisationComponent},
     { path:'entreprises',component:EntreprisesComponent},
+    { path:'articlesSpecifiees',component:ArticlespecifieeComponent}
 
   ]},
 

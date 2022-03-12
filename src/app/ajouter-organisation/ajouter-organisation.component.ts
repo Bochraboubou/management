@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
 import { EntreprisePopupComponent } from '../entreprise-popup/entreprise-popup.component';
-import { Entreprise } from '../model/Entreprise';
 import { Organisation } from '../model/Organisation';
 import { Secteur } from '../model/Secteur';
 import { EntrepriseServiceService } from '../service/entreprise-service.service';
@@ -16,9 +15,8 @@ import { SecteurService } from '../service/secteur.service';
   styleUrls: ['./ajouter-organisation.component.css']
 })
 export class AjouterOrganisationComponent implements OnInit {
-  entreprises:Entreprise[]=[];
+ 
   idOrgan!: number;
-  entreprise!: Entreprise;
   secteurs!: Secteur[];
   
 

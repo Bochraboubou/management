@@ -1,4 +1,5 @@
-import { Entreprise } from "./Entreprise";
+
+import { Marchee } from "./Marchee";
 
 export interface Organisation{
     id: number;
@@ -14,8 +15,5 @@ export interface Organisation{
     nomDG:string;
     telDG:number;
     emailDG:string;
-    nomAdmin:String;
-    telAdmin:number;
-    emailAdmin:string;
-    listentreprises:Array<Entreprise>;
+    listmarchees:Array<Marchee>;
 }

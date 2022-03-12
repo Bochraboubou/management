@@ -13,9 +13,9 @@ export class MarcheeService {
   constructor(private http: HttpClient) { }
 
   //ajouter marchee
-  public addMarchee(organId:number,marchee:Marchee): Observable<Marchee>
+  public addMarchee(organId:number,metieeId:number,marchee:Marchee): Observable<Marchee>
   {
-    return this.http.post<Marchee>(`${this.apiServeUrl}/admin/organisations/${organId}/marchees`,marchee);
+    return this.http.post<Marchee>(`${this.apiServeUrl}/admin/organisations/${organId}/marchees/${metieeId}`,marchee);
   }
 
   //récuperer les marchees

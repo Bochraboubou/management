@@ -1,7 +1,7 @@
 <div class="container" id="main-container">
   <div>
     <strong><h1 style="color: darkblue;">Ajouter un marché</h1></strong>
-      <form #addEntrepriseForm="ngForm" >
+      <form #addMarcheeForm="ngForm" >
        
        <div class="row">
         <div class="col-md-4">
@@ -81,15 +81,12 @@
          </div>
          </div>
           <br>
-  
-          <div>
-            <button (click)="onAddMarchee(addEntrepriseForm,idOrgan)" class="btn btn-primary" type="submit" [disabled]="addEntrepriseForm.invalid||successMarchee">Enregistrer</button>
-          </div>
+
           <div>
             <br>
             <div *ngIf="showExistMarcheeAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
               <strong>Attention</strong> code ou designation déja utilisé.
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
             </div>
           </div>
 
@@ -131,6 +128,11 @@
       </tbody>
     </table>
 </div>
+<br>
+
+<div>
+  <button (click)="onAddMarchee(addMarcheeForm,idOrgan)" [ngClass]="{'btn btn-success':validerBCs(),'btn btn-danger':!validerBCs()}" type="submit" [disabled]="addMarcheeForm.invalid">Enregistrer</button>
+</div>
 
   </div>
  
@@ -167,7 +169,7 @@
               <br>
               <div *ngIf="alerteCodeInexistant" class="alert alert-danger alert-dismissible fade show" role="alert">
                 <strong>Attention</strong> code entreprise introubable.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
               </div>
               
               <div class="modal-footer">
@@ -241,6 +243,7 @@
                           <div class="col-md-4">
                             <input type="text" [(ngModel)]="codeArticle" name="code"  class="form-control" id="code" placeholder="code" required>
                           </div>
+                          
                           <div class="col-md-4">
                             <button type="button" class="btn btn-warning" (click)="getArticleByCode(codeArticle)">OK</button>
                           </div>
@@ -248,12 +251,16 @@
 
                         <div class="row">
                           <div class="col-md-4">
-                            <label for="delais">Desigation</label>
-                            <input type="text" ngModel="{{newArticle.designation}}" name="designation"  class="form-control" id="designation" placeholder="designation" readonly required>
+                            <label for="designation">Designation</label>
+                            <input type="text" ngModel  name="designation"  class="form-control" id="designationArtc" placeholder="designation" readonly>
+                          </div>
+                      
+                          <div class="col-md-4">
+                            <label for="unitee">Unité</label>
+                            <input type="text" ngModel  name="unitee"  class="form-control" id="unitee" placeholder="unitee" readonly>
                           </div>
                           <div class="col-md-4">
-                            <label for="delais">Unité</label>
-                            <input type="text" ngModel="{{newArticle.unitee}}"   name="unitee"  class="form-control" id="unitee" placeholder="unitee" readonly required>
+                            <button type="button" class="btn btn-secondary" (click)="resetForm(addArticleForm)">Reset form</button>
                           </div>
                         </div>
 
@@ -270,7 +277,7 @@
                         <br>
 
                         <div class="col-md-3 .ms-auto">
-                          <button type="button" class="btn btn-success" (click)="addNewwArticle(addArticleForm)">Valider l'article</button>
+                          <button type="button" class="btn btn-success" (click)="addNewwArticle(addArticleForm)" [disabled]="addArticleForm.invalid">Valider l'article</button>
                         </div>
                         <div class="row">
                           <div class="row"><h3 style="color: darkred;">nombre article saisies : {{newMarchee.listeBondeCommandes[indiceBC]?.listeArticles?.length}} </h3></div>
@@ -281,7 +288,7 @@
                             <br>
                             <div *ngIf="alerteCodeArticleIncorrecte" class="alert alert-danger alert-dismissible fade show" role="alert">
                               <strong>Attention</strong> code incorecte ou metier inspécifié
-                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                              <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
                             </div>
                             
                             <div class="modal-footer">
@@ -291,7 +298,7 @@
 
                             <div *ngIf="alerteTotalArticle" class="alert alert-danger alert-dismissible fade show" role="alert">
                               <strong>Attention</strong> le montant total des articles est differant du montant du bonde commande
-                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                              <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
                             </div>
                             </form>
                       </div><!--end teb pane-->
@@ -346,7 +353,6 @@
     </div>
   </div>
 </div>
-
 
 
 

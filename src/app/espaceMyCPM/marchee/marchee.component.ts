@@ -268,6 +268,12 @@ export class MarcheeComponent implements OnInit {
       next: (response:Article) =>{
         this.newArticle=response;
         console.log("new article"+response);
+        //(<HTMLInputElement>document.getElementById("designation")).value=response.designation;
+        (<HTMLInputElement>document.getElementById("unitee")).value=response.unitee;
+        (<HTMLInputElement>document.getElementById("designationArtc")).value=response.designation;
+       
+
+
         
       },
       error: (error:HttpErrorResponse) => {
@@ -283,6 +289,8 @@ export class MarcheeComponent implements OnInit {
     let newArt = new Article();
     newArt=addArticleForm.value;
     newArt.id=this.newArticle.id;
+    newArt.designation=this.newArticle.designation;
+    newArt.unitee=this.newArticle.unitee;
     this.newMarchee.listeBondeCommandes[this.indiceBC].listeArticles.push(newArt);
    // this.newMarchee.listeBondeCommandes[this.indiceBC].montant += (newArt.prix*newArt.quantitee);
     addArticleForm.reset();
@@ -303,16 +311,42 @@ export class MarcheeComponent implements OnInit {
    if(bondeCom.montant == this.calculTotalArticles(bondeCom.listeArticles))
    {
      bondeCom.valide=true;
-     document.getElementById('add-article-bComm"')?.click();
+     document.getElementById('add-article-bComm')?.click();
    }
    else{
     this.alerteTotalArticle=true;
    }
 }
 
+//validation du marchee et ajout du marchee
+public validerBCs():boolean{
+  let montantTotalBCs : number=0;
+  let delaisTotalBCs : number =0;
+  for (let i = 0; i < this.newMarchee.listeBondeCommandes.length; i++){
+    if(! this.newMarchee.listeBondeCommandes[i].valide){
+      return false;
+    }
+
+  }
+  return true;
+}
+
   
+//reset the article form
+public resetForm(form:NgForm):void{
+  form.reset();
 
+}
 
+//fermer un alerte
+public closeAlert():void{
+  this.showExistMarcheeAlert=false;
+  this.alerteCodeInexistant=false;
+  this.showExistMarcheeAlert=false;
+  this.alerteCodeArticleIncorrecte=false;
+  this.alerteTotalArticle=false;
+ 
+}
   
 
 

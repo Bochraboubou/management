@@ -23,6 +23,9 @@ import { RegisterComponent } from './Inscription/register/register.component';
 import { DemandeComponent } from './Inscription/demande/demande.component';
 import { FirstPageComponent } from './Inscription/first-page/first-page.component';
 import { ListeDemandesComponent } from './Inscription/liste-demandes/liste-demandes.component';
+import { InboxComponent } from './Inscription/inbox/inbox.component';
+import { TableComponent } from './Inscription/table/table.component';
+import { SendMailComponent } from './Inscription/send-mail/send-mail.component';
 
 
 @NgModule({
@@ -44,6 +47,9 @@ import { ListeDemandesComponent } from './Inscription/liste-demandes/liste-deman
     DemandeComponent,
     FirstPageComponent,
     ListeDemandesComponent,
+    InboxComponent,
+    TableComponent,
+    SendMailComponent,
    
   ],
   imports: [

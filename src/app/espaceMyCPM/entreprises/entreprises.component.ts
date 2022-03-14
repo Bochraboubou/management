@@ -12,14 +12,7 @@ import { OrganisationServiceService } from 'src/app/service/organisation-service
 })
 export class EntreprisesComponent implements OnInit {
   organs!: Organisation[];
-  organisation!: Organisation;
-  nom!: string;
-  id!: number;
-  entreprises!: Organisation[];
-  idOrgan!: number;
-  alertEntrepExsist:boolean=false;
-  alertSuccess:boolean=false;
-  idOrganisation:number=5;
+  
   
 
   
@@ -46,55 +39,9 @@ export class EntreprisesComponent implements OnInit {
       complete: () => console.info('complete') 
   })
       }
-      public affich():void{
-        console.log(this.id);
-      }
+     
 
-//récuperer l'entreprise
-      public getOrganisation(organId:number){
-        this.organService.getOneOrganisation(organId).subscribe({
-          next: (response:Organisation) => {
-            this.organisation=response;
-            console.log(response);
-            console.log(this.organisation.email);
-            
-          },
-          error: (error:HttpErrorResponse) => {
-            alert(error.message);
-           },
-          complete: () => console.info('complete') 
-      })
 
-      }
-//associer l'entreprise
-      public onAddEntreprise(addEntrepriseForm:NgForm):void{
-        for (let i = 0; i < this.entreprises.length; i++) {
-          if(this.entreprises[i].nom===this.organisation.nom){
-            this.alertEntrepExsist=true;
-            break;
-
-          }
-        }
-          if(this.alertEntrepExsist==false){
-           /* this.entrepriseService.addEntreprise(5,addEntrepriseForm.value).subscribe(
-              (Response:Entreprise)=>{
-                console.log(Response);
-                this.entreprises.push(Response);
-                this.alertSuccess=true;
-                addEntrepriseForm.reset();
-              },
-              (error:HttpErrorResponse)=>{
-                error.message;
-                console.log("entreprise not added but dont worry bochra you wil did it");
-               
-                
-              }
-            );*/
-          }
-
-          
-          
-        }
          
 
         

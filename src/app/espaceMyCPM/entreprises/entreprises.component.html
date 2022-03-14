@@ -1,156 +1,89 @@
-<div>
-   <div class="row">
-    <label for="secteur"> Listes entreprises disponibles</label>
-    <div class="col">
-      <select [(ngModel)]="id" name="secteur_d_activite" id="secteur" class="form-select" placeholder="Secteur d'activité" aria-label="Default select example">
-        <!--<option selected>choisir une option</option>-->
-        <option   *ngFor="let organ of organs"
-        [value]="organ.id">
-        {{organ.nom}}
-      </option>
-      </select>
-      
-    </div>
-    <div class="col">
-      <button type="button" class="btn btn-info" (click)="getOrganisation(id)" >visualiser <i class="fa-solid fa-eye"></i></button>
-    </div>
+<div class="input-group rounded">
+  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+  <span class="input-group-text border-0" id="search-addon">
+    <i class="fas fa-search"></i>
+  </span>
+</div>
 
-   </div>
-
-      <div>
-        <div class="container" id="main-container">
-          <br>
-            <div>
-              <h1 style="color:blue; text-align: center;"><strong> Details entreprise</strong></h1>
-            </div>
-              <form #addEntrepriseForm="ngForm">
-                 <div class="row" id="global">
-                    <div class="col" id="gauche">
-                        
-                            <div class="col-md-4 mb-3">
-                              <label for="nom">Nom de l'organisation</label>
-                              <input type="text" ngModel="{{organisation?.nom}}" name="nom" class="form-control" id="nom" required>
-                            </div>
-                  
-                            <div class="col-md-4 mb-3">
-                              <label for="code"> Code de l'organisation</label>
-                              <input type="text" ngModel="{{organisation?.code}}" name="code" class="form-control" id="code" placeholder="Code de l'organisation"  required>
-                            </div>
-                  
-                            <div class="col-md-4 mb-3">
-                                <label for="secteur"> Secteur d'activité</label>
-                                <input type="text" ngModel="{{organisation?.secteur_d_activite}}" name="secteur_d_activite" class="form-control" id="secteur" placeholder="secteur d'activité"  required>
-                            </div>
-                            
-                            <div class="col-md-4 mb-3">
-                              <label for="email">Email</label>
-                              <input type="email" ngModel="{{organisation?.email}}" name="email" class="form-control" id="email" placeholder="Email" required>
-                            </div>
-        
-                          
-                            <div class="col-md-4 mb-3">
-                                <label for="pays"> Pays</label>
-                                <input type="text" ngModel="{{organisation?.pays}}" name="pays" class="form-control" id="pays" placeholder="pays"  required>
-                            </div>
-        
-                            <div class="col-md-4 mb-3">
-                              <label for="region">Région</label>
-                              <input type="text" ngModel="{{organisation?.region}}" name="region" class="form-control" id="region" placeholder="Région" required>
-                            </div>
-                           
-                            <div class="col-md-4 mb-3">
-                              <label for="adresse">Adresse</label>
-                              <div class="input-group">
-                                <input type="text" ngModel="{{organisation?.adresse}}" name="adresse" class="form-control" id="adresse" placeholder="Adresse" aria-describedby="inputGroupPrepend" required>
-                              </div>
-                            </div>
-                            
-                            <div class="col-md-6 mb-3">
-                                <label for="tel">Télephone</label>
-                                <input type="number" ngModel="{{organisation?.tel}}" name="tel"class="form-control" id="tel" placeholder="numéro" required>
-                            </div>
-                  
-                        </div>
-                          
-                            <div class="col" id="droite">
-                                <div class="col-md-4 mb-3">
-                                    <label for="type">Type</label>
-                                      <input type="text" ngModel="{{organisation?.type}}" name="type" class="form-control" id="type" placeholder="type" aria-describedby="inputGroupPrepend" required>
-                                </div>
-                      
-                                <div class="col-md-3 mb-3">
-                                  <label for="nomDG">Nom du directeur géneral</label>
-                                  <input type="text" ngModel="{{organisation?.nomDG}}" name="nomDG" class="form-control" id="nomDG" placeholder="Directeur general" required>
-                                </div>
-                                <div class="col-md-3 mb-3">
-                                  <label for="telDG">Tel u Direceur general</label>
-                                  <input type="number" ngModel="{{organisation?.telDG}}" name="telDG" class="form-control" id="telDG" placeholder="Tel directeur general" required>
-                                </div>
-                      
-                                <div class="col-md-3 mb-3">
-                                  <label for="emailDG">Email du DG</label>
-                                  <input type="email" ngModel="{{organisation?.emailDG}}" name="emailDG" class="form-control" id="emailDG" placeholder="Email DG" required>
-                                </div>
-                      
-                               
-                              
-        
-                             
-                      
-                               
-                            </div>
-
-                    </div>
-                   
-                 
-                  <button class="btn btn-primary" type="submit" (click)="onAddEntreprise(addEntrepriseForm)">Associer l'entreprise</button>
-                  <br>
-                  <div *ngIf="alertEntrepExsist" class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Attention</strong> L'entreprise {{organisation.nom}} est déja associée.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<div class="container mt-4">
+  <div class="row d-flex justify-content-center">
+      <div class="col-md-9">
+          <div class="card p-4 mt-3">
+              <h3 class="heading mt-5 text-center">Hi! How can we help You?</h3>
+              <div class="d-flex justify-content-center px-5">
+                  <div class="search"> <input type="text" class="search-input" placeholder="Search..." name=""> <a href="#" class="search-icon"> <i class="fa fa-search"></i> </a> </div>
+              </div>
+              <div class="row mt-4 g-1 px-4 mb-5">
+                  <div class="col-md-2">
+                      <div class="card-inner p-3 d-flex flex-column align-items-center"> <img src="https://i.imgur.com/Mb8kaPV.png" width="50">
+                          <div class="text-center mg-text"> <span class="mg-text">Account</span> </div>
+                      </div>
                   </div>
-                  <div *ngIf="alertSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Success</strong> L'entreprise {{organisation.nom}} est associée avec succé.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  <div class="col-md-2">
+                      <div class="card-inner p-3 d-flex flex-column align-items-center"> <img src="https://i.imgur.com/ueLEPGq.png" width="50">
+                          <div class="text-center mg-text"> <span class="mg-text">Payments</span> </div>
+                      </div>
                   </div>
-                </form>
+                  <div class="col-md-2">
+                      <div class="card-inner p-3 d-flex flex-column align-items-center"> <img src="https://i.imgur.com/tmqv0Eq.png" width="50">
+                          <div class="text-center mg-text"> <span class="mg-text">Delivery</span> </div>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="card-inner p-3 d-flex flex-column align-items-center"> <img src="https://i.imgur.com/D0Sm15i.png" width="50">
+                          <div class="text-center mg-text"> <span class="mg-text">Product</span> </div>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="card-inner p-3 d-flex flex-column align-items-center"> <img src="https://i.imgur.com/Z7BJ8Po.png" width="50">
+                          <div class="text-center mg-text"> <span class="mg-text">Return</span> </div>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="card-inner p-3 d-flex flex-column align-items-center"> <img src="https://i.imgur.com/YLsQrn3.png" width="50">
+                          <div class="text-center mg-text"> <span class="mg-text">Guarantee</span> </div>
+                      </div>
+                  </div>
+              </div>
           </div>
       </div>
-      <br>
-      <table class="table table-success table-striped">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Non entreprise </th>
-            <th scope="col">Code</th>
-            <th scope="col">Secteur d'activité</th>
-            <th scope="col">Email</th>
-            <th scope="col">Pays</th>
-            <th scope="col">Région</th>
-            <th scope="col">Adresse</th>
-            <th scope="col">Télephone</th>
-            <th scope="col">Type</th>
-            <th scope="col">Nom DG</th>
-            <th scope="col">Tel DG</th>
-            <th scope="col">Email DG</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let e of entreprises,let i= index">
-            <th scope="row">{{i}}</th>
-            <td>{{e.nom}}</td>
-            <td>{{e.code}}</td>
-            <td>{{e.secteur_d_activite}}</td>
-            <td>{{e.email}}</td>
-            <td>{{e.pays}}</td>
-            <td>{{e.region}}</td>
-            <td>{{e.adresse}}</td>
-            <td>{{e.tel}}</td>
-            <td>{{e.type}}</td>
-            <td>{{e.nomDG}}</td>
-            <td>{{e.telDG}</td>
-            <td>{{e.emailDG}}</td>
-          </tr>
-        </tbody>
-      </table>
+  </div>
+</div>
+
+<div>
+    <!--espace pour la liste des articles ajoutés-->
+    <div class="tab-pane fade" id="pills-smart" role="tabpanel" aria-labelledby="pills-smart-tab">
+      <div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nom</th>
+              <th scope="col">Code</th>
+              <th scope="col">Secteur d'activité preferée</th>
+              <th scope="col">Pays</th>
+              <th scope="col">Region</th>
+              <th scope="col">Adresse</th>
+              <th scope="col">Email</th>
+              <th scope="col">Tel</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let entrep of organs,let i= index">
+              <th scope="row">{{i}}</th>
+              <td>{{entrep.nom}}</td>
+              <td>{{entrep.code}}</td>
+              <td>{{entrep.secteur_d_activite}}</td>
+              <td>{{entrep.pays}}</td>
+              <td>{{entrep.region}}</td>
+              <td>{{entrep.adresse}}</td>
+              <td>{{entrep.email}}</td>
+              <td>{{entrep.tel}}</td>
+             
+              
+            </tr>
+          </tbody>
+        </table>
+    </div>
+        
 </div>

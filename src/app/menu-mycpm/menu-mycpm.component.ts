@@ -21,6 +21,8 @@ export class MenuMycpmComponent implements OnInit {
           this.artsuts=response;
           console.log(response);
           console.log("id bc est   "+this.artsuts[1].id.bondecommande_id);
+          console.log("id bc est   "+this.artsuts[1].id.article_id);
+          
           
         },
         error: (error:HttpErrorResponse) => {

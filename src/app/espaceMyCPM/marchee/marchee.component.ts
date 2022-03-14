@@ -2,11 +2,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Article } from 'src/app/model/Article';
+import { ArticleUtilisee } from 'src/app/model/ArticleUtilisee';
+import { ArticleUtiliseeId } from 'src/app/model/ArticleUtiliseeId';
 import { BondeCommande } from 'src/app/model/BondeCommande';
 import { Marchee } from 'src/app/model/Marchee';
 import { Metier } from 'src/app/model/Metier';
 import { Organisation } from 'src/app/model/Organisation';
 import { Secteur } from 'src/app/model/Secteur';
+import { ArticleUtiliseeService } from 'src/app/service/article-utilisee.service';
 import { ArticleService } from 'src/app/service/article.service';
 import { BondeCommandeService } from 'src/app/service/bonde-commande.service';
 import { EntrepriseServiceService } from 'src/app/service/entreprise-service.service';
@@ -23,10 +26,8 @@ import { ArticlespecifieeComponent } from '../articlespecifiee/articlespecifiee.
 })
 export class MarcheeComponent implements OnInit {
   metiers!: Metier[];
-  organisation!: Organisation;
   idOrgan:number=2;
   idSecteur!: number;
-  marchee!: Marchee;
   idEntreprise!: number;
   idMarchee!: number;
   showExistMarcheeAlert:boolean=false;
@@ -47,8 +48,11 @@ export class MarcheeComponent implements OnInit {
   newArticle:Article= new Article();
   alerteCodeArticleIncorrecte:boolean=false;
   codeArticle!: string;
-  alerteTotalArticle:boolean=false;
-
+  alerteTotalArticles:boolean=false;
+  alerteMontantBCs:boolean=false;
+  alerteDelaisBCs:boolean=false;
+  idBondeCommande!: number;
+  
 
   
 
@@ -61,10 +65,10 @@ export class MarcheeComponent implements OnInit {
 
 
 
-  constructor(private organService:OrganisationServiceService,private secteurService:SecteurService,private metierService:MetierService,private marcheeService:MarcheeService,private entrepriseService:EntrepriseServiceService,private bondeCommandeService:BondeCommandeService,private articleService:ArticleService) { }
+  constructor(private organService:OrganisationServiceService,private secteurService:SecteurService,private metierService:MetierService,private marcheeService:MarcheeService,private entrepriseService:EntrepriseServiceService,private bondeCommandeService:BondeCommandeService,private articleService:ArticleService,private articleUtiliseeService:ArticleUtiliseeService) { }
 
   ngOnInit(): void {
-    this.getOrganisation(this.idOrgan);
+    //this.getOrganisation(this.idOrgan);
     this.onGetSecteurs();
    
    
@@ -103,10 +107,10 @@ export class MarcheeComponent implements OnInit {
   
 
   //récuperer l'organisation ,le secteur d'activité et la liste des metiers relatives
-  public getOrganisation(organId:number){
+ /* public getOrganisation(organId:number){
     this.organService.getOneOrganisation(organId).subscribe({
       next: (response:Organisation) => {
-        this.organisation=response;
+        this.idOrgan = response.id;
         console.log("organisation"+response);
       },
       error: (error:HttpErrorResponse) => {
@@ -116,6 +120,7 @@ export class MarcheeComponent implements OnInit {
   })
 
   }
+  */
 
   
   //ajouter marchee
@@ -129,14 +134,15 @@ export class MarcheeComponent implements OnInit {
       error: (error:HttpErrorResponse) => {
         this.marcheeService.addMarchee(organId,this.idMetier,addMarcheeForm.value).subscribe({
           next: (response:Marchee) =>{
-            this.marchee=response;
-            this.idMarchee=this.marchee.id;
-            console.log("marchee"+this.marchee);
-            console.log("id marchee"+this.marchee.id);
+           // this.marchee=response;
+            this.idMarchee=response.id;
+            console.log("marchee"+response);
+            console.log("id marchee"+this.idMarchee);
             var x = document.getElementById("toast")
             x!.className = "show";
             setTimeout(function(){ x!.className = x!.className.replace("show", ""); }, 5000);
             this.successMarchee=true;
+            //ajouter les bondes commandes
             
           },
           error: (error:HttpErrorResponse) => {
@@ -254,7 +260,7 @@ export class MarcheeComponent implements OnInit {
         
       },
       error: (error:HttpErrorResponse) => {
-        alert(error.message);
+        console.log("secteur not found or secteur non specifiée")
        },
       complete: () => console.info('complete') 
   })  
@@ -314,14 +320,12 @@ export class MarcheeComponent implements OnInit {
      document.getElementById('add-article-bComm')?.click();
    }
    else{
-    this.alerteTotalArticle=true;
+    this.alerteTotalArticles=true;
    }
 }
 
 //validation du marchee et ajout du marchee
 public validerBCs():boolean{
-  let montantTotalBCs : number=0;
-  let delaisTotalBCs : number =0;
   for (let i = 0; i < this.newMarchee.listeBondeCommandes.length; i++){
     if(! this.newMarchee.listeBondeCommandes[i].valide){
       return false;
@@ -344,10 +348,126 @@ public closeAlert():void{
   this.alerteCodeInexistant=false;
   this.showExistMarcheeAlert=false;
   this.alerteCodeArticleIncorrecte=false;
-  this.alerteTotalArticle=false;
+  this.alerteTotalArticles=false;
+  this.alerteMontantBCs=false;
+  this.alerteDelaisBCs=false;
  
 }
+
+public validerMontantMarchee(marchee:Marchee):boolean{
+  let montantTotalBCs : number=0;
+  for (let i = 0; i < marchee.listeBondeCommandes.length; i++){
+    montantTotalBCs += marchee.listeBondeCommandes[i].montant;
+  }
+  if(montantTotalBCs == marchee.montant){
+    return true;
+  }
+  else{
+    return false;
+  }
   
+}
+
+  public validerDelaisMarchee(marchee:Marchee):boolean{
+    let delaisTotalBCs : number =0;
+    for (let i = 0; i < marchee.listeBondeCommandes.length; i++){
+      delaisTotalBCs +=  marchee.listeBondeCommandes[i].delais;
+    }
+    if(delaisTotalBCs == marchee.delais){
+      return true;
+    }
+    else{
+      return false;
+
+    }
+    
+}
+
+//ajouter le marchee si il est valide
+public EnregistrerMarchee( addMarcheeForm:NgForm):void{
+  if(!this.validerMontantMarchee(this.newMarchee)){
+    this.alerteMontantBCs=true;
+  }
+  if(!this.validerDelaisMarchee(this.newMarchee)){
+    this.alerteDelaisBCs=true;
+  }
+  if(this.validerMontantMarchee(this.newMarchee)&&this.validerDelaisMarchee(this.newMarchee)){
+     //chercher lexistance du code avant l'ajout
+     this.marcheeService.getMarcheebyCode(addMarcheeForm.value.code).subscribe({
+      next: (response:Marchee) => {
+        this.showExistMarcheeAlert=true;
+        console.log("code existe deja");
+      },
+      error: (error:HttpErrorResponse) => {
+        this.marcheeService.addMarchee(this.idOrgan,this.idMetier,addMarcheeForm.value).subscribe({
+          next: (response:Marchee) =>{
+           // this.marchee=response;
+            this.idMarchee=response.id;
+            console.log("marchee"+response);
+            console.log("id marchee"+this.idMarchee);
+            this.successMarchee=true;
+            //ajouter les BCs
+            for (let i = 0; i < this.newMarchee.listeBondeCommandes.length; i++){
+              this.EnregisterBC(this.idMarchee,this.newMarchee.listeBondeCommandes[i])
+            }
+            var x = document.getElementById("toast")
+            x!.className = "show";
+            setTimeout(function(){ x!.className = x!.className.replace("show", ""); }, 5000);
+            addMarcheeForm.reset();
+            this.newMarchee = new Marchee();
+            
+          },
+          error: (error:HttpErrorResponse) => {
+            alert(error.message);
+           },
+          complete: () => console.info('complete') 
+      })
+        
+       },
+      complete: () => console.info('complete') 
+  })
+
+}
+}
+
+//enregistrer une bonde commande
+public EnregisterBC(idMarchee:number,bc:BondeCommande):void{
+  this.bondeCommandeService.addBondeCommande(idMarchee,bc.idEntrep,bc).subscribe({
+    next: (response:BondeCommande) => {
+      console.log("bonde commande"+response);
+      this.idBondeCommande=response.id;
+      for (let i = 0; i < bc.listeArticles.length; i++){
+        this.EnregisterArticle(this.idBondeCommande,bc.listeArticles[i])
+      }
+    },
+    error: (error:HttpErrorResponse) => {
+      alert(error.message);
+     },
+    complete: () => console.info('complete') 
+    
+})
+}
+
+//Enregistrer un article utilisee
+public EnregisterArticle(idBC:number,article:Article):void{
+  let articleUtiliseeId : ArticleUtiliseeId = new ArticleUtiliseeId();
+  articleUtiliseeId.bondecommande_id=idBC;
+  articleUtiliseeId.article_id=article.id;
+ let artcUtilisee : ArticleUtilisee = new ArticleUtilisee();
+ artcUtilisee.prix=article.prix;
+ artcUtilisee.quantitee=article.quantitee;
+  this.articleUtiliseeService.addArticleUtilisee(articleUtiliseeId.bondecommande_id,articleUtiliseeId.article_id,artcUtilisee).subscribe({
+    next: (response:ArticleUtilisee) => {
+      console.log("article utilisee"+response);
+      
+    },
+    error: (error:HttpErrorResponse) => {
+      alert(error.message);
+     },
+    complete: () => console.info('complete') 
+    
+})
+}
 
 
   

@@ -18,4 +18,10 @@ export class ArticleService {
   {
     return this.http.get<Article>(`${this.apiServeUrl}/admin/articlesbycode/${codeArticle}/metier/${metierId}`);
   }
+
+   //récuperer l'article par code
+   public getArticlebyMetierId(metierId:number): Observable<Article[]>
+   {
+     return this.http.get<Article[]>(`${this.apiServeUrl}/admin/metiers/${metierId}/articles`);
+   }
 }

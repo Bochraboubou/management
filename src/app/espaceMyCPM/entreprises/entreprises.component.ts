@@ -12,6 +12,10 @@ import { OrganisationServiceService } from 'src/app/service/organisation-service
 })
 export class EntreprisesComponent implements OnInit {
   organs!: Organisation[];
+  totalLength:any;
+  page:number = 1;
+  term:any;
+  terme:any;
   
   
 
@@ -31,6 +35,7 @@ export class EntreprisesComponent implements OnInit {
     this.organService.getOrganisations().subscribe({
       next: (response:Organisation[]) => {
         this.organs=response;
+        this.totalLength=response.length;
         
       },
       error: (error:HttpErrorResponse) => {
@@ -39,6 +44,31 @@ export class EntreprisesComponent implements OnInit {
       complete: () => console.info('complete') 
   })
       }
+
+
+      //chercher des entreprises
+      public searchEntreprise():void{
+        
+            if(this.terme="")
+            {
+              this.getOrgans();
+            }
+            else{
+              console.log("hewayyy");
+              this.organs=this.organs.filter(res=>{
+                return res.nom.toLocaleLowerCase().match(this.terme.toLocaleLowerCase())
+                && res.code.toLocaleLowerCase().match(this.terme.toLocaleLowerCase())
+                && res.secteur_d_activite.toLocaleLowerCase().match(this.terme.toLocaleLowerCase())
+                && res.pays.toLocaleLowerCase().match(this.terme.toLocaleLowerCase())
+                && res.region.toLocaleLowerCase().match(this.terme.toLocaleLowerCase())
+                && res.adresse.toLocaleLowerCase().match(this.terme.toLocaleLowerCase())
+                && res.email.toLocaleLowerCase().match(this.terme.toLocaleLowerCase());
+              })
+            }
+            
+          }
+        
+      
      
 
 

@@ -302,22 +302,25 @@
                               <strong>Attention</strong> code incorecte ou metier inspécifié
                               <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
                             </div>
-                            
-                            <div class="modal-footer">
-                               <button type="button" id="add-article-bComm" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                               <button type="submit" class="btn btn-primary" (click)="validerArticles(newMarchee.listeBondeCommandes[indiceBC])">Save</button>
-                            </div>
 
                             <div *ngIf="alerteTotalArticles" class="alert alert-danger alert-dismissible fade show" role="alert">
                               <strong>Attention</strong> le montant total des articles est differant du montant du bonde commande
                               <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
                             </div>
+                            
+                            <div class="modal-footer">
+                               <button type="button" id="add-article-bComm" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                               <button type="submit" class="btn btn-primary" (click)="validerArticles(newMarchee.listeBondeCommandes[indiceBC])">Valider les articles</button>
+                            </div>
+
+                           
                             </form>
                       </div><!--end teb pane-->
 
                       <!--espace pour la liste des articles ajoutés-->
                       <div class="tab-pane fade" id="pills-smart" role="tabpanel" aria-labelledby="pills-smart-tab">
-                        <div>
+                        <div> 
+                          <div><h1 style="font-family:FreeMono, monospace; font-size: 28px; color:darkred;">liste articles ajoutés a la bonde commande</h1></div>
                           <table class="table table-success table-striped">
                             <thead>
                               <tr>
@@ -356,8 +359,43 @@
                       </div><!--end teb pane-->
 
                       <!--Espace pour les informations de la bonde commande-->
-                      <div class="tab-pane fade active show" id="pills-intelligence" role="tabpanel" aria-labelledby="pills-intelligence-tab">
-                         <h1>Informations sur la bonde commande</h1>
+                      <div class="tab-pane fade active show" style="position: relative;" id="pills-intelligence" role="tabpanel" aria-labelledby="pills-intelligence-tab">
+                        <div class="row" style="position: absolute; bottom: 0;">
+                          <div>
+                              <div><h1 style="font-family:FreeMono, monospace; font-size: 28px; color:darkred;">Bonde commande infos</h1></div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-4">
+                                <label>Numeros :   </label>
+                                <label for="unitee">{{newMarchee.listeBondeCommandes[indiceBC]?.numeros}}</label>
+                              </div>
+                              <br>
+
+                              <div>
+                                <label>Montant :     </label>
+                                <label>{{newMarchee.listeBondeCommandes[indiceBC]?.montant}}</label>
+                              </div>
+                              <br>
+
+                              <div>
+                                <label>Delais :      </label>
+                                <label>{{newMarchee.listeBondeCommandes[indiceBC]?.delais}}</label>
+                              </div>
+                              <br>
+
+                              <div>
+                                <label>Entreprise :    </label>
+                                <label>{{newMarchee.listeBondeCommandes[indiceBC]?.nomEntrep}}</label>
+                              </div>
+                              
+
+                            </div>
+                           
+                        </div>
+                       
+                            
+                      
+                         
                       </div><!--end teb pane-->
                   </div><!--end tab content-->
               </div><!--end col-->

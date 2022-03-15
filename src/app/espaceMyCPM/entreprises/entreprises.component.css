@@ -1,0 +1,3 @@
+.entreprisePagination /deep/ .ngx-pagination .current {
+    background:darkred;
+  }

@@ -18,6 +18,8 @@ import { MarcheeComponent } from './espaceMyCPM/marchee/marchee.component';
 import { DetailOrganisationComponent } from './espaceMyCPM/detail-organisation/detail-organisation.component';
 import { EntreprisesComponent } from './espaceMyCPM/entreprises/entreprises.component';
 import { ArticlespecifieeComponent } from './espaceMyCPM/articlespecifiee/articlespecifiee.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 @NgModule({
@@ -42,7 +44,9 @@ import { ArticlespecifieeComponent } from './espaceMyCPM/articlespecifiee/articl
     BrowserAnimationsModule,
     MatDialogModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule,
+    Ng2SearchPipeModule
     
   ],
   providers: [],

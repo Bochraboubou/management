@@ -1,11 +1,15 @@
 <div class="container" id="main-container">
   <div>
-    <strong><h1 style="color:darkgoldenrod">Ajouter un marché</h1></strong>
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-6">
+          <div><h1 style="font-family:Marker Felt, fantasy; font-size: 28px; color:darkred;">Ajouter un nouveau marché a votre organisation</h1></div>
+        </div>
+  </div>
       <form #addMarcheeForm="ngForm" >
        
        <div class="row">
         <div class="col-md-4">
-          <label for="secteur_d_activite"> Secteur</label>
+          <label for="secteur_d_activite" style="color: darkred;"> Secteur</label>
           <select ngModel (ngModelChange)="getMetiers($event)" name="secteur_d_activite" id="secteur_d_activite" class="form-select" placeholder="secteur_d_activite" aria-label="Default select example" required>
             <!--<option selected>choisir une option</option>-->
             <option   *ngFor="let sect of secteurs"
@@ -16,7 +20,7 @@
         </div>
 
           <div class="col-md-4">
-              <label for="metier"> Metier</label>
+              <label for="metier" style="color: darkred;"> Metier</label>
               <select [(ngModel)]="idMetier" name="metier" id="metier" class="form-select"  placeholder="Metier" aria-label="Default select example"  required>
                 <!--<option selected>choisir une option</option>-->
                 <option   *ngFor="let met of metiers"
@@ -28,24 +32,24 @@
        </div>
 
             <div class="col-md-4 mb-3">
-              <label for="code">code</label>
+              <label for="code" style="color: darkred;">code</label>
               <input type="text" ngModel name="code"  class="form-control" id="code" placeholder="code"  required>
            </div>
   
           
 
           <div class="col-md-4 mb-3">
-            <label for="designation">Designation</label>
+            <label for="designation" style="color: darkred;">Designation</label>
             <input type="text" ngModel name="designiation"  class="form-control" id="designation"   required>
          </div>
   
          <div class="row">
           <div class="col-md-4 mb-3">
-            <label for="capex">Budget</label>
+            <label for="capex" style="color: darkred;">Budget</label>
             <div class="form-check">
               <div class="choice">
                   <input class="form-check-input" type="radio" name="budget" id="capex" value="Capex"  ngModel/>
-                  <label class="form-check-label" for="capex">Capex</label>
+                  <label class="form-check-label" for="capex" >Capex</label>
               </div>
               <div class="choice">
                   <input class="form-check-input" type="radio" name="budget" id="oeuvrage" value="Opex"  ngModel/>
@@ -55,7 +59,7 @@
             </div>
 
             <div class="col-md-4 mb-3">
-                <label for="tel">Type</label>
+                <label for="tel" style="color: darkred;">Type</label>
                 <div class="form-check">
                   <div class="choice">
                       <input class="form-check-input" type="radio" name="type" id="projet" value="Projet"  ngModel/>
@@ -70,7 +74,7 @@
          </div>
   
          <div class="row">
-          <div class="col-md-4 mb-3">
+          <div class="col-md-4 mb-3" style="color: darkred;">
             <label for="montant">Montant</label>
             <input type="number" [(ngModel)]="newMarchee.montant" name="montant" class="form-control" id="montant" placeholder="en dinars"  required>
          </div>
@@ -95,7 +99,7 @@
           </form>
   
   
-    <button type="button" id="enregistrer" class="btn btn-warning" (click)="onOpenBCModal()">Associer une B_Commande</button>
+    <button type="button" id="enregistrer" class="btn btn-dark" (click)="onOpenBCModal()">Associer une B_Commande</button>
     <br>
    
     <br>

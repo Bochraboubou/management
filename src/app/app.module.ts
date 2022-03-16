@@ -26,6 +26,8 @@ import { ListeDemandesComponent } from './Inscription/liste-demandes/liste-deman
 import { InboxComponent } from './Inscription/inbox/inbox.component';
 import { TableComponent } from './Inscription/table/table.component';
 import { SendMailComponent } from './Inscription/send-mail/send-mail.component';
+import { DoinscriptionComponent } from './Inscription/doinscription/doinscription.component';
+import { OneDemandeComponent } from './Inscription/one-demande/one-demande.component';
 
 
 @NgModule({
@@ -50,6 +52,8 @@ import { SendMailComponent } from './Inscription/send-mail/send-mail.component';
     InboxComponent,
     TableComponent,
     SendMailComponent,
+    DoinscriptionComponent,
+    OneDemandeComponent,
    
   ],
   imports: [

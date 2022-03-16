@@ -8,25 +8,33 @@ import { DetailOrganisationComponent } from './espaceMyCPM/detail-organisation/d
 import { EntreprisesComponent } from './espaceMyCPM/entreprises/entreprises.component';
 import { MarcheeComponent } from './espaceMyCPM/marchee/marchee.component';
 import { DemandeComponent } from './Inscription/demande/demande.component';
+import { DoinscriptionComponent } from './Inscription/doinscription/doinscription.component';
 import { FirstPageComponent } from './Inscription/first-page/first-page.component';
 import { ListeDemandesComponent } from './Inscription/liste-demandes/liste-demandes.component';
 import { LoginComponent } from './Inscription/login/login.component';
+import { OneDemandeComponent } from './Inscription/one-demande/one-demande.component';
 import { RegisterComponent } from './Inscription/register/register.component';
+import { SendMailComponent } from './Inscription/send-mail/send-mail.component';
 import { MenuMycpmComponent } from './menu-mycpm/menu-mycpm.component';
 import { MenuComponent } from './menu/menu.component';
 import { OrganisationComponent } from './organisation/organisation.component';
 
 const routes: Routes = [
-  {path:'',component:FirstPageComponent},
+  {path:'',component:OneDemandeComponent},
+  {path:'aa',component:FirstPageComponent},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
-  {path:'Demande',component:DemandeComponent},
+  {path:'Demande',component:DemandeComponent,children:[
+    {path:'inscrire',component:DoinscriptionComponent}
+  ]},
+  {path:'send',component:SendMailComponent},
   { path:'cpm/:id',component:MenuComponent,children:[
     { path:'addOrganisation',component:AjouterOrganisationComponent},
     { path:'organisations',component:OrganisationComponent},
     { path:'detail',component:DetailComponent},
     {path:'Demande',component:DemandeComponent},
     {path:'listeDemande',component:ListeDemandesComponent},
+   
 
   ]},
   { path:'mycpm',component:MenuMycpmComponent,children:[

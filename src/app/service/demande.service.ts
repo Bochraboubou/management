@@ -15,4 +15,16 @@ export class DemandeService {
   {
     return this.http.get<Demande[]>(`${this.apiServeUrl}/api/demandes`);
   }
+ 
+  public addDemande(demande:Demande): Observable<Demande> {
+    return this.http.post<Demande>(`${this.apiServeUrl}/api/saveDemande`, demande);
+  }
+
+  public updateDemande(demande: Demande): Observable<Demande> {
+    return this.http.put<Demande>(`${this.apiServeUrl}/employee/update`, demande);
+  }
+
+  public deleteDemande(demandeId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiServeUrl}/employee/delete/${demandeId}`);
+  }
 }

@@ -52,6 +52,10 @@ export class MarcheeComponent implements OnInit {
   alerteMontantBCs:boolean=false;
   alerteDelaisBCs:boolean=false;
   idBondeCommande!: number;
+  articlesParMetier!: Article[];
+  key:any;
+  totalLength:any;
+  page:number = 1;
   
 
   
@@ -198,31 +202,8 @@ export class MarcheeComponent implements OnInit {
 
         console.log("dedeedde"+this.newMarchee.listeBondeCommandes[this.newBC.numeros -1].listeArticles)*/
 
-        addBCForm.reset();
-      
-       
-        
-        
+        addBCForm.reset(); 
 
-        //valider les informations de la bonde commande
-       /* document.getElementById('addBCModal')?.click();
-        console.log(this.idEntrepriseBc);
-         this.bondeCommandeService.addBondeCommande(11,bc.idEntrep,bc).subscribe({
-          next: (response:BondeCommande) => {
-            console.log("bonde commande"+response)
-          },
-          error: (error:HttpErrorResponse) => {
-            alert(error.message);
-           },
-          complete: () => console.info('complete') 
-          
-      })
-      */
-      
-      
-  
-
-        
       },
       error: (error:HttpErrorResponse) => {
         this.alerteCodeInexistant=true;
@@ -470,6 +451,26 @@ public EnregisterArticle(idBC:number,article:Article):void{
 }
 
 
+//recuperer les articles par metier
+public getArticlesByMetier(idMetier:number){
+  this.articleService.getArticlebyMetierId(idMetier).subscribe({
+    next: (response:Article[]) =>{
+      this.articlesParMetier=response;
+      console.log("articles par metier"+response);
+      this.totalLength=response.length;
+      
+    },
+    error: (error:HttpErrorResponse) => {
+      console.log("metier not found");
+     },
+    complete: () => console.info('complete') 
+})  
+
+}
+
+ArticlesByMetier(metierId:number){
+  this.getArticlesByMetier(metierId);
+}
   
    
 

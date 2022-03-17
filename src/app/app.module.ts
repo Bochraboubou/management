@@ -25,6 +25,7 @@ import { FirstPageComponent } from './Inscription/first-page/first-page.componen
 import { ListeDemandesComponent } from './Inscription/liste-demandes/liste-demandes.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +53,9 @@ import { ListeDemandesComponent } from './Inscription/liste-demandes/liste-deman
     BrowserAnimationsModule,
     MatDialogModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule,
+    Ng2SearchPipeModule
     
   ],
   providers: [],

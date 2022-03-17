@@ -5,4 +5,8 @@ export class Article{
     unitee!: string;
     prix!: number;
     quantitee!: number;
+    constructor(){
+        
+    }
+
 }

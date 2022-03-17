@@ -1,6 +1,10 @@
 import { ArticleUtiliseeId } from "./ArticleUtiliseeId";
-export interface ArticleUtilisee{
-    id:ArticleUtiliseeId;
-    prix:number;
-    quantitee:number;
+
+export class ArticleUtilisee{
+    id!: ArticleUtiliseeId;
+    prix!: number;
+    quantitee!: number;
+    constructor(){
+        
+    }
 }

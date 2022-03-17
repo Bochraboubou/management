@@ -1,0 +1,98 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
+<div class="container">
+    
+            <div class="row">
+                <div class="col-md-11 mt-60 mx-md-auto">
+                    <div class="login-box bg-white pl-lg-5 pl-0">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-md-6">
+                                <div class="form-wrap bg-white">
+                                    <h4 class="btm-sep pb-3 mb-5">Login</h4>
+                                    <form class="form" method="post" action="#" #loginform="ngForm" (ngSubmit)="loginUser()">
+                  
+                                          <small class="text-danger">{{msg}}</small> 
+                                           <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group position-relative">
+                                                    <span class="zmdi zmdi-account"></span>
+                                                    <!-- c'est lorigine //champ email-->
+                                                   <!--<input type="email"  class="form-control" placeholder="Email Address" [(ngModel)]="user.email" name="email" required pattern="^\w+@[a-zA-Z]+?\.[a-zA-Z]{2,3}$"
+                                                     #email="ngModel" 
+                                                    [class.is-invalid]="email.invalid && email.touched" >
+                                                   <small class="text-danger" [class.d-none]="email.valid || email.untouched"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AA   Email is required field</small>
+                                                     <div *ngIf="email.errors && (email.invalid && email.touched)">
+                                                        <small class="text-danger"*ngIf="email.errors['required']"> AAaaa  &nbsp;&nbsp;       Email is required field</small>
+                                                        <small class="text-danger" *ngIf="email.errors['pattern']"> AAaaa   &nbsp;&nbsp;       Enter the valid email</small>
+                                                     </div>
+                                                    -->
+                                                    
+
+                                                    <input type="text"  class="form-control" placeholder="username" [(ngModel)]="user.username" name="username" required 
+                                                    #username="ngModel" 
+                                                   [class.is-invalid]="username.touched" >
+                                                <!--<small class="text-danger" [class.d-none]="username.untouched"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AA   Email is required field</small>-->
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="col-12">
+                                                <div class="form-group position-relative">
+                                                    <span class="zmdi zmdi-email"></span>
+                                                    <input type="password" id="password" class="form-control" placeholder="Password" [(ngModel)]="user.password"  name ="password"
+                                                    required #password="ngModel"
+                                                    [class.is-invalid]="password.invalid && password.touched" >
+                                                    <small class="text-danger" [class.d-none]="password.valid || password.untouched">Aaa          &nbsp;&nbsp;  Password  is required field</small>
+                                                </div>
+                                            </div>
+                                            <!--
+                                            <div class="col-12">
+                                                <div class="form-group position-relative">
+                                                    <span class="zmdi zmdi-account"></span>
+                                                    <input type="text"  class="form-control" placeholder="code organisation"[(ngModel)]="user.code_org" name="code_org"   
+                                                    required #code_org="ngModel" 
+                                                    [class.is-invalid]="code_org.invalid && code_org.touched" >
+                                                    
+                                                    <small class="text-danger" [class.d-none]="code_org.valid || code_org.untouched">A      code organization  is required field</small>
+                                                </div>
+                                            </div>
+                                        -->
+                                            <div class="col-12 text-lg-right">
+                                                <a  class="c-black"  [routerLink]="['sendEmail']">Forgot password ?</a>
+                                            </div>
+                                            <div class="col-12 mt-30">
+                                                <button [disabled]="loginform.form.invalid" type="submit" id="submit" class="btn btn-lg btn-custom btn-dark btn-block">Sign In
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="content text-center">
+                                    <div class="border-bottom pb-5 mb-5">
+                                        <h3 class="c-black">First time here?</h3>
+                                      <!--  <a  class="btn btn-custom" (click)="gotoregistration()" >Sign up</a>-->
+                                        <a  class="btn btn-custom" [routerLink]="['/register']">Sign up</a>
+                                    </div>
+                                    <h5 class="c-black mb-4 mt-n1">Or Sign In With</h5>
+                                    <div class="socials">
+                                        <a href="#" class="zmdi zmdi-facebook"></a>
+                                        <a href="#" class="zmdi zmdi-twitter"></a>
+                                        <a href="#" class="zmdi zmdi-google"></a>
+                                        <a href="#" class="zmdi zmdi-instagram"></a>
+
+                                        
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-bottom pb-5 mb-5">
+                <h3 class="c-black"></h3>
+              <!--  <a  class="btn btn-custom" (click)="gotoregistration()" >Sign up</a>-->
+               
+            </div>
+        </div>
+

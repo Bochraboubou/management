@@ -20,4 +20,18 @@ export class SecteurService {
   {
     return this.http.get<Secteur[]>(`${this.apiServeUrl}/admin/secteurs`);
   }
+
+  //récuperer le secteur par nom
+  public getSecteurbyNom(nomSecteur:string): Observable<Secteur>
+  {
+    return this.http.get<Secteur>(`${this.apiServeUrl}/admin/secteurbynom/${nomSecteur}`);
+  }
+
+   //récuperer le secteur par Id
+   public getSecteurbyId(idSecteur:number): Observable<Secteur>
+   {
+     return this.http.get<Secteur>(`${this.apiServeUrl}/admin/secteurbyId/${idSecteur}`);
+   }
+
+
 }

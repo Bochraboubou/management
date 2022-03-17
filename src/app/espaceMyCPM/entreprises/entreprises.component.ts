@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Entreprise } from 'src/app/model/Entreprise';
+import { NgForm } from '@angular/forms';
 import { Organisation } from 'src/app/model/Organisation';
 import { EntrepriseServiceService } from 'src/app/service/entreprise-service.service';
 import { OrganisationServiceService } from 'src/app/service/organisation-service.service';
@@ -12,34 +12,71 @@ import { OrganisationServiceService } from 'src/app/service/organisation-service
 })
 export class EntreprisesComponent implements OnInit {
   organs!: Organisation[];
-  organisation!: Organisation;
-  nom!: string;
-  id!: number;
-  entreprises!: Entreprise[];
+  totalLength:any;
+  page:number = 1;
+  term:any;
+  terme:any;
   
   
 
-  constructor( private organService:OrganisationServiceService) { }
+  
+  
+
+  constructor( private organService:OrganisationServiceService,private entrepriseService:EntrepriseServiceService) { }
 
   ngOnInit(): void {
     this.getOrgans();
+    
   }
 
-  //récuperer la liste des entreprises
+  //récuperer la liste des entreprises disponibles
   public getOrgans():void
   {
-    this.organService.getOrganisations().subscribe(
-      (response:Organisation[])=>{
+    this.organService.getOrganisations().subscribe({
+      next: (response:Organisation[]) => {
         this.organs=response;
+        this.totalLength=response.length;
         
       },
-      (error:HttpErrorResponse)=>{
+      error: (error:HttpErrorResponse) => {
         alert(error.message);
-       }
-    );
+       },
+      complete: () => console.info('complete') 
+  })
       }
-      public affich():void{
-        console.log(this.id);
-      }
+
+
+      //chercher des entreprises
+      public searchEntreprise():void{
+        
+            if(this.terme="")
+            {
+              this.getOrgans();
+            }
+            else{
+              console.log("hewayyy");
+              this.organs=this.organs.filter(res=>{
+                return res.nom.toLocaleLowerCase().match(this.terme.toLocaleLowerCase())
+                && res.code.toLocaleLowerCase().match(this.terme.toLocaleLowerCase())
+                && res.secteur_d_activite.toLocaleLowerCase().match(this.terme.toLocaleLowerCase())
+                && res.pays.toLocaleLowerCase().match(this.terme.toLocaleLowerCase())
+                && res.region.toLocaleLowerCase().match(this.terme.toLocaleLowerCase())
+                && res.adresse.toLocaleLowerCase().match(this.terme.toLocaleLowerCase())
+                && res.email.toLocaleLowerCase().match(this.terme.toLocaleLowerCase());
+              })
+            }
+            
+          }
+        
+      
+     
+
+
+         
+
+        
+          
+  
+    
 
 }

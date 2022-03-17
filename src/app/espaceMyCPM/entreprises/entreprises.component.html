@@ -1,160 +1,58 @@
+
 <div>
-    <div class="col-md-4 mb-3">
-        <label for="secteur"> Listes entreprises disponibles</label>
-        <select [(ngModel)]="id" name="secteur_d_activite" id="secteur" class="form-select" placeholder="Secteur d'activité" aria-label="Default select example">
-          <!--<option selected>choisir une option</option>-->
-          <option   *ngFor="let organ of organs"
-          [value]="organ.id">
-          {{organ.nom}}
-        </option>
-        </select>
-        <button (click)="affich()">afficher</button>
-      </div>
-
-      <div>
-        <div class="container" id="main-container">
-            <div>
-              <h1 style="color:blue; text-align: center;"><strong> Details entreprise</strong></h1>
-            </div>
-              <form #addOrganisationForm="ngForm">
-                 <div class="row" id="global">
-                    <div class="col" id="gauche">
-                        
-                            <div class="col-md-4 mb-3">
-                              <label for="nom">Nom de l'organisation</label>
-                              <input type="text" ngModel name="nom" class="form-control" id="nom" placeholder="Nom de l'organisation"  required>
-                            </div>
-                  
-                            <div class="col-md-4 mb-3">
-                              <label for="code"> Code de l'organisation</label>
-                              <input type="text" ngModel name="code" class="form-control" id="code" placeholder="Code de l'organisation"  required>
-                            </div>
-                  
-                            <div class="col-md-4 mb-3">
-                                <label for="secteur"> Secteur d'activité</label>
-                                <input type="text" ngModel name="secteur_d_activite" class="form-control" id="secteur" placeholder="secteur d'activité"  required>
-                            </div>
-                            
-                            <div class="col-md-4 mb-3">
-                              <label for="email">Email</label>
-                              <input type="email" ngModel name="email" class="form-control" id="email" placeholder="Email" required>
-                            </div>
-        
-                          
-                            <div class="col-md-4 mb-3">
-                                <label for="pays"> Pays</label>
-                                <input type="text" ngModel name="pays" class="form-control" id="pays" placeholder="pays"  required>
-                            </div>
-        
-                            <div class="col-md-4 mb-3">
-                              <label for="region">Région</label>
-                              <input type="text" ngModel name="region" class="form-control" id="region" placeholder="Région" required>
-                            </div>
-                           
-                            <div class="col-md-4 mb-3">
-                              <label for="adresse">Adresse</label>
-                              <div class="input-group">
-                                <input type="text" ngModel name="adresse" class="form-control" id="adresse" placeholder="Adresse" aria-describedby="inputGroupPrepend" required>
-                              </div>
-                            </div>
-                            
-                            <div class="col-md-6 mb-3">
-                                <label for="tel">Télephone</label>
-                                <input type="number" ngModel name="tel"class="form-control" id="tel" placeholder="numéro" required>
-                            </div>
-                  
-                        </div>
-                          
-                            <div class="col" id="droite">
-                                <div class="col-md-4 mb-3">
-                                    <label for="type">Type</label>
-                                      <input type="text" ngModel name="type" class="form-control" id="type" placeholder="type" aria-describedby="inputGroupPrepend" required>
-                                </div>
-                      
-                                <div class="col-md-3 mb-3">
-                                  <label for="nomDG">Nom du directeur géneral</label>
-                                  <input type="text" ngModel name="nomDG" class="form-control" id="nomDG" placeholder="Directeur general" required>
-                                </div>
-                                <div class="col-md-3 mb-3">
-                                  <label for="telDG">Tel u Direceur general</label>
-                                  <input type="number" ngModel name="telDG" class="form-control" id="telDG" placeholder="Tel directeur general" required>
-                                </div>
-                      
-                                <div class="col-md-3 mb-3">
-                                  <label for="emailDG">Email du DG</label>
-                                  <input type="email" ngModel name="emailDG" class="form-control" id="emailDG" placeholder="Email DG" required>
-                                </div>
-                      
-                                <div class="col-md-3 mb-3">
-                                  <label for="nomAdmin">Nom Admin</label>
-                                  <input type="text" ngModel name="nomAdmin" class="form-control" id="nomAdmin" placeholder="Nom Admin" required>
-                                </div>
-                      
-                                <div class="col-md-3 mb-3">
-                                  <label for="telAdmin">Tel Admin</label>
-                                  <input type="number" ngModel name="telAdmin" class="form-control" id="telAdmin" placeholder="Tel Admin" required>
-                                </div>
-                      
-                                <div class="col-md-3 mb-3">
-                                  <label for="emailAdmin">Email Admin</label>
-                                  <input type="email" ngModel name="emailAdmin" class="form-control" id="emailAdmin" placeholder="Email Admin" required>
-                                </div>
-                              
-        
-                             
-                      
-                               
-                            </div>
-
-                    </div>
-                   
-                 
-                  <button class="btn btn-primary" type="submit">Associer l'entreprise</button>
-                </form>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6">
+            <div><h1 style="font-family:Marker Felt, fantasy; font-size: 28px; color:darkred;">Chercher les entreprises qui vous interesse</h1></div>
+            <form class="d-flex">
+              <input class="form-control" type="search" [(ngModel)]="terme"
+              name="terme" id="searchEntreprise" placeholder="Search" aria-label="Search" width="50px">
+              <img src="https://cdn-icons.flaticon.com/png/512/1022/premium/1022082.png?token=exp=1647332886~hmac=a261acc1d25def0e6d24956a03176da0" height="75px" width="75px">
+            </form>
           </div>
-      </div>
-      <br>
-      <table class="table table-success table-striped">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Non entreprise </th>
-            <th scope="col">Code</th>
-            <th scope="col">Secteur d'activité</th>
-            <th scope="col">Email</th>
-            <th scope="col">Pays</th>
-            <th scope="col">Région</th>
-            <th scope="col">Adresse</th>
-            <th scope="col">Télephone</th>
-            <th scope="col">Type</th>
-            <th scope="col">Nom DG</th>
-            <th scope="col">Tel DG</th>
-            <th scope="col">Email DG</th>
-            <th scope="col">Nom Admin</th>
-            <th scope="col">Tel Admin</th>
-            <th scope="col">Email Admin</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let e of entreprises,let i= index">
-            <th scope="row">{{i}}</th>
-            <td>{{e.nom}}</td>
-            <td>{{e.code}}</td>
-            <td>{{e.secteur_d_activite}}</td>
-            <td>{{e.email}}</td>
-            <td>{{e.pays}}</td>
-            <td>{{e.region}}</td>
-            <td>{{e.adresse}}</td>
-            <td>{{e.tel}}</td>
-            <td>{{e.type}}</td>
-            <td>{{e.nomDG}}</td>
-            <td>{{e.telDG}</td>
-            <td>{{e.emailDG}}</td>
-            <td>{{e.nomAdmin}}</td>
-            <td>{{e.telAdmin}}</td>
-            <td>{{e.emailAdmin}}</td>
-          </tr>
-        </tbody>
-      </table>
+    </div>
+    <br>
+    <!--espace pour la liste des articles ajoutés-->
+   
+      <div>
+        <table class="table table-danger table-hover table-striped">
+          <thead>
+            <tr>
+              <th scope="col" class="bg-danger">#</th>
+              <th scope="col" class="bg-danger">Nom</th>
+              <th scope="col" class="bg-danger">Code</th>
+              <th scope="col" class="bg-danger">Secteur d'activité preferée</th>
+              <th scope="col" class="bg-danger">Pays</th>
+              <th scope="col" class="bg-danger">Region</th>
+              <th scope="col" class="bg-danger">Adresse</th>
+              <th scope="col" class="bg-danger">Email</th>
+              <th scope="col" class="bg-danger">Tel</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let entrep of organs | filter:terme | paginate : {
+                itemsPerPage:4,
+                currentPage:page,
+                totalItems:totalLength
+                }
+                ,let i= index">
+              <th scope="row">{{i}}</th>
+              <td>{{entrep.nom}}</td>
+              <td>{{entrep.code}}</td>
+              <td>{{entrep.secteur_d_activite}}</td>
+              <td>{{entrep.pays}}</td>
+              <td>{{entrep.region}}</td>
+              <td>{{entrep.adresse}}</td>
+              <td>{{entrep.email}}</td>
+              <td>{{entrep.tel}}</td>
+             
+              
+            </tr>
+          </tbody>
+         
+        </table>
+        <pagination-controls (pageChange)="page = $event" class="text-center entreprisePagination"></pagination-controls>
+    </div>
+        
 </div>
+
 

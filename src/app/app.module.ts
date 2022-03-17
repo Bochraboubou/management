@@ -20,6 +20,11 @@ import { MarcheeComponent } from './espaceMyCPM/marchee/marchee.component';
 import { DetailOrganisationComponent } from './espaceMyCPM/detail-organisation/detail-organisation.component';
 import { EntreprisesComponent } from './espaceMyCPM/entreprises/entreprises.component';
 import { ArticlespecifieeComponent } from './espaceMyCPM/articlespecifiee/articlespecifiee.component';
+import { LoginComponent } from './Inscription/login/login.component';
+import { RegisterComponent } from './Inscription/register/register.component';
+import { DemandeComponent } from './Inscription/demande/demande.component';
+import { FirstPageComponent } from './Inscription/first-page/first-page.component';
+import { ListeDemandesComponent } from './Inscription/liste-demandes/liste-demandes.component';
 
 
 @NgModule({
@@ -36,6 +41,11 @@ import { ArticlespecifieeComponent } from './espaceMyCPM/articlespecifiee/articl
     DetailOrganisationComponent,
     EntreprisesComponent,
     ArticlespecifieeComponent,
+    LoginComponent,
+    RegisterComponent,
+    DemandeComponent,
+    FirstPageComponent,
+    ListeDemandesComponent,
    
   ],
   imports: [

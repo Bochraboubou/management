@@ -145,7 +145,7 @@
           <td>{{bc.nomEntrep}}</td>
           <td><button type="button" [ngClass]="{'btn btn-success':bc.valide ,'btn btn-danger':!bc.valide}" (click)="onOpenArticlesModal(i)">Spécifier les articles</button></td>
           <td><button type="button" id="validerCommandeButton" class="btn btn-primary" (click)="validerArticles(newMarchee.listeBondeCommandes[i])" style="background-color: midnightblue;" [disabled]="bc.valide" >Valider la BC</button></td>
-          <td><button type="button" class="btn btn-dark" ><i class="fa fa-print" aria-hidden="true"></i></button></td>
+          <td><button type="button" class="btn btn-dark"  printSectionId="printedBC" ngxPrint ><i class="fa fa-print" aria-hidden="true"></i></button></td>
           
         </tr>
       </tbody>
@@ -413,6 +413,10 @@
 </div>
 </div>
 </div>
+</div>
+
+<div id="printedBC">
+<h1>Hello bochra keep success you will did it</h1>
 </div>
 
 

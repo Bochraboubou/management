@@ -17,7 +17,7 @@ import { MenuComponent } from './menu/menu.component';
 import { OrganisationComponent } from './organisation/organisation.component';
 
 const routes: Routes = [
-  {path:'',component:FirstPageComponent},
+  {path:'',component:MenuMycpmComponent},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
   {path:'Demande',component:DemandeComponent},

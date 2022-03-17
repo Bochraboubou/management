@@ -58,6 +58,7 @@ export class MarcheeComponent implements OnInit {
   page:number = 1;
   listeUniteesMontant:string[] = ["Dollar américain (USD)","Euro (EUR)","Yen japonais (JPY)","Livre sterling (GBP)","Dollar australien (AUD)","Dinar tunisien","Dinar Koweïtien (KWD)","Dinar Bahreïni (BHD)","Rial omanais (OMR)","Dinar Jordanien (JOD)"];
   alerteArticleExisteDeja:boolean=false;
+  printedBCommande!: BondeCommande;
   
 
  
@@ -487,9 +488,14 @@ public getArticlesByMetier(idMetier:number){
 })  
 
 }
-
+//event lors de chois du metier pour recuperer la liste d'articles par metier
 ArticlesByMetier(metierId:number){
   this.getArticlesByMetier(metierId);
+}
+
+public printBC(indiceP :number){
+  console.log("take the BC to print ....");
+  this.printedBCommande = this.newMarchee?.listeBondeCommandes[indiceP];
 }
   
    

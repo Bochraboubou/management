@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { NgxPaginationModule } from 'ngx-pagination';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
@@ -25,6 +23,9 @@ import { RegisterComponent } from './Inscription/register/register.component';
 import { DemandeComponent } from './Inscription/demande/demande.component';
 import { FirstPageComponent } from './Inscription/first-page/first-page.component';
 import { ListeDemandesComponent } from './Inscription/liste-demandes/liste-demandes.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgxPrintModule } from 'ngx-print';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { ListeDemandesComponent } from './Inscription/liste-demandes/liste-deman
     FormsModule,
     HttpClientModule,
     NgxPaginationModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    NgxPrintModule
     
   ],
   providers: [],

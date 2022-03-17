@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { NgxPaginationModule } from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
@@ -18,8 +20,6 @@ import { MarcheeComponent } from './espaceMyCPM/marchee/marchee.component';
 import { DetailOrganisationComponent } from './espaceMyCPM/detail-organisation/detail-organisation.component';
 import { EntreprisesComponent } from './espaceMyCPM/entreprises/entreprises.component';
 import { ArticlespecifieeComponent } from './espaceMyCPM/articlespecifiee/articlespecifiee.component';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 @NgModule({

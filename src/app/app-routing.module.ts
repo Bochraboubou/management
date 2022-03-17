@@ -7,15 +7,26 @@ import { ArticlespecifieeComponent } from './espaceMyCPM/articlespecifiee/articl
 import { DetailOrganisationComponent } from './espaceMyCPM/detail-organisation/detail-organisation.component';
 import { EntreprisesComponent } from './espaceMyCPM/entreprises/entreprises.component';
 import { MarcheeComponent } from './espaceMyCPM/marchee/marchee.component';
+import { DemandeComponent } from './Inscription/demande/demande.component';
+import { FirstPageComponent } from './Inscription/first-page/first-page.component';
+import { ListeDemandesComponent } from './Inscription/liste-demandes/liste-demandes.component';
+import { LoginComponent } from './Inscription/login/login.component';
+import { RegisterComponent } from './Inscription/register/register.component';
 import { MenuMycpmComponent } from './menu-mycpm/menu-mycpm.component';
 import { MenuComponent } from './menu/menu.component';
 import { OrganisationComponent } from './organisation/organisation.component';
 
 const routes: Routes = [
-  { path:'',component:MenuComponent,children:[
+  {path:'',component:FirstPageComponent},
+  {path:'login',component:LoginComponent},
+  {path:'register',component:RegisterComponent},
+  {path:'Demande',component:DemandeComponent},
+  { path:'cpm/:id',component:MenuComponent,children:[
     { path:'addOrganisation',component:AjouterOrganisationComponent},
     { path:'organisations',component:OrganisationComponent},
-    { path:'detail',component:DetailComponent}
+    { path:'detail',component:DetailComponent},
+    {path:'Demande',component:DemandeComponent},
+    {path:'listeDemande',component:ListeDemandesComponent},
 
   ]},
   { path:'mycpm',component:MenuMycpmComponent,children:[

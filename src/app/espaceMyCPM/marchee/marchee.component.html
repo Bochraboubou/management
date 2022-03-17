@@ -79,11 +79,22 @@
             <input type="number" [(ngModel)]="newMarchee.montant" name="montant" class="form-control" id="montant" placeholder="en dinars"  required>
          </div>
  
+         <div class="col-md-4">
+          <label for="unitee" style="color: darkred;"> Unitee</label>
+          <select ngModel name="unitee" id="uniteeMontant" class="form-select" placeholder="unitee" aria-label="Default select example" required>
+            <!--<option selected>choisir une option</option>-->
+            <option   *ngFor="let unitee of listeUniteesMontant"
+            [value]="unitee">
+            {{unitee}}
+          </option>
+          </select>
+        </div>
+         </div>
+
          <div class="col-md-4 mb-3">
-            <label for="delais">Delais</label>
-            <input type="number" [(ngModel)]="newMarchee.delais" name="delais"  class="form-control" id="delais" placeholder="en jours"  required>
-         </div>
-         </div>
+          <label for="delais">Delais</label>
+          <input type="number" [(ngModel)]="newMarchee.delais" name="delais"  class="form-control" id="delais" placeholder="en jours"  required>
+       </div>
           <br>
 
           <div>
@@ -133,8 +144,8 @@
           <td>{{bc.delais}}</td>
           <td>{{bc.nomEntrep}}</td>
           <td><button type="button" [ngClass]="{'btn btn-success':bc.valide ,'btn btn-danger':!bc.valide}" (click)="onOpenArticlesModal(i)">Spécifier les articles</button></td>
-          <td><button type="button" class="btn btn-primary" (click)="validerArticles(newMarchee.listeBondeCommandes[i])" style="background-color: midnightblue;">Valider la BC</button></td>
-          <td><button type="button" class="btn btn-dark">Imrimer</button></td>
+          <td><button type="button" id="validerCommandeButton" class="btn btn-primary" (click)="validerArticles(newMarchee.listeBondeCommandes[i])" style="background-color: midnightblue;" [disabled]="bc.valide" >Valider la BC</button></td>
+          <td><button type="button" class="btn btn-dark" ><i class="fa fa-print" aria-hidden="true"></i></button></td>
           
         </tr>
       </tbody>
@@ -146,7 +157,7 @@
   <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
 </div>
 <div *ngIf="alerteDelaisBCs" class="alert alert-danger alert-dismissible fade show" role="alert">
-  <strong>Attention</strong> le delais total des bondes commandes est different du delais du marchee
+  <strong>Attention</strong> le delai maximale des bon_de commandes est superieur au delais du marchee
   <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
 </div>
 
@@ -250,46 +261,54 @@
                       <div class="tab-pane fade" id="pills-cloud" role="tabpanel" aria-labelledby="pills-cloud-tab">
                         <form #addArticleForm="ngForm">
 
-                        <div class="row">
-                          <label for="montant">Code</label>
-                          <div class="col-md-4">
-                            <input type="text" [(ngModel)]="codeArticle" name="code"  class="form-control" id="code" placeholder="code" (keyup.enter)="getArticleByCode(codeArticle)" autocomplete="off" required>
+                        <fieldset [disabled]="newMarchee.listeBondeCommandes[indiceBC]?.valide">
+                          <div class="row">
+                            <label for="montant">Code</label>
+                            <div class="col-md-4">
+                              <input type="text" [(ngModel)]="codeArticle" name="code"  class="form-control" id="code" placeholder="code" (keyup.enter)="getArticleByCode(codeArticle)" autocomplete="off" required>
+                            </div>
+                            
+                           <!-- <div class="col-md-4">
+                              <button type="button" class="btn btn-warning" (click)="getArticleByCode(codeArticle)">OK</button>
+                            </div>
+                          -->
                           </div>
-                          
-                          <div class="col-md-4">
-                            <button type="button" class="btn btn-warning" (click)="getArticleByCode(codeArticle)">OK</button>
+  
+                          <div class="row">
+                            <div class="col-md-4">
+                              <label for="designation">Designation</label>
+                              <input type="text" ngModel  name="designation"  class="form-control" id="designationArtc" placeholder="designation" readonly>
+                            </div>
+                        
+                            <div class="col-md-4">
+                              <label for="unitee">Unité</label>
+                              <input type="text" ngModel  name="unitee"  class="form-control" id="unitee" placeholder="unitee" readonly>
+                            </div>
+                            <div class="col-md-4">
+                              <button type="button" class="btn btn-secondary" (click)="resetForm(addArticleForm)">Reset form</button>
+                            </div>
                           </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-md-4">
-                            <label for="designation">Designation</label>
-                            <input type="text" ngModel  name="designation"  class="form-control" id="designationArtc" placeholder="designation" readonly>
+  
+                          <div class="row">
+                            <div class="col-md-4">
+                              <label for="delais">Prix</label>
+                              <input type="number" ngModel name="prix"  class="form-control" id="prix" placeholder="prix" required>
+                            </div>
+                            <div class="col-md-4">
+                              <label for="delais">Quantitée</label>
+                              <input type="number" ngModel name="quantitee"  class="form-control" id="quantitee" placeholder="quantitee" required>
+                            </div>
                           </div>
-                      
-                          <div class="col-md-4">
-                            <label for="unitee">Unité</label>
-                            <input type="text" ngModel  name="unitee"  class="form-control" id="unitee" placeholder="unitee" readonly>
-                          </div>
-                          <div class="col-md-4">
-                            <button type="button" class="btn btn-secondary" (click)="resetForm(addArticleForm)">Reset form</button>
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-md-4">
-                            <label for="delais">Prix</label>
-                            <input type="text" ngModel name="prix"  class="form-control" id="prix" placeholder="prix" required>
-                          </div>
-                          <div class="col-md-4">
-                            <label for="delais">Quantitée</label>
-                            <input type="text" ngModel name="quantitee"  class="form-control" id="quantitee" placeholder="quantitee" required>
-                          </div>
-                        </div>
+                        </fieldset>
                         <br>
 
                         <div *ngIf="alerteCodeArticleIncorrecte" class="alert alert-danger alert-dismissible fade show" role="alert">
                           <strong>Attention</strong> code incorecte ou metier inspécifié
+                          <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+                        </div>
+
+                        <div *ngIf="alerteArticleExisteDeja" class="alert alert-danger alert-dismissible fade show" role="alert">
+                          <strong>Attention</strong> cet article est deja ajoutee dans cette bonde commande
                           <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
                         </div>
 
@@ -395,6 +414,10 @@
 </div>
 </div>
 </div>
+
+
+
+
 
 
 

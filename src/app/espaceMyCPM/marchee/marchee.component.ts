@@ -56,8 +56,8 @@ export class MarcheeComponent implements OnInit {
   key:any;
   totalLength:any;
   page:number = 1;
-  
-
+  listeUniteesMontant:string[] = ["Dollar américain (USD)","Euro (EUR)","Yen japonais (JPY)","Livre sterling (GBP)","Dollar australien (AUD)","Dinar tunisien","Dinar Koweïtien (KWD)","Dinar Bahreïni (BHD)","Rial omanais (OMR)","Dinar Jordanien (JOD)"];
+  alerteArticleExisteDeja:boolean=false;
   
 
  
@@ -278,9 +278,25 @@ export class MarcheeComponent implements OnInit {
     newArt.id=this.newArticle.id;
     newArt.designation=this.newArticle.designation;
     newArt.unitee=this.newArticle.unitee;
-    this.newMarchee.listeBondeCommandes[this.indiceBC].listeArticles.push(newArt);
-   // this.newMarchee.listeBondeCommandes[this.indiceBC].montant += (newArt.prix*newArt.quantitee);
-    addArticleForm.reset();
+    if(this.testExistArticleBC(newArt,this.newMarchee.listeBondeCommandes[this.indiceBC].listeArticles)){
+      this.newMarchee.listeBondeCommandes[this.indiceBC].listeArticles.push(newArt);
+      // this.newMarchee.listeBondeCommandes[this.indiceBC].montant += (newArt.prix*newArt.quantitee);
+       addArticleForm.reset();
+    }else{
+      this.alerteArticleExisteDeja=true;
+
+    }
+  }
+
+  //tester si l'article est deja ajoutee dans la bondeCommande
+  public testExistArticleBC(article:Article,listeArticles:Article[]):boolean{
+    for (let i = 0; i < listeArticles?.length; i++){
+      if(article?.code == listeArticles[i]?.code){
+        return false;
+      }
+    }
+    return true;
+
   }
 
 
@@ -298,7 +314,8 @@ export class MarcheeComponent implements OnInit {
    if(bondeCom.montant == this.calculTotalArticles(bondeCom.listeArticles))
    {
      bondeCom.valide=true;
-     document.getElementById('add-article-bComm')?.click();
+     //(<HTMLInputElement>document.getElementById("validerCommandeButton")).innerText="Commande validée"
+    // document.getElementById('add-article-bComm')?.click();
    }
    else{
     this.alerteTotalArticles=true;
@@ -332,6 +349,7 @@ public closeAlert():void{
   this.alerteTotalArticles=false;
   this.alerteMontantBCs=false;
   this.alerteDelaisBCs=false;
+  this.alerteArticleExisteDeja=false;
  
 }
 
@@ -350,11 +368,13 @@ public validerMontantMarchee(marchee:Marchee):boolean{
 }
 
   public validerDelaisMarchee(marchee:Marchee):boolean{
-    let delaisTotalBCs : number =0;
+    let maxDelais = marchee.listeBondeCommandes[0].delais;
     for (let i = 0; i < marchee.listeBondeCommandes.length; i++){
-      delaisTotalBCs +=  marchee.listeBondeCommandes[i].delais;
+      if(marchee.listeBondeCommandes[i].delais > maxDelais){
+        maxDelais = marchee.listeBondeCommandes[i].delais;
+      }
     }
-    if(delaisTotalBCs == marchee.delais){
+    if(maxDelais <= marchee.delais){
       return true;
     }
     else{

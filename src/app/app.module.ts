@@ -28,6 +28,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPrintModule } from 'ngx-print';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,

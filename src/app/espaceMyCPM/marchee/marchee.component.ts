@@ -59,6 +59,7 @@ export class MarcheeComponent implements OnInit {
   listeUniteesMontant:string[] = ["Dollar américain (USD)","Euro (EUR)","Yen japonais (JPY)","Livre sterling (GBP)","Dollar australien (AUD)","Dinar tunisien","Dinar Koweïtien (KWD)","Dinar Bahreïni (BHD)","Rial omanais (OMR)","Dinar Jordanien (JOD)"];
   alerteArticleExisteDeja:boolean=false;
   printedBCommande!: BondeCommande;
+  printMarchee!: any;
   
 
  
@@ -493,9 +494,20 @@ ArticlesByMetier(metierId:number){
   this.getArticlesByMetier(metierId);
 }
 
-public printBC(indiceP :number){
+public printBC(indiceP :number,printMarcheeForm:NgForm):void{
   console.log("take the BC to print ....");
-  this.printedBCommande = this.newMarchee?.listeBondeCommandes[indiceP];
+  const container=document.getElementById('main-container');
+    const button=document.createElement('button');
+    button.type='button';
+    button.style.display='none';
+    button.setAttribute('data-toggle','modal');
+    this.printedBCommande = this.newMarchee.listeBondeCommandes[indiceP];
+    this.printMarchee = printMarcheeForm.value;
+    button.setAttribute('data-target','#printBCModal');
+    container?.appendChild(button);
+    button.click();
+  
+ 
 }
   
    

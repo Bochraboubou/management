@@ -145,7 +145,7 @@
           <td>{{bc.nomEntrep}}</td>
           <td><button type="button" [ngClass]="{'btn btn-success':bc.valide ,'btn btn-danger':!bc.valide}" (click)="onOpenArticlesModal(i)">Spécifier les articles</button></td>
           <td><button type="button" id="validerCommandeButton" class="btn btn-primary" (click)="validerArticles(newMarchee.listeBondeCommandes[i])" style="background-color: midnightblue;" [disabled]="bc.valide" >Valider la BC</button></td>
-          <td><button type="button" class="btn btn-dark"  printSectionId="printedBC" ngxPrint ><i class="fa fa-print" aria-hidden="true"></i></button></td>
+          <td><button type="button" class="btn btn-dark" (click)="printBC(i,addMarcheeForm)" [disabled]="!bc.valide"><i class="fa fa-print" aria-hidden="true"></i></button></td>
           
         </tr>
       </tbody>
@@ -204,8 +204,8 @@
               </div>
               
               <div class="modal-footer">
-                 <button type="button" id="add-entrep-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                 <button [disabled]="addBCForm.invalid" type="submit" class="btn btn-primary" (click)="addBC(addBCForm)" >Save</button>
+                 <button type="button" id="add-entrep-form" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                 <button [disabled]="addBCForm.invalid" type="submit" class="btn btn-primary" (click)="addBC(addBCForm)" >Enreistrer</button>
               </div>
               </form>
       </div>
@@ -313,7 +313,7 @@
                         </div>
 
                         <div class="col-md-3 .ms-auto">
-                          <button type="button" class="btn btn-success" (click)="addNewwArticle(addArticleForm)" [disabled]="addArticleForm.invalid">Valider l'article</button>
+                          <button type="button" class="btn btn-success" (click)="addNewwArticle(addArticleForm)" [disabled]="addArticleForm.invalid">Article suivant</button>
                         </div>
                         <div class="row">
                           <div class="row"><h3 style="color: darkred;">nombre article saisies : {{newMarchee.listeBondeCommandes[indiceBC]?.listeArticles?.length}} </h3></div>
@@ -409,15 +409,123 @@
       
 <div class="modal-footer">
   <button type="button" id="add-article-bComm" class="btn btn-secondary" data-dismiss="modal">Close</button>
-  <button type="button" class="btn btn-primary" (click)="validerArticles(newMarchee.listeBondeCommandes[indiceBC])" style="background-color: midnightblue;">Valider les articles</button>
+  <button type="button" class="btn btn-primary"  style="background-color: midnightblue;" data-dismiss="modal">Enregistrer</button>
 </div>
 </div>
 </div>
 </div>
 
-<div id="printedBC">
-<h1>Hello bochra keep success you will did it jdjkchdjchduhciduchduicdhui</h1>
+
+
+<!-- Imprimer BC modal -->
+<div class="modal fade" id="printBCModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-dismisss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="printedBC">
+          <h1 style="text-align: center; font-family:Marker Felt, fantasy; color: firebrick;">Details du bon_de commande</h1>
+         <div>
+          <h1 style="text-align: center; color: navy;">1/Informations sue le marché :</h1>
+          <h3>Secteur d'activité :  {{printMarchee?.secteur_d_activite}}</h3>
+          <h3>Metier du marché :  {{printMarchee?.metier}}</h3>
+          <h3>Designation du marché :  {{printMarchee?.designation}}</h3>
+          <h3>Budget marché :  {{printMarchee?.budget}}</h3>
+          <h3>Type du marché :  {{printMarchee?.type}}</h3>
+          <h3>Montant marché :  {{printMarchee?.montant}}</h3>
+          <h3>Unitée :  {{printMarchee?.unitee}}</h3>
+          <h3>Delais du marché :  {{printMarchee?.delais}}</h3>
+         </div>
+         <div>
+          <h1 style="text-align: center; color: navy;">2/Informations sue la bon_de commande :</h1>
+          <h3>Numeros du bon_de commande :   {{printedBCommande?.numeros}}</h3>
+          <h3>Montant du bon_de commande :  {{printedBCommande?.montant}}</h3>
+          <h3>Delais du bon_de commande :  {{printedBCommande?.delais}}</h3>
+          <h3>Entreprise :  {{printedBCommande?.nomEntrep}}</h3>
+         </div>
+         <div>
+          <h1 style="text-align: center; color: navy;">3/Articles spécifiées</h1> 
+          <table class="table table-success table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Code</th>
+                <th scope="col">designation</th>
+                <th scope="col">unitee</th>
+                <th scope="col">prix</th>
+                <th scope="col">quantitee</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let art of printedBCommande?.listeArticles,let i= index">
+                <th scope="row">{{i}}</th>
+                <td>{{art.code}}</td>
+                <td>{{art.designation}}</td>
+                <td>{{art.unitee}}</td>
+                <td>{{art.prix}}</td>
+                <td>{{art.quantitee}}</td>
+                
+              </tr>
+            </tbody>
+          </table>
+         </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button"  class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-dark" [useExistingCss]="true" printTitle="Detail Bon_de commande" printSectionId="printedBC" ngxPrint>Imprimer</button>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+
+<!-- modifier article modal -->
+<!--<div class="modal fade" id="editArticleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLongTitle">Ajouter une Entreprise</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #editArticleForm="ngForm">
+            <div class="col-md-4">
+              <label for="codeEditArticle"></label>
+              <input type="text" ngModel  name="codeEditArticle"  class="form-control" id="codeEditArticle" placeholder="code de l'article à modifier" readonly>
+            </div>
+        
+            <div class="col-md-4">
+              <label for="delais">Prix</label>
+              <input type="number" ngModel name="prix"  class="form-control" id="prix" placeholder="prix" required>
+            </div>
+            <div class="col-md-4">
+              <label for="delais">Quantitée</label>
+              <input type="number" ngModel name="quantitee"  class="form-control" id="quantitee" placeholder="quantitee" required>
+            </div>
+         
+        </form>
+         
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="edit-Article-form" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        <button [disabled]="editArticleForm".invalid type="submit" class="btn btn-primary">Enreistrer les modifications</button>
+     </div>
+    </div>
+  </div>
+</div>-->
+
+
+
+
+
+
 
 
 

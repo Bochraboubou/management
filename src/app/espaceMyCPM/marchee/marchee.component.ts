@@ -60,6 +60,8 @@ export class MarcheeComponent implements OnInit {
   alerteArticleExisteDeja:boolean=false;
   printedBCommande!: BondeCommande;
   printMarchee!: any;
+  editArticleIndice!: number;
+  modifiedArticle!: Article;
   
 
  
@@ -110,6 +112,21 @@ export class MarcheeComponent implements OnInit {
     button.click();
 
   }
+
+  //Modal pour modifier le prix ou la quantitee d'un article s'il sont incorrecte
+  public onOpenEditArticleModal(indiceArticle:number):void{
+    const container=document.getElementById('main-container');
+     const button=document.createElement('button');
+     button.type='button';
+     button.style.display='none';
+     button.setAttribute('data-toggle','modal');
+     this.editArticleIndice = indiceArticle;
+     this.modifiedArticle = this.newMarchee.listeBondeCommandes[this.indiceBC].listeArticles[this.editArticleIndice];
+     button.setAttribute('data-target','#editArticleModal');
+     container?.appendChild(button);
+     button.click();
+ 
+   }
   
 
   //récuperer l'organisation ,le secteur d'activité et la liste des metiers relatives
@@ -508,6 +525,13 @@ public printBC(indiceP :number,printMarcheeForm:NgForm):void{
     button.click();
   
  
+}
+
+public editArticle(modifierArticleForm:NgForm){
+  this.newMarchee.listeBondeCommandes[this.indiceBC].listeArticles[this.editArticleIndice].prix = modifierArticleForm.value.prixEditArticle;
+  this.newMarchee.listeBondeCommandes[this.indiceBC].listeArticles[this.editArticleIndice].quantitee = modifierArticleForm.value.quantiteeEditArticle;
+  document.getElementById('closeEditArticleButton')?.click();
+  modifierArticleForm.reset();
 }
   
    

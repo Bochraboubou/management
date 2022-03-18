@@ -285,7 +285,7 @@
                               <input type="text" ngModel  name="unitee"  class="form-control" id="unitee" placeholder="unitee" readonly>
                             </div>
                             <div class="col-md-4">
-                              <button type="button" class="btn btn-secondary" (click)="resetForm(addArticleForm)">Reset form</button>
+                              <button type="button" class="btn btn-secondary" (click)="resetForm(addArticleForm)"><i class="fa fa-refresh" aria-hidden="true"></i></button>
                             </div>
                           </div>
   
@@ -343,14 +343,14 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr *ngFor="let art of newMarchee.listeBondeCommandes[indiceBC]?.listeArticles,let i= index">
-                                <th scope="row">{{i}}</th>
+                              <tr *ngFor="let art of newMarchee.listeBondeCommandes[indiceBC]?.listeArticles,let j= index">
+                                <th scope="row">{{j}}</th>
                                 <td>{{art.code}}</td>
                                 <td>{{art.designation}}</td>
                                 <td>{{art.unitee}}</td>
                                 <td>{{art.prix}}</td>
                                 <td>{{art.quantitee}}</td>
-                                <td><button type="button" class="btn btn-danger">modifier</button></td>
+                                <td><button type="button" class="btn btn-danger" (click)="onOpenEditArticleModal(j)" [disabled]="newMarchee.listeBondeCommandes[indiceBC]?.valide">modifier</button></td>
                                 
                               </tr>
                             </tbody>
@@ -422,14 +422,14 @@
   <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Informations du commande à imprimer</h5>
         <button type="button" class="btn-close" data-dismisss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div id="printedBC">
           <h1 style="text-align: center; font-family:Marker Felt, fantasy; color: firebrick;">Details du bon_de commande</h1>
          <div>
-          <h1 style="text-align: center; color: navy;">1/Informations sue le marché :</h1>
+          <h1 style="text-align: center; color: navy;">1/Informations sur le marché :</h1>
           <h3>Secteur d'activité :  {{printMarchee?.secteur_d_activite}}</h3>
           <h3>Metier du marché :  {{printMarchee?.metier}}</h3>
           <h3>Designation du marché :  {{printMarchee?.designation}}</h3>
@@ -485,41 +485,44 @@
 
 
 <!-- modifier article modal -->
-<!--<div class="modal fade" id="editArticleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="editArticleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
+    <div class="modal-content" style="background-color:darkgrey">
       <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLongTitle">Ajouter une Entreprise</h3>
+        <h3 class="modal-title" id="exampleModalLongTitle">modifier l'article</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <form #editArticleForm="ngForm">
-            <div class="col-md-4">
-              <label for="codeEditArticle"></label>
-              <input type="text" ngModel  name="codeEditArticle"  class="form-control" id="codeEditArticle" placeholder="code de l'article à modifier" readonly>
-            </div>
-        
-            <div class="col-md-4">
-              <label for="delais">Prix</label>
-              <input type="number" ngModel name="prix"  class="form-control" id="prix" placeholder="prix" required>
-            </div>
-            <div class="col-md-4">
-              <label for="delais">Quantitée</label>
-              <input type="number" ngModel name="quantitee"  class="form-control" id="quantitee" placeholder="quantitee" required>
-            </div>
+          <div>
+           <label for="codeEditArticle">Code</label>
+           <input type="text" ngModel="{{modifiedArticle?.code}}" name="codeEditArticle"  class="form-control" id="codeEditArticle" placeholder="code d'article à modifier" readonly required>
+         </div>
          
-        </form>
-         
+         <div>
+           <label for="delais">Prix</label>
+           <input type="number" ngModel="{{modifiedArticle?.prix!}}"  name="prixEditArticle"  class="form-control" id="prixEditArticle" placeholder="prixArticle" required>
+         </div>
+
+         <div>
+           <label for="quantiteeEditArticle">delais</label>
+           <input type="number" ngModel="{{modifiedArticle?.quantitee}}"  name="quantiteeEditArticle"  class="form-control" id="quantiteeEditArticle" placeholder="montantArticle" required>
+         </div>
+
+         <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="closeEditArticleButton" data-dismiss="modal">Fermer</button>
+          <button [disabled]="editArticleForm.invalid" type="submit" class="btn btn-primary" (click)="editArticle(editArticleForm)">Enreistrer</button>
+       </div>
+
+         </form>
+     
       </div>
-      <div class="modal-footer">
-        <button type="button" id="edit-Article-form" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-        <button [disabled]="editArticleForm".invalid type="submit" class="btn btn-primary">Enreistrer les modifications</button>
-     </div>
+     
     </div>
   </div>
-</div>-->
+</div>
 
 
 

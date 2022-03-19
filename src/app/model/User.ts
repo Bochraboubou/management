@@ -5,8 +5,8 @@ import { Role } from "./Role";
     email!: String;
     password!: string;
     username!: string;
-     code_org!: string;
-     roles!:Array<Role>;
+    code!: number;
+    roles!:Array<Role>;
      
 
      

@@ -1,69 +1,357 @@
+
+
+
 body{
-    background:#eee;    
+  background:#eee;    
 }
 .main-box.no-header {
-    padding-top: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
+  padding-top: 20px;
 }
 .main-box {
-    background: #FFFFFF;
-    -webkit-box-shadow: 1px 1px 2px 0 #CCCCCC;
-    -moz-box-shadow: 1px 1px 2px 0 #CCCCCC;
-    -o-box-shadow: 1px 1px 2px 0 #CCCCCC;
-    -ms-box-shadow: 1px 1px 2px 0 #CCCCCC;
-    box-shadow: 1px 1px 2px 0 #CCCCCC;
-    margin-bottom: 16px;
-    -webikt-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
+  background: #FFFFFF;
+  -webkit-box-shadow: 1px 1px 2px 0 #CCCCCC;
+  -moz-box-shadow: 1px 1px 2px 0 #CCCCCC;
+  -o-box-shadow: 1px 1px 2px 0 #CCCCCC;
+  -ms-box-shadow: 1px 1px 2px 0 #CCCCCC;
+  box-shadow: 1px 1px 2px 0 #CCCCCC;
+  margin-bottom: 16px;
+  -webikt-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
 }
 .table a.table-link.danger {
-    color: #e74c3c;
+  color: #e74c3c;
 }
 .label {
-    border-radius: 3px;
-    font-size: 0.875em;
-    font-weight: 600;
+  border-radius: 3px;
+  font-size: 0.875em;
+  font-weight: 600;
 }
 .user-list tbody td .user-subhead {
-    font-size: 0.875em;
-    font-style: italic;
+  font-size: 0.875em;
+  font-style: italic;
 }
 .user-list tbody td .user-link {
-    display: block;
-    font-size: 1.25em;
-    padding-top: 3px;
-    margin-left: 60px;
+  display: block;
+  font-size: 1.25em;
+  padding-top: 3px;
+  margin-left: 60px;
 }
 a {
-    color: #3498db;
-    outline: none!important;
+  color: #3498db;
+  outline: none!important;
 }
 .user-list tbody td>img {
-    position: relative;
-    max-width: 50px;
-    float: left;
-    margin-right: 15px;
+  position: relative;
+  max-width: 50px;
+  float: left;
+  margin-right: 15px;
 }
 
 .table thead tr th {
-    text-transform: uppercase;
-    font-size: 0.875em;
+  text-transform: uppercase;
+  font-size: 0.875em;
 }
 .table thead tr th {
-    border-bottom: 2px solid #e7ebee;
+  border-bottom: 2px solid #e7ebee;
 }
 .table tbody tr td:first-child {
-    font-size: 1.125em;
-    font-weight: 300;
+  font-size: 1.125em;
+  font-weight: 300;
 }
 .table tbody tr td {
-    font-size: 0.875em;
-    vertical-align: middle;
-    border-top: 1px solid #e7ebee;
-    padding: 12px 8px;
+  font-size: 0.875em;
+  vertical-align: middle;
+  border-top: 1px solid #e7ebee;
+  padding: 12px 8px;
 }
 a:hover{
 text-decoration:none;
 }
+/*
+
+.demo{
+  background-color: #0e0d0d;
+  font-family: 'Raleway', sans-serif;
+}
+.panel{
+  padding: 0;
+  border-radius: 20px;
+  border: none;
+}
+.panel .panel-heading{
+  background: #2c96d3;
+  padding: 15px;
+  border-radius: 20px 20px 0 0;
+  margin: 0;
+}
+.panel .panel-heading .title{
+  color: #fff;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 39px;
+  text-transform: capitalize;
+  margin: 0;
+}
+.panel .panel-heading .add-new{
+  color: #333;
+  background-color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 12px 8px;
+  border-radius: 5px;
+  transition: all 0.3s ease 0s;
+}
+.panel .panel-heading .add-new:hover,
+.panel .panel-heading .add-new:focus{
+  color: #fff;
+  background-color: #333;
+}
+.panel .panel-heading .btn_group{
+  background-color: #fff;
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 5px;
+}
+.panel .panel-heading .btn_group .btn{ padding: 5px 10px; }
+.panel .panel-body{ padding: 0; }
+.panel .panel-body .table thead tr th{
+  font-size: 17px;
+  font-weight: 600;
+  padding: 12px;
+}
+.panel .panel-body .table tbody tr td{
+  color: #555;
+  font-size: 15px;
+  padding: 10px 12px;
+  vertical-align: middle;
+}
+.panel .panel-body .table .user_icon{
+  width: 50px;
+  height: 50px;
+  margin: 0 5px 0 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.panel .panel-body .table .user_icon img{
+  width: 100%;
+  height: auto;
+}
+.panel .panel-body .table tbody .status{
+  padding-left: 12px;
+  position: relative;
+}
+.panel .panel-body .table tbody .status:before{
+  content: "";
+  background: #28a745;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  position: absolute;
+  top: 5px;
+  left: 0;
+}
+.panel .panel-body .table tbody .status.block:before{ background: #dc3545; }
+.panel .panel-body .table tbody .action-list{
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.panel .panel-body .table tbody .action-list li{ display: inline-block; }
+.panel .panel-body .table tbody .action-list li a{
+  color: #fff;
+  font-size: 14px;
+  transition: all 0.3s ease 0s;
+}
+.panel .panel-body .table tbody .action-list li button:hover,
+.panel .panel-body .table tbody .action-list li a:hover{
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+.panel .panel-footer{
+  background-color: transparent;
+  text-align: center;
+  padding: 15px;
+  border: none;
+}
+.pagination{ margin: 0; }
+.pagination li a{
+  color: #999;
+  background-color: #e7e7e7;
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 2px;
+  border: none;
+  transition: all 0.3s ease 0s;
+}
+.pagination li a:hover,
+.pagination li a:focus,
+.pagination li.active a{
+  color: #fff;
+  background-color: #2C96D3;
+}
+@media only screen and (max-width:767px){
+  .panel .panel-heading .title{
+      text-align: center;
+      margin: 0 0 10px;
+  }
+  .panel .panel-heading .text-right{ text-align: center; }
+}
+
+---------html
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-12">
+                            <h4 class="title">Data <span>List</span></h4>
+                        </div>
+                        <div class="col-sm-7 col-xs-12 text-right">
+                            <div class="btn_group">
+                                <span class="label label-danger">Filter:</span>
+                                <button type="button" class="btn btn-warning" title="Blocked"><i class="fa fa-ban"></i></button> 
+                                <button type="button" class="btn btn-success" title="Active"><i class="fa fa-check-square"></i></button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Photo</th>
+                                <th>Full Name</th>
+                                <th>Age</th>
+                                <th>Status</th>
+                                <th>Job Title</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="user_icon">
+                                        <img src="images/img1.jpg" alt="">
+                                    </div>  
+                                </td>
+                                <td>Vincent Williamson</td>
+                                <td>31</td>
+                                <td><span class="status">Active</span></td>
+                                <td>iOS Developer</td>
+                                <td>
+                                    <ul class="action-list">
+                                        <li><button type="button" class="btn btn-warning"><i class="fa fa-ban"></i></button></li>
+                                        <li><a href="#" class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a></li>
+                                        <li><a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user_icon">
+                                        <img src="images/img2.jpg" alt="">
+                                    </div>
+                                </td>
+                                <td>Taylor Reyes</td>
+                                <td>22</td>
+                                <td><span class="status block">Blocked</span></td>
+                                <td>UI/UX Developer</td>
+                                <td>
+                                    <ul class="action-list">
+                                        <li><button type="button" class="btn btn-success"><i class="fa fa-check-square"></i></button></li>
+                                        <li><a href="#" class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a></li>
+                                        <li><a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user_icon">
+                                        <img src="images/img3.jpg" alt="">
+                                    </div> 
+                                </td>
+                                <td>Justin Block</td>
+                                <td>26</td>
+                                <td><span class="status">Active</span></td>
+                                <td>Frontend Developer</td>
+                                <td>
+                                    <ul class="action-list">
+                                        <li><button type="button" class="btn btn-warning"><i class="fa fa-ban"></i></button></li>
+                                        <li><a href="#" class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a></li>
+                                        <li><a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user_icon">
+                                        <img src="images/img4.png" alt="">
+                                    </div>
+                                </td>
+                                <td>Sean Guzman</td>
+                                <td>26</td>
+                                <td><span class="status block">Blocked</span></td>
+                                <td>Web Designer</td>
+                                <td>
+                                    <ul class="action-list">
+                                        <li><button type="button" class="btn btn-success"><i class="fa fa-check-square"></i></button></li>
+                                        <li><a href="#" class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a></li>
+                                        <li><a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user_icon">
+                                        <img src="images/img5.jpg" alt="">
+                                    </div>
+                                </td>
+                                <td>Keith Carter</td>
+                                <td>20</td>
+                                <td><span class="status">Active</span></td>
+                                <td>Graphic Designer</td>
+                                <td>
+                                    <ul class="action-list">
+                                        <li><button type="button" class="btn btn-warning"><i class="fa fa-ban"></i></button></li>
+                                        <li><a href="#" class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a></li>
+                                        <li><a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <!-- <div class="col col-sm-6 col-xs-8">Showing <b>5</b> out of <b>25</b> entries</div> -->
+                        <div class="col-sm-12">
+                            <ul class="pagination hidden-xs">
+                                <li><a href="#">Prev</a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">Next</a></li>
+                            </ul>
+                            <ul class="pagination visible-xs">
+                                <li><a href="#"><</a></li>
+                                <li><a href="#">></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+*/

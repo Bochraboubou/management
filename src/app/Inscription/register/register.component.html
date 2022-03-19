@@ -44,9 +44,9 @@
 
                       <div class="col-12">
                         <label for="yourEmail" class="form-label">Your code organization</label>
-                        <input type="text" name="code_org" class="form-control" id="yourEmail"  [(ngModel)]="user.code_org" required 
-                        #code_org="ngModel" 
-                        [class.is-invalid]="code_org.invalid && code_org.touched">
+                        <input type="text" name="organisation" class="form-control" id="yourEmail"  [(ngModel)]="user.code" required 
+                        #code="ngModel" 
+                        [class.is-invalid]="code.invalid && code.touched">
                         <div class="invalid-feedback">Please enter a valid code !</div>
                       </div>
   

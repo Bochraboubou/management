@@ -1,5 +1,6 @@
 
 import { Marchee } from "./Marchee";
+import { User } from "./User";
 
 export class Organisation{
     id!: number;
@@ -15,6 +16,7 @@ export class Organisation{
     nomDG!:string;
     telDG!:number;
     emailDG!:string;
+    users!:Array<User>;
     listmarchees!:Array<Marchee>;
     constructor(){}
 }

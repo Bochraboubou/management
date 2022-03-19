@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Demande } from 'src/app/model/Demande';
 import { DemandeService } from 'src/app/service/demande.service';
 
@@ -15,16 +15,22 @@ export class ListeDemandesComponent implements OnInit {
   sendDemande!:Demande;
   deleteDDemande!:Demande;
   editDemande!: Demande;
+  infoDemande!:Demande;
   nb!:number;
+  demande!:Demande;
+  taille!:number;
 v = Math.random()*(100 - 50) + 50;
-  constructor(private _servicedemande:DemandeService, private route :ActivatedRoute) { }
+  constructor(private _servicedemande:DemandeService, private router:Router) { }
 
   ngOnInit(): void {
- 
+    
     this.getListeDesDemandes();
+    
+   
   }
   public getListeDesDemandes():void
   {
+   
     this. _servicedemande.getDemandes().subscribe(
       (response:Demande[])=>{
         this.demandes=response;
@@ -120,7 +126,29 @@ v = Math.random()*(100 - 50) + 50;
          container?.appendChild(button);
           button.click();
         }
-       
 
+
+
+
+        DeleteDemande(id:number){
+          alert("vous etes sure de supprimer le demande num "+id+"?");
+          this._servicedemande.deleteDemande(id).subscribe(
+            (response: void) => {
+              console.log(response);
+              console.log("deleted");
+              this.getListeDesDemandes();
+            
+            },
+            (error: HttpErrorResponse) => {
+              alert(error.message);
+
+            }
+          );
+        
+        }
+       
+        onAfficheDetail(id:number){
+           this.router.navigate(['DemandeDetail',id])
+        }
       
 }

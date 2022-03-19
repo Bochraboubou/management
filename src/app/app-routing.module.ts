@@ -15,19 +15,24 @@ import { LoginComponent } from './Inscription/login/login.component';
 import { OneDemandeComponent } from './Inscription/one-demande/one-demande.component';
 import { RegisterComponent } from './Inscription/register/register.component';
 import { SendMailComponent } from './Inscription/send-mail/send-mail.component';
+import { WorningEmailComponent } from './Inscription/worning-email/worning-email.component';
 import { MenuMycpmComponent } from './menu-mycpm/menu-mycpm.component';
 import { MenuComponent } from './menu/menu.component';
 import { OrganisationComponent } from './organisation/organisation.component';
 
 const routes: Routes = [
-  {path:'',component:OneDemandeComponent},
-  {path:'aa',component:FirstPageComponent},
+  
+  {path:'',component:FirstPageComponent},
+  {path:'warningMail/:id',component:WorningEmailComponent},
+  {path:'DemandeDetail/:id',component:OneDemandeComponent},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
+  {path:'send/:id',component:SendMailComponent},
   {path:'Demande',component:DemandeComponent,children:[
-    {path:'inscrire',component:DoinscriptionComponent}
+    {path:'inscrire',component:DoinscriptionComponent},
+   
   ]},
-  {path:'send',component:SendMailComponent},
+  //{path:'send',component:SendMailComponent},
   { path:'cpm/:id',component:MenuComponent,children:[
     { path:'addOrganisation',component:AjouterOrganisationComponent},
     { path:'organisations',component:OrganisationComponent},
@@ -37,7 +42,7 @@ const routes: Routes = [
    
 
   ]},
-  { path:'mycpm',component:MenuMycpmComponent,children:[
+  { path:'mycpm/:id',component:MenuMycpmComponent,children:[
     { path:'marchee',component:MarcheeComponent},
     { path:'popup',component:EntreprisePopupComponent},
     { path:'detailOrganisation',component:DetailOrganisationComponent},

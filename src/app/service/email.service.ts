@@ -7,6 +7,7 @@ import { Email } from '../model/Email';
   providedIn: 'root'
 })
 export class EmailService {
+email=new Email();
 
   constructor( private _http:HttpClient) { }
 
@@ -14,8 +15,11 @@ export class EmailService {
     return this._http.post<any>("http://localhost:8085/send",mail);
   }
   */
+ //destinataire:string,objet:string,code:string
   affiche(mail:Email):Observable<Email> {
-    return this._http.post<any>("http://localhost:8085/send",mail);
+ 
+    return this._http.post<any>("http://localhost:8085/send/",mail);
     
   }
+  
 }

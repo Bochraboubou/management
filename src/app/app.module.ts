@@ -28,6 +28,7 @@ import { TableComponent } from './Inscription/table/table.component';
 import { SendMailComponent } from './Inscription/send-mail/send-mail.component';
 import { DoinscriptionComponent } from './Inscription/doinscription/doinscription.component';
 import { OneDemandeComponent } from './Inscription/one-demande/one-demande.component';
+import { WorningEmailComponent } from './Inscription/worning-email/worning-email.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { OneDemandeComponent } from './Inscription/one-demande/one-demande.compo
     SendMailComponent,
     DoinscriptionComponent,
     OneDemandeComponent,
+    WorningEmailComponent,
    
   ],
   imports: [

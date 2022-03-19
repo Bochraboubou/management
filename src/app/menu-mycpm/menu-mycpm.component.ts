@@ -1,7 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ArticleUtilisee } from '../model/ArticleUtilisee';
+import { Organisation } from '../model/Organisation';
 import { BondeCommandeService } from '../service/bonde-commande.service';
+import { OrganisationServiceService } from '../service/organisation-service.service';
 
 @Component({
   selector: 'app-menu-mycpm',
@@ -10,10 +13,22 @@ import { BondeCommandeService } from '../service/bonde-commande.service';
 })
 export class MenuMycpmComponent implements OnInit {
   artsuts!: ArticleUtilisee[];
-
-  constructor(private bcservice:BondeCommandeService) { }
+  code!:string;
+organisation!:Organisation
+org=new Organisation();
+  constructor(private bcservice:BondeCommandeService ,private route:ActivatedRoute,private organisationService:OrganisationServiceService) { }
 
   ngOnInit(): void {
+    this.code=this.route.snapshot.params['code'];
+    this.organisation=new Organisation();
+    this.organisationService.getOrganisationbyCode(this.code).subscribe(
+      data=>{
+        this.organisation=data;
+
+    }
+    )
+
+
   }
   showme():void{
       this.bcservice.getArticlesUtilisees().subscribe({

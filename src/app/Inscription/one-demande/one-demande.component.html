@@ -1,3 +1,147 @@
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+    <div class="view-account">
+        <section class="module">
+        	<div class="module-inner">
+        		<div class="side-bar">
+        			<div class="user-info">
+        				<img class="img-profile img-circle img-responsive center-block" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+        				<ul class="meta list list-unstyled">
+        					<li class="name"><h3>nom:{{demande.nom}}</h3>
+        						<label class="label label-info"><h3>adresse:{{demande.adresse}}</h3></label>
+        					</li>
+                            <label class="label label-info">Email</label>
+        					<h3>{{demande.email}}</h3>
+        					<!--((((((((((((((((importnat))))))))))))))))
+                                <li class="activity">Last logged in: Today at 2:18pm</li>-->
+                                <label class="label label-info">Secteur:</label>
+                                <label class="label label-info">{{demande.secteur_d_activite}}</label>
+        				</ul>
+        			</div>
+                    <div class="form-group">
+                        <div class="col-sm-5 col-sm-offset-3">
+                            <label class="col-sm-3 control-label">document:</label>
+                            
+                        </div>
+                       </div>
+        			<nav class="side-menu">
+        				<ul class="nav">
+        					<li><a href="#"><span class="fa fa-user"></span> Profile</a></li>
+        					<li><a href="#"><span class="fa fa-cog"></span> Settings</a></li>
+        					<li class="active"><a href="#"><span class="fa fa-credit-card"></span> Billing</a></li>
+        					<li><a href="#"><span class="fa fa-envelope"></span> Messages</a></li>
+        					
+        					<li><a href="user-drive.html"><span class="fa fa-th"></span> Drive</a></li>
+        					<li><a href="#"><span class="fa fa-clock-o"></span> Reminders</a></li>
+        				</ul>
+        			</nav>
+        		</div>
+        		
+        		<div class="content-panel">
+        			<h1 >Detail organisation</h1>
+                    <br><div><br></div>
+                    <br><div><br></div>
+                    <h2>info directeur generale </h2>
+        			<div class="billing">
+        			
+        				<form #infoForm="ngForm"  id="billing" class="form-horizontal" method="post" action="#" role="form">
+        					<div class="form-group">
+        						<label class="col-sm-3 control-label">nom :</label>
+        						<div class="col-sm-9">
+        							<input ngModel="{{demande.nomDG}}" name="nomDG"  id ="nomDG"type="text" class="form-control" readonly>
+        							
+        						</div>
+        					</div>
+        					<div class="form-group">
+        						<label class="col-sm-3 control-label">Email </label>
+        						<div class="col-sm-9">
+        							<input ngModel="{{demande.emailDG}}" name="emailDG" id="emailDG" type="text" class="form-control" readonly >
+        							</div>
+        					</div>
+        					
+        					<div class="form-group">
+        						<label class="col-sm-3 control-label">tel</label>
+        						<div class="col-sm-9">
+        							<input ngModel="{{demande.telDG}}" name="telDG" id="telDG"  type="text" class="form-control"  readonly >
+        						
+        						</div>
+        					</div>
+                            <br>
+                            <h2>info admin :</h2>
+        					<div class="address">
+        						<div class="form-group">
+        							<label class="col-sm-3 control-label">Nom</label>
+        							<div class="col-sm-9">
+        								<input ngModel="{{demande.nomAdmin}}" name="nomAdmin" id="nomAdmin"  type="text" class="form-control"readonly >
+        							</div>
+        						</div>
+                               
+        						<div class="form-group">
+        							<div class="col-sm-5 col-sm-offset-3">
+                                        <label class="col-sm-3 control-label">email</label>
+        								<input  ngModel="{{demande.emailAdmin}}" name="emailAdmin" id="emailAdmin" type="text" class="form-control" readonly>
+        							</div>
+        							<div class="col-sm-4">
+                                        <label class="col-sm-3 control-label">tel</label>
+        								<input ngModel="{{demande.telAdmin}}" name="telAdmin" id="telAdmin" type="text" class="form-control" readonly>
+        							</div>
+        						</div>
+        						
+        					</div>
+        					<hr>
+                            <div class="action-btn">
+                                <button  (click)="onAfficheDetailWorning(demande.id)"type="button" class="btn btn-warning btn-lg">
+                                    Warning
+                                    <i class="fa fa-chevron-right"></i>
+                                    </button>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <button  (click)="onAfficheDetailConfirmer(demande.id)" class="btn btn-success btn-lg">
+                                        Confirmer!
+                                        <i class="fa fa-chevron-right"></i>
+                                    </button>
+
+                           
+                         
+                                </div>
+        					
+                               
+                                
+                                <!--
+                                <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+                                    Single toggle
+                                  </button>
+                                  -->
+        					
+        				</form>
+        			</div>
+        		</div>
+        	</div>
+        </section>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------
+
+
+
 <div class="container d-lg-flex">
     <div class="box-1 bg-light user">
         <div class="d-flex align-items-center mb-3"> <img src="https://images.pexels.com/photos/4925916/pexels-photo-4925916.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" class="pic rounded-circle" alt="">
@@ -11,7 +155,7 @@
             <div id="my" class="carousel slide carousel-fade img-details" data-bs-ride="carousel" data-bs-interval="2000">
                 <div class="carousel-indicators"> <button type="button" data-bs-target="#my" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button> <button type="button" data-bs-target="#my" data-bs-slide-to="1" aria-label="Slide 2"></button> <button type="button" data-bs-target="#my" data-bs-slide-to="2" aria-label="Slide 3"></button> </div>
                 <div class="carousel-inner">
-                    <div class="carousel-item active"> <img src="https://images.pexels.com/photos/100582/pexels-photo-100582.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" class="d-block w-100"> </div>
+                    <div class="carousel-item active"> <img src="{{demande.logo}}" class="d-block w-100"> </div>
                     <div class="carousel-item"> <img src="https://images.pexels.com/photos/258092/pexels-photo-258092.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" class="d-block w-100 h-100"> </div>
                     <div class="carousel-item"> <img src="https://images.pexels.com/photos/7974/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&w=500" class="d-block w-100"> </div>
                 </div> <button class="carousel-control-prev" type="button" data-bs-target="#my" data-bs-slide="prev">
@@ -45,18 +189,26 @@
     <div class="box-2">
         <div class="box-inner-2">
             <div>
-                <p class="fw-bold">Payment Details</p>
-                <p class="dis mb-3">Complete your purchase by providing your payment details</p>
+                <p class="fw-bold"> Detail Demande</p>
+ 
             </div>
-            <form action="">
+            <form #infoForm="ngForm" >
+
+               <br>
+
                 <div class="mb-3">
-                    <p class="dis fw-bold mb-2">Email address</p> <input class="form-control" type="email" value="luke@skywalker.com">
+                    <p class="dis fw-bold mb-2">Nom de l'organisation</p> 
+                    <input ngModel="{{demande.nom}}"  name="nom" id="nom" class="form-control" type="text" >
                 </div>
                 <div>
-                    <p class="dis fw-bold mb-2">Card details</p>
+                    <p class="dis fw-bold mb-2">Email organisation</p>
                     <div class="d-flex align-items-center justify-content-between card-atm border rounded">
-                        <div class="fab fa-cc-visa ps-3"></div> <input type="text" class="form-control" placeholder="Card Details">
-                        <div class="d-flex w-50"> <input type="text" class="form-control px-0" placeholder="MM/YY"> <input type="password" maxlength=3 class="form-control px-0" placeholder="CVV"> </div>
+                        <div class="fab fa-cc-visa ps-3">
+
+                        </div>
+                         <input type="text" class="form-control" placeholder="Card Details">
+                        <div class="d-flex w-50"> 
+                            <input type="text" class="form-control px-0" placeholder="MM/YY"> <input type="password" maxlength=3 class="form-control px-0" placeholder="CVV"> </div>
                     </div>
                     <div class="my-3 cardname">
                         <p class="dis fw-bold mb-2">Cardholder name</p> <input class="form-control" type="text">

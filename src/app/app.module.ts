@@ -29,6 +29,8 @@ import { SendMailComponent } from './Inscription/send-mail/send-mail.component';
 import { DoinscriptionComponent } from './Inscription/doinscription/doinscription.component';
 import { OneDemandeComponent } from './Inscription/one-demande/one-demande.component';
 import { WorningEmailComponent } from './Inscription/worning-email/worning-email.component';
+import { SecteurComponent } from './CPM/secteur/secteur.component';
+import { DetailSecteurComponent } from './CPM/detail-secteur/detail-secteur.component';
 
 
 @NgModule({
@@ -56,6 +58,8 @@ import { WorningEmailComponent } from './Inscription/worning-email/worning-email
     DoinscriptionComponent,
     OneDemandeComponent,
     WorningEmailComponent,
+    SecteurComponent,
+    DetailSecteurComponent,
    
   ],
   imports: [

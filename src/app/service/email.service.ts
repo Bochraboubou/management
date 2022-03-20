@@ -21,5 +21,10 @@ email=new Email();
     return this._http.post<any>("http://localhost:8085/send/",mail);
     
   }
+  affiche2(mail:Email):Observable<Email> {
+ 
+    return this._http.post<any>("http://localhost:8085/send/",mail);
+    
+  }
   
 }

@@ -16,11 +16,27 @@ export class DoinscriptionComponent implements OnInit {
 demande=new Demande();
 demandes !:Demande[];
 secteurs!:Secteur[]
+imgURL:any;
+userFile:any=File;
+ message:string='';
+public imagePath:any;
   constructor( private _servicedemande:DemandeService, private secteurService:SecteurService) { }
 
   ngOnInit(): void {
     this.getSecteurs();
   }
+
+
+  // methode pour l' upload d'image
+
+  onSelectFile(event:any){
+
+    const file=event.target.files[0];
+    console.log(file);  
+    this.userFile=file;
+
+
+   }
   public onAddDemande(addForm: NgForm): void {
     // document.getElementById('add-employee-form').click();
      this._servicedemande.addDemande(addForm.value).subscribe(
@@ -37,6 +53,29 @@ secteurs!:Secteur[]
      );
    
 }
+
+/*public onAddDemande(addForm: NgForm): void {
+  // document.getElementById('add-employee-form').click();
+
+  const demande=addForm.value;
+  const formData=new FormData();
+  formData.append('user',JSON.stringify(demande));
+  formData.append('file',this.userFile);
+   this._servicedemande.addDemande2(formData).subscribe(
+     (response: Demande) => {
+       console.log(response);
+       console.log("accepteeeee");
+      addForm.reset();
+     },
+     (error: HttpErrorResponse) => {
+       alert(error.message);
+       console.log("erreur");
+      
+     }
+   );
+ 
+}*/
+
 //récuperer la liste des secteurs d'activités
 public getSecteurs():void
 {
@@ -49,4 +88,35 @@ public getSecteurs():void
      }
   );
     }
+
+
+    
+
+
+  // 5edmet abbes(video)
+ /* if( event.target.files.length>0){
+    const file=event.target.files[0];
+    this.userFile=file;
+    //this.f['profile].setValue(file)
+    var mimeType=event.target.files[0];*/
+   // if(mimeType.match(/image\*/)==null){
+     /* this.message="only images are supported";
+      return;
+    }
+
+
+
+    var reader=new FileReader();
+    this.imagePath=file;
+    reader.readAsDataURL(file);
+    reader.onload=(_event)=>{
+      this.imgURL=reader.result;
+    }
+  }
+
+}*/
+
+
+
 }
+  

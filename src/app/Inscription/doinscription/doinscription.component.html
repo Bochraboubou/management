@@ -446,8 +446,9 @@
 
 
                 </div>
+                <!--
                  <div class="row gx-3 mb-3">
-                    <!-- Form Group (phone number)-->
+                 
                     <div class="col-md-6">
                         <label class="small mb-1" for="inputPhone">Document</label>
                         <input ngModel name="document"class="form-control" id="document" type="tel" placeholder="Enterer le numero du telephone" required>
@@ -456,13 +457,15 @@
                         <label class="small mb-1" for="inputBirthday">Logo</label>
                         <input ngModel name="logo"class="form-control" id="logo" type="text"  placeholder="Enterer le  type d'organization"required >
                     </div>
-                 </div>
+                 </div>-->
                  <!--
                  <div class="form-group">
-                    <label for=""> &nbsp; Documents officielle &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </label>
-                    <input ngModel name="document" type="File" class="form-control-file" id="document">
+                    <label > &nbsp; Logo &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </label>
+                    <input ngModel  type="File" name="logo"  accept="image/*" (change)="onSelectFile($event)"   required>
+                    <img [src]="imgURL" height="200" *ngIf="imgURL">
                   </div>
                   <div><br></div>
+                  
                   <div class="form-group">
                     <label for=""> &nbsp; logo &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </label>
                     <input ngModel name="logo" type="File" class="form-control-file" id="logo" required>

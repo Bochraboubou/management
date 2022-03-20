@@ -1,103 +1,132 @@
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 <hr>
 <div class="container bootstrap snippets bootdey">
+  <div>
+    
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
+        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+      </svg>
+    <h1>vous avez {{demandes.length}} neveau demandes  </h1>
+  </div>
+    
+  
 
-    <h2>vous avez {{demandes.length}} new </h2>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="main-box no-header clearfix">
-                <div class="main-box-body clearfix">
-                    <div class="table-responsive">
+   
+   <div>
+    <table class="table table-success table-striped">
+      <thead>
+        <tr>
+            <th><span>status</span></th>
+            <th><span>nom</span></th>
+            <th><span>code</span></th>
+            <th><span>pays</span></th>
+            <th class="text-center"><span>Secteur</span></th>
+            <th><span>Email</span></th>
+            <th><span>Action</span></th>
+            
+            </tr>
+      </thead>
+      <tbody *ngFor="let demande of demandes, let i=index">
 
-                       
-                        <table class="table user-list">
-                            <thead>
-                                <tr>
-                                <th><span>nom organisation</span></th>
-                                <th><span>pays</span></th>
-                                <th class="text-center"><span>Secteur</span></th>
-                                <th><span>Email</span></th>
-                                <th>&nbsp;</th>
-                                </tr>
-                            </thead>
-                            <tbody *ngFor="let demande of demandes, let i=index">
-                                <tr>
-                                    <td>
-                                        <img src="{{demande?.logo}}" alt="">
-                                        <a href="#" class="user-link"> {{demande?.nom}}</a>
-                                        <span class="user-subhead"> {{demande?.code}}</span>
-                                    </td>
-                                    <td>2013/08/12</td>
-                                    <td class="text-center">
-                                        <span class="label label-default">{{demande?.secteur_d_activite}}</span>
-                                    </td>
-                                    <td>
-                                        <a href="#">{{demande?.email}} &nbsp; &nbsp; &nbsp; </a>
-                                    </td>
-                                    <td >
+ <tr>
+     <th >
+         <li><button type="button" class="btn btn-success">
+             <i class="fa fa-check-square"></i>
+</button>
+</li
+></th>
+            <td>
+                <a href="#" class="user-link"> {{demande?.nom}}</a></td>
+               <td> <span class="user-subhead"> {{demande?.code}}</span>
+            </td>
+            <td>{{demande.pays}}</td>
+            <td class="text-center">
+                <span class="label label-default">{{demande?.secteur_d_activite}}</span>
+            </td>
+            <td>
+                <a href="#">{{demande?.email}} &nbsp; &nbsp; &nbsp; </a>
+            </td>
+            <td >
+<div> &nbsp;&nbsp;&nbsp;<a   (click)="DeleteDemande(demande.id)"class="btn btn-danger" >
+    <i  class="fa fa-trash-o fa-lg"></i> Delete</a>
+      <!--lien vers la page detaildemande-->
 
-                                       <a (click)="onOpenModal(demande, 'send')"  class="table-link text-warning">
-                                          <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
-                                          </a>
-                                       
-                                         <a   (click)="DeleteDemande(demande.id)"class="btn btn-danger" >
-                                          <i  class="fa fa-trash-o fa-lg"></i> Delete</a>
-                                            <!--lien vers la page detaildemande-->
 
-                                          <a  (click)="onAfficheDetail(demande.id)"  class="btn btn-default btn-sm">
-                                             <i class="fa fa-cog"></i> More
-                                          </a>
+    <a  (click)="onAfficheDetail(demande.id)"  class="btn btn-default btn-sm">
+       <i class="fa fa-cog"></i> More
+    </a>
+</div>
+                
+               
+                
+             
+            </td>
+        </tr>
+          
+        
+      </tbody>
+    </table>
+</div>
 
-                                       
-                                        
-                                     
-                                    </td>
-                                </tr>
-                                
-                               
-                            </tbody>
-                        </table>
-                    </div>
+<!--
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="main-box no-header clearfix">
+            <div class="main-box-body clearfix">
+                <div class="table-responsive">
+
+                   
+                    <table class="table user-list">
+                        <thead>
+                            <tr>
+                            <th><span>nom organisation</span></th>
+                            <th><span>pays</span></th>
+                            <th class="text-center"><span>Secteur</span></th>
+                            <th><span>Email</span></th>
+                            <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let demande of demandes, let i=index">
+                            <tr>
+                                <td>
+                                    <img src="{{demande?.logo}}" alt="">
+                                    <a href="#" class="user-link"> {{demande?.nom}}</a>
+                                    <span class="user-subhead"> {{demande?.code}}</span>
+                                </td>
+                                <td>2013/08/12</td>
+                                <td class="text-center">
+                                    <span class="label label-default">{{demande?.secteur_d_activite}}</span>
+                                </td>
+                                <td>
+                                    <a href="#">{{demande?.email}} &nbsp; &nbsp; &nbsp; </a>
+                                </td>
+                                <td >
+
+                                   <a (click)="onOpenModal(demande, 'send')"  class="table-link text-warning">
+                                      <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+                                      </a>
+                                   
+                                     <a   (click)="DeleteDemande(demande.id)"class="btn btn-danger" >
+                                      <i  class="fa fa-trash-o fa-lg"></i> Delete</a>
+                                        lien vers la page detaildemande-
+
+                                      <a  (click)="onAfficheDetail(demande.id)"  class="btn btn-default btn-sm">
+                                         <i class="fa fa-cog"></i> More
+                                      </a>
+
+                                   
+                                    
+                                 
+                                </td>
+                            </tr>
+                            
+                           
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
---------------------------
-   <!--tableau de bondes commande-->
-   <div>
-    <table class="table table-success table-striped">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Numeros</th>
-          <th scope="col">Montant</th>
-          <th scope="col">Delais</th>
-          <th scope="col">Entreprise</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr >
-          <th scope="row">gggg</th>
-          <td>jjjjjj</td>
-          <td>lllll</td>
-          <td>lllll</td>
-          <td>jjjjj</td>
-          <td>
-              
-              <a  (click)="onAfficheDetail(demande.id)"  class="btn btn-default btn-sm">
-                <i class="fa fa-cog"></i> More
-             </a>
-             <a (click)="onOpenModal(demande, 'send')"  class="table-link text-warning">
-                <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
-                </a>
-                <a   (click)="DeleteDemande(demande.id)"class="btn btn-danger" >
-                    <i  class="fa fa-trash-o fa-lg"></i> Delete</a>
-                    <li><button type="button" class="btn btn-success"><i class="fa fa-check-square"></i></button></li>
-            </td>
-          
-        </tr>
-      </tbody>
-    </table>
-</div>
+</div>-->

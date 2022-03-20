@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Email } from '../model/Email';
 import { Organisation } from '../model/Organisation';
 import { Role } from '../model/Role';
 import { User } from '../model/User';
@@ -30,5 +31,10 @@ export class RegisterService {
 public RedirectToOrganisation(organId:number): Observable<Organisation>
 {
   return this._http.get<Organisation>(`${this.apiServeUrl}/admin/oneorganisations/${organId}`);
+}
+
+public envoyerUnEmail(email:Email): Observable<any>
+{let headers = new Headers({ 'Content-Type': 'application/json' });
+  return this._http.post<any>("http://localhost:8085/api/sendEmail",email,{responseType: "json"});
 }
 }

@@ -32,6 +32,12 @@ export class SecteurService {
    {
      return this.http.get<Secteur>(`${this.apiServeUrl}/admin/secteurbyId/${idSecteur}`);
    }
+   //récuperer le secteur par Id
+   public DeleteSecteurbyId(idSecteur:number):  Observable<void> 
+   {
+     return this.http.delete<void>(`${this.apiServeUrl}/admin/secteurs/${idSecteur}`);
+   }
+
 
 
 }

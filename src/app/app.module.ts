@@ -13,11 +13,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { OrganisationComponent } from './organisation/organisation.component';
 import { DetailComponent } from './detail/detail.component';
-import { MenuMycpmComponent } from './menu-mycpm/menu-mycpm.component';
+import { MenuMycpmComponent } from './espaceMyCPM/menu-mycpm/menu-mycpm.component';
 import { MarcheeComponent } from './espaceMyCPM/marchee/marchee.component';
-import { DetailOrganisationComponent } from './espaceMyCPM/detail-organisation/detail-organisation.component';
-import { EntreprisesComponent } from './espaceMyCPM/entreprises/entreprises.component';
-import { ArticlespecifieeComponent } from './espaceMyCPM/articlespecifiee/articlespecifiee.component';
+import { DetailOrganisationComponent } from './sectionOrganisation/detail-organisation/detail-organisation.component';
+import { EntreprisesComponent } from './sectionOrganisation/entreprises/entreprises.component';
+import { ArticlespecifieeComponent } from './sectionOrganisation/articlespecifiee/articlespecifiee.component';
 import { LoginComponent } from './Inscription/login/login.component';
 import { RegisterComponent } from './Inscription/register/register.component';
 import { DemandeComponent } from './Inscription/demande/demande.component';
@@ -26,6 +26,9 @@ import { ListeDemandesComponent } from './Inscription/liste-demandes/liste-deman
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPrintModule } from 'ngx-print';
+import { GestionMetiersComponent } from './sectionOrganisation/gestion-metiers/gestion-metiers.component';
+
+
 
 
 
@@ -48,6 +51,8 @@ import { NgxPrintModule } from 'ngx-print';
     DemandeComponent,
     FirstPageComponent,
     ListeDemandesComponent,
+    GestionMetiersComponent,
+    
    
   ],
   imports: [
@@ -59,7 +64,9 @@ import { NgxPrintModule } from 'ngx-print';
     HttpClientModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
-    NgxPrintModule
+    NgxPrintModule,
+   
+  
     
   ],
   providers: [],

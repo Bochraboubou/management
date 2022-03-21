@@ -3,18 +3,20 @@ import { RouterModule, Routes } from '@angular/router';
 import { AjouterOrganisationComponent } from './ajouter-organisation/ajouter-organisation.component';
 import { DetailComponent } from './detail/detail.component';
 import { EntreprisePopupComponent } from './entreprise-popup/entreprise-popup.component';
-import { ArticlespecifieeComponent } from './espaceMyCPM/articlespecifiee/articlespecifiee.component';
-import { DetailOrganisationComponent } from './espaceMyCPM/detail-organisation/detail-organisation.component';
-import { EntreprisesComponent } from './espaceMyCPM/entreprises/entreprises.component';
+import { ArticlespecifieeComponent } from './sectionOrganisation/articlespecifiee/articlespecifiee.component';
+import { DetailOrganisationComponent } from './sectionOrganisation/detail-organisation/detail-organisation.component';
+import { EntreprisesComponent } from './sectionOrganisation/entreprises/entreprises.component';
 import { MarcheeComponent } from './espaceMyCPM/marchee/marchee.component';
 import { DemandeComponent } from './Inscription/demande/demande.component';
 import { FirstPageComponent } from './Inscription/first-page/first-page.component';
 import { ListeDemandesComponent } from './Inscription/liste-demandes/liste-demandes.component';
 import { LoginComponent } from './Inscription/login/login.component';
 import { RegisterComponent } from './Inscription/register/register.component';
-import { MenuMycpmComponent } from './menu-mycpm/menu-mycpm.component';
+import { MenuMycpmComponent } from './espaceMyCPM/menu-mycpm/menu-mycpm.component';
 import { MenuComponent } from './menu/menu.component';
 import { OrganisationComponent } from './organisation/organisation.component';
+import { GestionMetiersComponent } from './sectionOrganisation/gestion-metiers/gestion-metiers.component';
+
 
 const routes: Routes = [
   {path:'',component:MenuMycpmComponent},
@@ -34,7 +36,8 @@ const routes: Routes = [
     { path:'popup',component:EntreprisePopupComponent},
     { path:'detailOrganisation',component:DetailOrganisationComponent},
     { path:'entreprises',component:EntreprisesComponent},
-    { path:'articlesSpecifiees',component:ArticlespecifieeComponent}
+    { path:'articlesSpecifiees',component:ArticlespecifieeComponent},
+    { path:'metiers',component:GestionMetiersComponent}
 
   ]},
 

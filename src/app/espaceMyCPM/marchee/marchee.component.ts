@@ -17,7 +17,7 @@ import { MarcheeService } from 'src/app/service/marchee.service';
 import { MetierService } from 'src/app/service/metier.service';
 import { OrganisationServiceService } from 'src/app/service/organisation-service.service';
 import { SecteurService } from 'src/app/service/secteur.service';
-import { ArticlespecifieeComponent } from '../articlespecifiee/articlespecifiee.component';
+import { ArticlespecifieeComponent } from '../../sectionOrganisation/articlespecifiee/articlespecifiee.component';
 
 @Component({
   selector: 'app-marchee',
@@ -62,6 +62,7 @@ export class MarcheeComponent implements OnInit {
   printMarchee!: any;
   editArticleIndice!: number;
   modifiedArticle!: Article;
+  marcheeValide:boolean = false;
   
 
  
@@ -147,15 +148,9 @@ export class MarcheeComponent implements OnInit {
 
   
   //ajouter marchee
-  public onAddMarchee(addMarcheeForm:NgForm,organId:number):void{
-    //chercher lexistance du code avant l'ajout
-    this.marcheeService.getMarcheebyCode(addMarcheeForm.value.code).subscribe({
-      next: (response:Marchee) => {
-        this.showExistMarcheeAlert=true;
-        console.log("code existe deja");
-      },
-      error: (error:HttpErrorResponse) => {
-        this.marcheeService.addMarchee(organId,this.idMetier,addMarcheeForm.value).subscribe({
+  /*public onAddMarchee(organId:number):void{
+   
+        this.marcheeService.addMarchee(organId,this.idMetier,this.newMarchee).subscribe({
           next: (response:Marchee) =>{
            // this.marchee=response;
             this.idMarchee=response.id;
@@ -174,19 +169,17 @@ export class MarcheeComponent implements OnInit {
           complete: () => console.info('complete') 
       })
         
-       },
-      complete: () => console.info('complete') 
-  })
-    
+     
 
   }
+  */
 
 
   // ajouter une bonde commande
   public addBC(addBCForm:NgForm):void{
     console.log("codeEntreprise"+this.codeEntreprise);
-    console.log("premier element"+this.newMarchee.listeBondeCommandes[0]?.nomEntrep);
-    console.log("deusieme element"+this.newMarchee.listeBondeCommandes[1]?.nomEntrep);
+   // console.log("premier element"+this.newMarchee.listeBondeCommandes[0]?.nomEntrep);
+   // console.log("deusieme element"+this.newMarchee.listeBondeCommandes[1]?.nomEntrep);
     this.organService.getOrganisationbyCode(this.codeEntreprise).subscribe({
       next: (response:Organisation) => {
         document.getElementById('addBCModal')?.click();
@@ -412,14 +405,7 @@ public EnregistrerMarchee( addMarcheeForm:NgForm):void{
     this.alerteDelaisBCs=true;
   }
   if(this.validerMontantMarchee(this.newMarchee)&&this.validerDelaisMarchee(this.newMarchee)){
-     //chercher lexistance du code avant l'ajout
-     this.marcheeService.getMarcheebyCode(addMarcheeForm.value.code).subscribe({
-      next: (response:Marchee) => {
-        this.showExistMarcheeAlert=true;
-        console.log("code existe deja");
-      },
-      error: (error:HttpErrorResponse) => {
-        this.marcheeService.addMarchee(this.idOrgan,this.idMetier,addMarcheeForm.value).subscribe({
+        this.marcheeService.addMarchee(this.idOrgan,this.idMetier,this.newMarchee).subscribe({
           next: (response:Marchee) =>{
            // this.marchee=response;
             this.idMarchee=response.id;
@@ -435,6 +421,7 @@ public EnregistrerMarchee( addMarcheeForm:NgForm):void{
             setTimeout(function(){ x!.className = x!.className.replace("show", ""); }, 5000);
             addMarcheeForm.reset();
             this.newMarchee = new Marchee();
+            this.marcheeValide=false;
             
           },
           error: (error:HttpErrorResponse) => {
@@ -443,10 +430,7 @@ public EnregistrerMarchee( addMarcheeForm:NgForm):void{
           complete: () => console.info('complete') 
       })
         
-       },
-      complete: () => console.info('complete') 
-  })
-
+     
 }
 }
 
@@ -531,7 +515,29 @@ public editArticle(modifierArticleForm:NgForm){
   this.newMarchee.listeBondeCommandes[this.indiceBC].listeArticles[this.editArticleIndice].prix = modifierArticleForm.value.prixEditArticle;
   this.newMarchee.listeBondeCommandes[this.indiceBC].listeArticles[this.editArticleIndice].quantitee = modifierArticleForm.value.quantiteeEditArticle;
   document.getElementById('closeEditArticleButton')?.click();
-  modifierArticleForm.reset();
+  //modifierArticleForm.reset();
+}
+
+public validerInformationsMarchee(addMarcheeForm:NgForm){
+  this.marcheeService.getMarcheebyCode(addMarcheeForm.value.code).subscribe({
+    next: (response:Marchee) => {
+      this.showExistMarcheeAlert=true;
+      console.log("code existe deja");
+    },
+    error: (error:HttpErrorResponse) => {
+      this.marcheeValide=true;
+      console.log("new marchee  :"+this.newMarchee)
+     
+      
+     },
+    complete: () => console.info('complete') 
+})
+
+
+
+
+ 
+
 }
   
    

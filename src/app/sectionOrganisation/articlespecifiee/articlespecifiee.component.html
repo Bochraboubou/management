@@ -1,0 +1,16 @@
+<div class="container" id="main-container">
+    <div class="row">
+      <div class="col-md-4">
+        <label for="secteur_d_activite" style="color: darkred;"> Secteur</label>
+        <select ngModel (ngModelChange)="getMetiers($event)" name="secteur_d_activite" id="secteur_d_activite" class="form-select" placeholder="secteur_d_activite" aria-label="Default select example" required #secteur_d_activite="ngModel"  [class.is-invalid]="secteur_d_activite.invalid && secteur_d_activite.touched">
+          <!--<option selected>choisir une option</option>-->
+          <option   *ngFor="let sect of secteurs"
+          [value]="sect.id">
+          {{sect.nomSecteur}}
+        </option>
+        </select>
+      </div>
+    
+  </div>
+  
+  

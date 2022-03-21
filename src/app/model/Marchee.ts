@@ -7,6 +7,7 @@ export class Marchee{
     budget!: string;
     type!: string;
     montant!: number;
+    unitee:string | undefined;
     delais!: number;
     listeBondeCommandes:BondeCommande[]=[];
 

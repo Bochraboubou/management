@@ -1,0 +1,31 @@
+<div class="container" id="main-container">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-6">
+      <h1 style="font-family:Marker Felt, fantasy; font-size: 28px; color:midnightblue">Gestion des metiers</h1>
+    </div>
+  </div>
+    <div class="row">
+      <div class="col-md-4">
+        <label for="secteur_d_activite" style="color: darkred;"> Secteur</label>
+        <select ngModel (ngModelChange)="getSecteurChoisis($event)" name="secteur_d_activite" id="secteur_d_activite" class="form-select" placeholder="secteur_d_activite" aria-label="Default select example" required #secteur_d_activite="ngModel"  [class.is-invalid]="secteur_d_activite.invalid && secteur_d_activite.touched">
+         <!-- <option selected>choisir un secteur</option>-->
+          <option   *ngFor="let sect of secteurs"
+          [value]="sect.id">
+          {{sect.nomSecteur}}
+        </option>
+        </select>
+      </div>
+      <div class="col-md-4">
+       <div>
+        <input type="search" [(ngModel)]="searchM" class="form-control" id="searchM" name="searchM"  placeholder="rechercher la metier par nom"> 
+       </div>
+       <h2 style="font-family: Comic Sans MS; color: midnightblue;">Liste  des metiers disponibles</h2>
+        <ul class="list-group">
+
+            <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let metier of metiers |filter:searchM" >{{metier.nomMetier}} <button type="button" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button></li>
+          </ul>
+      </div>
+    
+  </div>
+  
+  

@@ -16,6 +16,7 @@ import { MenuMycpmComponent } from './espaceMyCPM/menu-mycpm/menu-mycpm.componen
 import { MenuComponent } from './menu/menu.component';
 import { OrganisationComponent } from './organisation/organisation.component';
 import { GestionMetiersComponent } from './sectionOrganisation/gestion-metiers/gestion-metiers.component';
+import { ArticleComponent } from './Articles/article/article.component';
 
 
 const routes: Routes = [
@@ -37,7 +38,8 @@ const routes: Routes = [
     { path:'detailOrganisation',component:DetailOrganisationComponent},
     { path:'entreprises',component:EntreprisesComponent},
     { path:'articlesSpecifiees',component:ArticlespecifieeComponent},
-    { path:'metiers',component:GestionMetiersComponent}
+    { path:'metiers',component:GestionMetiersComponent},
+    { path:'articles',component:ArticleComponent}
 
   ]},
 

@@ -27,6 +27,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPrintModule } from 'ngx-print';
 import { GestionMetiersComponent } from './sectionOrganisation/gestion-metiers/gestion-metiers.component';
+import { ArticleComponent } from './Articles/article/article.component';
 
 
 
@@ -52,6 +53,7 @@ import { GestionMetiersComponent } from './sectionOrganisation/gestion-metiers/g
     FirstPageComponent,
     ListeDemandesComponent,
     GestionMetiersComponent,
+    ArticleComponent,
     
    
   ],

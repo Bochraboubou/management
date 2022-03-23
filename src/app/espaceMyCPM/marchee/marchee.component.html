@@ -119,7 +119,7 @@
           <br>
       
           <div *ngIf="alerteTotalArticles" class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>Attention</strong> le montant total des articles est differant du montant du bonde commande
+            <strong>Attention</strong> le montant total des articles ({{calculTotalArticles(newMarchee.listeBondeCommandes[indiceBC].listeArticles)}}) est differant du montant du bonde commande ({{newMarchee.listeBondeCommandes[indiceBC].montant}})
             <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
           </div>
       
@@ -161,7 +161,7 @@
       </div>
       <br>
       <div *ngIf="alerteMontantBCs" class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong>Attention</strong> le montant totale des bondes commandes est different du montant du marchee
+        <strong>Attention</strong> le montant totale des bondes commandes ({{montantTotaldeBCs}}) est different du montant du marchee ({{newMarchee?.montant}})
         <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
       </div>
      
@@ -237,7 +237,7 @@
       </div>
       
       
-      <!-- Specifier article modal modall -->
+      <!-- Specifier article modal  -->
       <div class="modal fade" id="articleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
           <div class="modal-content">
@@ -373,7 +373,8 @@
                                       <td>{{art.unitee}}</td>
                                       <td>{{art.prix}}</td>
                                       <td>{{art.quantitee}}</td>
-                                      <td><button type="button" class="btn btn-danger" (click)="onOpenEditArticleModal(j)" [disabled]="newMarchee.listeBondeCommandes[indiceBC]?.valide">modifier</button></td>
+                                      <td><button type="button" class="btn btn-success" (click)="onOpenEditArticleModal(j)" [disabled]="newMarchee.listeBondeCommandes[indiceBC]?.valide"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
+                                      <td><button type="button" class="btn btn-danger" (click)="onOpendeleteArticleModal(j)" [disabled]="newMarchee.listeBondeCommandes[indiceBC]?.valide"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
                                       
                                     </tr>
                                   </tbody>
@@ -536,7 +537,7 @@
       
                <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" id="closeEditArticleButton" data-dismiss="modal">Fermer</button>
-                <button [disabled]="editArticleForm.invalid" type="submit" class="btn btn-primary" (click)="editArticle(editArticleForm)">Enreistrer</button>
+                <button [disabled]="editArticleForm.invalid" type="submit" class="btn btn-primary" style="background-color: navy;" (click)="editArticle(editArticleForm)">Enreistrer</button>
              </div>
       
                </form>
@@ -563,7 +564,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                voulez vous confirmer les informations dumarchee ?
+                <h3>voulez vous confirmer les informations dumarchee ?</h3>
                 <div class="modal-footer">
                   <button type="button" id="closeConfirmModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                   <button  type="submit" class="btn btn-primary" (click)="validerInformationsMarchee(addMarcheeForm)">Confirmer</button>
@@ -591,18 +592,18 @@
                       <input type="text"ngModel={{modifiedBC?.codebc}} name="codebc"  class="form-control" id="codeBC" placeholder="code" required disabled>
                     </div>
   
-                   <div class="col-md-4 mb-3">
+                   <div>
                     <label for="montant">montant</label>
                     <input type="number" ngModel={{modifiedBC?.montant}} name="montant"  class="form-control" id="montant" placeholder="montant" required>
                   </div>
                   
-                  <div class="col-md-4 mb-3">
+                  <div>
                     <label for="delais">delais</label>
                     <input type="number" ngModel={{modifiedBC?.delais}} name="delais"  class="form-control" id="delais" placeholder="delais" required>
                   </div>
         
                   
-                  <div class="col-md-4 mb-3">
+                  <div>
                     <label for="entreprise">Entreprise</label>
                     <input type="text"   name="entreprise" ngModel={{modifiedBC?.nomEntrep}} class="form-control" id="entreprise" placeholder="codeEntreprise" value="codeEntreprise" required disabled>
                   </div>
@@ -615,7 +616,7 @@
                       
                       <div class="modal-footer">
                          <button type="button" id="closeEditBCModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                         <button [disabled]="editBCForm.invalid" type="submit" class="btn btn-primary" (click)="modifierBC(editBCForm)" >Modifier</button>
+                         <button [disabled]="editBCForm.invalid" type="submit" class="btn btn-primary" (click)="modifierBC(editBCForm)" style="background-color: navy;" >Modifier</button>
                       </div>
                       </form>
               </div>
@@ -628,17 +629,17 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h3 class="modal-title" id="exampleModalLongTitle">Ajouter une Entreprise</h3>
+              <h3 class="modal-title" id="exampleModalLongTitle">Supprimer une bon-de comande</h3>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <h4>Voulez vous vraiment supprimer la bon-de commande ?</h4>
+              <h4>Voulez vous vraiment supprimer la bon-de commande de code "{{newMarchee.listeBondeCommandes[indiceBC]?.codebc}}" ?</h4>
                 
                     <div class="modal-footer">
                       <button type="button" id="closeDeleteBCModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                      <button  type="submit" class="btn btn-primary" (click)="supprimerBC()"  >Supprimer</button>
+                      <button  type="submit" class="btn btn-primary" (click)="supprimerBC()" style="background-color: firebrick;"  >Supprimer</button>
                    </div>
             </div>
           </div>
@@ -650,16 +651,17 @@
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLongTitle">Ajouter une Entreprise</h3>
+                <h3 class="modal-title" id="exampleModalLongTitle">Supprimer un article</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
+                Voulez vous confirmer la suppression l'article" ?
                   
-                      <div class="modal-footer">
-                        <button type="button" id="add-entrep-form" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                        <button  type="submit" class="btn btn-primary"  >Enreistrer</button>
+                <div class="modal-footer">
+                  <button type="button" id="closeDeleteArticleModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                  <button  type="submit" class="btn btn-primary" style="background-color: firebrick;" (click)="deleteArticle()"  >Supprimer</button>
                      </div>
               </div>
             </div>

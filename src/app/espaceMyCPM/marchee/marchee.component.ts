@@ -50,6 +50,7 @@ export class MarcheeComponent implements OnInit {
   editArticleIndice!: number;
   modifiedArticle!: Article;
   modifiedBC!: BondeCommande;
+  deleteArticleIndice!: number;
   //tableaux et listes
   metiers!: Metier[];
   secteurs!: Secteur[];
@@ -68,6 +69,7 @@ export class MarcheeComponent implements OnInit {
   alerteDelaisBCs:boolean=false;
   alerteArticleExisteDeja:boolean=false;
   alertecodeBCexiste=false;
+  montantTotaldeBCs!: number;
   
 
  
@@ -171,6 +173,20 @@ export class MarcheeComponent implements OnInit {
      container?.appendChild(button);
      button.click();
   }
+
+    //Modal pour supprimer un article
+    public onOpendeleteArticleModal( indice:number):void{
+      const container=document.getElementById('main-container');
+       const button=document.createElement('button');
+       button.type='button';
+       button.style.display='none';
+       button.setAttribute('data-toggle','modal');
+       this.deleteArticleIndice=indice;
+       this.modifiedBC = this.newMarchee.listeBondeCommandes[this.indiceBC];
+       button.setAttribute('data-target','#deleteArticleModal');
+       container?.appendChild(button);
+       button.click();
+    }
 
   // ajouter une bonde commande
   public addBC(addBCForm:NgForm):void{
@@ -436,6 +452,7 @@ public closeAlert():void{
 
 public validerMontantMarchee(marchee:Marchee):boolean{
   let montantTotalBCs : number=0;
+  this.montantTotaldeBCs=montantTotalBCs;
   for (let i = 0; i < marchee.listeBondeCommandes.length; i++){
     montantTotalBCs += marchee.listeBondeCommandes[i].montant;
   }
@@ -463,6 +480,7 @@ public validerMontantMarchee(marchee:Marchee):boolean{
 
 //valider les bondes commandes
 public validerMontantsetDelaisBCs():void{
+  console.log("montant du marchee"+this.newMarchee.montant);
     if(!this.validerMontantMarchee(this.newMarchee)){
       this.alerteMontantBCs=true;
     }
@@ -604,6 +622,7 @@ public validerInformationsMarchee(addMarcheeForm:NgForm){
 })
 
 }
+//modifier bc
 public modifierBC(editBCForm:NgForm){
   if(this.validerDelaiBC(editBCForm.value.delais,this.newMarchee)){
     this.newMarchee.listeBondeCommandes[this.indiceBC].montant=editBCForm.value.montant;
@@ -615,10 +634,19 @@ public modifierBC(editBCForm:NgForm){
   }
 }
 
+//supprimer bc
   public supprimerBC(){
     this.newMarchee.listeBondeCommandes.splice(this.indiceBC,1);
-    document.getElementById('closeEditBCModal')?.click();
+    document.getElementById('closeDeleteBCModall')?.click();
+    
   
+  
+}
+
+//supprimer article
+public deleteArticle(){
+  this.newMarchee.listeBondeCommandes[this.indiceBC].listeArticles.splice(this.deleteArticleIndice,1);
+  document.getElementById('closeDeleteArticleModal')?.click();
   
 }
 

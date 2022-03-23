@@ -2,14 +2,14 @@
   <div>
     <div class="row d-flex justify-content-center">
       <div class="col-md-6">
-          <div><h1 style="font-family:Marker Felt, fantasy; font-size: 28px; color:darkred;">Ajouter un nouveau marché a votre organisation</h1></div>
+          <div><h1 style="font-family:Marker Felt, fantasy; font-size: 28px; color:navy">Ajouter un nouveau marché a votre organisation</h1></div>
         </div>
   </div>
       <form #addMarcheeForm="ngForm" >
         <fieldset [disabled]="marcheeValide">
           <div class="row">
             <div class="col-md-4">
-              <label for="secteur_d_activite" style="color: darkred;"> Secteur</label>
+              <label for="secteur_d_activite" style="color:navy"> Secteur</label>
               <select ngModel (ngModelChange)="getMetiers($event)" name="secteur_d_activite" id="secteur_d_activite" class="form-select" placeholder="secteur_d_activite" aria-label="Default select example" required #secteur_d_activite="ngModel"  [class.is-invalid]="secteur_d_activite.invalid && secteur_d_activite.touched">
                 <!--<option selected>choisir une option</option>-->
                 <option   *ngFor="let sect of secteurs"
@@ -21,7 +21,7 @@
            
     
               <div class="col-md-4">
-                  <label for="metier" style="color: darkred;"> Metier</label>
+                  <label for="metier" style="color: navy"> Metier</label>
                   <select [(ngModel)]="idMetier" (ngModelChange)="ArticlesByMetier($event)" name="metier" id="metier" class="form-select"  placeholder="Metier" aria-label="Default select example"  required #metier="ngModel"  [class.is-invalid]="metier.invalid && metier.touched">
                     <!--<option selected>choisir une option</option>-->
                     <option   *ngFor="let met of metiers"
@@ -33,20 +33,20 @@
            </div>
     
                 <div class="col-md-4 mb-3">
-                  <label for="code" style="color: darkred;">code</label>
+                  <label for="code" style="color: navy">code</label>
                   <input type="text" [(ngModel)]="newMarchee.code" name="code"  class="form-control" id="code" placeholder="code"  required #code="ngModel"  [class.is-invalid]="code.invalid && code.touched">
                </div>
       
               
     
               <div class="col-md-4 mb-3">
-                <label for="designation" style="color: darkred;">Designation</label>
+                <label for="designation" style="color: navy">Designation</label>
                 <input type="text" [(ngModel)]="newMarchee.designiation"name="designiation"  class="form-control" id="designation" required #designation="ngModel"  [class.is-invalid]="designation.invalid && designation.touched">
              </div>
       
              <div class="row">
               <div class="col-md-4 mb-3">
-                <label for="capex" style="color: darkred;">Budget</label>
+                <label for="capex" style="color: navy">Budget</label>
                 <div class="form-check">
                   <div class="choice">
                       <input class="form-check-input" type="radio" name="budget" id="capex" value="Capex"  [(ngModel)]="newMarchee.budget" required #budget="ngModel"  [class.is-invalid]="budget.invalid && budget.touched"/>
@@ -60,7 +60,7 @@
                 </div>
     
                 <div class="col-md-4 mb-3">
-                    <label for="tel" style="color: darkred;">Type</label>
+                    <label for="tel" style="color: navy">Type</label>
                     <div class="form-check">
                       <div class="choice">
                           <input class="form-check-input" type="radio" name="type" id="projet" value="Projet"  [(ngModel)]="newMarchee.type" required #type="ngModel"  [class.is-invalid]="type.invalid && type.touched"/>
@@ -73,46 +73,44 @@
                   </div> 
                 </div>  
              </div>
-        </fieldset>
-        
-          <div class="row">
-            <div class="col-md-4 mb-3" style="color: darkred;">
-              <label for="montant">Montant</label>
-              <input type="number" [(ngModel)]="newMarchee.montant" name="montant" class="form-control" id="montant" placeholder="montant"  required #montant="ngModel"  [class.is-invalid]="montant.invalid && montant.touched">
-           </div>
-   
-           <div class="col-md-4">
-            <label for="unitee" style="color: darkred;"> Unitee</label>
-            <select [(ngModel)]="newMarchee.unitee" name="unitee" id="uniteeMontant" class="form-select" placeholder="unitee" aria-label="Default select example" required #unitee="ngModel"  [class.is-invalid]="unitee.invalid && unitee.touched">
-              <!--<option selected>choisir une option</option>-->
-              <option   *ngFor="let unitee of listeUniteesMontant"
-              [value]="unitee">
-              {{unitee}}
-            </option>
-            </select>
-          </div>
-           </div>
-  
-           <div class="col-md-4 mb-3">
-            <label for="delais">Delais</label>
-            <input type="number" [(ngModel)]="newMarchee.delais" name="delais"  class="form-control" id="delais" placeholder="en jours"  required #delais="ngModel"  [class.is-invalid]="delais.invalid && delais.touched">
-         </div>
-       
-          <br>
 
-          <div>
-            <br>
-            <div *ngIf="showExistMarcheeAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
-              <strong>Attention</strong> code ou designation déja utilisé.
-              <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+             <div class="col-md-4">
+              <label for="unitee" style="color: navy"> Unitee</label>
+              <select [(ngModel)]="newMarchee.unitee" name="unitee" id="uniteeMontant" class="form-select" placeholder="unitee" aria-label="Default select example" required #unitee="ngModel"  [class.is-invalid]="unitee.invalid && unitee.touched">
+                <!--<option selected>choisir une option</option>-->
+                <option   *ngFor="let unitee of listeUniteesMontant"
+                [value]="unitee">
+                {{unitee}}
+              </option>
+              </select>
             </div>
-          </div>
 
-          <div id="toast"><div id="img">Succée</div><div id="desc">Informations enregistreés avec succé .</div></div>
+            <div class="row">
+              <div class="col-md-4 mb-3" style="color:navy">
+                <label for="montant">Montant</label>
+                <input type="number" [(ngModel)]="newMarchee.montant" name="montant" class="form-control" id="montant" placeholder="montant"  required #montant="ngModel"  [class.is-invalid]="montant.invalid && montant.touched">
+             </div>
   
+             <div class="col-md-4 mb-3">
+              <label for="delais">Delais</label>
+              <input type="number" [(ngModel)]="newMarchee.delais" name="delais"  class="form-control" id="delais" placeholder="en jours"  required #delais="ngModel"  [class.is-invalid]="delais.invalid && delais.touched">
+             </div>
+             </div>
+            <br>
+  
+            <div>
+              <br>
+              <div *ngIf="showExistMarcheeAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Attention</strong> code du marchee déja utilisé.
+                <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+              </div>
+            </div>
+  
+            <div id="toast"><div id="img">Succée</div><div id="desc">Informations enregistreés avec succé .</div></div>
+  
+            <button *ngIf="!marcheeValide" type="submit" class="btn btn-secondary" (click)="onOpenConfirmMarcheeModal()" [disabled]="addMarcheeForm.invalid">Valider les informations du marchee</button>
+        </fieldset>
           </form>
-         <br>
-         <button *ngIf="!marcheeValide" type="submit" class="btn btn-secondary" (click)="validerInformationsMarchee(addMarcheeForm)" [disabled]="addMarcheeForm.invalid">Valider les informations du marchee</button>
 
          <div *ngIf="marcheeValide">
 
@@ -133,7 +131,7 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Numeros</th>
+                <th scope="col">Code</th>
                 <th scope="col">Montant</th>
                 <th scope="col">Delais</th>
                 <th scope="col">Entreprise</th>
@@ -145,12 +143,16 @@
             <tbody>
               <tr *ngFor="let bc of newMarchee.listeBondeCommandes,let i= index">
                 <th scope="row">{{i}}</th>
-                <td>{{bc.numeros}}</td>
+                <td>{{bc.codebc}}</td>
                 <td>{{bc.montant}}</td>
                 <td>{{bc.delais}}</td>
                 <td>{{bc.nomEntrep}}</td>
-                <td><button type="button" [ngClass]="{'btn btn-success':bc.valide ,'btn btn-danger':!bc.valide}" (click)="onOpenArticlesModal(i)">Spécifier les articles</button></td>
-                <td><button type="button" id="validerCommandeButton" class="btn btn-primary" (click)="validerArticles(newMarchee.listeBondeCommandes[i])" style="background-color: midnightblue;" [disabled]="bc.valide" >Valider la BC</button></td>
+                <td><button type="button" [ngClass]="{'btn btn-success':bc.valide ,'btn btn-danger':!bc.valide}" (click)="onOpenArticlesModal(i)" [disabled]="!BCsvalides">Articles</button></td>
+                <td>
+                  <button *ngIf="BCsvalides" type="button" id="validerCommandeButton" class="btn btn-primary" (click)="validerArticles(newMarchee.listeBondeCommandes[i])" style="background-color: midnightblue;" [disabled]="bc.valide" >Valider la BC</button>
+                  <button *ngIf="!BCsvalides" type="button"  class="btn btn-success btn-sm" (click)="onOpeneditBCModal(i)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>&nbsp;
+                  <button  *ngIf="!BCsvalides"type="button" class="btn btn-danger btn-sm" (click)="onOpendeleteBCModal(i)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                </td>
                 <td><button type="button" class="btn btn-dark" (click)="printBC(i,addMarcheeForm)" [disabled]="!bc.valide"><i class="fa fa-print" aria-hidden="true"></i></button></td>
                 
               </tr>
@@ -162,13 +164,15 @@
         <strong>Attention</strong> le montant totale des bondes commandes est different du montant du marchee
         <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
       </div>
-      <div *ngIf="alerteDelaisBCs" class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong>Attention</strong> le delai maximale des bon_de commandes est superieur au delais du marchee
-        <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
-      </div>
+     
       
+      
+       
       <div>
-        <button (click)="EnregistrerMarchee(addMarcheeForm)" [ngClass]="{'btn btn-success':validerBCs(),'btn btn-danger':!validerBCs()}" type="submit" [disabled]="!validerBCs()">Enregistrer</button>
+        <button *ngIf="!BCsvalides" type="button" class="btn btn-primary" style="background-color: navy;" (click)="validerMontantsetDelaisBCs()">Valider</button>
+      </div>
+      <div>
+        <button *ngIf="BCsvalides" (click)="EnregistrerMarchee(addMarcheeForm)" [ngClass]="{'btn btn-success':validerBCs(),'btn btn-danger':!validerBCs()}" type="submit" [disabled]="!validerBCs()">Enregistrer</button>
       </div>
       
         </div>
@@ -187,6 +191,11 @@
             </div>
             <div class="modal-body">
                 <form #addBCForm="ngForm">
+                  <div class="col-md-4 mb-3">
+                    <label for="delais">code</label>
+                    <input type="text" [(ngModel)]="codeNewBC" name="codebc"  class="form-control" id="codeBC" placeholder="code" required>
+                  </div>
+
                  <div class="col-md-4 mb-3">
                   <label for="montant">montant</label>
                   <input type="number" [(ngModel)]="montantNewBC" name="montant"  class="form-control" id="montant" placeholder="montant" required>
@@ -206,6 +215,14 @@
                     <br>
                     <div *ngIf="alerteCodeInexistant" class="alert alert-danger alert-dismissible fade show" role="alert">
                       <strong>Attention</strong> code entreprise introubable.
+                      <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+                    </div>
+                    <div *ngIf="alertecodeBCexiste" class="alert alert-danger alert-dismissible fade show" role="alert">
+                      <strong>Attention</strong> le code du bon-de commande est deja utilisee
+                      <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+                    </div>
+                    <div *ngIf="alerteDelaisBCs" class="alert alert-danger alert-dismissible fade show" role="alert">
+                      <strong>Attention</strong> le delai maximale des bon_de commandes est superieur au delais du marchee
                       <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
                     </div>
                     
@@ -447,7 +464,7 @@
                </div>
                <div>
                 <h1 style="text-align: center; color: navy;">2/Informations sur la bon_de commande :</h1>
-                <h3>Numeros du bon_de commande :   {{printedBCommande?.numeros}}</h3>
+                <h3>Code du bon_de commande :   {{printedBCommande?.codebc}}</h3>
                 <h3>Montant du bon_de commande :  {{printedBCommande?.montant}}</h3>
                 <h3>Delais du bon_de commande :  {{printedBCommande?.delais}}</h3>
                 <h3>Entreprise :  {{printedBCommande?.nomEntrep}}</h3>
@@ -529,9 +546,126 @@
           </div>
         </div>
       </div>
+
+        
       
       
       
+
+        <!-- confirmation informations marchee modal -->
+        <div class="modal fade" id="confirmInformationsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Confirmer les informations</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                voulez vous confirmer les informations dumarchee ?
+                <div class="modal-footer">
+                  <button type="button" id="closeConfirmModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                  <button  type="submit" class="btn btn-primary" (click)="validerInformationsMarchee(addMarcheeForm)">Confirmer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+         <!-- EditBonde Commande modal -->
+
+         <div class="modal fade" id="editBCModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Modifier la BC</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  <form #editBCForm="ngForm">
+                    <div class="col-md-4 mb-3">
+                      <label for="delais">code</label>
+                      <input type="text"ngModel={{modifiedBC?.codebc}} name="codebc"  class="form-control" id="codeBC" placeholder="code" required disabled>
+                    </div>
+  
+                   <div class="col-md-4 mb-3">
+                    <label for="montant">montant</label>
+                    <input type="number" ngModel={{modifiedBC?.montant}} name="montant"  class="form-control" id="montant" placeholder="montant" required>
+                  </div>
+                  
+                  <div class="col-md-4 mb-3">
+                    <label for="delais">delais</label>
+                    <input type="number" ngModel={{modifiedBC?.delais}} name="delais"  class="form-control" id="delais" placeholder="delais" required>
+                  </div>
+        
+                  
+                  <div class="col-md-4 mb-3">
+                    <label for="entreprise">Entreprise</label>
+                    <input type="text"   name="entreprise" ngModel={{modifiedBC?.nomEntrep}} class="form-control" id="entreprise" placeholder="codeEntreprise" value="codeEntreprise" required disabled>
+                  </div>
+        
+                      <br>
+                      <div *ngIf="alerteDelaisBCs" class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Attention</strong> le delai maximale des bon_de commandes est superieur au delais du marchee
+                        <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+                      </div>
+                      
+                      <div class="modal-footer">
+                         <button type="button" id="closeEditBCModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                         <button [disabled]="editBCForm.invalid" type="submit" class="btn btn-primary" (click)="modifierBC(editBCForm)" >Modifier</button>
+                      </div>
+                      </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+ <!-- delete bonde Commande modal -->
+       <div class="modal fade" id="deleteBCModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLongTitle">Ajouter une Entreprise</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h4>Voulez vous vraiment supprimer la bon-de commande ?</h4>
+                
+                    <div class="modal-footer">
+                      <button type="button" id="closeDeleteBCModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                      <button  type="submit" class="btn btn-primary" (click)="supprimerBC()"  >Supprimer</button>
+                   </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+        <!-- delete article modal -->
+        <div class="modal fade" id="deleteArticleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Ajouter une Entreprise</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  
+                      <div class="modal-footer">
+                        <button type="button" id="add-entrep-form" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        <button  type="submit" class="btn btn-primary"  >Enreistrer</button>
+                     </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    
          </div>
   
   

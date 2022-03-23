@@ -14,7 +14,6 @@ export class EntreprisesComponent implements OnInit {
   organs!: Organisation[];
   totalLength:any;
   page:number = 1;
-  term:any;
   terme:any;
   
   

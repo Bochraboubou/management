@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ArticleUtilisee } from '../model/ArticleUtilisee';
-import { BondeCommandeService } from '../service/bonde-commande.service';
+import { ArticleUtilisee } from '../../model/ArticleUtilisee';
+import { BondeCommandeService } from '../../service/bonde-commande.service';
 
 @Component({
   selector: 'app-menu-mycpm',

@@ -20,4 +20,16 @@ export class MetierService {
   {
     return this.http.get<Metier[]>(`${this.apiServeUrl}/admin/secteurs/${secteurId}/metiers`);
   }
+
+  public deleteMetier(metierId:number): Observable<void>
+  {
+    return this.http.delete<void>(`${this.apiServeUrl}/admin/metiers/${metierId}`);
+  }
+
+   //récuperer le metier par nom
+   public getMetierbyNom(nomMetier:string): Observable<Metier>
+   {
+     return this.http.get<Metier>(`${this.apiServeUrl}/admin/metierbynom/${nomMetier}`);
+   }
+ 
 }

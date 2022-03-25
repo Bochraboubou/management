@@ -3,7 +3,7 @@ import { ArticleUtilisee } from "./ArticleUtilisee";
 
 export class BondeCommande{
     id!: number;
-    numeros!: number;
+    codebc!: string;
     montant!: number;
     delais!: number;
     valide:boolean=false;

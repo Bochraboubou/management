@@ -1,0 +1,3 @@
+.metiersPagination /deep/ .ngx-pagination .current {
+    background:navy;
+  }

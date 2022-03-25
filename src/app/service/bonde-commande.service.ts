@@ -21,4 +21,10 @@ export class BondeCommandeService {
   {
     return this.http.get<ArticleUtilisee[]>(`${this.apiServeUrl}/admin/articlesutilisees`);
   }
+
+   //récuperer la bc par code
+   public getBCbyCode(code:string): Observable<BondeCommande>
+   {
+     return this.http.get<BondeCommande>(`${this.apiServeUrl}/admin/bcsbycode/${code}`);
+   }
 }

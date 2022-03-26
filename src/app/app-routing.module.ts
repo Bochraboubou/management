@@ -17,6 +17,7 @@ import { MenuComponent } from './menu/menu.component';
 import { OrganisationComponent } from './organisation/organisation.component';
 import { GestionMetiersComponent } from './sectionOrganisation/gestion-metiers/gestion-metiers.component';
 import { ArticleComponent } from './Articles/article/article.component';
+import { TypesComponent } from './Articles/types/types.component';
 
 
 const routes: Routes = [
@@ -39,7 +40,8 @@ const routes: Routes = [
     { path:'entreprises',component:EntreprisesComponent},
     { path:'articlesSpecifiees',component:ArticlespecifieeComponent},
     { path:'metiers',component:GestionMetiersComponent},
-    { path:'articles',component:ArticleComponent}
+    { path:'articles',component:ArticleComponent},
+    { path:'types',component:TypesComponent}
 
   ]},
 

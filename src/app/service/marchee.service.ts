@@ -29,4 +29,10 @@ export class MarcheeService {
    {
      return this.http.get<Marchee>(`${this.apiServeUrl}/admin/marcheebycode/${codeMarchee}`);
    }
+
+   //récuperer le secteur par nom
+   public getMarcheebyCodeandOrganisation(codeMarchee:string,organId:number): Observable<Marchee>
+   {
+     return this.http.get<Marchee>(`${this.apiServeUrl}/admin/marcheebycode/${codeMarchee}/andOrgan/${organId}`);
+   }
 }

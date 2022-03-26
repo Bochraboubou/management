@@ -28,6 +28,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPrintModule } from 'ngx-print';
 import { GestionMetiersComponent } from './sectionOrganisation/gestion-metiers/gestion-metiers.component';
 import { ArticleComponent } from './Articles/article/article.component';
+import { TypesComponent } from './Articles/types/types.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -54,6 +56,7 @@ import { ArticleComponent } from './Articles/article/article.component';
     ListeDemandesComponent,
     GestionMetiersComponent,
     ArticleComponent,
+    TypesComponent,
     
    
   ],
@@ -67,6 +70,7 @@ import { ArticleComponent } from './Articles/article/article.component';
     NgxPaginationModule,
     Ng2SearchPipeModule,
     NgxPrintModule,
+    ToastrModule.forRoot()
    
   
     

@@ -434,6 +434,7 @@
                         <label class="small mb-1" for="inputPhone">Tel Organisation</label>
                         <input ngModel name="telOrg"class="form-control" id="telOrg" type="tel" placeholder="Enterer le numero du telephone" required>
                     </div>
+                    
                     <div class="col-md-6">
                         <label class="small mb-1" for="inputBirthday">type</label>
                         <input ngModel name="type"class="form-control" id="type" type="text"  placeholder="Enterer le  type d'organization"required >
@@ -443,9 +444,15 @@
                      
                     
                     <br>
-
+                  <div class="form-group">
+                        <label >  Logo  </label>
+                        <input ngModel  type="file" name="filename"  accept="image/*" (change)="onSelectFile($event)"   required>
+                        <img [src]="imgURL" height="200" *ngIf="imgURL">
+                      </div>
+                      
 
                 </div>
+                
                 <!--
                  <div class="row gx-3 mb-3">
                  

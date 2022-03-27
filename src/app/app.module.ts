@@ -1,4 +1,9 @@
-import { NgModule } from '@angular/core';
+
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+
+
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -31,6 +36,11 @@ import { OneDemandeComponent } from './Inscription/one-demande/one-demande.compo
 import { WorningEmailComponent } from './Inscription/worning-email/worning-email.component';
 import { SecteurComponent } from './CPM/secteur/secteur.component';
 import { DetailSecteurComponent } from './CPM/detail-secteur/detail-secteur.component';
+import { FileUploadComponent } from './Inscription/file-upload/file-upload.component';
+import { NouveauSecteurComponent } from './CPM/nouveau-secteur/nouveau-secteur.component';
+import { ListesUtulisateurComponent } from './listes-utulisateur/listes-utulisateur.component';
+import { FirstInscriptionComponent } from './Inscription/first-inscription/first-inscription.component';
+import { GererComptesComponent } from './CPM/gerer-comptes/gerer-comptes.component';
 
 
 @NgModule({
@@ -60,6 +70,11 @@ import { DetailSecteurComponent } from './CPM/detail-secteur/detail-secteur.comp
     WorningEmailComponent,
     SecteurComponent,
     DetailSecteurComponent,
+    FileUploadComponent,
+    NouveauSecteurComponent,
+    ListesUtulisateurComponent,
+    FirstInscriptionComponent,
+    GererComptesComponent,
    
   ],
   imports: [
@@ -68,8 +83,13 @@ import { DetailSecteurComponent } from './CPM/detail-secteur/detail-secteur.comp
     BrowserAnimationsModule,
     MatDialogModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatToolbarModule,
+    MatIconModule,
     
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   providers: [],
   bootstrap: [AppComponent]

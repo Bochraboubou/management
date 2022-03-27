@@ -7,6 +7,7 @@ import { Role } from 'src/app/model/Role';
 import { User } from 'src/app/model/User';
 import { LoginService } from 'src/app/service/login.service';
 import { OrganisationServiceService } from 'src/app/service/organisation-service.service';
+import { RoleService } from 'src/app/service/role.service';
 
 @Component({
   selector: 'app-login',
@@ -21,39 +22,135 @@ idUser!:number;
   code_org!:string;
   organisation =new Organisation();
   roleu!:Role;
-  constructor(private _route:Router,private service:LoginService,private router:Router, private OrganisationService:OrganisationServiceService) { }
+  role!:Role;
+  roles!:Role[];
+  constructor(private roleServ:RoleService,private _route:Router,private service:LoginService,private router:Router, private OrganisationService:OrganisationServiceService) { }
 
   ngOnInit(): void {
-    
+     }
+     loginUser(){
+
+      this.service.guestLogin(this.user).subscribe({
+        next: (response:User) => {
+          this.user=response;
+          console.log("user"+response);
+
+          console.log("user id "+this.user.id);
+        //  console.log("user role "+this.user.roles[0]?.name);
+      
+         
+          if ( this.user.role=="ADMIN_CPM"){
+            console.log("aaaaaaaaaaa")
+           // console.log("votre role est"+this.user.roles[0]?.name)
+            this.router.navigate(['/cpm',this.user.id]);
+          }
+          else{ 
+            this.router.navigate(['mycpm',this.user.id]);
+
+          }
+            /*
+            this.OrganisationService.getOrganisationbyUser(this.user.id).subscribe({
+              next: (response:Organisation) => {
+                this.organisation=response;
+                console.log("organisation"+response);
+                this.idOrganisation=this.organisation.id;
+                console.log(this.idOrganisation)
+                alert("vous etes attache a "+this.organisation.nom)
+                this.router.navigate(['mycpm',this.user.id]);
+              },
+              error: (error:HttpErrorResponse) => {
+                console.log(error.message);
+                alert("vous n'etes plus attaché a une organisation")
+               },
+              complete: () => console.info('complete') 
+          })
+            
+          }*/
+
+        },
+        error: (error:HttpErrorResponse) => {
+          console.log(error.message);
+          alert("verifier votre login et mot de passe ")
+         },
+        complete: () => console.info('complete') 
+    })
 
   }
   
-  loginUser(){
+
+trouverRole(idUser:number){
+  this.roleServ.findRoleOfUser(idUser).subscribe({
+    next: (response:Role[]) => {
+      this.roles=response;
+      console.log("les roles sont "+response);
+    },
+    error: (error:HttpErrorResponse) => {
+      alert(error.message);
+     },
+    complete: () => console.info('complete') 
+})
+
+
+
+}
+verifier(u:User){
+
+
+}
+
+
+
+/*
+loginUser(){
   this.service.guestLogin(this.user).subscribe({
       next: (response:User) => {
         this.user=response;
         this.idUser=this.user.id;
-       console.log(this.user.roles[1]?.name)
-        console.log("votre id est : "+this.idUser);
-        console.log("votre role est : "+this.roleu);
+        console.log(this.user.id)
+        // affiche indefind
+      // console.log("votre role est"+this.user.roles[4]?.id)
+       // console.log("votre id est : "+this.trouverRole(this.idUser));
+  console .log("votre role est :"+this.user.role)
 
+if ( this.user.role=="ADMIN_CPM"){
+  this.router.navigate(['cpm']);
+}else
+{}
         this.OrganisationService.getOrganisationbyUser(this.idUser).subscribe({
           next:(response:Organisation)=>{
             this.organisation=response;
            this.idOrganisation=this.organisation.id;
            
            console.log("votre code d'organisation  est : "+this.idOrganisation);
-           this.router.navigate(['cpm',this.idOrganisation]);
+          
+          
+            this.router.navigate(['cpm',this.idOrganisation]);
           }
         })
-      },
+},
       error: (error:HttpErrorResponse) => {
         alert(error.message);
+        alert( "verifier votre pass et login")
        },
       complete: () => console.info('complete') 
   })
-}
-  
+
+  }
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

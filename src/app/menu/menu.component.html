@@ -173,7 +173,7 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">Bochra Nahali</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{user.username}}</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -279,6 +279,28 @@
         </ul>
       </li><!-- End Forms Nav -->
 
+      <!--associer role -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav1" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span> comptes utulisateur  </span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a routerLink="/gererComptes">
+              <i class="bi bi-circle"></i><span>Gérer les comptes  </span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="">
+              <i class="bi bi-circle"></i><span>liste des utulisateurs</span>
+            </a>
+          </li>
+          
+         
+          
+        </ul>
+      </li>
+       <!-- end associer role -->
     
 
       <li class="nav-item">
@@ -346,7 +368,7 @@
 
   <main id="main" class="main">
 
-    <div class="pagetitle">
+    <div class="row">
       <h1>Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
@@ -362,9 +384,7 @@
         <!-- Left side columns -->
         <div class="col-lg-8">
           <div class="row">
-
-            
-            <div class="bochra"><h1 style="color: blue;">Bienvenue</h1></div>
+ 
             <button routerLink="/mycpm" type="button" class="btn btn-info"> Accéder à espace myCPM</button>
             <div class="container_fluid">
               <router-outlet></router-outlet>
@@ -381,7 +401,7 @@
  
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
- 
+
 
 </div>
 

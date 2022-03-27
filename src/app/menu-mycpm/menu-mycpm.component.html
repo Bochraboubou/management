@@ -178,6 +178,8 @@
   
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
               <li class="dropdown-header">
+                <h6>{{user.username}}</h6>
+                
                 <h6>{{organisation.nom}}</h6>
                 <span>Soft engineering Student</span>
               </li>
@@ -186,7 +188,7 @@
               </li>
   
               <li>
-                <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+<a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                   <i class="bi bi-person"></i>
                   <span>My Profile</span>
                 </a>
@@ -367,6 +369,22 @@
             </li>
           </ul>
         </li><!-- End Icons Nav -->
+
+
+        <li class="nav-item">
+          <a class="nav-link collapsed" data-bs-target="#icons-nav2" data-bs-toggle="collapse" href="#" >
+            <i class="bi bi-gem"></i><span>Gérer les comptes </span><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul id="icons-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li>
+              <a routerLink="gererComptes">
+                <i class="bi bi-circle"></i><span>listes des nouveaux comptes </span>
+              </a>
+            </li>
+           
+           
+          </ul>
+        </li>
   
         <li class="nav-heading">Pages</li>
   
@@ -443,8 +461,11 @@
             <div class="row">
   
               
-              <div class="bochra"><h1 style="color: blue;">Bienvenue dans l'espace de My CPM</h1>
+              <div class="bochra"><h1 style="color: blue;">Bienvenue a {{organisation.nom}}</h1>
                 <button (click)="showme()">show me</button>
+              </div>
+              <div >
+                <button (click)="info()">info user and organisation </button>
               </div>
               <div class="container_fluid">
                 <router-outlet></router-outlet>

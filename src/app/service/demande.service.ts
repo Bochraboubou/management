@@ -19,10 +19,11 @@ export class DemandeService {
   public addDemande(demande:Demande): Observable<Demande> {
     return this.http.post<Demande>(`${this.apiServeUrl}/api/saveDemande`, demande);
   }
-
+/*
   public updateDemande(demande: Demande): Observable<Demande> {
     return this.http.put<Demande>(`${this.apiServeUrl}/demande/update`, demande);
   }
+  */
 
   public deleteDemande(demandeId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiServeUrl}/api/deleteDemande/${demandeId}`);
@@ -32,7 +33,17 @@ export class DemandeService {
 
   }
 
-  public addDemande2(formData:FormData): Observable<any> {
+ /* public addDemande2(formData:FormData): Observable<any> {
     return this.http.post(`${this.apiServeUrl}/api/saveDemandefile`, formData);
   }
+  */
+
+   updateDemande(id:number,demande:Demande):Observable<void>{
+    return this.http.put<void>(`${this.apiServeUrl}/api/demande/${id}`, demande);
+
+  }
+  createDemande(formData:FormData): Observable<any> {
+    return this.http.post(`${this.apiServeUrl}/api/demandenew`,formData);
+  }
+  
 }

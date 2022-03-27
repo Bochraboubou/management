@@ -1,0 +1,114 @@
+
+
+    <div class="container">
+
+        <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+  
+                <div class="d-flex justify-content-center py-4">
+                  <a href="index.html" class="logo d-flex align-items-center w-auto">
+                    <img src="assets/menu/img/logo.png" alt="">
+                    <span class="d-none d-lg-block">Sign Up</span>
+                  </a>
+                </div><!-- End Logo -->
+  
+                <div class="card mb-3">
+  
+                  <div class="card-body">
+  
+                    <div class="pt-4 pb-2">
+                      <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
+                      <p class="text-center small">Enter your personal details to create account</p>
+                    </div>
+  
+                    <form class="row g-3 needs-validation" novalidate #formRegistration="ngForm" (ngSubmit)="RegistryUser()" >
+                      <small class="text-danger">{{msg}}</small> 
+                      <div class="col-12">
+                        <label for="yourName" class="form-label">IdOrganisation</label>
+                        <input  [(ngModel)]="id_org"  name="id_org" type="text"  class="form-control" id="id_org"   required>
+                        <div class="invalid-feedback">Entrer code organisation </div>
+                      </div>
+                      <div class="col-12">
+                        <label for="yourName" class="form-label">Premier nom</label>
+                        <input type="text" name="username" class="form-control" id="yourUserName"  [(ngModel)]="user.username"  required 
+                        #username="ngModel" 
+                      [class.is-invalid]="username.invalid && username.touched" >
+                        <div class="invalid-feedback">Entrer votre  premier nom</div>
+                      </div>
+                        
+                      <div class="col-12">
+                        <label for="yourName" class="form-label">Nom</label>
+                        <input   [(ngModel)]="user.name"  name="name" type="text"  class="form-control" id="name"   required 
+                        #name="ngModel" 
+                      [class.is-invalid]="name.invalid && name.touched" >
+                        <div class="invalid-feedback">Entrer votre nom !</div>
+                      </div>
+
+
+            
+  
+                      <div class="col-12">
+                        <label for="email" class="form-label">Email</label>
+                        
+             
+                           <input    [(ngModel)]="user.email" name="email" type="email"  class="form-control" placeholder="Email Address"  required 
+                                                     #email="ngModel" 
+                                                    [class.is-invalid]="email.invalid && email.touched" >
+                                                  
+                                                     <div *ngIf="email.errors && (email.invalid && email.touched)">
+                                                        <small class="text-danger"*ngIf="email.errors['required']"> Email is required field</small>
+                                                        <small class="text-danger" *ngIf="email.errors['pattern']">       Enter the valid email</small>
+                                                     </div>
+                          <div class="invalid-feedback">Entrer une adresse email valide !</div>
+                         
+                        </div>
+
+                     
+             
+
+                      <div class="col-12">
+                        <label for="yourPassword" class="form-label">Mot de passe </label>
+                        <input type="password"  class="form-control" id="Password" name="password" [(ngModel)]="user.password" required
+                         #password="ngModel"  [class.is-invalid]="password.invalid && password.touched">
+                        <div class="invalid-feedback">Entrer un mot de passe !</div>
+                      </div>
+                      <div class="col-12">
+                          <label for="yourPassword" class="form-label"> Confirmer mot de passe </label>
+                          <input type="password"  class="form-control" id="confirmPassword" name="cpassword" (ngModel)="user.password" required
+                          #cpassword="ngModel"  [class.is-invalid]="cpassword.invalid && cpassword.touched">
+                          <small class="text-danger" [class.d-none]="(password.value == cpassword.value) || cpassword.untouched"> confirm mot de passe invalide  </small>
+                        </div>
+  
+                      <div class="col-12">
+                        <div class="form-check">
+                          <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
+                          <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
+                          <div class="invalid-feedback">You must agree before submitting.</div>
+                        </div>
+                      </div>
+                      <div class="col-12"><!-- [disabled]="formRegistration.form.invalid"-->
+                        <button  class="btn btn-primary w-100" type="submit">Create Account</button>
+                      </div>
+                     
+                      <div class="col-12">
+                        <p class="small mb-0">Already have an account? <a [routerLink]="['/login']">Log in</a></p>
+                      </div>
+                    </form>
+  
+                  </div>
+                </div>
+  
+                <div class="credits">
+                  
+                </div>
+  
+              </div>
+            </div>
+          </div>
+  
+        </section>
+  
+      </div>
+  

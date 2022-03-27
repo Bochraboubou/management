@@ -16,6 +16,14 @@ export class Organisation{
     nomDG!:string;
     telDG!:number;
     emailDG!:string;
+     nomAdmin!:string;
+    telAdmin!: number;
+     emailAdmin!:string;
+    document!:string;
+    logo!:string;
+   
+
+
     users!:Array<User>;
     listmarchees!:Array<Marchee>;
     constructor(){}

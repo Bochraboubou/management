@@ -80,24 +80,27 @@
             <div class="form-group mt-4">
                 <textarea  name="message" name="message" class="form-control" id="message" rows="12" >
                 Bonjour {{demande.nomAdmin}},
-                Bienvenue dans CMP-GROUP &#8211; nous sommes ravis de vous avoir à bord et nous aimerions vous remercier au nom de toute notre entreprise de nous avoir choisis.
+                Bienvenue dans CMP-GROUP &#8211; nous sommes ravis de vous avoir à bord .
                 votre code de confirmation est :{{code}}
-
+                 Pour s'inscrire il suffit de taper ici:{{this.lien}}
                 Prends soin de toi,
                 CPM-GROUP</textarea>
             </div>
             <div class="action-wrapper text-center">
                 
-                    <button  class="btn btn-success btn-lg" type="submit">
+                   <button  class="btn btn-success btn-lg" type="submit">
                         send
                    </button>
-                   <button (click)="saveNewUser(prospect)" class="btn btn-success btn-lg" type="submit">
+                   
+                   <!--<button (click)="saveNewUser(prospect)" class="btn btn-success btn-lg" type="submit">
                     prospect
-               </button>
+               </button>-->
                  
                
 
         </div>
+        <br>
+       <!--<button (click)="showinformation()" type="button">show</button>-->
            
         </form>
        

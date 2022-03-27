@@ -15,6 +15,11 @@ export class ProspectService {
   {
     return this.http.post<Prospect>(`${this.apiServeUrl}/api/saveprospect`,prospect);
   }
-
+public trouverParEmailEtCode(email:string, code:string): Observable<Prospect>{
+  return this.http.get<Prospect>(`${this.apiServeUrl}/api/byEmailAndCode/${email}/code/${code}`);
+}
+public trouverParEmail(email:string): Observable<Prospect>{
+  return this.http.get<Prospect>(`${this.apiServeUrl}/api/findProspect/${email}`);
+}
 
 }

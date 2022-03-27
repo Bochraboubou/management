@@ -27,20 +27,21 @@
                                                     -->
                                                     
 
-                                                    <input type="text"  class="form-control" placeholder="username" [(ngModel)]="user.username" name="username" required 
+                                                    <input type="text"  class="form-control" placeholder="premier nom" [(ngModel)]="user.username" name="username" required 
                                                     #username="ngModel" 
                                                    [class.is-invalid]="username.touched" >
-                                                <!--<small class="text-danger" [class.d-none]="username.untouched"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AA   Email is required field</small>-->
+                                                <small class="text-danger" [class.d-none]="username.untouched"> premier nom invalide</small>
                                                 </div>
                                             </div>
                                             <br>
+                                            <div><br></div>
                                             <div class="col-12">
                                                 <div class="form-group position-relative">
                                                     <span class="zmdi zmdi-email"></span>
-                                                    <input type="password" id="password" class="form-control" placeholder="Password" [(ngModel)]="user.password"  name ="password"
+                                                    <input type="password" id="password" class="form-control" placeholder="mot de passe " [(ngModel)]="user.password"  name ="password"
                                                     required #password="ngModel"
                                                     [class.is-invalid]="password.invalid && password.touched" >
-                                                    <small class="text-danger" [class.d-none]="password.valid || password.untouched">Aaa          &nbsp;&nbsp;  Password  is required field</small>
+                                                    <small class="text-danger" [class.d-none]="password.valid || password.untouched">mot de passe invalide</small>
                                                 </div>
                                             </div>
                                             <!--
@@ -56,11 +57,12 @@
                                             </div>
                                         -->
                                             <div class="col-12 text-lg-right">
-                                                <a  class="c-black"  [routerLink]="['sendEmail']">Forgot password ?</a>
+                                                <a  class="c-black"  [routerLink]="['sendEmail']">mot de passe oblié?</a>
                                             </div>
                                             <div class="col-12 mt-30">
-                                                <button [disabled]="loginform.form.invalid" type="submit" id="submit" class="btn btn-lg btn-custom btn-dark btn-block">Sign In
+                                                <button [disabled]="loginform.form.invalid" type="submit" id="submit" class="btn btn-lg btn-custom btn-dark btn-block">Valider
                                                 </button>
+                                                
                                             </div>
                                         </div>
                                     </form>
@@ -69,11 +71,11 @@
                             <div class="col-md-6">
                                 <div class="content text-center">
                                     <div class="border-bottom pb-5 mb-5">
-                                        <h3 class="c-black">First time here?</h3>
+                                        <h3 class="c-black">vous êtes là  pour la premiere fois ?</h3>
                                       <!--  <a  class="btn btn-custom" (click)="gotoregistration()" >Sign up</a>-->
-                                        <a  class="btn btn-custom" [routerLink]="['/register']">Sign up</a>
+                                        <a  class="btn btn-custom" [routerLink]="['/register']">S'inscrire</a>
                                     </div>
-                                    <h5 class="c-black mb-4 mt-n1">Or Sign In With</h5>
+                                    <h5 class="c-black mb-4 mt-n1">Ou S'inscrire avec </h5>
                                     <div class="socials">
                                         <a href="#" class="zmdi zmdi-facebook"></a>
                                         <a href="#" class="zmdi zmdi-twitter"></a>

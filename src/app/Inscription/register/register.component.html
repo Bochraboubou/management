@@ -1,7 +1,7 @@
 
 
     <div class="container">
-
+<a routerLink="/inscritEmployee">Inscription Employee</a>
         <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
           <div class="container">
             <div class="row justify-content-center">
@@ -35,7 +35,7 @@
                         
                       <div class="col-12">
                         <label for="yourName" class="form-label">Your Name</label>
-                        <input type="text" name="name" class="form-control" id="yourName"  [(ngModel)]="user.name"  required 
+                        <input   [(ngModel)]="user.name"  name="name" type="text"  class="form-control" id="name"   required 
                         #name="ngModel" 
                       [class.is-invalid]="name.invalid && name.touched" >
                         <div class="invalid-feedback">Please, enter your name!</div>
@@ -43,10 +43,10 @@
 
 
                       <div class="col-12">
-                        <label for="yourEmail" class="form-label">Your code organization</label>
-                        <input type="text" name="organisation" class="form-control" id="yourEmail"  [(ngModel)]="user.code" required 
-                        #code="ngModel" 
-                        [class.is-invalid]="code.invalid && code.touched">
+                        <label for="yourEmail" class="form-label">Your code de confirmation</label>
+                        <input  [(ngModel)]="user.codeConfirmation" type="text" name="codeConfirmation" class="form-control" id="codeConfirmation"  required 
+                        #codeConfirmation="ngModel" 
+                        [class.is-invalid]="codeConfirmation.invalid && codeConfirmation.touched">
                         <div class="invalid-feedback">Please enter a valid code !</div>
                       </div>
   
@@ -63,14 +63,14 @@
                             <div *ngIf="email.errors && (email.invalid && email.touched)">
                           <small class="text-danger"*ngIf="email.errors.required">  Email is required field</small>
                           <small class="text-danger" *ngIf="email.errors.['pattern']">  Enter the valid email</small>
-                           </div>-->
-                           <input type="email"  class="form-control" placeholder="Email Address" [(ngModel)]="user.email" name="email" required pattern="^\w+@[a-zA-Z]+?\.[a-zA-Z]{2,3}$"
+                           </div>--><!--pattern="^\w+@[a-zA-Z]+?\.[a-zA-Z]{2,3}$"-->
+                           <input    [(ngModel)]="user.email" name="email" type="email"  class="form-control" placeholder="Email Address"  required 
                                                      #email="ngModel" 
                                                     [class.is-invalid]="email.invalid && email.touched" >
                                                    <small class="text-danger" [class.d-none]="email.valid || email.untouched"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AA   Email is required field</small>
                                                      <div *ngIf="email.errors && (email.invalid && email.touched)">
-                                                        <small class="text-danger"*ngIf="email.errors['required']"> AAaaa  &nbsp;&nbsp;       Email is required field</small>
-                                                        <small class="text-danger" *ngIf="email.errors['pattern']"> AAaaa   &nbsp;&nbsp;       Enter the valid email</small>
+                                                        <small class="text-danger"*ngIf="email.errors['required']">  &nbsp;&nbsp;       Email is required field</small>
+                                                        <small class="text-danger" *ngIf="email.errors['pattern']">  &nbsp;&nbsp;       Enter the valid email</small>
                                                      </div>
                           <div class="invalid-feedback">Please enter a valid Email.</div>
                          
@@ -112,6 +112,9 @@
                       <div class="col-12">
                         <button  [disabled]="formRegistration.form.invalid" class="btn btn-primary w-100" type="submit">Create Account</button>
                       </div>
+                    <!-- <div class="col-12">
+                        <button  (click)="trouverProspect(user.email,user.codeConfirmation,user.username)" class="btn btn-primary w-100" type="submit">Create Account</button>
+                      </div>--> 
                       <div class="col-12">
                         <p class="small mb-0">Already have an account? <a [routerLink]="['/login']">Log in</a></p>
                       </div>

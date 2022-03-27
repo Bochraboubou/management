@@ -19,13 +19,13 @@ export class ListeDemandesComponent implements OnInit {
   nb!:number;
   demande!:Demande;
   taille!:number;
-v = Math.random()*(100 - 50) + 50;
-  constructor(private _servicedemande:DemandeService, private router:Router) { }
+ 
+  constructor(public _servicedemande:DemandeService, private router:Router) { }
 
   ngOnInit(): void {
     
     this.getListeDesDemandes();
-    
+   //console.log("")
    
   }
   public getListeDesDemandes():void
@@ -60,8 +60,8 @@ v = Math.random()*(100 - 50) + 50;
           }
         );
       }
-    
-      public onUpdateEmloyee(demande: Demande): void {
+    //on commentaire car j ai changé la methode updata
+     /* public onUpdateEmloyee(demande: Demande): void {
         this._servicedemande.updateDemande(demande).subscribe(
           (response: Demande) => {
             console.log(response);
@@ -71,7 +71,7 @@ v = Math.random()*(100 - 50) + 50;
             alert(error.message);
           }
         );
-      }
+      }*/
     
       public onDeleteDemande(demandeId:number): void {
         this._servicedemande.deleteDemande(demandeId).subscribe(
@@ -150,5 +150,7 @@ v = Math.random()*(100 - 50) + 50;
         onAfficheDetail(id:number){
            this.router.navigate(['DemandeDetail',id])
         }
-      
+        trueDemande(id:number){
+          this.demande.demandeStatus=true;
+        }
 }

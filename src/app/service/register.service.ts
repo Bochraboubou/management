@@ -15,9 +15,13 @@ export class RegisterService {
   apiServeUrl=environment.apiBaseUrl;
   constructor(private _http:HttpClient) { }
 
-
-  public RegisterFromRemote( user :User):Observable<User>{
-    return this._http.post<User>(`${this.apiServeUrl}/api/registerUser`,user);
+ 
+  public RegisterFromRemote( user :User,idorg:number,id_role:number):Observable<User>{
+    return this._http.post<User>(`${this.apiServeUrl}/api/registerUser/${idorg}/role/${id_role}`,user);
+  }
+  //pour une premiere inscription : simple user
+  public RegisterSimpleUser( user :User,idorg:number,id_role:number):Observable<User>{
+    return this._http.post<User>(`${this.apiServeUrl}/api/registerSimpleUser/${idorg}/role/${id_role}`,user);
   }
 
   public getRoles(  ):Observable<Role[]>
@@ -36,5 +40,15 @@ public RedirectToOrganisation(organId:number): Observable<Organisation>
 public envoyerUnEmail(email:Email): Observable<any>
 {let headers = new Headers({ 'Content-Type': 'application/json' });
   return this._http.post<any>("http://localhost:8085/api/sendEmail",email,{responseType: "json"});
+}
+
+
+public findByUserName(username:string): Observable<User>
+{
+  return this._http.get<User>(`${this.apiServeUrl}/api/find/${username}`);
+}
+public findByEmail(email:string): Observable<User>
+{
+  return this._http.get<User>(`${this.apiServeUrl}/api/findbyEmail/${email}`);
 }
 }

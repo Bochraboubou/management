@@ -2,13 +2,11 @@ import { Role } from "./Role";
  export class User {
     id!: number;
     name!:string;
-    email!: String;
+    email!:string;
     password!: string;
     username!: string;
-    code!: number;
-    roles!:Array<Role>;
-     
-
-     
+    codeConfirmation!: string;
+    roles!:Role[];
+     role!:string;
     constructor( ){}
     }

@@ -13,10 +13,11 @@ export class Demande {
       telDG!:number;
       emailDG!:string;
     nomAdmin!:string ;
-     telAdmin!:string;
+     telAdmin!:number;
      emailAdmin!:string ;
-     logo!:string;
-     document!:string;
+     logopath!:string;
+     documentpath!:string;
+     demandeStatus:boolean=true;
      constructor(){
          
      }

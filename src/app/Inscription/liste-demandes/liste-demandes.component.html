@@ -1,3 +1,4 @@
+
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 <hr>
 <div class="container bootstrap snippets bootdey">
@@ -6,10 +7,10 @@
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
         <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
       </svg>
-    <h1>vous avez {{demandes.length}} neveau demandes  </h1>
+    <h1>vous avez {{demandes.length}} nouvelles demandes  </h1>
   </div>
     
-  
+ 
 
    
    <div>
@@ -18,7 +19,7 @@
         <tr>
             <th><span>status</span></th>
             <th><span>nom</span></th>
-            <th><span>code</span></th>
+            <th><span>image</span></th>
             <th><span>pays</span></th>
             <th class="text-center"><span>Secteur</span></th>
             <th><span>Email</span></th>
@@ -29,28 +30,42 @@
       <tbody *ngFor="let demande of demandes, let i=index">
 
  <tr>
-     <th >
-         <li><button type="button" class="btn btn-success">
-             <i class="fa fa-check-square"></i>
+     <th ><div >
+         <li><button [ngClass]="{'btn btn-success':demande.demandeStatus ,'btn btn-danger':!demande.demandeStatus}"  type="button" >
+             <i  class="fa fa-check-square"></i>
 </button>
-</li
-></th>
+</li></div></th>
+
+
+
             <td>
-                <a href="#" class="user-link"> {{demande?.nom}}</a></td>
-               <td> <span class="user-subhead"> {{demande?.code}}</span>
+               
+                <span class="label label-default">{{demande?.nom}}</span>
             </td>
-            <td>{{demande.pays}}</td>
+           
+               <td><img  src ="{{this._servicedemande.apiServeUrl+'/api/Imgdemande/'+demande.id}}" 
+                style = "height :100px;width:fil-content"
+                alt="">
+            
+              
+            </td>
+            <td>
+                <span class="label label-default">{{demande.pays}}</span>
+            </td>
             <td class="text-center">
                 <span class="label label-default">{{demande?.secteur_d_activite}}</span>
             </td>
             <td>
-                <a href="#">{{demande?.email}} &nbsp; &nbsp; &nbsp; </a>
+                <span class="label label-default">{{demande?.email}}</span>
+                
             </td>
             <td >
-<div> &nbsp;&nbsp;&nbsp;<a   (click)="DeleteDemande(demande.id)"class="btn btn-danger" >
-    <i  class="fa fa-trash-o fa-lg"></i> Delete</a>
+<div><!--<a   (click)="DeleteDemande(demande.id)"class="btn btn-danger" >
+    <i  class="fa fa-trash-o fa-lg"></i> Delete</a>-->
       <!--lien vers la page detaildemande-->
-
+      <a (click)="DeleteDemande(demande.id)" class="btn btn-default btn-sm">
+        <i class=""></i> Delete
+     </a>
 
     <a  (click)="onAfficheDetail(demande.id)"  class="btn btn-default btn-sm">
        <i class="fa fa-cog"></i> More
@@ -61,13 +76,27 @@
                 
              
             </td>
+
+           
         </tr>
           
         
       </tbody>
     </table>
+    
 </div>
 
+
+
+
+<!--
+<li class="list-group-item">
+    <div style="width:20px; height:20px; background:red;" 
+    *ngIf="demande.demandeStatus==='faux'"></div>
+    </li>
+    <h4 [ngStyle]="{color:getColor()}">appareil:{{demande.nom}} -- status : {{getStatus()}}</h4>
+<input type="text" class="form-control" [(ngModel)]="demande.nom">
+</li>-->
 <!--
 
 <div class="row">

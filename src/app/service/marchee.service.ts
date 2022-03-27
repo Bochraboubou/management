@@ -24,15 +24,21 @@ export class MarcheeService {
     return this.http.get<Marchee[]>(`${this.apiServeUrl}/admin/organisations/${organId}/marchees`);
   }
 
-   //récuperer le secteur par nom
+   //récuperer le marchee par code
    public getMarcheebyCode(codeMarchee:string): Observable<Marchee>
    {
      return this.http.get<Marchee>(`${this.apiServeUrl}/admin/marcheebycode/${codeMarchee}`);
    }
 
-   //récuperer le secteur par nom
+   //récuperer le marchee par code et organ id
    public getMarcheebyCodeandOrganisation(codeMarchee:string,organId:number): Observable<Marchee>
    {
      return this.http.get<Marchee>(`${this.apiServeUrl}/admin/marcheebycode/${codeMarchee}/andOrgan/${organId}`);
+   }
+
+   //récuperer le marcheepar metierId and orgabId
+   public getMarcheebyMetierandOrganisation(metierId:number,organId:number): Observable<Marchee>
+   {
+     return this.http.get<Marchee>(`${this.apiServeUrl}/admin/marcheebyMetier/${metierId}/andOrgan/${organId}`);
    }
 }

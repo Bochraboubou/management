@@ -6,6 +6,7 @@ export class Article{
     prix!: number;
     quantitee!: number;
     idType!: number;
+    typeArticle!: string;
     constructor(){
         
     }

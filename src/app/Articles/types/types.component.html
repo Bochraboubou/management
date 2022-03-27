@@ -9,7 +9,7 @@
             <div>
                 <h2 style="font-family: Comic Sans MS; color: midnightblue;">Tou dabord choisissez un secteur d'activité</h2>
                 <select ngModel (ngModelChange)="getSecteurChoisis($event)" name="secteur_d_activite" id="secteur_d_activite" class="form-select" placeholder="secteur_d_activite" aria-label="Default select example" required #secteur_d_activite="ngModel"  [class.is-invalid]="secteur_d_activite.invalid && secteur_d_activite.touched">
-                 <!-- <option selected>choisir un secteur</option>-->
+                  <option selected value="" >choisir un secteur</option>-->
                   <option   *ngFor="let sect of secteurs"
                   [value]="sect.id">
                   {{sect.nomSecteur}}
@@ -20,7 +20,7 @@
             <div>
                 <h2 style="font-family: Comic Sans MS; color: midnightblue;">choisissez un metier</h2>
                 <select ngModel (ngModelChange)="getMetierChoisis($event)" name="metier" id="metier" class="form-select" placeholder="metier" aria-label="Default select example" required #metier="ngModel"  [class.is-invalid]="metier.invalid && metier.touched">
-                 <!-- <option selected>choisir un secteur</option>-->
+                  <option selected value="">choisir un metier</option>-->
                   <option   *ngFor="let metier of metiers"
                   [value]="metier.id">
                   {{metier.nomMetier}}
@@ -37,19 +37,22 @@
          <div>
           <input type="search" [(ngModel)]="searchT" class="form-control" id="searchM" name="searchM"  placeholder="rechercher la type par mots clés"> 
          </div>
-         <h2 style="font-family: Comic Sans MS; color: midnightblue;">Liste  des types disponibles par metier</h2>
+         <h2 style="font-family: Comic Sans MS; color: midnightblue;">Liste  des types disponibles par metier "{{metierC?.nomMetier}}"</h2>
+         <div *ngIf="metier.dirty">
           <ul class="list-group">
   
-              <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let type of types |filter:searchT| paginate : {
-                itemsPerPage:4,
-                currentPage:page,
-                totalItems:totalLength
-                }" >
-                {{type.typeLib}} 
-              </li>
-            </ul>
-            <br>
-            <pagination-controls (pageChange)="page = $event" class="text-center typesPagination"></pagination-controls>
+            <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let type of types |filter:searchT| paginate : {
+              itemsPerPage:4,
+              currentPage:page,
+              totalItems:totalLength
+              }" >
+              {{type.typeLib}} 
+            </li>
+          </ul>
+          <br>
+          <pagination-controls (pageChange)="page = $event" class="text-center typesPagination"></pagination-controls>
+         </div>
+         
         </div>
         <div *ngIf="metier.dirty" class="col-md-2">
           <button type="button" class="btn btn-primary" (click)="onOpenAddMetierModal()" style="background-color: navy;"><i class="fa fa-plus" aria-hidden="true"></i></button>

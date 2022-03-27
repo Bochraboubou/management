@@ -23,7 +23,7 @@ export class TypesComponent implements OnInit {
   secteurC!: Secteur;
   metierC!: Metier;
   searchT:any;
-  affich:boolean = false;
+
   totalLength:any;
   page:number = 1;
   alerteLibTypeutilisee:boolean = false;
@@ -77,12 +77,12 @@ export class TypesComponent implements OnInit {
     
 
   }
-   //event lors du choix du secteur
+   //event lors du choix du metier
    getMetierChoisis(metierId:number){
     console.log("id du metier choisis"+metierId);
     this.onGetMetierById(metierId);
     this.getTypes(metierId);
-    this.affich=true;
+    
     
 
     

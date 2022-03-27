@@ -27,5 +27,11 @@ export class TypeService {
    {
      return this.http.get<Type>(`${this.apiServeUrl}/admin/typebylib/${typeLib}`);
    }
+
+   //récuperer le type par ArticleId
+   public getTypebyArticleId(articleId:number): Observable<Type>
+   {
+     return this.http.get<Type>(`${this.apiServeUrl}/admin/typebyArticle/${articleId}`);
+   }
  
 }

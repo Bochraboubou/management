@@ -46,11 +46,12 @@ export class MarcheeComponent implements OnInit {
   totalLength:any;
   page:number = 1;
   printedBCommande!: BondeCommande;
-  printMarchee!: any;
+  printMarchee: any;
   editArticleIndice!: number;
   modifiedArticle!: Article;
   modifiedBC!: BondeCommande;
   deleteArticleIndice!: number;
+  //tableaux et listes
   //tableaux et listes
   metiers!: Metier[];
   secteurs!: Secteur[];
@@ -354,7 +355,7 @@ export class MarcheeComponent implements OnInit {
 }
 
 
-//tester l'existance du code du bc
+//tester l'existance du code d'entreprise
 public testerCodeEntreprise(code:string):boolean{
   let exist:boolean=false;
   this.organService.getOrganisationbyCode(this.codeEntreprise).subscribe({

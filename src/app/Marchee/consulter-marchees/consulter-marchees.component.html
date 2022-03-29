@@ -31,9 +31,80 @@
         </div>
         <div>
 
+        
         </div>
     
         
       
     </div>
+    <br>
+    <div>
+      <h2 style="font-family: Comic Sans MS; color: midnightblue;">Liste  des marchés  par metier "{{metierC?.nomMetier}}"</h2>
+      <div *ngIf="marchees?.length==0"><h2>Aucun marché dans le metier "{{metierC.nomMetier}}"</h2></div>
+     <div *ngFor="let marchee of marchees | filter:searchB | paginate : {
+      itemsPerPage:4,
+      currentPage:Mpage,
+      totalItems:MarcheestotalLength
+      } let i = index" class="card col-sm-9 marcheeCard">
+        <h2 style="font-weight:bold; text-align: center;"> Marché N°{{i}}</h2>
+       <div class="card-body">
+        <h3><strong>Code : </strong>{{marchee.code}}</h3>
+        <h3><strong >Designation </strong> {{marchee.designiation}}</h3>
+        <div class="row">
+          <div class="col-md-4"><strong>Budget :</strong>{{marchee.budget}}</div>
+          <div class="col-md-4"><strong>Type :</strong>{{marchee.type}}</div>
+        </div>
+        <div class="col-md-4"><h3><strong>Unité </strong> {{marchee.unitee}}</h3></div>
+        <div class="row">
+          <div class="col-md-4"> <h3><strong>Montant </strong>{{marchee.montant}}</h3></div>
+          <div class="col-md-4"><h3><strong>Delai  </strong>{{marchee.delais}}</h3></div>
+        </div>
+        <pagination-controls (pageChange)="Mpage = $event" class="text-center pagination"></pagination-controls>
+          </div>
+       <div class="card-body">
+          <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#bCommandes" aria-expanded="false" aria-controls="bCommandes" style="background-color: navy;">
+            Bon-de commandes
+          </button>
+        <div class="collapse" id="bCommandes">
+          <div>
+            <table class="table table-primary table-hover table-striped">
+              <thead>
+                <tr>
+                  <th scope="col" class="bg-primary">N°</th>
+                  <th scope="col" class="bg-primary">Code</th>
+                  <th scope="col" class="bg-primary">Montant</th>
+                  <th scope="col" class="bg-primary">Delais</th>
+                  <th scope="col" class="bg-primary">Entreprise</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let bc of marchee.listeBondeCommandes | filter:searchB | paginate : {
+                    itemsPerPage:4,
+                    currentPage:Bpage,
+                    totalItems:BCtotalLength
+                    }
+                    ,let i= index">
+                  <th scope="row">{{i}}</th>
+                  <td>{{bc.codeBC}}</td>
+                  <td>{{bc.montant}}</td>
+                  <td>{{bc.delais}}</td>
+                  <td>{{bc.nomEntrep}}</td>
+                 
+                </tr>
+              </tbody>
+             
+            </table>
+            <pagination-controls (pageChange)="Bpage = $event" class="text-center pagination"></pagination-controls>
+          </div>
+        </div>
+        
+       </div>
+      </div>
+    </div>
+  
+  
+    
+</div>
+ 
+ 
   

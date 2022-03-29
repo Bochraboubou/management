@@ -36,9 +36,9 @@ export class MarcheeService {
      return this.http.get<Marchee>(`${this.apiServeUrl}/admin/marcheebycode/${codeMarchee}/andOrgan/${organId}`);
    }
 
-   //récuperer le marcheepar metierId and orgabId
-   public getMarcheebyMetierandOrganisation(metierId:number,organId:number): Observable<Marchee>
+   //récuperer les marchees par metierId and orgabId
+   public getMarcheesbyMetierandOrganisation(metierId:number,organId:number): Observable<Marchee[]>
    {
-     return this.http.get<Marchee>(`${this.apiServeUrl}/admin/marcheebyMetier/${metierId}/andOrgan/${organId}`);
+     return this.http.get<Marchee[]>(`${this.apiServeUrl}/admin/marcheebyMetier/${metierId}/andOrgan/${organId}`);
    }
 }

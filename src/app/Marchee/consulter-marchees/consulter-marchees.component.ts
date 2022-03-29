@@ -1,10 +1,16 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit} from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { BondeCommande } from 'src/app/model/BondeCommande';
+import { Marchee } from 'src/app/model/Marchee';
 import { Metier } from 'src/app/model/Metier';
+import { Organisation } from 'src/app/model/Organisation';
 import { Secteur } from 'src/app/model/Secteur';
 import { Type } from 'src/app/model/Type';
+import { BondeCommandeService } from 'src/app/service/bonde-commande.service';
+import { MarcheeService } from 'src/app/service/marchee.service';
 import { MetierService } from 'src/app/service/metier.service';
+import { OrganisationServiceService } from 'src/app/service/organisation-service.service';
 import { SecteurService } from 'src/app/service/secteur.service';
 import { TypeService } from 'src/app/service/type.service';
 
@@ -15,21 +21,29 @@ import { TypeService } from 'src/app/service/type.service';
 })
 export class ConsulterMarcheesComponent implements OnInit {
 
+  idOrgan:number=2;
   secteurs!: Secteur[];
   metiers!: Metier[];
+  marchees!: Marchee[];
+  bonsDeCommandes!: BondeCommande[];
+
   secteurC!: Secteur;
   metierC!: Metier;
-  searchM:any;
 
-  totalLength:any;
-  page:number = 1;
+  searchM:any;
+  searchB:any;
+
+  MarcheestotalLength:any;
+  BCtotalLength:any;
+  Mpage:number = 1;
+  Bpage:number = 1;
   
 
   
   chosenSecteur!: Secteur;
 
  
-  constructor(private secteurService:SecteurService,private metierService:MetierService,private typeService:TypeService,private toastr: ToastrService) {}
+  constructor(private secteurService:SecteurService,private metierService:MetierService,private typeService:TypeService,private marcheeService:MarcheeService,private bonDeCommandeService :BondeCommandeService,private organisationService:OrganisationServiceService) {}
 
   ngOnInit(): void {
     this.onGetSecteurs();
@@ -78,7 +92,7 @@ export class ConsulterMarcheesComponent implements OnInit {
    getMetierChoisis(metierId:number){
     console.log("id du metier choisis"+metierId);
     this.onGetMetierById(metierId);
-    //this.getTypes(metierId);
+    this.getMarchees(metierId);
     
     
 
@@ -120,6 +134,24 @@ export class ConsulterMarcheesComponent implements OnInit {
   })
   }
 
+  
+   //récuperer l'entreprise par Bon de Commande
+   public onGetEntrepoByBC(bonDeCommande:BondeCommande):void{
+    this.organisationService.getOrganisationbyBonDeCommande(bonDeCommande.id).subscribe({
+      next: (response:Organisation) => {
+        bonDeCommande.nomEntrep=response.nom;
+        console.log(" nom d'entreprise cherché :   "+bonDeCommande.nomEntrep);
+       
+      },
+      error: (error:HttpErrorResponse) => {
+        alert(error.message);
+
+       },
+      complete: () => console.info('get entreprise complete') 
+  })
+  }
+
+
 
 
   //recuperer les metiers liés au secteur choisis
@@ -128,7 +160,7 @@ export class ConsulterMarcheesComponent implements OnInit {
      this.metierService.getMetiersBySecteur(idSecteur).subscribe({
       next: (response:Metier[]) =>{
         this.metiers=response;
-        console.log("metiers du du secteur de id "+this.secteurC.id+" sont les suivants"+response);
+        console.log("metiers du du secteur de id "+this.secteurC?.id+" sont les suivants"+response);
         
       },
       error: (error:HttpErrorResponse) => {
@@ -140,22 +172,45 @@ export class ConsulterMarcheesComponent implements OnInit {
 
   }
 
-   //récuperer la liste des types
- /* public getTypes(idMetier:number):void{
-    this.typeService.getTypessByMetier(idMetier).subscribe({
-      next: (response:Type[]) => {
-      this.types=response;
-        console.log("types par metiers"+this.types);
-        this.totalLength=this.types.length;
+   //récuperer la liste des marchees par organisation et metier
+  public getMarchees(idMetier:number):void{
+    this.marcheeService.getMarcheesbyMetierandOrganisation(idMetier,this.idOrgan).subscribe({
+      next: (response:Marchee[]) => {
+      this.marchees=response;
+      for (let i = 0; i < this.marchees.length; i++) {
+        this.getBonsDeCommandes(this.marchees[i]);
+      }
+        console.log("marchees par metiers et organ"+this.marchees);
+        this.MarcheestotalLength=this.marchees.length;
       },
       error: (error:HttpErrorResponse) => {
         alert(error.message);
 
        },
-      complete: () => console.info('complete') 
+      complete: () => console.info('getMarchees complete') 
   })
   }
-  */
+
+   //récuperer la liste des bonsDeCommandes par marchee
+   public getBonsDeCommandes(marchee:Marchee):void{
+    this.bonDeCommandeService.getBCsByMarchee(marchee.id).subscribe({
+      next: (response:BondeCommande[]) => {
+        marchee.listeBondeCommandes=response;
+        for (let i = 0; i < marchee.listeBondeCommandes.length; i++) {
+          this.onGetEntrepoByBC(marchee.listeBondeCommandes[i]);
+        }
+      
+        console.log("code premiere bc du marchee"+marchee.listeBondeCommandes[1]?.codebc);
+        this.BCtotalLength=this.marchees.length;
+      },
+      error: (error:HttpErrorResponse) => {
+        alert(error.message);
+
+       },
+      complete: () => console.info('get bcs complete') 
+  })
+  }
+  
   
 
 

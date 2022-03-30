@@ -39,7 +39,7 @@ const routes: Routes = [
     { path:'popup',component:EntreprisePopupComponent},
     { path:'detailOrganisation',component:DetailOrganisationComponent},
     { path:'entreprises',component:EntreprisesComponent},
-    { path:'articlesSpecifiees',component:ArticlespecifieeComponent},
+    { path:'articlesSpecifiees/:id',component:ArticlespecifieeComponent},
     { path:'metiers',component:GestionMetiersComponent},
     { path:'articles',component:ArticleComponent},
     { path:'types',component:TypesComponent},

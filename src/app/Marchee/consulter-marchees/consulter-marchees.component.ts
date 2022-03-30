@@ -25,16 +25,14 @@ export class ConsulterMarcheesComponent implements OnInit {
   secteurs!: Secteur[];
   metiers!: Metier[];
   marchees!: Marchee[];
-  bonsDeCommandes!: BondeCommande[];
+ 
 
   secteurC!: Secteur;
   metierC!: Metier;
 
   searchM:any;
-  searchB:any;
 
   MarcheestotalLength:any;
-  BCtotalLength:any;
   Mpage:number = 1;
   Bpage:number = 1;
   
@@ -49,14 +47,14 @@ export class ConsulterMarcheesComponent implements OnInit {
     this.onGetSecteurs();
   }
 
-   //Modal pour l'ajout d'un metier
-   public onOpenAddMetierModal():void{
-    const container=document.getElementById('main-container');
+   //Collapse pour l'affichage des bonsDeCommandes
+   public onOpenBCCollapse(i:number):void{
+     const container=document.getElementById('main-container');
      const button=document.createElement('button');
      button.type='button';
      button.style.display='none';
-     button.setAttribute('data-toggle','modal');
-     button.setAttribute('data-target','#addTypeModal');
+     button.setAttribute('data-toggle','collapse');
+     button.setAttribute('data-target','#bCommande'+i);
      container?.appendChild(button);
      button.click();
  
@@ -201,7 +199,6 @@ export class ConsulterMarcheesComponent implements OnInit {
         }
       
         console.log("code premiere bc du marchee"+marchee.listeBondeCommandes[1]?.codebc);
-        this.BCtotalLength=this.marchees.length;
       },
       error: (error:HttpErrorResponse) => {
         alert(error.message);

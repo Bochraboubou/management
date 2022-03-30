@@ -16,4 +16,10 @@ public addArticleUtilisee(bcId:number,articleId:number,articleUtilisee:ArticleUt
 {
   return this.http.post<ArticleUtilisee>(`${this.apiServeUrl}/admin/bondescommande/${bcId}/article/${articleId}/articlesutilisee`,articleUtilisee);
 }
+
+ //récuperer les articleUtilisés par bonDeCommande
+ public getArticlesUtiliseesbyBC(bcId:number): Observable<ArticleUtilisee[]>
+ {
+   return this.http.get<ArticleUtilisee[]>(`${this.apiServeUrl}/admin/bondecommande/${bcId}/articlesutilisees`);
+ }
 }

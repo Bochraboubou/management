@@ -29,6 +29,14 @@ export class BondeCommandeService {
      return this.http.get<BondeCommande>(`${this.apiServeUrl}/admin/bcsbycode/${code}`);
    }
 
+   
+   //récuperer la bc par id
+   public getBCbyId(id:number): Observable<BondeCommande>
+   {
+     return this.http.get<BondeCommande>(`${this.apiServeUrl}/admin/bcsbyid/${id}`);
+   }
+
+
    //récuperer les bonsDeCommandes par MarcheeId
    public getBCsByMarchee(marcheeId:number): Observable<BondeCommande[]>
    {

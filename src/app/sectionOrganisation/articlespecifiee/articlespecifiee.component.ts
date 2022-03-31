@@ -2,13 +2,16 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Article } from 'src/app/model/Article';
+
 import { ArticleUtilisee } from 'src/app/model/ArticleUtilisee';
 import { BondeCommande } from 'src/app/model/BondeCommande';
 import { Metier } from 'src/app/model/Metier';
+import { Organisation } from 'src/app/model/Organisation';
 import { Secteur } from 'src/app/model/Secteur';
 import { ArticleUtiliseeService } from 'src/app/service/article-utilisee.service';
 import { ArticleService } from 'src/app/service/article.service';
 import { BondeCommandeService } from 'src/app/service/bonde-commande.service';
+import { OrganisationServiceService } from 'src/app/service/organisation-service.service';
 import { SecteurService } from 'src/app/service/secteur.service';
 
 @Component({
@@ -24,7 +27,7 @@ export class ArticlespecifieeComponent implements OnInit {
   
 
  
-  constructor(private bonDeCommandeService:BondeCommandeService,private articleService:ArticleService,private articleUtiliseeService:ArticleUtiliseeService,private route:ActivatedRoute,
+  constructor(private bonDeCommandeService:BondeCommandeService,private articleService:ArticleService,private articleUtiliseeService:ArticleUtiliseeService,private organisationService:OrganisationServiceService,private route:ActivatedRoute,
     private router:Router) {}
 
   ngOnInit(): void {
@@ -42,6 +45,7 @@ export class ArticlespecifieeComponent implements OnInit {
     this.bonDeCommandeService.getBCbyId(idBC).subscribe({
       next: (response:BondeCommande) => {
         this.bonDeCommande=response;
+        this.onGetEntrepoByBC(this.bonDeCommande);
         console.log(" code du bc recus :   "+this.bonDeCommande.codebc);
        
       },
@@ -69,7 +73,7 @@ public onGetArticlesUtilisees(idBC:number):void{
 })
 }
 
-  //récuperer la bonDeCommande recus
+  //récuperer les articles
   public onGetArticlebyArticleUtilisee(articleUtilisee:ArticleUtilisee):void{
     this.articleService.getArticlebyId(articleUtilisee.id.article_id).subscribe({
       next: (response:Article) => {
@@ -83,6 +87,22 @@ public onGetArticlesUtilisees(idBC:number):void{
        },
       complete: () => console.info('recus bc  complete') 
   })
+}
+
+ //récuperer l'entreprise par Bon de Commande
+ public onGetEntrepoByBC(bonDeCommande:BondeCommande):void{
+  this.organisationService.getOrganisationbyBonDeCommande(bonDeCommande.id).subscribe({
+    next: (response:Organisation) => {
+      bonDeCommande.nomEntreprise=response.nom;
+      console.log(" nom d'entreprise cherché :   "+bonDeCommande.nomEntreprise);
+     
+    },
+    error: (error:HttpErrorResponse) => {
+      alert(error.message);
+
+     },
+    complete: () => console.info('get entreprise complete') 
+})
 }
   
 

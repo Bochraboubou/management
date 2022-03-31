@@ -1,5 +1,6 @@
 import { Article } from "./Article";
 import { ArticleUtilisee } from "./ArticleUtilisee";
+import { Organisation } from "./Organisation";
 
 export class BondeCommande{
     id!: number;
@@ -8,8 +9,10 @@ export class BondeCommande{
     delais!: number;
     valide:boolean=false;
     listeArticles:Article[]=[];
+    entreprise!: Organisation;
     idEntrep!: number;
-    nomEntrep!: string;
+    nomEntreprise!: string;
+    articlesassociation:ArticleUtilisee[]=[];
 
     constructor(){}
     

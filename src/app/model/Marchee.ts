@@ -9,7 +9,7 @@ export class Marchee{
     montant!: number;
     unitee:string | undefined;
     delais!: number;
-    listeBondeCommandes:BondeCommande[]=[];
+    bondes:BondeCommande[]=[];
 
     constructor(){}
 }

@@ -14,7 +14,7 @@ import { SecteurService } from 'src/app/service/secteur.service';
 export class GestionMetiersComponent implements OnInit {
   secteurs!: Secteur[];
   metiers!: Metier[];
-  secteur!: Secteur;
+  secteur: Secteur = new Secteur();
   searchM:any;
   affich:boolean = false;
   deletedMetier!: Metier;
@@ -79,8 +79,10 @@ export class GestionMetiersComponent implements OnInit {
   getSecteurChoisis(secteurId:number){
     console.log("id du secteur choisis"+secteurId);
     this.onGetSecteurById(secteurId);
-    this.getMetiers(secteurId);
-    this.affich=true;
+    //this.metiers=this.secteur?.metiers;
+    //this.totalLength=this.secteur.metiers.length;
+    //this.getMetiers(secteurId);
+    
 
     
 
@@ -91,6 +93,8 @@ export class GestionMetiersComponent implements OnInit {
     this.secteurService.getSecteurbyId(idSecteur).subscribe({
       next: (response:Secteur) => {
         this.secteur=response;
+        this.metiers=this.secteur?.metiers;
+        this.totalLength=this.metiers.length;
         console.log(" nom du desecteur choisis :   "+this.secteur.nomSecteur+"  id u secteur choisis :   "+this.secteur.id);
        
       },
@@ -103,7 +107,7 @@ export class GestionMetiersComponent implements OnInit {
   }
 
   //recuperer les metiers liés au secteur choisis
-  public getMetiers(idSecteur:number):void{
+  /*public getMetiers(idSecteur:number):void{
      //récuperer les metiers par secteurs
      this.metierService.getMetiersBySecteur(idSecteur).subscribe({
       next: (response:Metier[]) =>{
@@ -120,6 +124,7 @@ export class GestionMetiersComponent implements OnInit {
   })  
 
   }
+  */
 
 
    //ajouter une metier
@@ -127,7 +132,8 @@ export class GestionMetiersComponent implements OnInit {
     this.metierService.addMetier(idSecteur,metier).subscribe({
      next: (response:Metier) =>{
        console.log("id du metier ajoutee "+response.id);
-       this.getMetiers(this.secteur.id);
+       this.onGetSecteurById(this.secteur.id);
+       //this.getMetiers(this.secteur.id);
        
      },
      error: (error:HttpErrorResponse) => {
@@ -145,7 +151,8 @@ export class GestionMetiersComponent implements OnInit {
     this.metierService.deleteMetier(idMetier).subscribe({
      next: (response:void) =>{
        console.log("reponse de suppression "+response);
-       this.getMetiers(this.secteur.id);
+       this.onGetSecteurById(this.secteur.id);
+       //this.getMetiers(this.secteur.id);
        
      },
      error: (error:HttpErrorResponse) => {

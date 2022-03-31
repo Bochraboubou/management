@@ -119,7 +119,7 @@
           <br>
       
           <div *ngIf="alerteTotalArticles" class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>Attention</strong> le montant total des articles ({{calculTotalArticles(newMarchee.listeBondeCommandes[indiceBC].listeArticles)}}) est differant du montant du bonde commande ({{newMarchee.listeBondeCommandes[indiceBC].montant}})
+            <strong>Attention</strong> le montant total des articles ({{calculTotalArticles(newMarchee.bondes[indiceBC].listeArticles)}}) est differant du montant du bonde commande ({{newMarchee.bondes[indiceBC].montant}})
             <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
           </div>
       
@@ -141,15 +141,15 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let bc of newMarchee.listeBondeCommandes,let i= index">
+              <tr *ngFor="let bc of newMarchee.bondes,let i= index">
                 <th scope="row">{{i}}</th>
                 <td>{{bc.codebc}}</td>
                 <td>{{bc.montant}}</td>
                 <td>{{bc.delais}}</td>
-                <td>{{bc.nomEntrep}}</td>
+                <td>{{bc.nomEntreprise}}</td>
                 <td><button type="button" [ngClass]="{'btn btn-success':bc.valide ,'btn btn-danger':!bc.valide}" (click)="onOpenArticlesModal(i)" [disabled]="!BCsvalides">Articles</button></td>
                 <td>
-                  <button *ngIf="BCsvalides" type="button" id="validerCommandeButton" class="btn btn-primary" (click)="validerArticles(newMarchee.listeBondeCommandes[i],i)" style="background-color: midnightblue;" [disabled]="bc.valide" >Valider la BC</button>
+                  <button *ngIf="BCsvalides" type="button" id="validerCommandeButton" class="btn btn-primary" (click)="validerArticles(newMarchee.bondes[i],i)" style="background-color: midnightblue;" [disabled]="bc.valide" >Valider la BC</button>
                   <button *ngIf="!BCsvalides" type="button"  class="btn btn-success btn-sm" (click)="onOpeneditBCModal(i)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>&nbsp;
                   <button  *ngIf="!BCsvalides"type="button" class="btn btn-danger btn-sm" (click)="onOpendeleteBCModal(i)"><i class="fa fa-trash" aria-hidden="true"></i></button>
                 </td>
@@ -192,23 +192,23 @@
             <div class="modal-body">
                 <form #addBCForm="ngForm">
                   <div>
-                    <label for="delais">code</label>
+                    <label>code</label>
                     <input type="text" [(ngModel)]="codeNewBC" name="codebc"  class="form-control" id="codeBC" placeholder="code" required>
                   </div>
 
                  <div>
-                  <label for="montant">montant</label>
+                  <label>montant</label>
                   <input type="number" [(ngModel)]="montantNewBC" name="montant"  class="form-control" id="montant" placeholder="montant" required>
                 </div>
                 
                 <div>
-                  <label for="delais">delais</label>
+                  <label>delais</label>
                   <input type="number" [(ngModel)]="delaisNewBC" name="delais"  class="form-control" id="delais" placeholder="delais" required>
                 </div>
       
                 
                 <div>
-                  <label for="delais">Entreprise</label>
+                  <label>Entreprise</label>
                   <input type="text"   name="entreprise" [(ngModel)]="codeEntreprise" class="form-control" id="entreprise" placeholder="codeEntreprise" value="codeEntreprise" required>
                 </div>
       
@@ -284,7 +284,7 @@
                             <div class="tab-pane fade" id="pills-cloud" role="tabpanel" aria-labelledby="pills-cloud-tab">
                               <form #addArticleForm="ngForm">
       
-                              <fieldset [disabled]="newMarchee.listeBondeCommandes[indiceBC]?.valide">
+                              <fieldset [disabled]="newMarchee.bondes[indiceBC]?.valide">
                                 <div class="row">
                                   <label for="montant">Code</label>
                                   <div class="col-md-4">
@@ -339,9 +339,9 @@
                                 <button type="button" class="btn btn-success" (click)="addNewwArticle(addArticleForm)" [disabled]="addArticleForm.invalid">Article suivant</button>
                               </div>
                               <div class="row">
-                                <div class="row"><h3 style="color: darkred;">nombre article saisies : {{newMarchee.listeBondeCommandes[indiceBC]?.listeArticles?.length}} </h3></div>
-                                <div class="row"><h3 style="color: darkred;">montant total {{calculTotalArticles(newMarchee.listeBondeCommandes[indiceBC]?.listeArticles!)}} : </h3></div>
-                                <div class="row"><h3 style="color: darkred;">montant Bonde Commande {{newMarchee.listeBondeCommandes[indiceBC]?.montant}} : </h3></div>
+                                <div class="row"><h3 style="color: darkred;">nombre article saisies : {{newMarchee.bondes[indiceBC]?.listeArticles?.length}} </h3></div>
+                                <div class="row"><h3 style="color: darkred;">montant total {{calculTotalArticles(newMarchee.bondes[indiceBC]?.listeArticles!)}} : </h3></div>
+                                <div class="row"><h3 style="color: darkred;">montant Bonde Commande {{newMarchee.bondes[indiceBC]?.montant}} : </h3></div>
                               </div>
                             
                                   <br>     
@@ -366,15 +366,15 @@
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    <tr *ngFor="let art of newMarchee.listeBondeCommandes[indiceBC]?.listeArticles,let j= index">
+                                    <tr *ngFor="let art of newMarchee.bondes[indiceBC]?.listeArticles,let j= index">
                                       <th scope="row">{{j}}</th>
                                       <td>{{art.code}}</td>
                                       <td>{{art.designation}}</td>
                                       <td>{{art.unitee}}</td>
                                       <td>{{art.prix}}</td>
                                       <td>{{art.quantitee}}</td>
-                                      <td><button type="button" class="btn btn-success" (click)="onOpenEditArticleModal(j)" [disabled]="newMarchee.listeBondeCommandes[indiceBC]?.valide"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
-                                      <td><button type="button" class="btn btn-danger" (click)="onOpendeleteArticleModal(j)" [disabled]="newMarchee.listeBondeCommandes[indiceBC]?.valide"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+                                      <td><button type="button" class="btn btn-success" (click)="onOpenEditArticleModal(j)" [disabled]="newMarchee.bondes[indiceBC]?.valide"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
+                                      <td><button type="button" class="btn btn-danger" (click)="onOpendeleteArticleModal(j)" [disabled]="newMarchee.bondes[indiceBC]?.valide"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
                                       
                                     </tr>
                                   </tbody>
@@ -467,7 +467,7 @@
                 <h3>Code du bon_de commande :   {{printedBCommande?.codebc}}</h3>
                 <h3>Montant du bon_de commande :  {{printedBCommande?.montant}}</h3>
                 <h3>Delais du bon_de commande :  {{printedBCommande?.delais}}</h3>
-                <h3>Entreprise :  {{printedBCommande?.nomEntrep}}</h3>
+                <h3>Entreprise :  {{printedBCommande?.nomEntreprise}}</h3>
                </div>
                <div>
                 <h1 style="text-align: center; color: navy;">3/Articles spécifiées</h1> 
@@ -586,26 +586,22 @@
               </div>
               <div class="modal-body">
                   <form #editBCForm="ngForm">
-                    <div>
-                      <label for="delais">code</label>
-                      <input type="text"ngModel={{modifiedBC?.codebc}} name="codebc"  class="form-control" id="codeBC" placeholder="code" required disabled>
-                    </div>
-  
-                   <div>
-                    <label for="montant">montant</label>
-                    <input type="number" ngModel={{modifiedBC?.montant}} name="montant"  class="form-control" id="montant" placeholder="montant" required>
-                  </div>
-                  
-                  <div>
-                    <label for="delais">delais</label>
-                    <input type="number" ngModel={{modifiedBC?.delais}} name="delais"  class="form-control" id="delais" placeholder="delais" required>
-                  </div>
-        
-                  
-                  <div>
-                    <label for="entreprise">Entreprise</label>
-                    <input type="text"   name="entreprise" ngModel={{modifiedBC?.nomEntrep}} class="form-control" id="entreprise" placeholder="codeEntreprise" value="codeEntreprise" required disabled>
-                  </div>
+                   
+                      <label>code</label>
+                      <input type="text"ngModel={{modifiedBC?.codebc}} name="codebc"  class="form-control"  placeholder="code" required readonly>
+                      
+                 
+                      <label>montant</label>
+                      <input type="number"  ngModel={{modifiedBC?.montant}} name="montant"  class="form-control"  placeholder="montant" required>
+                     
+                
+               
+                      <label>delais</label>
+                      <input type="number" ngModel={{modifiedBC?.delais}} name="delais"  class="form-control"  placeholder="delais" required readonly>
+                
+                      <label>Entreprise</label>
+                      <input type="text"   name="entreprise" ngModel={{modifiedBC?.nomEntreprise}} class="form-control"  placeholder="codeEntreprise" value="codeEntreprise" required readonly>
+                
         
                       <br>
                       <div *ngIf="alerteDelaisBCs" class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -634,7 +630,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <h4>Voulez vous vraiment supprimer la bon-de commande de code "{{newMarchee.listeBondeCommandes[indiceBC]?.codebc}}" ?</h4>
+              <h4>Voulez vous vraiment supprimer la bon-de commande de code "{{newMarchee.bondes[indiceBC]?.codebc}}" ?</h4>
                 
                     <div class="modal-footer">
                       <button type="button" id="closeDeleteBCModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>

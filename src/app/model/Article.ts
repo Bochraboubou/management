@@ -1,3 +1,5 @@
+import { ArticleUtilisee } from "./ArticleUtilisee";
+
 export class Article{
     id!: number;
     code!: string;
@@ -6,7 +8,8 @@ export class Article{
     prix!: number;
     quantitee!: number;
     idType!: number;
-    typeArticle!: string;
+    typeLib!: string;
+    bcassociation:ArticleUtilisee[]=[];
     constructor(){
         
     }

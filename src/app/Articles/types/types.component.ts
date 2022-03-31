@@ -2,7 +2,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { Article } from 'src/app/model/Article';
 import { Metier } from 'src/app/model/Metier';
 import { Secteur } from 'src/app/model/Secteur';
 import { Type } from 'src/app/model/Type';

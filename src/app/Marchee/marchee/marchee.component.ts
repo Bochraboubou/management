@@ -130,7 +130,7 @@ export class MarcheeComponent implements OnInit {
      button.style.display='none';
      button.setAttribute('data-toggle','modal');
      this.editArticleIndice = indiceArticle;
-     this.modifiedArticle = this.newMarchee.listeBondeCommandes[this.indiceBC].listeArticles[this.editArticleIndice];
+     this.modifiedArticle = this.newMarchee.bondes[this.indiceBC].listeArticles[this.editArticleIndice];
      button.setAttribute('data-target','#editArticleModal');
      container?.appendChild(button);
      button.click();
@@ -155,7 +155,7 @@ export class MarcheeComponent implements OnInit {
      button.style.display='none';
      button.setAttribute('data-toggle','modal');
      this.indiceBC=indice;
-     this.modifiedBC = this.newMarchee.listeBondeCommandes[this.indiceBC];
+     this.modifiedBC = this.newMarchee.bondes[this.indiceBC];
      button.setAttribute('data-target','#editBCModal');
      container?.appendChild(button);
      button.click();
@@ -169,7 +169,7 @@ export class MarcheeComponent implements OnInit {
      button.style.display='none';
      button.setAttribute('data-toggle','modal');
      this.indiceBC=indice;
-     this.modifiedBC = this.newMarchee.listeBondeCommandes[this.indiceBC];
+     this.modifiedBC = this.newMarchee.bondes[this.indiceBC];
      button.setAttribute('data-target','#deleteBCModal');
      container?.appendChild(button);
      button.click();
@@ -183,7 +183,7 @@ export class MarcheeComponent implements OnInit {
        button.style.display='none';
        button.setAttribute('data-toggle','modal');
        this.deleteArticleIndice=indice;
-       this.modifiedBC = this.newMarchee.listeBondeCommandes[this.indiceBC];
+       this.modifiedBC = this.newMarchee.bondes[this.indiceBC];
        button.setAttribute('data-target','#deleteArticleModal');
        container?.appendChild(button);
        button.click();
@@ -194,12 +194,12 @@ export class MarcheeComponent implements OnInit {
     if(!this.validerDelaiBC(addBCForm.value.delais,this.newMarchee)){
       this.alerteDelaisBCs=true;
     }
-    if(this.testExistCodeBC(this.codeNewBC,this.newMarchee.listeBondeCommandes)){
+    if(this.testExistCodeBC(this.codeNewBC,this.newMarchee.bondes)){
       this.alertecodeBCexiste=true;
 
     }
    
-    if(this.validerDelaiBC(addBCForm.value.delais,this.newMarchee)&&!this.testExistCodeBC(this.codeNewBC,this.newMarchee.listeBondeCommandes)){
+    if(this.validerDelaiBC(addBCForm.value.delais,this.newMarchee)&&!this.testExistCodeBC(this.codeNewBC,this.newMarchee.bondes)){
       this.organService.getOrganisationbyCode(this.codeEntreprise).subscribe({
         next: (response:Organisation) => {
           this.entreprise=response;
@@ -210,11 +210,12 @@ export class MarcheeComponent implements OnInit {
           document.getElementById('addBCModal')?.click();
           let newBC = new BondeCommande();
           newBC.idEntrep=this.entreprise.id;
-          newBC.nomEntrep=this.entreprise.nom;
+          newBC.nomEntreprise=this.entreprise.nom;
           newBC.codebc=this.codeNewBC;
           newBC.montant=this.montantNewBC;
           newBC.delais=this.delaisNewBC;
-          this.newMarchee.listeBondeCommandes.push(newBC);
+          newBC.entreprise=this.entreprise;
+          this.newMarchee.bondes.push(newBC);
           addBCForm.reset(); 
     
          
@@ -297,8 +298,8 @@ export class MarcheeComponent implements OnInit {
     newArt.id=this.newArticle.id;
     newArt.designation=this.newArticle.designation;
     newArt.unitee=this.newArticle.unitee;
-    if(this.testExistArticleBC(newArt,this.newMarchee.listeBondeCommandes[this.indiceBC].listeArticles)){
-      this.newMarchee.listeBondeCommandes[this.indiceBC].listeArticles.push(newArt);
+    if(this.testExistArticleBC(newArt,this.newMarchee.bondes[this.indiceBC].listeArticles)){
+      this.newMarchee.bondes[this.indiceBC].listeArticles.push(newArt);
       // this.newMarchee.listeBondeCommandes[this.indiceBC].montant += (newArt.prix*newArt.quantitee);
        addArticleForm.reset();
     }else{
@@ -378,8 +379,8 @@ return exist;
 
 //tester la validation des bcs
 public validerBCs():boolean{
-  for (let i = 0; i < this.newMarchee.listeBondeCommandes.length; i++){
-    if(! this.newMarchee.listeBondeCommandes[i].valide){
+  for (let i = 0; i < this.newMarchee.bondes.length; i++){
+    if(! this.newMarchee.bondes[i].valide){
       return false;
     }
 
@@ -410,8 +411,8 @@ public closeAlert():void{
 
 public validerMontantMarchee(marchee:Marchee):boolean{
   let montantTotalBCs : number=0;
-  for (let i = 0; i < marchee.listeBondeCommandes.length; i++){
-    montantTotalBCs += marchee.listeBondeCommandes[i].montant;
+  for (let i = 0; i < marchee.bondes.length; i++){
+    montantTotalBCs = montantTotalBCs+ marchee.bondes[i].montant;
   }
   this.montantTotaldeBCs=montantTotalBCs;
   if(montantTotalBCs == marchee.montant){
@@ -458,8 +459,8 @@ public EnregistrerMarchee( addMarcheeForm:NgForm):void{
             console.log("marchee"+response);
             console.log("id marchee"+this.idMarchee);
             //ajouter les BCs
-            for (let i = 0; i < this.newMarchee.listeBondeCommandes.length; i++){
-              this.EnregisterBC(this.idMarchee,this.newMarchee.listeBondeCommandes[i])
+            for (let i = 0; i < this.newMarchee.bondes.length; i++){
+              this.EnregisterBC(this.idMarchee,this.newMarchee.bondes[i])
             }
             var x = document.getElementById("toast")
             x!.className = "show";
@@ -546,7 +547,7 @@ public printBC(indiceP :number,printMarcheeForm:NgForm):void{
     button.type='button';
     button.style.display='none';
     button.setAttribute('data-toggle','modal');
-    this.printedBCommande = this.newMarchee.listeBondeCommandes[indiceP];
+    this.printedBCommande = this.newMarchee.bondes[indiceP];
     this.printMarchee = printMarcheeForm.value;
     button.setAttribute('data-target','#printBCModal');
     container?.appendChild(button);
@@ -556,8 +557,8 @@ public printBC(indiceP :number,printMarcheeForm:NgForm):void{
 }
 
 public editArticle(modifierArticleForm:NgForm){
-  this.newMarchee.listeBondeCommandes[this.indiceBC].listeArticles[this.editArticleIndice].prix = modifierArticleForm.value.prixEditArticle;
-  this.newMarchee.listeBondeCommandes[this.indiceBC].listeArticles[this.editArticleIndice].quantitee = modifierArticleForm.value.quantiteeEditArticle;
+  this.newMarchee.bondes[this.indiceBC].listeArticles[this.editArticleIndice].prix = modifierArticleForm.value.prixEditArticle;
+  this.newMarchee.bondes[this.indiceBC].listeArticles[this.editArticleIndice].quantitee = modifierArticleForm.value.quantiteeEditArticle;
   document.getElementById('closeEditArticleButton')?.click();
   //modifierArticleForm.reset();
 }
@@ -582,19 +583,21 @@ public validerInformationsMarchee(addMarcheeForm:NgForm){
 }
 //modifier bc
 public modifierBC(editBCForm:NgForm){
-  if(this.validerDelaiBC(editBCForm.value.delais,this.newMarchee)){
-    this.newMarchee.listeBondeCommandes[this.indiceBC].montant=editBCForm.value.montant;
-    this.newMarchee.listeBondeCommandes[this.indiceBC].delais=editBCForm.value.delais;
+ // if(this.validerDelaiBC(editBCForm.value.delais,this.newMarchee)){
+    //this.newMarchee.bondes[this.indiceBC]=editBCForm.value;
+    this.newMarchee.bondes[this.indiceBC].delais=editBCForm.value.delais;
+    this.newMarchee.bondes[this.indiceBC].montant=editBCForm.value.montant;
+    
     document.getElementById('closeEditBCModal')?.click();
 
-  }else{
+ // }else{
     this.alerteDelaisBCs=true;
-  }
+ // }
 }
 
 //supprimer bc
   public supprimerBC(){
-    this.newMarchee.listeBondeCommandes.splice(this.indiceBC,1);
+    this.newMarchee.bondes.splice(this.indiceBC,1);
     document.getElementById('closeDeleteBCModal')?.click();
     
   
@@ -603,7 +606,7 @@ public modifierBC(editBCForm:NgForm){
 
 //supprimer article
 public deleteArticle(){
-  this.newMarchee.listeBondeCommandes[this.indiceBC].listeArticles.splice(this.deleteArticleIndice,1);
+  this.newMarchee.bondes[this.indiceBC].listeArticles.splice(this.deleteArticleIndice,1);
   document.getElementById('closeDeleteArticleModal')?.click();
   
 }

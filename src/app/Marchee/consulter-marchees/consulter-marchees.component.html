@@ -81,12 +81,12 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let bc of marchee.listeBondeCommandes ,let i= index">
+                <tr *ngFor="let bc of marchee.bondes ,let i= index">
                   <th scope="row">{{i}}</th>
                   <td>{{bc.codebc}}</td>
                   <td>{{bc.montant}}</td>
                   <td>{{bc.delais}}</td>
-                  <td>{{bc.nomEntrep}}</td>
+                  <td>{{bc.nomEntreprise}}</td>
                   <td><a type="button" class="btn btn-success" routerLink="/mycpm/articlesSpecifiees/{{bc.id}}"><i class="fa fa-list-alt" aria-hidden="true"></i></a></td>
 
                  

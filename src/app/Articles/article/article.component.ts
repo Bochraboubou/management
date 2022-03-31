@@ -190,8 +190,8 @@ export class ArticleComponent implements OnInit {
  public getTypeByArticle(article:Article):void{
   this.typeService.getTypebyArticleId(article.id).subscribe({
     next: (response:Type) => {
-      article.typeArticle=response.typeLib;
-      console.log("type cherchee :  "+article.typeArticle);
+      article.typeLib=response.typeLib;
+      console.log("type cherchee :  "+article.typeLib);
     
     },
     error: (error:HttpErrorResponse) => {

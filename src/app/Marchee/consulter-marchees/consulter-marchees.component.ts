@@ -137,8 +137,8 @@ export class ConsulterMarcheesComponent implements OnInit {
    public onGetEntrepoByBC(bonDeCommande:BondeCommande):void{
     this.organisationService.getOrganisationbyBonDeCommande(bonDeCommande.id).subscribe({
       next: (response:Organisation) => {
-        bonDeCommande.nomEntrep=response.nom;
-        console.log(" nom d'entreprise cherché :   "+bonDeCommande.nomEntrep);
+        bonDeCommande.nomEntreprise=response.nom;
+        console.log(" nom d'entreprise cherché :   "+bonDeCommande.nomEntreprise);
        
       },
       error: (error:HttpErrorResponse) => {
@@ -176,7 +176,11 @@ export class ConsulterMarcheesComponent implements OnInit {
       next: (response:Marchee[]) => {
       this.marchees=response;
       for (let i = 0; i < this.marchees.length; i++) {
-        this.getBonsDeCommandes(this.marchees[i]);
+        for (let j = 0; j < this.marchees[i]?.bondes.length; i++) {
+          this.onGetEntrepoByBC(this.marchees[i].bondes[j]);
+        }
+        
+        //this.getBonsDeCommandes(this.marchees[i]);
       }
         console.log("marchees par metiers et organ"+this.marchees);
         this.MarcheestotalLength=this.marchees.length;
@@ -193,12 +197,12 @@ export class ConsulterMarcheesComponent implements OnInit {
    public getBonsDeCommandes(marchee:Marchee):void{
     this.bonDeCommandeService.getBCsByMarchee(marchee.id).subscribe({
       next: (response:BondeCommande[]) => {
-        marchee.listeBondeCommandes=response;
-        for (let i = 0; i < marchee.listeBondeCommandes.length; i++) {
-          this.onGetEntrepoByBC(marchee.listeBondeCommandes[i]);
+        marchee.bondes=response;
+        for (let i = 0; i < marchee.bondes.length; i++) {
+          this.onGetEntrepoByBC(marchee.bondes[i]);
         }
       
-        console.log("code premiere bc du marchee"+marchee.listeBondeCommandes[1]?.codebc);
+        console.log("code premiere bc du marchee"+marchee.bondes[1]?.codebc);
       },
       error: (error:HttpErrorResponse) => {
         alert(error.message);

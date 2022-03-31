@@ -14,7 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { OrganisationComponent } from './organisation/organisation.component';
 import { DetailComponent } from './detail/detail.component';
 import { MenuMycpmComponent } from './espaceMyCPM/menu-mycpm/menu-mycpm.component';
-import { MarcheeComponent } from './espaceMyCPM/marchee/marchee.component';
+import { MarcheeComponent } from './Marchee/marchee/marchee.component';
 import { DetailOrganisationComponent } from './sectionOrganisation/detail-organisation/detail-organisation.component';
 import { EntreprisesComponent } from './sectionOrganisation/entreprises/entreprises.component';
 import { ArticlespecifieeComponent } from './sectionOrganisation/articlespecifiee/articlespecifiee.component';
@@ -28,6 +28,9 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPrintModule } from 'ngx-print';
 import { GestionMetiersComponent } from './sectionOrganisation/gestion-metiers/gestion-metiers.component';
 import { ArticleComponent } from './Articles/article/article.component';
+import { TypesComponent } from './Articles/types/types.component';
+import { ToastrModule } from 'ngx-toastr';
+import { ConsulterMarcheesComponent } from './Marchee/consulter-marchees/consulter-marchees.component';
 
 
 
@@ -54,6 +57,8 @@ import { ArticleComponent } from './Articles/article/article.component';
     ListeDemandesComponent,
     GestionMetiersComponent,
     ArticleComponent,
+    TypesComponent,
+    ConsulterMarcheesComponent
     
    
   ],
@@ -67,6 +72,7 @@ import { ArticleComponent } from './Articles/article/article.component';
     NgxPaginationModule,
     Ng2SearchPipeModule,
     NgxPrintModule,
+    ToastrModule.forRoot()
    
   
     

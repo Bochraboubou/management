@@ -46,11 +46,12 @@ export class MarcheeComponent implements OnInit {
   totalLength:any;
   page:number = 1;
   printedBCommande!: BondeCommande;
-  printMarchee!: any;
+  printMarchee: any;
   editArticleIndice!: number;
   modifiedArticle!: Article;
   modifiedBC!: BondeCommande;
   deleteArticleIndice!: number;
+  //tableaux et listes
   //tableaux et listes
   metiers!: Metier[];
   secteurs!: Secteur[];
@@ -190,10 +191,6 @@ export class MarcheeComponent implements OnInit {
 
   // ajouter une bonde commande
   public addBC(addBCForm:NgForm):void{
-    if(this.testerCodeBC(this.codeNewBC)){
-      this.alertecodeBCexiste=true;
-
-    }
     if(!this.validerDelaiBC(addBCForm.value.delais,this.newMarchee)){
       this.alerteDelaisBCs=true;
     }
@@ -202,7 +199,7 @@ export class MarcheeComponent implements OnInit {
 
     }
    
-    if(!this.testerCodeBC(addBCForm.value.code) && this.validerDelaiBC(addBCForm.value.delais,this.newMarchee)&&!this.testExistCodeBC(this.codeNewBC,this.newMarchee.listeBondeCommandes)){
+    if(this.validerDelaiBC(addBCForm.value.delais,this.newMarchee)&&!this.testExistCodeBC(this.codeNewBC,this.newMarchee.listeBondeCommandes)){
       this.organService.getOrganisationbyCode(this.codeEntreprise).subscribe({
         next: (response:Organisation) => {
           this.entreprise=response;
@@ -270,7 +267,7 @@ export class MarcheeComponent implements OnInit {
   }
 
   //récuperer un article par code and idMetier
-  public getArticleByCode(code:string):void{
+  public getArticleByCodeandMetier(code:string):void{
     console.log(this.idMetier)
     this.articleService.getArticlebyCodeandMetierId(code,this.idMetier).subscribe({
       next: (response:Article) =>{
@@ -292,27 +289,6 @@ export class MarcheeComponent implements OnInit {
 
   }
 
-   //récuperer une bc  par code 
-   public getBCbyCode(code:string):void{
-    this.articleService.getArticlebyCodeandMetierId(code,this.idMetier).subscribe({
-      next: (response:Article) =>{
-        this.newArticle=response;
-        console.log("new article"+response);
-        //(<HTMLInputElement>document.getElementById("designation")).value=response.designation;
-        (<HTMLInputElement>document.getElementById("unitee")).value=response.unitee;
-        (<HTMLInputElement>document.getElementById("designationArtc")).value=response.designation;
-       
-
-
-        
-      },
-      error: (error:HttpErrorResponse) => {
-        console.log("code bc non utilisee");
-       },
-      complete: () => console.info('complete') 
-  })  
-
-  }
 
   //Ajouter un nouveau article
   public addNewwArticle(addArticleForm:NgForm):void{
@@ -365,7 +341,8 @@ export class MarcheeComponent implements OnInit {
   }
   
   // tester la validité des articles du bonde commande
- public validerArticles(bondeCom:BondeCommande):void{
+ public validerArticles(bondeCom:BondeCommande,indice:number):void{
+   this.indiceBC=indice;
    if(bondeCom.montant == this.calculTotalArticles(bondeCom.listeArticles))
    {
      bondeCom.valide=true;
@@ -377,27 +354,8 @@ export class MarcheeComponent implements OnInit {
    }
 }
 
-//tester l'existance du code du bc
-public testerCodeBC(code:string):boolean{
-  let exist:boolean=false;
-  this.bondeCommandeService.getBCbyCode(code).subscribe({
-    next: (response:BondeCommande) =>{
-      
-      console.log("il ya une bonde commande de code"+response.codebc);
-      exist=true;
-    },
-    error: (error:HttpErrorResponse) => {
-      console.log("le code du bc n'est pas utilisee auparavant");
-    
-     },
-    complete: () => console.info('complete') 
-})  
-return exist;
-}
 
-
-
-//tester l'existance du code du bc
+//tester l'existance du code d'entreprise
 public testerCodeEntreprise(code:string):boolean{
   let exist:boolean=false;
   this.organService.getOrganisationbyCode(this.codeEntreprise).subscribe({
@@ -452,10 +410,10 @@ public closeAlert():void{
 
 public validerMontantMarchee(marchee:Marchee):boolean{
   let montantTotalBCs : number=0;
-  this.montantTotaldeBCs=montantTotalBCs;
   for (let i = 0; i < marchee.listeBondeCommandes.length; i++){
     montantTotalBCs += marchee.listeBondeCommandes[i].montant;
   }
+  this.montantTotaldeBCs=montantTotalBCs;
   if(montantTotalBCs == marchee.montant){
     return true;
   }
@@ -606,7 +564,7 @@ public editArticle(modifierArticleForm:NgForm){
 
 //valider les information du marchee
 public validerInformationsMarchee(addMarcheeForm:NgForm){
-  this.marcheeService.getMarcheebyCode(addMarcheeForm.value.code).subscribe({
+  this.marcheeService.getMarcheebyCodeandOrganisation(addMarcheeForm.value.code,this.idOrgan).subscribe({
     next: (response:Marchee) => {
       this.showExistMarcheeAlert=true;
       console.log("code existe deja");
@@ -637,7 +595,7 @@ public modifierBC(editBCForm:NgForm){
 //supprimer bc
   public supprimerBC(){
     this.newMarchee.listeBondeCommandes.splice(this.indiceBC,1);
-    document.getElementById('closeDeleteBCModall')?.click();
+    document.getElementById('closeDeleteBCModal')?.click();
     
   
   

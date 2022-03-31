@@ -101,7 +101,7 @@
             <div>
               <br>
               <div *ngIf="showExistMarcheeAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Attention</strong> code du marchee déja utilisé.
+                <strong>Attention</strong> code du marchee déja utilisé dans un autre marchee dans cette organisation
                 <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
               </div>
             </div>
@@ -149,7 +149,7 @@
                 <td>{{bc.nomEntrep}}</td>
                 <td><button type="button" [ngClass]="{'btn btn-success':bc.valide ,'btn btn-danger':!bc.valide}" (click)="onOpenArticlesModal(i)" [disabled]="!BCsvalides">Articles</button></td>
                 <td>
-                  <button *ngIf="BCsvalides" type="button" id="validerCommandeButton" class="btn btn-primary" (click)="validerArticles(newMarchee.listeBondeCommandes[i])" style="background-color: midnightblue;" [disabled]="bc.valide" >Valider la BC</button>
+                  <button *ngIf="BCsvalides" type="button" id="validerCommandeButton" class="btn btn-primary" (click)="validerArticles(newMarchee.listeBondeCommandes[i],i)" style="background-color: midnightblue;" [disabled]="bc.valide" >Valider la BC</button>
                   <button *ngIf="!BCsvalides" type="button"  class="btn btn-success btn-sm" (click)="onOpeneditBCModal(i)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>&nbsp;
                   <button  *ngIf="!BCsvalides"type="button" class="btn btn-danger btn-sm" (click)="onOpendeleteBCModal(i)"><i class="fa fa-trash" aria-hidden="true"></i></button>
                 </td>
@@ -184,30 +184,30 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h3 class="modal-title" id="exampleModalLongTitle">Ajouter une Entreprise</h3>
+              <h3 class="modal-title" id="exampleModalLongTitle">Ajouter une Bon-de commande</h3>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
                 <form #addBCForm="ngForm">
-                  <div class="col-md-4 mb-3">
+                  <div>
                     <label for="delais">code</label>
                     <input type="text" [(ngModel)]="codeNewBC" name="codebc"  class="form-control" id="codeBC" placeholder="code" required>
                   </div>
 
-                 <div class="col-md-4 mb-3">
+                 <div>
                   <label for="montant">montant</label>
                   <input type="number" [(ngModel)]="montantNewBC" name="montant"  class="form-control" id="montant" placeholder="montant" required>
                 </div>
                 
-                <div class="col-md-4 mb-3">
+                <div>
                   <label for="delais">delais</label>
                   <input type="number" [(ngModel)]="delaisNewBC" name="delais"  class="form-control" id="delais" placeholder="delais" required>
                 </div>
       
                 
-                <div class="col-md-4 mb-3">
+                <div>
                   <label for="delais">Entreprise</label>
                   <input type="text"   name="entreprise" [(ngModel)]="codeEntreprise" class="form-control" id="entreprise" placeholder="codeEntreprise" value="codeEntreprise" required>
                 </div>
@@ -228,7 +228,7 @@
                     
                     <div class="modal-footer">
                        <button type="button" id="add-entrep-form" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                       <button [disabled]="addBCForm.invalid" type="submit" class="btn btn-primary" (click)="addBC(addBCForm)" >Enreistrer</button>
+                       <button [disabled]="addBCForm.invalid" type="submit" class="btn btn-primary" style="background-color: navy;" (click)="addBC(addBCForm)" >Enreistrer</button>
                     </div>
                     </form>
             </div>
@@ -288,7 +288,7 @@
                                 <div class="row">
                                   <label for="montant">Code</label>
                                   <div class="col-md-4">
-                                    <input type="text" [(ngModel)]="codeArticle" name="code"  class="form-control" id="code" placeholder="code" (keyup.enter)="getArticleByCode(codeArticle)" autocomplete="off" required>
+                                    <input type="text" [(ngModel)]="codeArticle" name="code"  class="form-control" id="code" placeholder="code" (keyup.enter)="getArticleByCodeandMetier(codeArticle)" autocomplete="off" required>
                                   </div>
                                   
                                  <!-- <div class="col-md-4">
@@ -432,8 +432,7 @@
       </div>
             
       <div class="modal-footer">
-        <button type="button" id="add-article-bComm" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary"  style="background-color: midnightblue;" data-dismiss="modal">Enregistrer</button>
+        <button type="button" id="add-article-bComm" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
       </div>
       </div>
       </div>
@@ -564,7 +563,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <h3>voulez vous confirmer les informations dumarchee ?</h3>
+                <h3>voulez vous confirmer les informations du marchee ?</h3>
                 <div class="modal-footer">
                   <button type="button" id="closeConfirmModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                   <button  type="submit" class="btn btn-primary" (click)="validerInformationsMarchee(addMarcheeForm)">Confirmer</button>
@@ -587,7 +586,7 @@
               </div>
               <div class="modal-body">
                   <form #editBCForm="ngForm">
-                    <div class="col-md-4 mb-3">
+                    <div>
                       <label for="delais">code</label>
                       <input type="text"ngModel={{modifiedBC?.codebc}} name="codebc"  class="form-control" id="codeBC" placeholder="code" required disabled>
                     </div>
@@ -669,6 +668,9 @@
         </div>
     
          </div>
+
+
+       
   
   
   

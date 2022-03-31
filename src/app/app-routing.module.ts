@@ -6,7 +6,7 @@ import { EntreprisePopupComponent } from './entreprise-popup/entreprise-popup.co
 import { ArticlespecifieeComponent } from './sectionOrganisation/articlespecifiee/articlespecifiee.component';
 import { DetailOrganisationComponent } from './sectionOrganisation/detail-organisation/detail-organisation.component';
 import { EntreprisesComponent } from './sectionOrganisation/entreprises/entreprises.component';
-import { MarcheeComponent } from './espaceMyCPM/marchee/marchee.component';
+import { MarcheeComponent } from './Marchee/marchee/marchee.component';
 import { DemandeComponent } from './Inscription/demande/demande.component';
 import { FirstPageComponent } from './Inscription/first-page/first-page.component';
 import { ListeDemandesComponent } from './Inscription/liste-demandes/liste-demandes.component';
@@ -17,6 +17,8 @@ import { MenuComponent } from './menu/menu.component';
 import { OrganisationComponent } from './organisation/organisation.component';
 import { GestionMetiersComponent } from './sectionOrganisation/gestion-metiers/gestion-metiers.component';
 import { ArticleComponent } from './Articles/article/article.component';
+import { TypesComponent } from './Articles/types/types.component';
+import { ConsulterMarcheesComponent } from './Marchee/consulter-marchees/consulter-marchees.component';
 
 
 const routes: Routes = [
@@ -37,9 +39,11 @@ const routes: Routes = [
     { path:'popup',component:EntreprisePopupComponent},
     { path:'detailOrganisation',component:DetailOrganisationComponent},
     { path:'entreprises',component:EntreprisesComponent},
-    { path:'articlesSpecifiees',component:ArticlespecifieeComponent},
+    { path:'articlesSpecifiees/:id',component:ArticlespecifieeComponent},
     { path:'metiers',component:GestionMetiersComponent},
-    { path:'articles',component:ArticleComponent}
+    { path:'articles',component:ArticleComponent},
+    { path:'types',component:TypesComponent},
+    { path:'consulterMarchees',component:ConsulterMarcheesComponent}
 
   ]},
 

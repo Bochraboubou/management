@@ -31,5 +31,11 @@ export class MetierService {
    {
      return this.http.get<Metier>(`${this.apiServeUrl}/admin/metierbynom/${nomMetier}`);
    }
+
+    //récuperer le metier par id
+    public getMetierbyId(idMetier:number): Observable<Metier>
+    {
+      return this.http.get<Metier>(`${this.apiServeUrl}/admin/metierbyid/${idMetier}`);
+    }
  
 }

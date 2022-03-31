@@ -13,15 +13,32 @@ export class ArticleService {
 
   constructor(private http: HttpClient) { }
 
-  //récuperer l'article par code
+  //récuperer l'article par code et metier
   public getArticlebyCodeandMetierId(codeArticle:string,metierId:number): Observable<Article>
   {
     return this.http.get<Article>(`${this.apiServeUrl}/admin/articlesbycode/${codeArticle}/metier/${metierId}`);
   }
 
-   //récuperer l'article par code
+  //récuperer l'article par code
+  public getArticlebyCode(codeArticle:string): Observable<Article>
+  {
+    return this.http.get<Article>(`${this.apiServeUrl}/admin/articlesbycode/${codeArticle}`);
+  }
+
+   //récuperer l'article par id
+   public getArticlebyId(idArticle:number): Observable<Article>
+   {
+     return this.http.get<Article>(`${this.apiServeUrl}/admin/articlesbyid/${idArticle}`);
+   }
+
+   //récuperer l'article par metier
    public getArticlebyMetierId(metierId:number): Observable<Article[]>
    {
      return this.http.get<Article[]>(`${this.apiServeUrl}/admin/metiers/${metierId}/articles`);
    }
+  //ajouter un article
+   public addArticle(metierId:number,typeId:number,article:Article): Observable<Article>
+  {
+    return this.http.post<Article>(`${this.apiServeUrl}/admin/metier/${metierId}/type/${typeId}/article`,article);
+  }
 }

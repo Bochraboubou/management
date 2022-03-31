@@ -1,0 +1,98 @@
+<div class="container" id="main-container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-6">
+        <h1 style="font-family:Marker Felt, fantasy; font-size: 28px; color:midnightblue">Gestion des types d'articles</h1>
+      </div>
+    </div>
+      <div class="row">
+        <div class="col-md-4">
+            <div>
+                <h2 style="font-family: Comic Sans MS; color: midnightblue;">Tou dabord choisissez un secteur d'activité</h2>
+                <select ngModel (ngModelChange)="getSecteurChoisis($event)" name="secteur_d_activite" id="secteur_d_activite" class="form-select" placeholder="secteur_d_activite" aria-label="Default select example" required #secteur_d_activite="ngModel"  [class.is-invalid]="secteur_d_activite.invalid && secteur_d_activite.touched">
+                  <option selected value="" >choisir un secteur</option>-->
+                  <option   *ngFor="let sect of secteurs"
+                  [value]="sect.id">
+                  {{sect.nomSecteur}}
+                </option>
+                </select>
+                  </div>
+               
+            <div>
+                <h2 style="font-family: Comic Sans MS; color: midnightblue;">choisissez un metier</h2>
+                <select ngModel (ngModelChange)="getMetierChoisis($event)" name="metier" id="metier" class="form-select" placeholder="metier" aria-label="Default select example" required #metier="ngModel"  [class.is-invalid]="metier.invalid && metier.touched">
+                  <option selected value="">choisir un metier</option>-->
+                  <option   *ngFor="let metier of metiers"
+                  [value]="metier.id">
+                  {{metier.nomMetier}}
+                </option>
+                </select>
+            </div>
+          
+         
+        </div>
+
+          
+        <div class="col-md-6 listDiv" >
+            <br>
+         <div>
+          <input type="search" [(ngModel)]="searchT" class="form-control" id="searchM" name="searchM"  placeholder="rechercher la type par mots clés"> 
+         </div>
+         <h2 style="font-family: Comic Sans MS; color: midnightblue;">Liste  des types disponibles par metier "{{metierC?.nomMetier}}"</h2>
+         <div *ngIf="metier.dirty">
+          <ul class="list-group">
+  
+            <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let type of types |filter:searchT| paginate : {
+              itemsPerPage:4,
+              currentPage:page,
+              totalItems:totalLength
+              }" >
+              {{type.typeLib}} 
+            </li>
+          </ul>
+          <br>
+          <pagination-controls (pageChange)="page = $event" class="text-center typesPagination"></pagination-controls>
+         </div>
+         
+        </div>
+        <div *ngIf="metier.dirty" class="col-md-2">
+          <button type="button" class="btn btn-primary" (click)="onOpenAddMetierModal()" style="background-color: navy;"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        </div>
+      
+    </div>
+  
+     <!-- Type modal -->
+     <div class="modal fade" id="addTypeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="exampleModalLongTitle">Ajouter un  nouveau type au metier {{metierC?.nomMetier}}</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <form #addTypeForm="ngForm">
+               <div>
+                <label for="montant">Nom du type</label>
+                <input type="text"ngModel name="typeLib"  class="form-control" id="typeLib" placeholder="nom du nouveau type" required>
+              </div>
+              <br>
+              <div *ngIf="alerteLibTypeutilisee" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Attention</strong> nom du type deja utilisee
+                <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+              </div>
+              
+                  <div class="modal-footer">
+                     <button type="button" id="closeAjoutModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                     <button [disabled]="addTypeForm.invalid" type="submit" class="btn btn-primary" (click)="ajouterType(addTypeForm)"  style="background-color: navy;">Ajouter le type</button>
+                  </div>
+                  </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+     
+
+    

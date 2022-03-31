@@ -8,30 +8,34 @@
       <div class="col-md-4">
         <h2 style="font-family: Comic Sans MS; color: midnightblue;">Tou dabord choisissez un secteur d'activité</h2>
         <select ngModel (ngModelChange)="getSecteurChoisis($event)" name="secteur_d_activite" id="secteur_d_activite" class="form-select" placeholder="secteur_d_activite" aria-label="Default select example" required #secteur_d_activite="ngModel"  [class.is-invalid]="secteur_d_activite.invalid && secteur_d_activite.touched">
-         <!-- <option selected>choisir un secteur</option>-->
+          <option selected value="">choisir un secteur</option>
           <option   *ngFor="let sect of secteurs"
           [value]="sect.id">
           {{sect.nomSecteur}}
         </option>
         </select>
       </div>
-      <div *ngIf="secteur_d_activite.dirty" class="col-md-4">
+      <div class="col-md-6 metierList">
+        <br>
        <div>
         <input type="search" [(ngModel)]="searchM" class="form-control" id="searchM" name="searchM"  placeholder="rechercher la metier par nom"> 
        </div>
-       <h2 style="font-family: Comic Sans MS; color: midnightblue;">Liste  des metiers disponibles</h2>
+       <h2 style="font-family: Comic Sans MS; color: midnightblue;">Liste  des metiers disponibles par secteur "{{secteur?.nomSecteur}}"</h2>
+       <div *ngIf="secteur_d_activite.dirty">
         <ul class="list-group">
 
-            <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let metier of metiers |filter:searchM | paginate : {
-              itemsPerPage:4,
-              currentPage:page,
-              totalItems:totalLength
-              }" >
-              {{metier.nomMetier}} <button type="button" class="btn btn-danger" (click)="onOpenDeleteMetierModal(metier)"><i class="fa fa-trash" aria-hidden="true"></i></button>
-            </li>
-          </ul>
-          <br>
-          <pagination-controls (pageChange)="page = $event" class="text-center metiersPagination"></pagination-controls>
+          <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let metier of metiers |filter:searchM | paginate : {
+            itemsPerPage:4,
+            currentPage:page,
+            totalItems:totalLength
+            }" >
+            {{metier.nomMetier}} <button type="button" class="btn btn-danger" (click)="onOpenDeleteMetierModal(metier)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+          </li>
+        </ul>
+        <br>
+        <pagination-controls (pageChange)="page = $event" class="text-center metiersPagination"></pagination-controls>
+       </div>
+        
       </div>
       <div *ngIf="secteur_d_activite.dirty" class="col-md-2">
         <button type="button" class="btn btn-primary" (click)="onOpenAddMetierModal()" style="background-color: navy;"><i class="fa fa-plus" aria-hidden="true"></i></button>
@@ -44,7 +48,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h3 class="modal-title" id="exampleModalLongTitle">Ajouter un  nouveau metier</h3>
+          <h3 class="modal-title" id="exampleModalLongTitle">Ajouter un  nouveau metier au secteur "{{secteur?.nomSecteur}}"</h3>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

@@ -1,0 +1,110 @@
+<div class="container" id="main-container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-6">
+        <h1 style="font-family:Marker Felt, fantasy; font-size: 28px; color:midnightblue">Consulter vos marchés</h1>
+      </div>
+    </div>
+      <div class="row">
+        <div class="col-md-4">
+            <div>
+                <h2 style="font-family: Comic Sans MS; color: midnightblue;">Tou dabord choisissez un secteur d'activité</h2>
+                <select ngModel (ngModelChange)="getSecteurChoisis($event)" name="secteur_d_activite" id="secteur_d_activite" class="form-select" placeholder="secteur_d_activite" aria-label="Default select example" required #secteur_d_activite="ngModel"  [class.is-invalid]="secteur_d_activite.invalid && secteur_d_activite.touched">
+                  <option selected value="" >choisir un secteur</option>-->
+                  <option   *ngFor="let sect of secteurs"
+                  [value]="sect.id">
+                  {{sect.nomSecteur}}
+                </option>
+                </select>
+                  </div>
+               
+            <div>
+                <h2 style="font-family: Comic Sans MS; color: midnightblue;">choisissez un metier</h2>
+                <select ngModel (ngModelChange)="getMetierChoisis($event)" name="metier" id="metier" class="form-select" placeholder="metier" aria-label="Default select example" required #metier="ngModel"  [class.is-invalid]="metier.invalid && metier.touched">
+                  <option selected value="">choisir un metier</option>-->
+                  <option   *ngFor="let metier of metiers"
+                  [value]="metier.id">
+                  {{metier.nomMetier}}
+                </option>
+                </select>
+            </div>
+          
+        </div>
+        <div>
+
+        
+        </div>
+    
+        
+      
+    </div>
+    <br>
+    <div>
+      <h2 style="font-family: Comic Sans MS; color: midnightblue;">Liste  des marchés  par metier "{{metierC?.nomMetier}}"</h2>
+      <div *ngIf="marchees?.length==0"><h2>Aucun marché dans le metier "{{metierC.nomMetier}}"</h2></div>
+     <div *ngFor="let marchee of marchees | filter:searchM | paginate : {
+      itemsPerPage:4,
+      currentPage:Mpage,
+      totalItems:MarcheestotalLength
+      } let i = index" class="card col-sm-9 marcheeCard">
+        <h2 style="font-weight:bold; text-align: center;"> Marché N°{{i}}</h2>
+       <div class="card-body">
+        <h3><strong>Code : </strong>{{marchee.code}}</h3>
+        <h3><strong >Designation </strong> {{marchee.designiation}}</h3>
+        <div class="row">
+          <div class="col-md-4"><strong>Budget :</strong>{{marchee.budget}}</div>
+          <div class="col-md-4"><strong>Type :</strong>{{marchee.type}}</div>
+        </div>
+        <div class="col-md-4"><h3><strong>Unité </strong> {{marchee.unitee}}</h3></div>
+        <div class="row">
+          <div class="col-md-4"> <h3><strong>Montant </strong>{{marchee.montant}}</h3></div>
+          <div class="col-md-4"><h3><strong>Delai  </strong>{{marchee.delais}}</h3></div>
+        </div>
+          </div>
+       <div class="card-body">
+         <div>
+          <button class="btn btn-primary" type="button" (click)="onOpenBCCollapse(i)"  style="background-color: navy;">
+            Bon-de commandes
+          </button>
+         </div>
+         <br>
+        <div class="collapse" id="bCommande{{i}}">
+          <div>
+            <table class="table table-primary table-hover table-striped">
+              <thead>
+                <tr>
+                  <th scope="col" class="bg-primary">N°</th>
+                  <th scope="col" class="bg-primary">Code</th>
+                  <th scope="col" class="bg-primary">Montant</th>
+                  <th scope="col" class="bg-primary">Delais</th>
+                  <th scope="col" class="bg-primary">Entreprise</th>
+                  <th scope="col" class="bg-primary">Articles</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let bc of marchee.listeBondeCommandes ,let i= index">
+                  <th scope="row">{{i}}</th>
+                  <td>{{bc.codebc}}</td>
+                  <td>{{bc.montant}}</td>
+                  <td>{{bc.delais}}</td>
+                  <td>{{bc.nomEntrep}}</td>
+                  <td><a type="button" class="btn btn-success" routerLink="/mycpm/articlesSpecifiees/{{bc.id}}"><i class="fa fa-list-alt" aria-hidden="true"></i></a></td>
+
+                 
+                </tr>
+              </tbody>
+             
+            </table>
+          </div>
+        </div>
+        
+       </div>
+      </div>
+    </div>
+    <pagination-controls (pageChange)="Mpage = $event" class="text-center pagination"></pagination-controls>
+  
+  
+    
+</div>
+ 
+ 
+  

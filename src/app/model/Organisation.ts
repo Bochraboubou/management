@@ -15,6 +15,6 @@ export class Organisation{
     nomDG!:string;
     telDG!:number;
     emailDG!:string;
-    marchees:Marchee[]=[];
+    listmarchees!:Array<Marchee>;
     constructor(){}
 }

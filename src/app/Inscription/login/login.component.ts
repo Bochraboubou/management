@@ -70,15 +70,15 @@ loginUser(){
           }else
           if(this.roles[0]?.name=="ADMIN-CPM"){
             console.log("jjjjjj")
-            this.router.navigate(['cpm',this.user.id]);
+            this.router.navigate(['cpm']);
           }else
           if(this.roles[0]?.name=="ADMIN_MYCPM"){
             console.log("vvv")
-            this.router.navigate(['mycpm',this.user.id]);
+            this.router.navigate(['mycpm']);
             
           }
           else {
-            this.router.navigate(['mycpm',this.user.id]);
+            this.router.navigate(['mycpm']);
             //this.router.navigate(['cpm',this.user.id]);
          }
         },

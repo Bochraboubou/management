@@ -60,8 +60,6 @@ const routes: Routes = [
   {path:'nouveauSecteur',component:NouveauSecteurComponent},
   {path:'warningMail/:id',component:WorningEmailComponent},
   {path:'DemandeDetail/:id',component:OneDemandeComponent},
-
-
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
   {path:'send/:id',component:SendMailComponent},
@@ -73,7 +71,7 @@ const routes: Routes = [
  
   //{path:'send',component:SendMailComponent},
 
-  { path:'cpm/:id',component:MenuComponent,children:[
+    { path:'cpm',component:MenuComponent,children:[
     { path:'addOrganisation',component:AjouterOrganisationComponent,canActivate:[AdminCPMGuard]},
     { path:'organisations',component:OrganisationComponent,canActivate:[AdminCPMGuard]},
     { path:'detail',component:DetailComponent,canActivate:[AdminCPMGuard]},
@@ -89,8 +87,8 @@ const routes: Routes = [
 
   ]},
  
-  { path:'mycpm/:id',component:MenuMycpmComponent,children:[
-    { path:'marchee',component:MarcheeComponent,canActivate:[ManagementGuard]},
+  { path:'mycpm',component:MenuMycpmComponent,children:[
+    { path:'marchee',component:MarcheeComponent},
     { path:'popup',component:EntreprisePopupComponent,canActivate:[AdminMYCPMGuard]},
     {path:'gererComptes',component:GererComptesComponent},
     { path:'entreprises',component:EntreprisesComponent},

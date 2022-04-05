@@ -64,10 +64,9 @@ getEmployees(){
    next: (response:User) => {
      this.user=response;
      console.log(this.user)
-
      console.log("user is "+this.user);
      console.log("user is "+this.user.id);
-     //get Organisation By user id 
+     //get Organisation By user id
      this.orgService.getOrganisationbyUser(this.user.id).subscribe({
      next: (response:Organisation) => {
           this.organisation=response;

@@ -19,6 +19,10 @@ export class ListeDemandesComponent implements OnInit {
   nb!:number;
   demande!:Demande;
   taille!:number;
+  terme:any;
+  page:number = 1;
+  totalLength:any;
+  
  
   constructor(public _servicedemande:DemandeService, private router:Router) { }
 
@@ -34,6 +38,7 @@ export class ListeDemandesComponent implements OnInit {
     this. _servicedemande.getDemandes().subscribe(
       (response:Demande[])=>{
         this.demandes=response;
+        this.totalLength=response.length;
       },
       (error:HttpErrorResponse)=>{
         alert(error.message);

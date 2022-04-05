@@ -1,0 +1,75 @@
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+<hr>
+
+
+
+
+<nav class="navbar navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Secteur</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">add new Secteur <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Update </a>
+        </li>
+      
+      </ul>
+      
+    </div>
+  </nav>
+
+  <div>
+    
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
+        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+      </svg>
+    <h1> il existe{{secteurs.length}}  Secteurs  </h1>
+  </div>
+    
+  <br>
+
+  <button routerLink="nouveauSecteur" type="button" class="btn btn-success">nouveau Secteur</button>
+
+ <router-outlet></router-outlet>
+  <br>
+   <div>
+    <table class="table table-success table-striped">
+      <thead>
+        <tr>
+            <th><span>id</span></th>
+            <th><span>nom</span></th>
+            
+            <th><span>Action</span></th>
+            
+            </tr>
+      </thead>
+      <tbody *ngFor="let s of secteurs, let i=index">
+
+ <tr>
+     
+            <td>
+                <a href="#" class="user-link"> {{i}}</a></td>
+               <td> <span class="user-subhead"> {{s.nomSecteur}}</span>
+            </td>
+           
+            
+            
+            <td >
+ <a   (click)="DeleteSecteur(s.id)"class="btn btn-danger" >
+    <i  class="fa fa-trash-o fa-lg"></i> Delete</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <button type="button" class="btn btn-primary">
+          liste des metiers</button>
+  
+            </td>
+        </tr>
+          
+        
+      </tbody>
+    </table>
+</div>

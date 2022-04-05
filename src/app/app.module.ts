@@ -1,4 +1,9 @@
-import { NgModule } from '@angular/core';
+
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+
+
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,18 +28,40 @@ import { RegisterComponent } from './Inscription/register/register.component';
 import { DemandeComponent } from './Inscription/demande/demande.component';
 import { FirstPageComponent } from './Inscription/first-page/first-page.component';
 import { ListeDemandesComponent } from './Inscription/liste-demandes/liste-demandes.component';
+
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPrintModule } from 'ngx-print';
-import { GestionMetiersComponent } from './sectionOrganisation/gestion-metiers/gestion-metiers.component';
-import { ArticleComponent } from './Articles/article/article.component';
-import { TypesComponent } from './Articles/types/types.component';
+
+
 import { ToastrModule } from 'ngx-toastr';
+
+
+
+
+
+import { InboxComponent } from './Inscription/inbox/inbox.component';
+import { TableComponent } from './Inscription/table/table.component';
+import { SendMailComponent } from './Inscription/send-mail/send-mail.component';
+import { DoinscriptionComponent } from './Inscription/doinscription/doinscription.component';
+import { OneDemandeComponent } from './Inscription/one-demande/one-demande.component';
+import { WorningEmailComponent } from './Inscription/worning-email/worning-email.component';
+import { SecteurComponent } from './CPM/secteur/secteur.component';
+import { DetailSecteurComponent } from './CPM/detail-secteur/detail-secteur.component';
+import { FileUploadComponent } from './Inscription/file-upload/file-upload.component';
+import { NouveauSecteurComponent } from './CPM/nouveau-secteur/nouveau-secteur.component';
+import { ListesUtulisateurComponent } from './listes-utulisateur/listes-utulisateur.component';
+import { FirstInscriptionComponent } from './Inscription/first-inscription/first-inscription.component';
+import { GererComptesComponent } from './CPM/gerer-comptes/gerer-comptes.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { InscriptionetdemandesComponent } from './Inscription/inscriptionetdemandes/inscriptionetdemandes.component';
+import { GestionUtulisateurComponent } from './CPM/gestion-utulisateur/gestion-utulisateur.component';
+import { UserDetailComponent } from './CPM/user-detail/user-detail.component';
+import { SendEmailUserComponent } from './CPM/send-email-user/send-email-user.component';
 import { ConsulterMarcheesComponent } from './Marchee/consulter-marchees/consulter-marchees.component';
-
-
-
-
+import { TypesComponent } from './Articles/types/types.component';
+import { ArticleComponent } from './Articles/article/article.component';
+import { GestionMetiersComponent } from './sectionOrganisation/gestion-metiers/gestion-metiers.component';
 
 @NgModule({
   declarations: [
@@ -55,12 +82,31 @@ import { ConsulterMarcheesComponent } from './Marchee/consulter-marchees/consult
     DemandeComponent,
     FirstPageComponent,
     ListeDemandesComponent,
+
     GestionMetiersComponent,
     ArticleComponent,
     TypesComponent,
-    ConsulterMarcheesComponent
+    ConsulterMarcheesComponent,
     
-   
+
+InboxComponent,
+TableComponent,
+SendMailComponent,
+DoinscriptionComponent,
+OneDemandeComponent,
+WorningEmailComponent,
+SecteurComponent,
+DetailSecteurComponent,
+FileUploadComponent,
+NouveauSecteurComponent,
+ListesUtulisateurComponent,
+FirstInscriptionComponent,
+GererComptesComponent,
+ForbiddenComponent,
+InscriptionetdemandesComponent,
+GestionUtulisateurComponent,
+UserDetailComponent,
+SendEmailUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,10 +118,13 @@ import { ConsulterMarcheesComponent } from './Marchee/consulter-marchees/consult
     NgxPaginationModule,
     Ng2SearchPipeModule,
     NgxPrintModule,
-    ToastrModule.forRoot()
-   
-  
-    
+    ToastrModule.forRoot(),
+
+MatToolbarModule,
+MatIconModule,
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   providers: [],
   bootstrap: [AppComponent]

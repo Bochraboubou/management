@@ -37,7 +37,7 @@
   
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
               <li class="dropdown-header">
-                You have 4 new notifications
+                You have 6 new notifications
                 <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
               </li>
               <li>
@@ -162,7 +162,7 @@
               </li>
   
               <li class="dropdown-footer">
-                <a href="#">Show all messages</a>
+                <a href="#">tous les messages</a>
               </li>
   
             </ul><!-- End Messages Dropdown Items -->
@@ -173,12 +173,14 @@
   
             <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
               <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-              <span class="d-none d-md-block dropdown-toggle ps-2">Bochra Nahali</span>
+              <span class="d-none d-md-block dropdown-toggle ps-2">{{this.loginService.loggedUser}}</span>
             </a><!-- End Profile Iamge Icon -->
   
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
               <li class="dropdown-header">
-                <h6>Bochra Nahali</h6>
+                <h6>{{this.loginService.loggedUser}}</h6>
+                
+                <h6>{{organisation.nom}}</h6>
                 <span>Soft engineering Student</span>
               </li>
               <li>
@@ -186,9 +188,9 @@
               </li>
   
               <li>
-                <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+<a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                   <i class="bi bi-person"></i>
-                  <span>My Profile</span>
+                  <span>Profile</span>
                 </a>
               </li>
               <li>
@@ -198,7 +200,7 @@
               <li>
                 <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                   <i class="bi bi-gear"></i>
-                  <span>Account Settings</span>
+                  <span>Parametres de compte</span>
                 </a>
               </li>
               <li>
@@ -208,7 +210,7 @@
               <li>
                 <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
                   <i class="bi bi-question-circle"></i>
-                  <span>Need Help?</span>
+                  <span>aide?</span>
                 </a>
               </li>
               <li>
@@ -216,9 +218,9 @@
               </li>
   
               <li>
-                <a class="dropdown-item d-flex align-items-center" href="#">
+                <a class="dropdown-item d-flex align-items-center" (click)="loginService.logout()">
                   <i class="bi bi-box-arrow-right"></i>
-                  <span>Sign Out</span>
+                  <span>S'inscrire</span>
                 </a>
               </li>
   
@@ -243,19 +245,28 @@
         </li><!-- End Dashboard Nav -->
   
         <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <a  *ngIf="!loginService.isEmployeeAchat()" class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-menu-button-wide"></i><span>Gérer votre organisation</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
           <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
               <li>
-                  <a routerLink="/mycpm/detailOrganisation">
-                    <i class="bi bi-circle"></i><span>Qui somme nous</span>
+                <a routerLink="/mycpm/detailOrganisation">
+                  <i class="bi bi-circle"></i><span>Qui somme nous</span>
+                </a>
+              </li>
+          <li>
+            <a routerLink="/mycpm/metiers">
+              <i class="bi bi-circle"></i><span>Metiers</span></a>
+
+                  <a *ngIf="loginService.isAdminMYCPM()" 
+                  routerLink="/mycpm/marchee">
+                    <i class="bi bi-circle"></i><span>Ajouter un marché</span>
                   </a>
                 </li>
-            <li>
-              <a routerLink="/mycpm/metiers">
-                <i class="bi bi-circle"></i><span>Metiers</span>
-              </a>
+            <li><!---->
+              <a *ngIf="loginService.isAdminCPM()" routerLink="/mycpm/marchee">
+                <i class="bi bi-circle"></i><span>gérer les métiers</span>
+                </a> 
             </li>
             <li>
               <a routerLink="/mycpm/entreprises">
@@ -277,8 +288,12 @@
         </li><!-- End Components Nav -->
   
         <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-journal-text"></i><span>Articles</span><i class="bi bi-chevron-down ms-auto"></i>
+
+
+          <a *ngIf="!loginService.isEmployeeAchat()" class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-journal-text"></i>
+            <span>Articles</span><i class="bi bi-chevron-down ms-auto"></i>
+
           </a>
           <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
             <li>
@@ -351,8 +366,14 @@
         </li><!-- End Charts Nav -->
   
         <li class="nav-item">
+
+          
           <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-gem"></i><span>Suivis et exécutions</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <a *ngIf="!loginService.isEmployeeAchat()" class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+              <i class="bi bi-gem"></i><span>Bandes commandes</span><i class="bi bi-chevron-down ms-auto"></i>
+
           </a>
           <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
             <li>
@@ -364,6 +385,7 @@
               <a href="icons-remix.html">
                 <i class="bi bi-circle"></i><span>Consulter les attachements</span>
               </a>
+
             </li>
             <li>
               <a href="icons-boxicons.html">
@@ -372,6 +394,22 @@
             </li>
           </ul>
         </li><!-- End Icons Nav -->
+
+
+        <li class="nav-item">
+          <a  *ngIf="!loginService.isEmployeeAchat()" class="nav-link collapsed" data-bs-target="#icons-nav2" data-bs-toggle="collapse" href="#" >
+            <i class="bi bi-gem"></i><span>Gérer les comptes </span><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul id="icons-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li>
+              <a routerLink="gererComptes">
+                <i class="bi bi-circle"></i><span>listes des nouveaux comptes </span>
+              </a>
+            </li>
+           
+           
+          </ul>
+        </li>
   
         <li class="nav-heading">Pages</li>
   
@@ -442,16 +480,15 @@
   
       <section class="section dashboard">
         <div class="row">
-  
+ 
           <!-- Left side columns -->
+          
           <div class="col-lg-8">
             <div class="row">
-  
+           
               
-             <!-- <div class="bochra"><h1 style="color: blue;">Bienvenue dans l'espace de My CPM</h1>
-                <button (click)="showme()">show me</button>
-              </div>
-            -->
+             <div><br></div>
+             
               <div class="container_fluid">
                 <router-outlet></router-outlet>
               </div>

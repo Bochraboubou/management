@@ -1,0 +1,521 @@
+<div class="col-xl-12">
+
+    <div class="card mb-4">
+        <div class="card-header">Compte organisation</div>
+        <div class="card-body">
+            <div class="alert alert-success" *ngIf="notification==1">
+                <strong>demande envoyer..</strong>
+            </div>
+            <form #addForm="ngForm" (ngSubmit)="onAddDemande(addForm)">
+
+                <div class="card mb-4 mb-xl-0">
+                    <div class="card-header">Directeur generale et admin</div>
+                    <div class="card-body text-center">
+
+
+                        <h1> Info Directeur generale</h1>
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (first name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputFirstName"> Nom: </label>
+                                <input ngModel name="nomDG" class="form-control" id="nomDG" type="text"
+                                    placeholder="nom Directeur generale " required>
+                            </div>
+                            <!-- Form Group (last name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputLastName">tel: </label>
+                                <input ngModel name="telDG" class="form-control" id="telDG" type="tel"
+                                    placeholder="tel directeur generale" required>
+                            </div>
+
+
+                        </div>
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (first name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputFirstName">Email </label>
+                                <input ngModel name="emailDG" class="form-control" id="emailDG" type="email"
+                                    placeholder="Enterer address email " required>
+                            </div>
+                            <!-- Form Group (last name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputLastName">Adresse </label>
+                                <input ngModel name="adresse" class="form-control" id="adresse" type="text"
+                                    placeholder="Enterer adresse du directeur generale" required>
+                            </div>
+
+
+                        </div>
+
+
+
+                        <div>
+                            <h1>Info Admin organisation </h1>
+
+                            <div class="row gx-3 mb-3">
+                                <!-- Form Group (first name)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputFirstName"> Nom Admin </label>
+                                    <input ngModel name="nomAdmin" class="form-control" id="nomAdmin" type="text"
+                                        placeholder="Enternom admin">
+                                </div>
+                                <!-- Form Group (last name)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputLastName">tel Admin </label>
+                                    <input ngModel name="telAdmin" class="form-control" id="telAdmin" type="tel"
+                                        placeholder="Enter tel Admin " required>
+                                </div>
+
+
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <!-- Form Group (first name)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputFirstName"> Admin Email </label>
+                                    <input ngModel name="emailAdmin" class="form-control" id="emailAdmin" type="email"
+                                        placeholder="Enter Admin email" required>
+                                </div>
+                                <!-- Form Group (last name)-->
+
+
+
+                            </div>
+
+                            <div><br></div>
+
+                            <!--<button class="btn btn-primary" type="button">Save </button>-->
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <br>
+                <br>
+                <div>
+                    <h1> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Info Organisation </h1>
+
+                    <!-- Form Group (username)-->
+                    <div class="mb-3">
+                        <label class="small mb-1" for="inputUsername">Nom organisation</label>
+                        <input ngModel name="nom" class="form-control" id="nom" type="text"
+                            placeholder="nom de l' organisation" required>
+                    </div>
+                    <!-- Form Row-->
+                    <div class="row gx-3 mb-3">
+                        <!-- Form Group (first name)-->
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="inputFirstName"> Code </label>
+                            <input ngModel name="code" class="form-control" id="code" type="text"
+                                placeholder="Enter your code organisation" required>
+                        </div>
+                        <!-- Form Group (last name)-->
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="inputLastName">Secteur d'ativité</label>
+                            <select ngModel name="secteur_d_activite" class="form-control" id="secteur_d_activite">
+                                <option *ngFor="let sect of secteurs" [value]="sect.nomSecteur">
+                                    {{sect.nomSecteur}}
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                    </div>
+                    <!-- Form Row        -->
+                    <div class="row gx-3 mb-3">
+                        <!-- Form Group (organization name)-->
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="inputOrgName">Email</label>
+                            <input ngModel name="email" class="form-control" id="email" type="mail"
+                                placeholder="Enter your organization mail" requred>
+                        </div>
+                        <!-- Form Group (location)-->
+                        <div class="col-md-4 mb-3">
+                            <label for="code"> Pays</label>
+                            <select ngModel name="pays" id="pays" class="form-select">
+                                <optgroup label="A">
+                                    <option value="afghanistan">Afghanistan</option>
+                                    <option value="afrique-du-sud">Afrique du Sud</option>
+                                    <option value="albanie">Albanie</option>
+                                    <option value="algerie">Algérie</option>
+                                    <option value="allemagne">Allemagne</option>
+                                    <option value="ancienne-republique-yougoslave-de-macedoine">Ancienne République
+                                        yougoslave de Macédoine</option>
+                                    <option value="andorre">Andorre</option>
+                                    <option value="angola">Angola</option>
+                                    <option value="anguilla">Anguilla</option>
+                                    <option value="antarctique">Antarctique</option>
+                                    <option value="antigua-et-barbuda">Antigua-et-Barbuda</option>
+                                    <option value="antilles-neerlandaises">Antilles néerlandaises</option>
+                                    <option value="arabie-saoudite">Arabie saoudite</option>
+                                    <option value="argentine">Argentine</option>
+                                    <option value="armenie">Arménie</option>
+                                    <option value="aruba">Aruba</option>
+                                    <option value="australie">Australie</option>
+                                    <option value="autriche">Autriche</option>
+                                    <option value="azerbaidjan">Azerbaïdjan</option>
+                                </optgroup>
+                                <optgroup label="B">
+                                    <option value="bahamas">Bahamas</option>
+                                    <option value="bahrein">Bahreïn</option>
+                                    <option value="bangladesh">Bangladesh</option>
+                                    <option value="barbade">Barbade</option>
+                                    <option value="belgique">Belgique</option>
+                                    <option value="belize">Belize</option>
+                                    <option value="benin">Bénin</option>
+                                    <option value="bermudes">Bermudes</option>
+                                    <option value="bhoutan">Bhoutan</option>
+                                    <option value="bielorussie">Biélorussie</option>
+                                    <option value="bolivie">Bolivie</option>
+                                    <option value="bosnie-et-herzegovine">Bosnie-et-Herzégovine</option>
+                                    <option value="botswana">Botswana</option>
+                                    <option value="bresil">Brésil</option>
+                                    <option value="brunei-darussalam">Brunei Darussalam</option>
+                                    <option value="bulgarie">Bulgarie</option>
+                                    <option value="burkina-faso">Burkina Faso</option>
+                                    <option value="burundi">Burundi</option>
+                                </optgroup>
+                                <optgroup label="C">
+                                    <option value="cambodge">Cambodge</option>
+                                    <option value="cameroun">Cameroun</option>
+                                    <option value="canada">Canada</option>
+                                    <option value="cap-vert">Cap-Vert</option>
+                                    <option value="chili">Chili</option>
+                                    <option value="chine">Chine</option>
+                                    <option value="chypre">Chypre</option>
+                                    <option value="colombie">Colombie</option>
+                                    <option value="comores">Comores</option>
+                                    <option value="congo">Congo</option>
+                                    <option value="costa-rica">Costa Rica</option>
+                                    <option value="cote-d-ivoire">Côte d'Ivoire</option>
+                                    <option value="croatie">Croatie</option>
+                                    <option value="cuba">Cuba</option>
+                                </optgroup>
+                                <optgroup label="D">
+                                    <option value="danemark">Danemark</option>
+                                    <option value="djibouti">Djibouti</option>
+                                    <option value="dominique">Dominique</option>
+                                </optgroup>
+                                <optgroup label="E">
+                                    <option value="egypte">Égypte</option>
+                                    <option value="el-salvador">El Salvador</option>
+                                    <option value="emirats-arabes-unis">Émirats arabes unis</option>
+                                    <option value="equateur">Équateur</option>
+                                    <option value="erythree">Érythrée</option>
+                                    <option value="espagne">Espagne</option>
+                                    <option value="estonie">Estonie</option>
+                                    <option value="etats-federes-de-micronesie">États fédérés de Micronésie</option>
+                                    <option value="etats-unis">États-Unis</option>
+                                    <option value="ethiopie">Éthiopie</option>
+                                </optgroup>
+                                <optgroup label="F">
+                                    <option value="fidji">Fidji</option>
+                                    <option value="finlande">Finlande</option>
+                                    <option value="france">France</option>
+                                </optgroup>
+                                <optgroup label="G">
+                                    <option value="gabon">Gabon</option>
+                                    <option value="gambie">Gambie</option>
+                                    <option value="georgie">Géorgie</option>
+                                    <option value="georgie-du-sud-et-les-iles-sandwich-du-sud">Géorgie du Sud-et-les
+                                        Îles Sandwich du Sud</option>
+                                    <option value="ghana">Ghana</option>
+                                    <option value="gibraltar">Gibraltar</option>
+                                    <option value="grece">Grèce</option>
+                                    <option value="grenade">Grenade</option>
+                                    <option value="groenland">Groenland</option>
+                                    <option value="guadeloupe">Guadeloupe</option>
+                                    <option value="guam">Guam</option>
+                                    <option value="guatemala">Guatemala</option>
+                                    <option value="guinee">Guinée</option>
+                                    <option value="guinee-equatoriale">Guinée équatoriale</option>
+                                    <option value="guinee-bissau">Guinée-Bissau</option>
+                                    <option value="guyane">Guyane</option>
+                                    <option value="guyane-francaise">Guyane française</option>
+                                </optgroup>
+                                <optgroup label="H">
+                                    <option value="haiti">Haïti</option>
+                                    <option value="honduras">Honduras</option>
+                                    <option value="hong-kong">Hong Kong</option>
+                                    <option value="hongrie">Hongrie</option>
+                                </optgroup>
+                                <optgroup label="I">
+                                    <option value="ile-bouvet">Ile Bouvet</option>
+                                    <option value="ile-christmas">Ile Christmas</option>
+                                    <option value="ile-norfolk">Île Norfolk</option>
+                                    <option value="ile-pitcairn">Île Pitcairn</option>
+                                    <option value="iles-aland">Iles Aland</option>
+                                    <option value="iles-cayman">Iles Cayman</option>
+                                    <option value="iles-cocos-keeling">Iles Cocos (Keeling)</option>
+                                    <option value="iles-cook">Iles Cook</option>
+                                    <option value="iles-feroe">Îles Féroé</option>
+                                    <option value="iles-heard-et-macdonald">Îles Heard-et-MacDonald</option>
+                                    <option value="iles-malouines">Îles Malouines</option>
+                                    <option value="iles-mariannes-du-nord">Îles Mariannes du Nord</option>
+                                    <option value="iles-marshall">Îles Marshall</option>
+                                    <option value="iles-mineures-eloignees-des-etats-unis">Îles mineures éloignées des
+                                        États-Unis</option>
+                                    <option value="iles-salomon">Îles Salomon</option>
+                                    <option value="iles-turques-et-caiques">Îles Turques-et-Caïques</option>
+                                    <option value="iles-vierges-britanniques">Îles Vierges britanniques</option>
+                                    <option value="iles-vierges-des-etats-unis">Îles Vierges des États-Unis</option>
+                                    <option value="inde">Inde</option>
+                                    <option value="indonesie">Indonésie</option>
+                                    <option value="iraq">Iraq</option>
+                                    <option value="irlande">Irlande</option>
+                                    <option value="islande">Islande</option>
+                                    <option value="israel">Israël</option>
+                                    <option value="italie">Italie</option>
+                                </optgroup>
+                                <optgroup label="J">
+                                    <option value="jamahiriya-arabe-libyenne">Jamahiriya arabe libyenne</option>
+                                    <option value="jamaique">Jamaïque</option>
+                                    <option value="japon">Japon</option>
+                                    <option value="jordanie">Jordanie</option>
+                                </optgroup>
+                                <optgroup label="K">
+                                    <option value="kazakhstan">Kazakhstan</option>
+                                    <option value="kenya">Kenya</option>
+                                    <option value="kirghizistan">Kirghizistan</option>
+                                    <option value="kiribati">Kiribati</option>
+                                    <option value="koweit">Koweït</option>
+                                </optgroup>
+                                <optgroup label="L">
+                                    <option value="lesotho">Lesotho</option>
+                                    <option value="lettonie">Lettonie</option>
+                                    <option value="liban">Liban</option>
+                                    <option value="liberia">Libéria</option>
+                                    <option value="liechtenstein">Liechtenstein</option>
+                                    <option value="lituanie">Lituanie</option>
+                                    <option value="luxembourg">Luxembourg</option>
+                                </optgroup>
+                                <optgroup label="M">
+                                    <option value="macao">Macao</option>
+                                    <option value="madagascar">Madagascar</option>
+                                    <option value="malaisie">Malaisie</option>
+                                    <option value="malawi">Malawi</option>
+                                    <option value="maldives">Maldives</option>
+                                    <option value="mali">Mali</option>
+                                    <option value="malte">Malte</option>
+                                    <option value="maroc">Maroc</option>
+                                    <option value="martinique">Martinique</option>
+                                    <option value="maurice">Maurice</option>
+                                    <option value="mauritanie">Mauritanie</option>
+                                    <option value="mayotte">Mayotte</option>
+                                    <option value="mexique">Mexique</option>
+                                    <option value="monaco">Monaco</option>
+                                    <option value="mongolie">Mongolie</option>
+                                    <option value="montserrat">Montserrat</option>
+                                    <option value="mozambique">Mozambique</option>
+                                    <option value="myanmar">Myanmar</option>
+                                </optgroup>
+                                <optgroup label="N">
+                                    <option value="namibie">Namibie</option>
+                                    <option value="nauru">Nauru</option>
+                                    <option value="nepal">Népal</option>
+                                    <option value="nicaragua">Nicaragua</option>
+                                    <option value="niger">Niger</option>
+                                    <option value="nigeria">Nigéria</option>
+                                    <option value="niue">Niué</option>
+                                    <option value="norvege">Norvège</option>
+                                    <option value="nouvelle-caledonie">Nouvelle-Calédonie</option>
+                                    <option value="nouvelle-zelande">Nouvelle-Zélande</option>
+                                </optgroup>
+                                <optgroup label="O">
+                                    <option value="oman">Oman</option>
+                                    <option value="ouganda">Ouganda</option>
+                                    <option value="ouzbekistan">Ouzbékistan</option>
+                                </optgroup>
+                                <optgroup label="P">
+                                    <option value="pakistan">Pakistan</option>
+                                    <option value="palaos">Palaos</option>
+                                    <option value="panama">Panama</option>
+                                    <option value="papouasie-nouvelle-guinee">Papouasie-Nouvelle-Guinée</option>
+                                    <option value="paraguay">Paraguay</option>
+                                    <option value="pays-bas">Pays-Bas</option>
+                                    <option value="perou">Pérou</option>
+                                    <option value="philippines">Philippines</option>
+                                    <option value="pologne">Pologne</option>
+                                    <option value="polynesie-francaise">Polynésie française</option>
+                                    <option value="porto-rico">Porto Rico</option>
+                                    <option value="portugal">Portugal</option>
+                                    <option value="province-chinoise-de-taiwan">Province chinoise de Taiwan</option>
+                                </optgroup>
+                                <optgroup label="Q">
+                                    <option value="qatar">Qatar</option>
+                                </optgroup>
+                                <optgroup label="R">
+                                    <option value="republique-arabe-syrienne">République arabe syrienne</option>
+                                    <option value="republique-centrafricaine">République centrafricaine</option>
+                                    <option value="republique-de-coree">République de Corée</option>
+                                    <option value="republique-de-moldavie">République de Moldavie</option>
+                                    <option value="republique-democratique-du-congo">République démocratique du Congo
+                                    </option>
+                                    <option value="republique-dominicaine">République dominicaine</option>
+                                    <option value="republique-islamique-d-iran">République islamique d'Iran</option>
+                                    <option value="republique-populaire-democratique-de-coree">République populaire
+                                        démocratique de Corée</option>
+                                    <option value="republique-populaire-du-laos">République Populaire du Laos</option>
+                                    <option value="republique-tcheque">République tchèque</option>
+                                    <option value="republique-unie-de-tanzanie">République-Unie de Tanzanie</option>
+                                    <option value="reunion">Réunion</option>
+                                    <option value="roumanie">Roumanie</option>
+                                    <option value="royaume-uni">Royaume-Uni</option>
+                                    <option value="russie">Russie</option>
+                                    <option value="rwanda">Rwanda</option>
+                                </optgroup>
+                                <optgroup label="S">
+                                    <option value="sahara-occidental">Sahara occidental</option>
+                                    <option value="saint-christophe-et-nieves">Saint-Christophe-et-Niévès</option>
+                                    <option value="saint-marin">Saint-Marin</option>
+                                    <option value="saint-pierre-et-miquelon">Saint-Pierre-et-Miquelon</option>
+                                    <option value="saint-siege-cite-du-vatican">Saint-Siège (Cité du Vatican)</option>
+                                    <option value="saint-vincent-et-les-grenadines">Saint-Vincent-et-les Grenadines
+                                    </option>
+                                    <option value="sainte-helene">Sainte-Hélène</option>
+                                    <option value="sainte-lucie">Sainte-Lucie</option>
+                                    <option value="samoa">Samoa</option>
+                                    <option value="samoa-americaines">Samoa américaines</option>
+                                    <option value="sao-tome-et-principe">Sao Tomé-et-Principe</option>
+                                    <option value="senegal">Sénégal</option>
+                                    <option value="serbie-et-montenegro">Serbie-et-Monténégro</option>
+                                    <option value="seychelles">Seychelles</option>
+                                    <option value="sierra-leone">Sierra Leone</option>
+                                    <option value="singapour">Singapour</option>
+                                    <option value="slovaquie">Slovaquie</option>
+                                    <option value="slovenie">Slovénie</option>
+                                    <option value="somalie">Somalie</option>
+                                    <option value="soudan">Soudan</option>
+                                    <option value="sri-lanka">Sri Lanka</option>
+                                    <option value="suede">Suède</option>
+                                    <option value="suisse">Suisse</option>
+                                    <option value="suriname">Suriname</option>
+                                    <option value="svalbard-et-jan-mayen">Svalbard et Jan Mayen</option>
+                                    <option value="swaziland">Swaziland</option>
+                                </optgroup>
+                                <optgroup label="T">
+                                    <option value="tadjikistan">Tadjikistan</option>
+                                    <option value="tchad">Tchad</option>
+                                    <option value="territoire-britannique-de-l-ocean-indien">Territoire britannique de
+                                        l'océan Indien</option>
+                                    <option value="territoire-francais-du-sud">Territoire Francais du Sud</option>
+                                    <option value="territoires-palestiniens-occupes">Territoires palestiniens occupés
+                                    </option>
+                                    <option value="thailande">Thaïlande</option>
+                                    <option value="timor-oriental">Timor oriental</option>
+                                    <option value="togo">Togo</option>
+                                    <option value="tokelau">Tokelau</option>
+                                    <option value="tonga">Tonga</option>
+                                    <option value="trinite-et-tobago">Trinité-et-Tobago</option>
+                                    <option value="tunisie">Tunisie</option>
+                                    <option value="turkmenistan">Turkménistan</option>
+                                    <option value="turquie">Turquie</option>
+                                    <option value="tuvalu">Tuvalu</option>
+                                </optgroup>
+                                <optgroup label="U">
+                                    <option value="ukraine">Ukraine</option>
+                                    <option value="uruguay">Uruguay</option>
+                                </optgroup>
+                                <optgroup label="V">
+                                    <option value="vanuatu">Vanuatu</option>
+                                    <option value="venezuela">Vénézuéla</option>
+                                    <option value="vietnam">Vietnam</option>
+                                </optgroup>
+                                <optgroup label="W">
+                                    <option value="wallis-et-futuna">Wallis-et-Futuna</option>
+                                </optgroup>
+                                <optgroup label="Y">
+                                    <option value="yemen">Yémen</option>
+                                </optgroup>
+                                <optgroup label="Z">
+                                    <option value="zambie">Zambie</option>
+                                    <option value="zimbabwe">Zimbabwe</option>
+                                </optgroup>
+                            </select>
+                        </div>
+
+                    </div>
+                    <!-- Form Group (email address)-->
+                    <div class="mb-3">
+                        <label class="small mb-1" for="inputEmailAddress">Region</label>
+                        <input ngModel name="region" class="form-control" id="region" type="text"
+                            placeholder="Enter organization place" required>
+                    </div>
+                    <!-- Form Row-->
+                    <div class="row gx-3 mb-3">
+                        <!-- Form Group (phone number)-->
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="inputPhone">Tel Organisation</label>
+                            <input ngModel name="telOrg" class="form-control" id="telOrg" type="tel"
+                                placeholder="Enterer le numero du telephone" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="inputBirthday">type</label>
+                            <input ngModel name="type" class="form-control" id="type" type="text"
+                                placeholder="Enterer le  type d'organization" required>
+                        </div>
+                    </div>
+                    <div>
+
+
+                        <br>
+                        <div class="form-group">
+                            <label> Logo </label>
+                            <input ngModel type="file" name="filename" accept="image/*" (change)="onSelectFile($event)"
+                                required>
+                            <img [src]="imgURL" height="200" *ngIf="imgURL">
+                        </div>
+
+
+                    </div>
+
+                    <!--
+                 <div class="row gx-3 mb-3">
+                 
+                    <div class="col-md-6">
+                        <label class="small mb-1" for="inputPhone">Document</label>
+                        <input ngModel name="document"class="form-control" id="document" type="tel" placeholder="Enterer le numero du telephone" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="small mb-1" for="inputBirthday">Logo</label>
+                        <input ngModel name="logo"class="form-control" id="logo" type="text"  placeholder="Enterer le  type d'organization"required >
+                    </div>
+                 </div>-->
+                    <!--
+                 <div class="form-group">
+                    <label > &nbsp; Logo &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </label>
+                    <input ngModel  type="File" name="logo"  accept="image/*" (change)="onSelectFile($event)"   required>
+                    <img [src]="imgURL" height="200" *ngIf="imgURL">
+                  </div>
+                  <div><br></div>
+                  
+                  <div class="form-group">
+                    <label for=""> &nbsp; logo &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </label>
+                    <input ngModel name="logo" type="File" class="form-control-file" id="logo" required>
+                  </div> 
+                  -->
+                    <div><br></div>
+
+
+
+                    <!-- Save changes button-->
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    &nbsp; &nbsp; &nbsp;
+                    <button [disabled]="addForm.form.invalid" class="btn btn-primary" type="submit">Save organization
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

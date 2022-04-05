@@ -1,0 +1,122 @@
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+    <div class="view-account">
+        <section class="module">
+        	<div class="module-inner">
+        		<div class="side-bar">
+        			<div class="user-info">
+        				<img class="img-profile img-circle img-responsive center-block" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+        				<ul class="meta list list-unstyled">
+        					<li class="name"><h3>nom:{{demande.nom}}</h3>
+        						<label class="label label-info"><h3>adresse:{{demande.adresse}}</h3></label>
+        					</li>
+                            <label class="label label-info">Email</label>
+        					<h3>{{demande.email}}</h3>
+        					<!--((((((((((((((((importnat))))))))))))))))
+                                <li class="activity">Last logged in: Today at 2:18pm</li>-->
+                                <label class="label label-info">Secteur:</label>
+                                <label class="label label-info">{{demande.secteur_d_activite}}</label>
+        				</ul>
+        			</div>
+                    <div class="form-group">
+                        <div class="col-sm-5 col-sm-offset-3">
+                            <label class="col-sm-3 control-label">document:</label>
+                            
+                        </div>
+                       </div>
+        			<nav class="side-menu">
+        				<ul class="nav">
+        					<li><a href="#"><span class="fa fa-user"></span> Profile</a></li>
+        					<li><a href="#"><span class="fa fa-cog"></span> Settings</a></li>
+        					<li class="active"><a href="#"><span class="fa fa-credit-card"></span> Billing</a></li>
+        					<li><a href="#"><span class="fa fa-envelope"></span> Messages</a></li>
+        					
+        					<li><a href="user-drive.html"><span class="fa fa-th"></span> Drive</a></li>
+        					<li><a href="#"><span class="fa fa-clock-o"></span> Reminders</a></li>
+        				</ul>
+        			</nav>
+        		</div>
+        		
+        		<div class="content-panel">
+        			<h1 >Detail organisation</h1>
+                    <br><div><br></div>
+                    <br><div><br></div>
+                    <h2>info directeur generale </h2>
+        			<div class="billing">
+        			
+        				<form #infoForm="ngForm"  id="billing" class="form-horizontal" method="post" action="#" role="form">
+        					<div class="form-group">
+        						<label class="col-sm-3 control-label">nom :</label>
+        						<div class="col-sm-9">
+        							<input ngModel="{{demande.nomDG}}" name="nomDG"  id ="nomDG"type="text" class="form-control" readonly>
+        							
+        						</div>
+        					</div>
+        					<div class="form-group">
+        						<label class="col-sm-3 control-label">Email </label>
+        						<div class="col-sm-9">
+        							<input ngModel="{{demande.emailDG}}" name="emailDG" id="emailDG" type="text" class="form-control" readonly >
+        							</div>
+        					</div>
+        					
+        					<div class="form-group">
+        						<label class="col-sm-3 control-label">tel</label>
+        						<div class="col-sm-9">
+        							<input ngModel="{{demande.telDG}}" name="telDG" id="telDG"  type="text" class="form-control"  readonly >
+        						
+        						</div>
+        					</div>
+                            <br>
+                            <h2>info admin :</h2>
+        					<div class="address">
+        						<div class="form-group">
+        							<label class="col-sm-3 control-label">Nom</label>
+        							<div class="col-sm-9">
+        								<input ngModel="{{demande.nomAdmin}}" name="nomAdmin" id="nomAdmin"  type="text" class="form-control"readonly >
+        							</div>
+        						</div>
+                               
+        						<div class="form-group">
+        							<div class="col-sm-5 col-sm-offset-3">
+                                        <label class="col-sm-3 control-label">email</label>
+        								<input  ngModel="{{demande.emailAdmin}}" name="emailAdmin" id="emailAdmin" type="text" class="form-control" readonly>
+        							</div>
+        							<div class="col-sm-4">
+                                        <label class="col-sm-3 control-label">tel</label>
+        								<input ngModel="{{demande.telAdmin}}" name="telAdmin" id="telAdmin" type="text" class="form-control" readonly>
+        							</div>
+        						</div>
+        						
+        					</div>
+        					<hr>
+                            <div class="action-btn">
+                                <button  (click)="onAfficheDetailWorning(demande.id)"type="button" class="btn btn-warning btn-lg">
+                                    Warning
+                                    <i class="fa fa-chevron-right"></i>
+                                    </button>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <button  (click)="onAfficheDetailConfirmer(demande.id)" class="btn btn-success btn-lg">
+                                        Confirmer!
+                                        <i class="fa fa-chevron-right"></i>
+                                    </button>
+
+                                </div>
+								<!--<button (click)="updateDemande(demande.id,demande)">UPDATE</button>-->
+        					
+                               
+                                
+                                <!--
+                                <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+                                    Single toggle
+                                  </button>
+                                  -->
+        					
+        				</form>
+        			</div>
+        		</div>
+        	</div>
+        </section>
+    </div>
+</div>
+

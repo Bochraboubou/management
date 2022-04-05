@@ -1,7 +1,8 @@
 
 
     <div class="container">
-
+      <br><br>
+<a routerLink="/inscritEmployee"><strong>Inscription Employee</strong></a>
         <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
           <div class="container">
             <div class="row justify-content-center">
@@ -10,7 +11,7 @@
                 <div class="d-flex justify-content-center py-4">
                   <a href="index.html" class="logo d-flex align-items-center w-auto">
                     <img src="assets/menu/img/logo.png" alt="">
-                    <span class="d-none d-lg-block">Sign Up</span>
+                    <span class="d-none d-lg-block">S'inscrire  Admin MYCPM</span>
                   </a>
                 </div><!-- End Logo -->
   
@@ -19,10 +20,15 @@
                   <div class="card-body">
   
                     <div class="pt-4 pb-2">
-                      <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
-                      <p class="text-center small">Enter your personal details to create account</p>
+                      <h5 class="card-title text-center pb-0 fs-4">Creer un compte</h5>
+                      <p class="text-center small">Enter vos données personnel pour crée un compte</p>
                     </div>
-  
+                    <div class="alert alert-success" role="alert" *ngIf="notification==1">
+                      inscription avec succés <a routerLink="/login" class="alert-link">login</a>. cliquer si vous voulez s'authentifier.
+                    </div>
+                    <div class="alert alert-danger" *ngIf="erreur==1">
+                      <strong>echec d'inscription..</strong>
+                  </div>
                     <form class="row g-3 needs-validation" novalidate #formRegistration="ngForm" (ngSubmit)="RegistryUser()" >
                       <small class="text-danger">{{msg}}</small> 
                       <div class="col-12">
@@ -35,7 +41,7 @@
                         
                       <div class="col-12">
                         <label for="yourName" class="form-label">Your Name</label>
-                        <input type="text" name="name" class="form-control" id="yourName"  [(ngModel)]="user.name"  required 
+                        <input   [(ngModel)]="user.name"  name="name" type="text"  class="form-control" id="name"   required 
                         #name="ngModel" 
                       [class.is-invalid]="name.invalid && name.touched" >
                         <div class="invalid-feedback">Please, enter your name!</div>
@@ -43,10 +49,10 @@
 
 
                       <div class="col-12">
-                        <label for="yourEmail" class="form-label">Your code organization</label>
-                        <input type="text" name="code_org" class="form-control" id="yourEmail"  [(ngModel)]="user.code_org" required 
-                        #code_org="ngModel" 
-                        [class.is-invalid]="code_org.invalid && code_org.touched">
+                        <label for="yourEmail" class="form-label">Your code de confirmation</label>
+                        <input  [(ngModel)]="user.codeConfirmation" type="text" name="codeConfirmation" class="form-control" id="codeConfirmation"  required 
+                        #codeConfirmation="ngModel" 
+                        [class.is-invalid]="codeConfirmation.invalid && codeConfirmation.touched">
                         <div class="invalid-feedback">Please enter a valid code !</div>
                       </div>
   
@@ -63,14 +69,14 @@
                             <div *ngIf="email.errors && (email.invalid && email.touched)">
                           <small class="text-danger"*ngIf="email.errors.required">  Email is required field</small>
                           <small class="text-danger" *ngIf="email.errors.['pattern']">  Enter the valid email</small>
-                           </div>-->
-                           <input type="email"  class="form-control" placeholder="Email Address" [(ngModel)]="user.email" name="email" required pattern="^\w+@[a-zA-Z]+?\.[a-zA-Z]{2,3}$"
+                           </div>--><!--pattern="^\w+@[a-zA-Z]+?\.[a-zA-Z]{2,3}$"-->
+                           <input    [(ngModel)]="user.email" name="email" type="email"  class="form-control" placeholder="Email Address"  required 
                                                      #email="ngModel" 
                                                     [class.is-invalid]="email.invalid && email.touched" >
                                                    <small class="text-danger" [class.d-none]="email.valid || email.untouched"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AA   Email is required field</small>
                                                      <div *ngIf="email.errors && (email.invalid && email.touched)">
-                                                        <small class="text-danger"*ngIf="email.errors['required']"> AAaaa  &nbsp;&nbsp;       Email is required field</small>
-                                                        <small class="text-danger" *ngIf="email.errors['pattern']"> AAaaa   &nbsp;&nbsp;       Enter the valid email</small>
+                                                        <small class="text-danger"*ngIf="email.errors['required']">  &nbsp;&nbsp;       Email is required field</small>
+                                                        <small class="text-danger" *ngIf="email.errors['pattern']">  &nbsp;&nbsp;       Enter the valid email</small>
                                                      </div>
                           <div class="invalid-feedback">Please enter a valid Email.</div>
                          
@@ -112,6 +118,9 @@
                       <div class="col-12">
                         <button  [disabled]="formRegistration.form.invalid" class="btn btn-primary w-100" type="submit">Create Account</button>
                       </div>
+                    <!-- <div class="col-12">
+                        <button  (click)="trouverProspect(user.email,user.codeConfirmation,user.username)" class="btn btn-primary w-100" type="submit">Create Account</button>
+                      </div>--> 
                       <div class="col-12">
                         <p class="small mb-0">Already have an account? <a [routerLink]="['/login']">Log in</a></p>
                       </div>

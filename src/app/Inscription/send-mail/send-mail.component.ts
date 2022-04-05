@@ -160,7 +160,7 @@ saveNewOrganisation(organisation:Organisation){
   }
 
   //update demande
-  updateDemande(id:number, demande:Demande){
+  updateDemande(id:number,demande:Demande){
     this.demande2=demande;
     console.log(this.demande2);
     this.demande2.demandeStatus=true

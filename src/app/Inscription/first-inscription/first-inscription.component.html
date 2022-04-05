@@ -1,16 +1,17 @@
 
 
     <div class="container">
+      <div cass="row">
 
-        <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+        <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-9">
           <div class="container">
             <div class="row justify-content-center">
               <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
   
-                <div class="d-flex justify-content-center py-4">
+                <div class="d-flex justify-content-center py-20">
                   <a href="index.html" class="logo d-flex align-items-center w-auto">
                     <img src="assets/menu/img/logo.png" alt="">
-                    <span class="d-none d-lg-block">Sign Up</span>
+                    <span class="d-none d-lg-block">S'inscrire</span>
                   </a>
                 </div><!-- End Logo -->
   
@@ -22,17 +23,50 @@
                       <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
                       <p class="text-center small">Enter your personal details to create account</p>
                     </div>
-  
-                    <form class="row g-3 needs-validation" novalidate #formRegistration="ngForm" (ngSubmit)="RegistryUser()" >
+  <!--alerte-->
+
+  <div class="alert alert-success" role="alert" *ngIf="notification==1">
+    inscription avec succés <!--<a href="#" class="alert-link">an example lin</a>. Give it a click if you like.-->
+  </div>
+  <div class="alert alert-danger" *ngIf="good==1">
+    <strong>nom deja existe</strong>
+</div>
+  <div class="alert alert-danger" *ngIf="erreur==1">
+    <strong>échec d'inscription..</strong>
+</div>
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert"*ngIf="emailutulise==1" >
+  <strong>email invalide  !</strong> email utulisé .
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<!--adminmycpm-->
+<div class="alert alert-warning alert-dismissible fade show" role="alert"*ngIf="adminmycpm==1" >
+  <strong>email invalide  !</strong> vos etes l'admin d'une organisation qui a fait une  demande .
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<!--code organisation-->
+<div class="alert alert-warning alert-dismissible fade show" role="alert"*ngIf="codeorgani==1" >
+  <strong>Attention !</strong> Vérifier le code d'organisation! .
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<!--fin alerte-->
+                    <form class="row g-3 needs-validation" novalidate #formRegistration="ngForm" (ngSubmit)="onAddUser(formRegistration)" >
                       <small class="text-danger">{{msg}}</small> 
                       <div class="col-12">
-                        <label for="yourName" class="form-label">IdOrganisation</label>
-                        <input  [(ngModel)]="id_org"  name="id_org" type="text"  class="form-control" id="id_org"   required>
+                        <label for="yourName" class="form-label">Code Organisation</label>
+                        <input  [(ngModel)]="code"  name="code" type="text"  class="form-control" id="id_org"   required>
                         <div class="invalid-feedback">Entrer code organisation </div>
                       </div>
                       <div class="col-12">
                         <label for="yourName" class="form-label">Premier nom</label>
-                        <input type="text" name="username" class="form-control" id="yourUserName"  [(ngModel)]="user.username"  required 
+                        <input  [(ngModel)]="user.username" type="text" name="username" class="form-control" id="yourUserName"   required 
                         #username="ngModel" 
                       [class.is-invalid]="username.invalid && username.touched" >
                         <div class="invalid-feedback">Entrer votre  premier nom</div>
@@ -80,20 +114,25 @@
                           #cpassword="ngModel"  [class.is-invalid]="cpassword.invalid && cpassword.touched">
                           <small class="text-danger" [class.d-none]="(password.value == cpassword.value) || cpassword.untouched"> confirm mot de passe invalide  </small>
                         </div>
+                        <div class="form-group">
+                          <label > image: </label>
+                          <input ngModel  type="file" name="filename"  accept="image/*" (change)="onSelectFile($event)"   required>
+                          <img [src]="imgURL" height="200" *ngIf="imgURL">
+                        </div>
   
                       <div class="col-12">
                         <div class="form-check">
-                          <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
+                          <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required checked>
                           <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
                           <div class="invalid-feedback">You must agree before submitting.</div>
                         </div>
                       </div>
                       <div class="col-12"><!-- [disabled]="formRegistration.form.invalid"-->
-                        <button  class="btn btn-primary w-100" type="submit">Create Account</button>
+                        <button [disabled]="formRegistration.form.invalid" class="btn btn-primary w-100" type="submit">Create Account</button>
                       </div>
-                     
+                    
                       <div class="col-12">
-                        <p class="small mb-0">Already have an account? <a [routerLink]="['/login']">Log in</a></p>
+                        <p class="small mb-0">Vous avez un compte? <a [routerLink]="['/login']">authentifier</a></p>
                       </div>
                     </form>
   
@@ -111,4 +150,5 @@
         </section>
   
       </div>
+    </div>
   

@@ -60,6 +60,7 @@ export class ListeDemandesComponent implements OnInit {
           }
         );
       }
+      
     //on commentaire car j ai changé la methode updata
      /* public onUpdateEmloyee(demande: Demande): void {
         this._servicedemande.updateDemande(demande).subscribe(

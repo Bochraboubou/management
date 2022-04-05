@@ -19,6 +19,7 @@ secteurs!:Secteur[]
 imgURL:any;
 userFile:any;
  message:string='';
+ notification=0
  
 
 public imagePath:any;
@@ -49,7 +50,7 @@ public imagePath:any;
      this._servicedemande.createDemande(formData).subscribe(
        (response: Demande) => {
          console.log(response);
-         console.log("accepteeeee");
+        this.notification=1
         addForm.reset();
        },
        (error: HttpErrorResponse) => {
@@ -58,21 +59,7 @@ public imagePath:any;
          //addForm.reset();
        }
      );
-     /*
-     // document.getElementById('add-employee-form').click();
-     this._servicedemande.addDemande(addForm.value).subscribe(
-       (response: Demande) => {
-         console.log(response);
-         console.log("accepteeeee");
-        addForm.reset();
-       },
-       (error: HttpErrorResponse) => {
-         alert(error.message);
-         console.log("erreur");
-         //addForm.reset();
-       }
-     );
-     */
+     
    
 }
 

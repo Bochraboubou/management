@@ -33,10 +33,12 @@ export class OrganisationComponent implements OnInit {
 } 
   
 goTODetail(id:number){
-  //this.router.navigate(['DetailOrg',id])
+  this.router.navigate(['DetailOrg',id])
 }
   
-  
+onAfficheDetailOrganisation(id:number){
+  this.router.navigate(['DetailOrg',id])
+} 
   /*
   public getOrganisations():void
   {

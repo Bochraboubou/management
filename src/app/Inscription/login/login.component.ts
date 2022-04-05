@@ -13,64 +13,85 @@ import { RoleService } from 'src/app/service/role.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
+  
 })
 export class LoginComponent implements OnInit {
   idOrganisation!:number;
 idUser!:number;
-  user= new User();
+  user=new User();
   msg='';
   code_org!:string;
   organisation =new Organisation();
   roleu!:Role;
   role!:Role;
-  roles!:Role[];
-  constructor(private roleServ:RoleService,private _route:Router,private service:LoginService,private router:Router, private OrganisationService:OrganisationServiceService) { }
+  erreur=0;
+  public loggedUser!:string;
+public isloggedIn: Boolean = false;
+public roles!:Role[];
+alertstop=0;
+trole!:Role[];
+
+constructor(
+ 
+  public loginService :LoginService,
+  private roleServ:RoleService,
+  private _route:Router,private service:LoginService,
+  private router:Router,
+   private OrganisationService:OrganisationServiceService) { }
 
   ngOnInit(): void {
+    
      }
-     loginUser(){
 
+  
+loginUser(){
+      
       this.service.guestLogin(this.user).subscribe({
         next: (response:User) => {
           this.user=response;
           console.log("user"+response);
-
-          console.log("user id "+this.user.id);
-        //  console.log("user role "+this.user.roles[0]?.name);
-      
-         
-          if ( this.user.role=="ADMIN_CPM"){
-            console.log("aaaaaaaaaaa")
-           // console.log("votre role est"+this.user.roles[0]?.name)
-            this.router.navigate(['/cpm',this.user.id]);
-          }
-          else{ 
+         console.log("user id "+this.user.id);
+         console.log("roooooooole "+this.user.roles);
+         this.loginService.signIn(this.user);
+         console.log(this.loginService.loggedUser);
+       //
+       this.roleServ.findRoleOfUser(this.user.id).subscribe({
+        next: (response:Role[]) => {
+          this.roles=response;
+          console.log("les roles sont "+response);
+          this.loginService.roles=this.roles;
+          console.log("les roles daons loginService sont"+this.loginService.roles)
+          console.log(this.loginService.roles);
+          console.log(this.roles);
+          console.log("le role est:"+this.loginService. isChefProjet())
+          if(this.roles[0]?.name=="SIMPLE"){
+            this.alertstop=1
+           
+          }else
+          if(this.roles[0]?.name=="ADMIN-CPM"){
+            console.log("jjjjjj")
+            this.router.navigate(['cpm',this.user.id]);
+          }else
+          if(this.roles[0]?.name=="ADMIN_MYCPM"){
+            console.log("vvv")
             this.router.navigate(['mycpm',this.user.id]);
-
-          }
-            /*
-            this.OrganisationService.getOrganisationbyUser(this.user.id).subscribe({
-              next: (response:Organisation) => {
-                this.organisation=response;
-                console.log("organisation"+response);
-                this.idOrganisation=this.organisation.id;
-                console.log(this.idOrganisation)
-                alert("vous etes attache a "+this.organisation.nom)
-                this.router.navigate(['mycpm',this.user.id]);
-              },
-              error: (error:HttpErrorResponse) => {
-                console.log(error.message);
-                alert("vous n'etes plus attaché a une organisation")
-               },
-              complete: () => console.info('complete') 
-          })
             
-          }*/
-
+          }
+          else {
+            this.router.navigate(['mycpm',this.user.id]);
+            //this.router.navigate(['cpm',this.user.id]);
+         }
         },
         error: (error:HttpErrorResponse) => {
+          alert(error.message);
+         },
+        complete: () => console.info('complete') 
+    })
+ },
+        error: (error:HttpErrorResponse) => {
           console.log(error.message);
-          alert("verifier votre login et mot de passe ")
+          //alert("verifier votre login et mot de passe ")
+          this.erreur=1;
          },
         complete: () => console.info('complete') 
     })
@@ -93,10 +114,71 @@ trouverRole(idUser:number){
 
 
 }
-verifier(u:User){
+/*
+
+  
+loginUser(){
+      
+      this.service.guestLogin(this.user).subscribe({
+        next: (response:User) => {
+          this.user=response;
+          console.log("user"+response);
+         console.log("user id "+this.user.id);
+      
+         this.loginService.signIn(this.user);
+         console.log(this.loginService.loggedUser);
+       //
+       this.roleServ.findRoleOfUser(this.user.id).subscribe({
+        next: (response:Role[]) => {
+          this.roles=response;
+          console.log("les roles sont "+response);
+          console.log(this.roles)
+          if(this.roles[0]?.name=="SIMPLE"){
+            this.alertstop=1
+           
+          }
+          if(this.roles[0]?.name=="ADMIN-CPM"){
+            console.log("jjjjjj")
+            this.router.navigate(['cpm',this.user.id]);
+          }
+          if(this.roles[0]?.name=="ADMIN_MYCPM"){
+            console.log("vvv")
+            this.router.navigate(['mycpm',this.user.id]);
+          }
+        },
+        error: (error:HttpErrorResponse) => {
+          alert(error.message);
+         },
+        complete: () => console.info('complete') 
+    })
+ },
+        error: (error:HttpErrorResponse) => {
+          console.log(error.message);
+          //alert("verifier votre login et mot de passe ")
+          this.erreur=1;
+         },
+        complete: () => console.info('complete') 
+    })
+
+  }
+*/
 
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -40,7 +40,6 @@ export class DemandeService {
 
    updateDemande(id:number,demande:Demande):Observable<void>{
     return this.http.put<void>(`${this.apiServeUrl}/api/demande/${id}`, demande);
-
   }
   createDemande(formData:FormData): Observable<any> {
     return this.http.post(`${this.apiServeUrl}/api/demandenew`,formData);

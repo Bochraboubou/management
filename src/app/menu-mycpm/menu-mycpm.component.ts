@@ -5,6 +5,7 @@ import { ArticleUtilisee } from '../model/ArticleUtilisee';
 import { Organisation } from '../model/Organisation';
 import { User } from '../model/User';
 import { BondeCommandeService } from '../service/bonde-commande.service';
+import { LoginService } from '../service/login.service';
 import { OrganisationServiceService } from '../service/organisation-service.service';
 import { UserService } from '../service/user.service';
 
@@ -24,9 +25,11 @@ idOrganisation!:number;
   constructor( private userServi:UserService,
     private bcservice:BondeCommandeService ,
     private route:ActivatedRoute,
+    public loginService:LoginService,
     private OrganisationService:OrganisationServiceService) { }
 
   ngOnInit(): void {
+
     //pour connaitre le code de l'organisation 
     this.id=this.route.snapshot.params['id'];
     this.user=new User();
@@ -37,7 +40,8 @@ this.userServi.getUserById(this.id).subscribe(
   }
  )
     console.log("user is :"+this.user)
- 
+    console.log( "logged user is "+this.loginService.loggedUser);
+    console.log( "ya nour rani f mycpm "+this.loginService.loggedUser);
 }
 
 

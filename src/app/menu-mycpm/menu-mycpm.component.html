@@ -173,12 +173,12 @@
   
             <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
               <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-              <span class="d-none d-md-block dropdown-toggle ps-2"></span>
+              <span class="d-none d-md-block dropdown-toggle ps-2">{{this.loginService.loggedUser}}</span>
             </a><!-- End Profile Iamge Icon -->
   
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
               <li class="dropdown-header">
-                <h6>{{user.username}}</h6>
+                <h6>{{this.loginService.loggedUser}}</h6>
                 
                 <h6>{{organisation.nom}}</h6>
                 <span>Soft engineering Student</span>
@@ -218,7 +218,7 @@
               </li>
   
               <li>
-                <a class="dropdown-item d-flex align-items-center" href="#">
+                <a class="dropdown-item d-flex align-items-center" (click)="loginService.logout()">
                   <i class="bi bi-box-arrow-right"></i>
                   <span>Sign Out</span>
                 </a>
@@ -245,17 +245,18 @@
         </li><!-- End Dashboard Nav -->
   
         <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <a  *ngIf="!loginService.isEmployeeAchat()" class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-menu-button-wide"></i><span>Gérer votre organisation</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
           <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
               <li>
-                  <a routerLink="/mycpm/marchee">
+                  <a *ngIf="loginService.isAdminMYCPM()" 
+                  routerLink="/mycpm/marchee">
                     <i class="bi bi-circle"></i><span>Ajouter un marché</span>
                   </a>
                 </li>
-            <li>
-              <a routerLink="/mycpm/marchee">
+            <li><!---->
+              <a *ngIf="loginService.isAdminCPM()" routerLink="/mycpm/marchee">
                 <i class="bi bi-circle"></i><span>gérer les métiers</span>
               </a>
             </li>
@@ -279,7 +280,7 @@
         </li><!-- End Components Nav -->
   
         <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <a *ngIf="!loginService.isEmployeeAchat()" class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-journal-text"></i><span>Projets</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
           <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -348,7 +349,7 @@
         </li><!-- End Charts Nav -->
   
         <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+          <a *ngIf="!loginService.isEmployeeAchat()" class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-gem"></i><span>Bandes commandes</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
           <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -372,7 +373,7 @@
 
 
         <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#icons-nav2" data-bs-toggle="collapse" href="#" >
+          <a  *ngIf="!loginService.isEmployeeAchat()" class="nav-link collapsed" data-bs-target="#icons-nav2" data-bs-toggle="collapse" href="#" >
             <i class="bi bi-gem"></i><span>Gérer les comptes </span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
           <ul id="icons-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -455,18 +456,15 @@
   
       <section class="section dashboard">
         <div class="row">
-  
+ 
           <!-- Left side columns -->
+          
           <div class="col-lg-8">
             <div class="row">
-  
+           
               
-              <div class="bochra"><h1 style="color: blue;">Bienvenue a {{organisation.nom}}</h1>
-                <button (click)="showme()">show me</button>
-              </div>
-              <div >
-                <button (click)="info()">info user and organisation </button>
-              </div>
+             <div><br></div>
+             
               <div class="container_fluid">
                 <router-outlet></router-outlet>
               </div>

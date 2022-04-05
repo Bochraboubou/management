@@ -1,7 +1,8 @@
 
 
     <div class="container">
-<a routerLink="/inscritEmployee">Inscription Employee</a>
+      <br><br>
+<a routerLink="/inscritEmployee"><strong>Inscription Employee</strong></a>
         <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
           <div class="container">
             <div class="row justify-content-center">
@@ -10,7 +11,7 @@
                 <div class="d-flex justify-content-center py-4">
                   <a href="index.html" class="logo d-flex align-items-center w-auto">
                     <img src="assets/menu/img/logo.png" alt="">
-                    <span class="d-none d-lg-block">Sign Up</span>
+                    <span class="d-none d-lg-block">S'inscrire  Admin MYCPM</span>
                   </a>
                 </div><!-- End Logo -->
   
@@ -19,10 +20,15 @@
                   <div class="card-body">
   
                     <div class="pt-4 pb-2">
-                      <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
-                      <p class="text-center small">Enter your personal details to create account</p>
+                      <h5 class="card-title text-center pb-0 fs-4">Creer un compte</h5>
+                      <p class="text-center small">Enter vos données personnel pour crée un compte</p>
                     </div>
-  
+                    <div class="alert alert-success" role="alert" *ngIf="notification==1">
+                      inscription avec succés <a routerLink="/login" class="alert-link">login</a>. cliquer si vous voulez s'authentifier.
+                    </div>
+                    <div class="alert alert-danger" *ngIf="erreur==1">
+                      <strong>echec d'inscription..</strong>
+                  </div>
                     <form class="row g-3 needs-validation" novalidate #formRegistration="ngForm" (ngSubmit)="RegistryUser()" >
                       <small class="text-danger">{{msg}}</small> 
                       <div class="col-12">

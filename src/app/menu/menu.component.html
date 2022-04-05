@@ -216,7 +216,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" (click)="loginService.logout()">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -286,7 +286,7 @@
         </a>
         <ul id="forms-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a routerLink="/gererComptes">
+            <a routerLink="gestionUtulisateur">
               <i class="bi bi-circle"></i><span>Gérer les comptes  </span>
             </a>
           </li>
@@ -314,7 +314,7 @@
             </a>
           </li>
           <li>
-            <a href="icons-remix.html">
+            <a href="icons-remix.html"   *ngIf="loginService.isAdminCPM()">
               <i class="bi bi-circle"></i><span>ajouter sercteur</span>
             </a>
           </li>
@@ -366,7 +366,7 @@
 
   </aside><!-- End Sidebar-->
 
-  <main id="main" class="main">
+  <main id="main" class="main" style="width: 1900px;">
 
     <div class="row">
       <h1>Dashboard</h1>
@@ -385,7 +385,7 @@
         <div class="col-lg-8">
           <div class="row">
  
-            <button routerLink="/mycpm" type="button" class="btn btn-info"> Accéder à espace myCPM</button>
+            
             <div class="container_fluid">
               <router-outlet></router-outlet>
             </div>

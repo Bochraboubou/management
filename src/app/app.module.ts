@@ -41,6 +41,11 @@ import { NouveauSecteurComponent } from './CPM/nouveau-secteur/nouveau-secteur.c
 import { ListesUtulisateurComponent } from './listes-utulisateur/listes-utulisateur.component';
 import { FirstInscriptionComponent } from './Inscription/first-inscription/first-inscription.component';
 import { GererComptesComponent } from './CPM/gerer-comptes/gerer-comptes.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { InscriptionetdemandesComponent } from './Inscription/inscriptionetdemandes/inscriptionetdemandes.component';
+import { GestionUtulisateurComponent } from './CPM/gestion-utulisateur/gestion-utulisateur.component';
+import { UserDetailComponent } from './CPM/user-detail/user-detail.component';
+import { SendEmailUserComponent } from './CPM/send-email-user/send-email-user.component';
 
 
 @NgModule({
@@ -75,6 +80,11 @@ import { GererComptesComponent } from './CPM/gerer-comptes/gerer-comptes.compone
     ListesUtulisateurComponent,
     FirstInscriptionComponent,
     GererComptesComponent,
+    ForbiddenComponent,
+    InscriptionetdemandesComponent,
+    GestionUtulisateurComponent,
+    UserDetailComponent,
+    SendEmailUserComponent,
    
   ],
   imports: [

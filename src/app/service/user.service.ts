@@ -20,7 +20,19 @@ export class UserService {
 getUserById(id:number):Observable<User>{
   return this.http.get<User>(`${this.apiServeUrl}/api/getById/${id}`);
 }
+getAllUsers():Observable<User[]>{
+  return this.http.get<User[]>(`${this.apiServeUrl}/api/users`);
+}
+/***************** */
+//la methode update user dans le Registerservice
+/***************** */
 
-
-
+//delete one user
+DeleteUser(id:number):Observable<void>{
+  return this.http.delete<void>(`${this.apiServeUrl}/api/deleteUser/${id}`);
+}
+// delete all users
+DeleteAllUsers():Observable<void>{
+  return this.http.delete<void>(`${this.apiServeUrl}/api/deleteAllUsers`);
+}
 }

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Menu } from '../model/Menu';
 import { Organisation } from '../model/Organisation';
 import { User } from '../model/User';
+import { LoginService } from '../service/login.service';
 import { OrganisationServiceService } from '../service/organisation-service.service';
 import { PassageService } from '../service/passage.service';
 import { UserService } from '../service/user.service';
@@ -20,7 +21,7 @@ id!:number;
 user!:User;
 
 
-  constructor( private serviceUser:UserService , private route:ActivatedRoute) { }
+  constructor(public loginService:LoginService ,private serviceUser:UserService , private route:ActivatedRoute) { }
 
   ngOnInit(): void {
     this.id=this.route.snapshot.params['id'];
@@ -33,6 +34,9 @@ user!:User;
     }
     )
 
+     }
+     on(){
+       console.log(this.loginService.isAdminCPM())
      }
 
 }

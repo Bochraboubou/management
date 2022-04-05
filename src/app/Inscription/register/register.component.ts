@@ -21,6 +21,8 @@ export class RegisterComponent implements OnInit {
   idOrg!:number
   roleId!:number;
   user2!:User
+  notification=0
+  erreur=0
   
 
 
@@ -40,10 +42,7 @@ this.trouverProspect(this.user.email,this.user.codeConfirmation,this.user.userna
   }
 
 
-  //methode pour verifier l'existance d'un user et un email
-cheakUser(email:string ,username:string){
-  
-}
+
  
  trouverProspect(emailll:string,coode:string,username:string ){
 
@@ -76,7 +75,7 @@ cheakUser(email:string ,username:string){
                     this._service.RegisterFromRemote(this.user,this.prospect.id_org,this.prospect.id_role).subscribe({
                       next: (response:User) => {
                         this.user=response;
-                        alert( "inscription avec suucces ")
+                        this.notification=1;
                        /* if(this.user!=null){
                           alert( "inscription avec suucces ")
                         console.log("user"+response+"bien ajouter ");
@@ -85,7 +84,8 @@ cheakUser(email:string ,username:string){
                       }*/
                       },
                       error: (error:HttpErrorResponse) => {
-                        alert(error.message);
+                        this.erreur=1
+                        alert(error.message)
                        },
                       complete: () => console.info('complete') 
                   })

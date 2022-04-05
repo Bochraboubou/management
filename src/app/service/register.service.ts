@@ -51,4 +51,14 @@ public findByEmail(email:string): Observable<User>
 {
   return this._http.get<User>(`${this.apiServeUrl}/api/findbyEmail/${email}`);
 }
+
+
+//formData
+createUser(formData:FormData,idorg:number,idrole:number): Observable<any> {
+  return this._http.post(`${this.apiServeUrl}/api/userenew/${idorg}/role/${idrole}`,formData);
+}
+
+UpdateUser(formData:FormData,iduser:number): Observable<any> {
+  return this._http.post(`${this.apiServeUrl}/api/updateSamedi/${iduser}`,formData);
+}
 }

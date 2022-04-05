@@ -1,0 +1,102 @@
+<div class="container" id="main-container">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-6">
+      <h1 style="font-family:Marker Felt, fantasy; font-size: 28px; color:midnightblue">Gestion des metiers</h1>
+    </div>
+  </div>
+    <div class="row">
+      <div class="col-md-4">
+        <h2 style="font-family: Comic Sans MS; color: midnightblue;">Tou dabord choisissez un secteur d'activité</h2>
+        <select ngModel (ngModelChange)="getSecteurChoisis($event)" name="secteur_d_activite" id="secteur_d_activite" class="form-select" placeholder="secteur_d_activite" aria-label="Default select example" required #secteur_d_activite="ngModel"  [class.is-invalid]="secteur_d_activite.invalid && secteur_d_activite.touched">
+          <option selected value="">choisir un secteur</option>
+          <option   *ngFor="let sect of secteurs"
+          [value]="sect.id">
+          {{sect.nomSecteur}}
+        </option>
+        </select>
+      </div>
+      <div class="col-md-6 metierList">
+        <br>
+       <div>
+        <input type="search" [(ngModel)]="searchM" class="form-control" id="searchM" name="searchM"  placeholder="rechercher la metier par nom"> 
+       </div>
+       <h2 style="font-family: Comic Sans MS; color: midnightblue;">Liste  des metiers disponibles par secteur "{{secteur?.nomSecteur}}"</h2>
+       <div *ngIf="secteur_d_activite.dirty">
+        <ul class="list-group">
+
+          <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let metier of metiers |filter:searchM | paginate : {
+            itemsPerPage:4,
+            currentPage:page,
+            totalItems:totalLength
+            }" >
+            {{metier.nomMetier}} <button type="button" class="btn btn-danger" (click)="onOpenDeleteMetierModal(metier)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+          </li>
+        </ul>
+        <br>
+        <pagination-controls (pageChange)="page = $event" class="text-center metiersPagination"></pagination-controls>
+       </div>
+        
+      </div>
+      <div *ngIf="secteur_d_activite.dirty" class="col-md-2">
+        <button type="button" class="btn btn-primary" (click)="onOpenAddMetierModal()" style="background-color: navy;"><i class="fa fa-plus" aria-hidden="true"></i></button>
+      </div>
+    
+  </div>
+
+   <!-- Add Bonde Commande modal -->
+   <div class="modal fade" id="addMetierModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLongTitle">Ajouter un  nouveau metier au secteur "{{secteur?.nomSecteur}}"</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form #addMetierForm="ngForm">
+             <div>
+              <label for="montant">Nom du metier</label>
+              <input type="text"ngModel name="nomMetier"  class="form-control" id="nomMetier" placeholder="nom du nouveau metier" required>
+            </div>
+            <br>
+            <div *ngIf="alerteNomMetierutilisee" class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Attention</strong> nom du metier deja utilisee
+              <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+            </div>
+            
+                <div class="modal-footer">
+                   <button type="button" id="closeAjoutModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                   <button [disabled]="addMetierForm.invalid" type="submit" class="btn btn-primary" (click)="ajouterMetier(addMetierForm)"  style="background-color: navy;">Ajouter le metier</button>
+                </div>
+                </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+   <!-- Add Bonde Commande modal -->
+   <div class="modal fade" id="deleteMetierModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLongTitle">Supprimer un metier</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h3>Voulez vous vraiment supprimer le metier  <h2 style="color: firebrick;">{{deletedMetier?.nomMetier}}</h2> du secteur d'activité  <h2 style="color: firebrick;">{{secteur?.nomSecteur}}</h2></h3>
+            
+               
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="closeSuppressionModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+          <button  type="button" class="btn btn-primary" (click)="supprimerMetier(deletedMetier.id)" style="background-color: firebrick;" >Supprimer</button>
+       </div>
+      </div>
+    </div>
+  </div>
+  
+  

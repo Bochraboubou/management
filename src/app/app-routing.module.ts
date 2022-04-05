@@ -9,10 +9,9 @@ import { SendEmailUserComponent } from './CPM/send-email-user/send-email-user.co
 import { UserDetailComponent } from './CPM/user-detail/user-detail.component';
 import { DetailComponent } from './detail/detail.component';
 import { EntreprisePopupComponent } from './entreprise-popup/entreprise-popup.component';
-import { ArticlespecifieeComponent } from './espaceMyCPM/articlespecifiee/articlespecifiee.component';
-import { DetailOrganisationComponent } from './espaceMyCPM/detail-organisation/detail-organisation.component';
-import { EntreprisesComponent } from './espaceMyCPM/entreprises/entreprises.component';
-import { MarcheeComponent } from './espaceMyCPM/marchee/marchee.component';
+//import { ArticlespecifieeComponent } from './espaceMyCPM/articlespecifiee/articlespecifiee.component';
+//import { DetailOrganisationComponent } from './espaceMyCPM/detail-organisation/detail-organisation.component';
+
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { AdminCPMGuard } from './guards/admin-cpm.guard';
 import { AdminMYCPMGuard } from './guards/admin-mycpm.guard';
@@ -29,11 +28,22 @@ import { RegisterComponent } from './Inscription/register/register.component';
 import { SendMailComponent } from './Inscription/send-mail/send-mail.component';
 import { WorningEmailComponent } from './Inscription/worning-email/worning-email.component';
 import { ManagementGuard } from './management.guard';
-import { MenuMycpmComponent } from './menu-mycpm/menu-mycpm.component';
+
 import { MenuComponent } from './menu/menu.component';
 import { OrganisationComponent } from './organisation/organisation.component';
+import { GestionMetiersComponent } from './sectionOrganisation/gestion-metiers/gestion-metiers.component';
+import { ArticleComponent } from './Articles/article/article.component';
+import { TypesComponent } from './Articles/types/types.component';
+import { ConsulterMarcheesComponent } from './Marchee/consulter-marchees/consulter-marchees.component';
+import { MenuMycpmComponent } from './espaceMyCPM/menu-mycpm/menu-mycpm.component';
+import { MarcheeComponent } from './Marchee/marchee/marchee.component';
+import { EntreprisesComponent } from './sectionOrganisation/entreprises/entreprises.component';
+import { DetailOrganisationComponent } from './sectionOrganisation/detail-organisation/detail-organisation.component';
+import { ArticlespecifieeComponent } from './sectionOrganisation/articlespecifiee/articlespecifiee.component';
+
 
 const routes: Routes = [
+
  
   {path:'firstPage',component:FirstPageComponent},
   { path:'sendToUser/:id',component:SendEmailUserComponent},
@@ -50,6 +60,8 @@ const routes: Routes = [
   {path:'nouveauSecteur',component:NouveauSecteurComponent},
   {path:'warningMail/:id',component:WorningEmailComponent},
   {path:'DemandeDetail/:id',component:OneDemandeComponent},
+
+
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
   {path:'send/:id',component:SendMailComponent},
@@ -82,7 +94,11 @@ const routes: Routes = [
     { path:'popup',component:EntreprisePopupComponent,canActivate:[AdminMYCPMGuard]},
     {path:'gererComptes',component:GererComptesComponent},
     { path:'entreprises',component:EntreprisesComponent},
-    { path:'articlesSpecifiees',component:ArticlespecifieeComponent}
+    { path:'articlesSpecifiees/:id',component:ArticlespecifieeComponent},
+    { path:'metiers',component:GestionMetiersComponent},
+    { path:'articles',component:ArticleComponent},
+    { path:'types',component:TypesComponent},
+    { path:'consulterMarchees',component:ConsulterMarcheesComponent}
 
   ]},
     {path:'',redirectTo:'firstPage',pathMatch:'full'}

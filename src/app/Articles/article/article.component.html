@@ -1,0 +1,133 @@
+<div class="container" id="main-container">
+ <button (click)="affichili()">consoly etype</button>
+ <h3>{{nour}}</h3>
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-6">
+        <h1 style="font-family:Marker Felt, fantasy; font-size: 28px; color:midnightblue">Gestion des articles</h1>
+      </div>
+    </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div>
+              <h2 style="font-family: Comic Sans MS; color: midnightblue;">Tou dabord choisissez un secteur d'activité</h2>
+              <select ngModel (ngModelChange)="getSecteurChoisis($event)" name="secteur_d_activite" id="secteur_d_activite" class="form-select" placeholder="secteur_d_activite" aria-label="Default select example" required #secteur_d_activite="ngModel"  [class.is-invalid]="secteur_d_activite.invalid && secteur_d_activite.touched">
+                <option selected value="">choisir un secteur</option>
+                <option   *ngFor="let sect of secteurs"
+                [value]="sect.id">
+                {{sect.nomSecteur}}
+              </option>
+              </select>
+                </div>
+             
+          <div>
+              <h2 style="font-family: Comic Sans MS; color: midnightblue;">choisissez un metier</h2>
+              <select ngModel (ngModelChange)="getMetierChoisis($event)" name="metier" id="metier" class="form-select" placeholder="metier" aria-label="Default select example" required #metier="ngModel"  [class.is-invalid]="metier.invalid && metier.touched">
+                <option selected value="">choisir un metier</option>
+                <option   *ngFor="let metier of metiers"
+                [value]="metier.id">
+                {{metier.nomMetier}}
+              </option>
+              </select>
+          </div>
+          <br>
+
+      </div>
+        
+        <div class="col-md-6 articlesListe">
+          <br>
+          <input type="search" [(ngModel)]="searchA" class="form-control" id="searchM" name="searchM"  placeholder="rechercher l'article par mots clés"> 
+          <h2 style="font-family: Comic Sans MS; color: midnightblue;">Liste  des articles disponibles par metier "{{metierC?.nomMetier}}"</h2>
+          <div *ngIf="metier.dirty">
+            <table class="table table-primary table-hover table-striped">
+              <thead>
+                <tr>
+                  <th scope="col" class="bg-primary">#</th>
+                  <th scope="col" class="bg-primary">Code</th>
+                  <th scope="col" class="bg-primary">Designation</th>
+                  <th scope="col" class="bg-primary">Unitee</th>
+                  <th scope="col" class="bg-primary">Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let article of articles | filter:searchA | paginate : {
+                    itemsPerPage:4,
+                    currentPage:page,
+                    totalItems:totalLength
+                    }
+                    ,let i= index">
+                  <th scope="row">{{i}}</th>
+                  <td>{{article.code}}</td>
+                  <td>{{article.designation}}</td>
+                  <td>{{article.unitee}}</td>
+                  <td>{{article.typeArticle}}</td>
+                 
+                </tr>
+              </tbody>
+             
+            </table>
+            <pagination-controls (pageChange)="page = $event" class="text-center articlesPagination"></pagination-controls>
+         
+          </div>
+          
+       
+        </div>
+
+        <div *ngIf="metier.dirty" class="col-md-2">
+          <button type="button" class="btn btn-primary" (click)="onOpenAddMetierModal()" style="background-color: navy;"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        </div>
+      
+    </div>
+  
+     <!-- Add  Article modal -->
+     <div class="modal fade" id="addArticleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="exampleModalLongTitle">Ajouter un  nouveau article au metier "{{metierC?.nomMetier}}"</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <form #addArticleForm="ngForm">
+                <div>
+                  <h2 style="font-family: Comic Sans MS; color: midnightblue;">choisissez un type</h2>
+                  <select [(ngModel)]="idType" name="type" id="type" class="form-select" placeholder="type" aria-label="Default select example" required #type="ngModel"  [class.is-invalid]="type.invalid && type.touched">
+                    <option selected value="">choisir un type</option>-->
+                    <option   *ngFor="let type of types"
+                    [value]="type.id">
+                    {{type.typeLib}}
+                  </option>
+                  </select>
+              </div>
+
+               <div>
+                <label for="code">Code d'article</label>
+                <input type="text"ngModel name="code"  class="form-control" id="code" placeholder="code du nouveau article" required #code="ngModel"  [class.is-invalid]="code.invalid && code.touched">
+               </div>
+               
+               <div>
+                <label for="montant">Designation</label>
+                <input type="text"ngModel name="designation"  class="form-control" id="designation" placeholder="designation du nouveau article" required #designation="ngModel"  [class.is-invalid]="designation.invalid && designation.touched">
+              </div>
+
+              <div>
+                <label for="montant">Unité</label>
+                <input type="text"ngModel name="unitee"  class="form-control" id="unitee" placeholder="unité du nouveau article" required #unitee="ngModel"  [class.is-invalid]="unitee.invalid && unitee.touched">
+              </div>
+              <br>
+              <div *ngIf="alerteCodeArticleutilisee" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Attention</strong> Code d'article déja utilisée
+                <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+              </div>
+              
+                  <div class="modal-footer">
+                     <button type="button" id="closeAjoutModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                     <button [disabled]="addArticleForm.invalid" type="submit" class="btn btn-primary" (click)="ajouterArticle(addArticleForm)"  style="background-color: navy;">Ajouter l'article</button>
+                  </div>
+                  </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  

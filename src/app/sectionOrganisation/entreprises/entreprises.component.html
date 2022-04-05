@@ -1,0 +1,58 @@
+
+<div>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6">
+            <div><h1 style="font-family:Marker Felt, fantasy; font-size: 28px; color:darkred;">Chercher les entreprises qui vous interesse</h1></div>
+            <form class="d-flex">
+              <input class="form-control" type="search" [(ngModel)]="terme"
+              name="terme" id="searchEntreprise" placeholder="Search" aria-label="Search" width="50px">
+              <img src="https://cdn-icons.flaticon.com/png/512/1022/premium/1022082.png?token=exp=1647332886~hmac=a261acc1d25def0e6d24956a03176da0" height="75px" width="75px">
+            </form>
+          </div>
+    </div>
+    <br>
+    <!--espace pour la liste des articles ajoutés-->
+   
+      <div>
+        <table class="table table-danger table-hover table-striped">
+          <thead>
+            <tr>
+              <th scope="col" class="bg-danger">#</th>
+              <th scope="col" class="bg-danger">Nom</th>
+              <th scope="col" class="bg-danger">Code</th>
+              <th scope="col" class="bg-danger">Secteur d'activité preferée</th>
+              <th scope="col" class="bg-danger">Pays</th>
+              <th scope="col" class="bg-danger">Region</th>
+              <th scope="col" class="bg-danger">Adresse</th>
+              <th scope="col" class="bg-danger">Email</th>
+              <th scope="col" class="bg-danger">Tel</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let entrep of organs | filter:terme | paginate : {
+                itemsPerPage:4,
+                currentPage:page,
+                totalItems:totalLength
+                }
+                ,let i= index">
+              <th scope="row">{{i}}</th>
+              <td>{{entrep.nom}}</td>
+              <td>{{entrep.code}}</td>
+              <td>{{entrep.secteur_d_activite}}</td>
+              <td>{{entrep.pays}}</td>
+              <td>{{entrep.region}}</td>
+              <td>{{entrep.adresse}}</td>
+              <td>{{entrep.email}}</td>
+              <td>{{entrep.tel}}</td>
+             
+              
+            </tr>
+          </tbody>
+         
+        </table>
+        <pagination-controls (pageChange)="page = $event" class="text-center entreprisePagination"></pagination-controls>
+    </div>
+        
+</div>
+
+

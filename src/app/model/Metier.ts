@@ -1,4 +1,6 @@
-export interface Metier{
-    id:number;
-    nomMetier:string;
+export class Metier{
+    id!: number;
+    nomMetier!: string;
+    constructor(){ 
+    }
 }

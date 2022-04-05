@@ -1,13 +1,19 @@
 import { HttpErrorResponse } from '@angular/common/http';
+
 import { Component, OnInit } from '@angular/core';
+
 import { ActivatedRoute } from '@angular/router';
-import { ArticleUtilisee } from '../model/ArticleUtilisee';
-import { Organisation } from '../model/Organisation';
-import { User } from '../model/User';
-import { BondeCommandeService } from '../service/bonde-commande.service';
-import { LoginService } from '../service/login.service';
-import { OrganisationServiceService } from '../service/organisation-service.service';
-import { UserService } from '../service/user.service';
+import { ArticleUtilisee } from 'src/app/model/ArticleUtilisee';
+import { Organisation } from 'src/app/model/Organisation';
+import { User } from 'src/app/model/User';
+import { BondeCommandeService } from 'src/app/service/bonde-commande.service';
+
+
+//import { BondeCommandeService } from '../service/bonde-commande.service';
+import { LoginService } from 'src/app/service/login.service';
+import { OrganisationServiceService } from 'src/app/service/organisation-service.service';
+import { UserService } from 'src/app/service/user.service';
+
 
 @Component({
   selector: 'app-menu-mycpm',
@@ -75,7 +81,11 @@ this.userServi.getUserById(this.id).subscribe(
         next: (response:ArticleUtilisee[]) => {
           this.artsuts=response;
           console.log(response);
-          console.log("id bc est  "+this.artsuts[1].id.bondecommande_id);
+
+          console.log("id bc est   "+this.artsuts[1].id.bondecommande_id);
+          console.log("id bc est   "+this.artsuts[1].id.article_id);
+          
+
           
         },
         error: (error:HttpErrorResponse) => {

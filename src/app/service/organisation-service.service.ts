@@ -26,7 +26,15 @@ export class OrganisationServiceService {
   {
     return this.http.get<Organisation>(`${this.apiServeUrl}/admin/oneorganisations/${organId}`);
   }
+
+
+  //récuperer l'organisation par code
+  public getOrganisationbyBonDeCommande(bcId:number): Observable<Organisation>
+  {
+    return this.http.get<Organisation>(`${this.apiServeUrl}/admin/organisationbyBonDeCommande/${bcId}`);
+  }
 //récuperer l'organisation par code != id !!
+
   public getOrganisationbyCode(codeOrgan:string): Observable<Organisation>
   {
     return this.http.get<Organisation>(`${this.apiServeUrl}/admin/organisationbyCode/${codeOrgan}`);

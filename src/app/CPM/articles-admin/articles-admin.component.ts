@@ -13,11 +13,12 @@ import { SecteurService } from 'src/app/service/secteur.service';
 import { TypeService } from 'src/app/service/type.service';
 
 @Component({
-  selector: 'app-article',
-  templateUrl: './article.component.html',
-  styleUrls: ['./article.component.css']
+  selector: 'app-articles-admin',
+  templateUrl: './articles-admin.component.html',
+  styleUrls: ['./articles-admin.component.css']
 })
-export class ArticleComponent implements OnInit {
+export class ArticlesAdminComponent implements OnInit {
+
   secteurs!: Secteur[];
   metiers!: Metier[];
   articles!: Article[];
@@ -26,17 +27,15 @@ export class ArticleComponent implements OnInit {
   metierC!: Metier;
   searchA:any;
   idType!: number;
-  
+  affich:boolean = false;
+  deletedMetier!: Metier;
   totalLength:any;
   page:number = 1;
-
-  deletedArticle!: Article;
-  editArticle!: Article;
-  
   alerteCodeArticleutilisee:boolean = false;
 
-
- 
+  
+  chosenSecteur!: Secteur;
+  nour!: string;
 
  
   constructor(private secteurService:SecteurService,private metierService:MetierService,private articleService:ArticleService,private toastr: ToastrService,private typeService:TypeService,private articleRealiseeService:ArticleRService) {}
@@ -57,31 +56,6 @@ export class ArticleComponent implements OnInit {
      button.click();
  
    }
-
-   
-   //Modal pour la suppression et la modification d'un article
-   public onOpenDeleteandModifArticleModal(article:Article,mode:string):void{
-    const container=document.getElementById('main-container');
-    const button=document.createElement('button');
-    button.type='button';
-    button.style.display='none';
-    button.setAttribute('data-toggle','modal');
-    if(mode==='modifier')
-    {
-      this.editArticle=article;
-      button.setAttribute('data-target','#modifierArticleModal');
-    }
-    if(mode==='supprimer')
-    {
-       this.deletedArticle=article;
-       button.setAttribute('data-target','#supprimerArticleModal');
-         
-    }
-     container?.appendChild(button);
-      button.click();
-
-  }
-
 
 
 
@@ -118,7 +92,7 @@ export class ArticleComponent implements OnInit {
     this.onGetMetierById(metierId);
     this.getArticles(metierId);
     this.getTypes(metierId);
-  
+    this.affich=true;
     
 
     
@@ -245,51 +219,6 @@ export class ArticleComponent implements OnInit {
 })
  
  }
-
- 
-   //supprimer un article
-   public deleteArticle(idArticle:number):void{
-    this.articleService.deleteArticle(idArticle).subscribe({
-     next: (response:void) =>{
-       console.log("reponse de suppression "+response);
-       this.getArticles(this.metierC.id);
-       
-     },
-     error: (error:HttpErrorResponse) => {
-      alert(error.message);
-
-      },
-     complete: () => console.info('delete article complete') 
- })  
-
- }
-
-
- //suppression du article apres le clic du bouton supprimer
- public supprimerArticle(idArticle:number):void{
-   this.deleteArticle(idArticle);
-   document.getElementById('closeSuppressionModal')?.click();
-   
-
-}
-
-//modifier un article
-public modifierArticle(modifiedArticle:NgForm):void{
-  this.articleService.editArticle(modifiedArticle.value.id,modifiedArticle.value).subscribe({
-    next: (response:Article) =>{
-      console.log("id du article modifiee "+response.id);
-      this.getArticles(this.metierC.id);
-      document.getElementById('closeModifModal')?.click();
-      
-    },
-    error: (error:HttpErrorResponse) => {
-     alert(error.message);
-
-     },
-    complete: () => console.info('complete') 
-})  
-}
-
  
 
 
@@ -298,7 +227,5 @@ public closeAlert():void{
   this.alerteCodeArticleutilisee = false;
  
 }
-
-
 
 }

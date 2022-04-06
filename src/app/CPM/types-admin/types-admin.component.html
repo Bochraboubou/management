@@ -46,11 +46,7 @@
               currentPage:page,
               totalItems:totalLength
               }" >
-              {{type.typeLib}}
-             <div>
-              <button type="button" class="btn btn-success" (click)="onOpenDeleteandModifTypeModal(type,'modifier')"><i class="fa fa-pencil-square" aria-hidden="true"></i></button>&nbsp;
-              <button type="button" class="btn btn-danger" (click)="onOpenDeleteandModifTypeModal(type,'supprimer')"><i class="fa fa-trash" aria-hidden="true"></i></button> 
-             </div>
+              {{type.typeLib}} 
             </li>
           </ul>
           <br>
@@ -64,7 +60,7 @@
       
     </div>
   
-     <!-- add type modal -->
+     <!-- Type modal -->
      <div class="modal fade" id="addTypeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -95,66 +91,6 @@
         </div>
       </div>
     </div>
-
-      <!-- delete Type modal -->
-   <div class="modal fade" id="supprimerTypeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 class="modal-title" id="exampleModalLongTitle">Supprimer un type d'article</h3>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <h3>Voulez vous vraiment supprimer le type  <h2 style="color: firebrick;">{{deletedType?.typeLib}}</h2> du metier <h2 style="color: firebrick;">{{metierC?.nomMetier}}</h2></h3>
-            
-               
-        </div>
-        <div class="modal-footer">
-          <button type="button" id="closeSuppressionModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-          <button  type="button" class="btn btn-primary" (click)="supprimerType(deletedType.id)" style="background-color: firebrick;" >Supprimer</button>
-       </div>
-      </div>
-    </div>
-  </div>
-
-    <!--Modifier Type modal  -->
-    <div class="modal fade" id="modifierTypeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3 class="modal-title" id="exampleModalLongTitle">Modification du metier "{{ editType?.typeLib}}"</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-              <form #modifierTypeForm="ngForm">
-                <div>
-                  <input type="hidden" ngModel="{{editType?.id}}" name="id"  class="form-control" id="idMetierM" required>
-                </div>
-
-                <div>
-                  <label for="typeM">Libellée du type</label>
-                  <input type="text" ngModel="{{editType?.typeLib}}" name="typeLib"  class="form-control" id="typeLibM" placeholder="Libellée" required>
-                </div>
-                <br>
-                <div *ngIf="alerteLibTypeutilisee" class="alert alert-danger alert-dismissible fade show" role="alert">
-                  <strong>Attention</strong> Libellée du type est  déja utilisée
-                  <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
-                </div>
-              
-                  <div class="modal-footer">
-                     <button type="button" id="closeModifModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                     <button [disabled]="modifierTypeForm.invalid" type="submit" class="btn btn-success" (click)="modifierType(modifierTypeForm)">Modifier</button>
-                  </div>
-                  </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  
   
   
      

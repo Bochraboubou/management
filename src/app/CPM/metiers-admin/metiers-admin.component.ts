@@ -1,20 +1,24 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Article } from 'src/app/model/Article';
 import { Metier } from 'src/app/model/Metier';
 import { Secteur } from 'src/app/model/Secteur';
+import { ArticleService } from 'src/app/service/article.service';
 import { MetierService } from 'src/app/service/metier.service';
 import { SecteurService } from 'src/app/service/secteur.service';
 
 @Component({
-  selector: 'app-gestion-metiers',
-  templateUrl: './gestion-metiers.component.html',
-  styleUrls: ['./gestion-metiers.component.css']
+  selector: 'app-metiers-admin',
+  templateUrl: './metiers-admin.component.html',
+  styleUrls: ['./metiers-admin.component.css']
 })
-export class GestionMetiersComponent implements OnInit {
+export class MetiersAdminComponent implements OnInit {
+
   secteurs!: Secteur[];
   metiers!: Metier[];
   secteur!: Secteur;
+  artcs: Article[]=[];
   searchM:any;
   affich:boolean = false;
   deletedMetier!: Metier;
@@ -23,12 +27,13 @@ export class GestionMetiersComponent implements OnInit {
   alerteNomMetierutilisee:boolean = false;
   alerteMetierUtilisee:boolean=false;
   metierAmodifier!: Metier;
+  
 
   
   chosenSecteur!: Secteur;
 
  
-  constructor(private secteurService:SecteurService,private metierService:MetierService) {}
+  constructor(private secteurService:SecteurService,private metierService:MetierService,private articleService:ArticleService) {}
 
   ngOnInit(): void {
     this.onGetSecteurs();
@@ -48,29 +53,28 @@ export class GestionMetiersComponent implements OnInit {
    }
 
 
-   //Modal pour la suppression et la modification d'un metier
-   public onOpenDeleteandModifMetierModal(metier:Metier,mode:string):void{
-    const container=document.getElementById('main-container');
-    const button=document.createElement('button');
-    button.type='button';
-    button.style.display='none';
-    button.setAttribute('data-toggle','modal');
-    if(mode==='modifier')
-    {
-      this.metierAmodifier=metier;
-      button.setAttribute('data-target','#modifierMetierModal');
-    }
-    if(mode==='supprimer')
-    {
-       this.deletedMetier=metier;
-       button.setAttribute('data-target','#supprimerMetierModal');
-         
-    }
-     container?.appendChild(button);
-      button.click();
-
-  }
-
+    //Modal pour la suppression et la modification d'un metier
+    public onOpenDeleteandModifMetierModal(metier:Metier,mode:string):void{
+       const container=document.getElementById('main-container');
+       const button=document.createElement('button');
+       button.type='button';
+       button.style.display='none';
+       button.setAttribute('data-toggle','modal');
+       if(mode==='modifier')
+       {
+         this.metierAmodifier=metier;
+         button.setAttribute('data-target','#modifierMetierModal');
+       }
+       if(mode==='supprimer')
+       {
+          this.deletedMetier=metier;
+          button.setAttribute('data-target','#supprimerMetierModal');
+            
+       }
+        container?.appendChild(button);
+         button.click();
+   
+     }
 
   //récuperer la liste des secteurs
   public onGetSecteurs():void{
@@ -133,6 +137,21 @@ export class GestionMetiersComponent implements OnInit {
 
   }
 
+  //chercher les articles liées au metier
+  public getArticlesParMetier(idMetier:number):void{
+ this.articleService.getArticlebyMetierId(idMetier).subscribe({
+    next: (response:Article[]) => {
+      this.artcs=response;
+      console.log("artsddddddcc"+this.artcs);
+      console.log("articles par metier :  "+response);
+    },
+    error: (error:HttpErrorResponse) => {
+      console.log("metier non utilisee");
+     },
+    complete: () => console.info('complete') 
+ })
+}
+
 
    //ajouter une metier
    public addMetier(idSecteur:number,metier:Metier):void{
@@ -154,20 +173,23 @@ export class GestionMetiersComponent implements OnInit {
  
    //supprimer un metier
    public deleteMetier(idMetier:number):void{
-    this.metierService.deleteMetier(idMetier).subscribe({
-     next: (response:void) =>{
-       console.log("reponse de suppression "+response);
-       this.getMetiers(this.secteur.id);
-       
-     },
-     error: (error:HttpErrorResponse) => {
-      alert(error.message);
+    
+      this.metierService.deleteMetier(idMetier).subscribe({
+        next: (response:void) =>{
+          console.log("reponse de suppression "+response);
+          this.getMetiers(this.secteur.id);
+          
+        },
+        error: (error:HttpErrorResponse) => {
+         alert(error.message);
+   
+         },
+        complete: () => console.info('complete') 
+    })  
+   
+   }
+    
 
-      },
-     complete: () => console.info('complete') 
- })  
-
- }
 //ajout du metier apres le clic du bouton ajouter
  public ajouterMetier(metierForm:NgForm):void{
   this.metierService.getMetierbyNom(metierForm.value.nomMetier).subscribe({
@@ -214,9 +236,9 @@ public modifierMetier(modifiedMetier:NgForm):void{
 //fermer un alerte
 public closeAlert():void{
   this.alerteNomMetierutilisee = false;
+  this.alerteMetierUtilisee=false;
  
 }
-
 
 
 

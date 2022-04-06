@@ -29,7 +29,12 @@
             currentPage:page,
             totalItems:totalLength
             }" >
-            {{metier.nomMetier}} <button type="button" class="btn btn-danger" (click)="onOpenDeleteMetierModal(metier)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            {{metier.nomMetier}}
+            <div>
+              <button type="button" class="btn btn-success" (click)="onOpenDeleteandModifMetierModal(metier,'modifier')"><i class="fa fa-pencil-square" aria-hidden="true"></i></button>&nbsp;
+              <button type="button" class="btn btn-danger" (click)="onOpenDeleteandModifMetierModal(metier,'supprimer')"><i class="fa fa-trash" aria-hidden="true"></i></button>
+           
+            </div>
           </li>
         </ul>
         <br>
@@ -43,7 +48,7 @@
     
   </div>
 
-   <!-- Add Bonde Commande modal -->
+   <!-- Add metier modal -->
    <div class="modal fade" id="addMetierModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -76,8 +81,8 @@
   </div>
 
 
-   <!-- Add Bonde Commande modal -->
-   <div class="modal fade" id="deleteMetierModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+   <!-- delete metier modal -->
+   <div class="modal fade" id="supprimerMetierModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -98,5 +103,42 @@
       </div>
     </div>
   </div>
+
+    <!--Modifier Metier modal  -->
+    <div class="modal fade" id="modifierMetierModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="exampleModalLongTitle">Modification du metier "{{ metierAmodifier?.nomMetier}}"</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <form #modifierMetierForm="ngForm">
+                <div>
+                  <input type="hidden" ngModel="{{metierAmodifier?.id}}" name="id"  class="form-control" id="idMetierM" required>
+                </div>
+
+                <div>
+                  <label for="nomMetierM">Nom du metier</label>
+                  <input type="text" ngModel="{{metierAmodifier?.nomMetier}}" name="nomMetier"  class="form-control" id="nomMetierM" placeholder="nom du metier à modifier" required>
+                </div>
+                <br>
+                <div *ngIf="alerteNomMetierutilisee" class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Attention</strong> nom du metier deja utilisee
+                  <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+                </div>
+              
+                  <div class="modal-footer">
+                     <button type="button" id="closeModifModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                     <button [disabled]="modifierMetierForm.invalid" type="submit" class="btn btn-success" (click)="modifierMetier(modifierMetierForm)">Modifier</button>
+                  </div>
+                  </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  
   
   

@@ -1,0 +1,6 @@
+.metiersPagination /deep/ .ngx-pagination .current {
+    background:navy;
+  }
+  .metierList{
+    background-color: #AED6F1;
+  }

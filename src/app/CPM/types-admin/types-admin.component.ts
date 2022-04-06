@@ -1,61 +1,49 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit} from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { BondeCommande } from 'src/app/model/BondeCommande';
-import { Marchee } from 'src/app/model/Marchee';
 import { Metier } from 'src/app/model/Metier';
-import { Organisation } from 'src/app/model/Organisation';
 import { Secteur } from 'src/app/model/Secteur';
 import { Type } from 'src/app/model/Type';
-import { BondeCommandeService } from 'src/app/service/bonde-commande.service';
-import { MarcheeService } from 'src/app/service/marchee.service';
 import { MetierService } from 'src/app/service/metier.service';
-import { OrganisationServiceService } from 'src/app/service/organisation-service.service';
 import { SecteurService } from 'src/app/service/secteur.service';
 import { TypeService } from 'src/app/service/type.service';
 
 @Component({
-  selector: 'app-consulter-marchees',
-  templateUrl: './consulter-marchees.component.html',
-  styleUrls: ['./consulter-marchees.component.css']
+  selector: 'app-types-admin',
+  templateUrl: './types-admin.component.html',
+  styleUrls: ['./types-admin.component.css']
 })
-export class ConsulterMarcheesComponent implements OnInit {
-
-  idOrgan:number=2;
+export class TypesAdminComponent implements OnInit {
   secteurs!: Secteur[];
   metiers!: Metier[];
-  marchees!: Marchee[];
- 
-
+  types!: Type[];
   secteurC!: Secteur;
   metierC!: Metier;
+  searchT:any;
 
-  searchM:any;
-
-  MarcheestotalLength:any;
-  Mpage:number = 1;
-  Bpage:number = 1;
-  
+  totalLength:any;
+  page:number = 1;
+  alerteLibTypeutilisee:boolean = false;
 
   
   chosenSecteur!: Secteur;
 
  
-  constructor(private secteurService:SecteurService,private metierService:MetierService,private typeService:TypeService,private marcheeService:MarcheeService,private bonDeCommandeService :BondeCommandeService,private organisationService:OrganisationServiceService) {}
+  constructor(private secteurService:SecteurService,private metierService:MetierService,private typeService:TypeService,private toastr: ToastrService) {}
 
   ngOnInit(): void {
-    this.getAllMarchees();
     this.onGetSecteurs();
   }
 
-   //Collapse pour l'affichage des bonsDeCommandes
-   public onOpenBCCollapse(i:number):void{
-     const container=document.getElementById('main-container');
+   //Modal pour l'ajout d'un metier
+   public onOpenAddMetierModal():void{
+    const container=document.getElementById('main-container');
      const button=document.createElement('button');
      button.type='button';
      button.style.display='none';
-     button.setAttribute('data-toggle','collapse');
-     button.setAttribute('data-target','#bCommande'+i);
+     button.setAttribute('data-toggle','modal');
+     button.setAttribute('data-target','#addTypeModal');
      container?.appendChild(button);
      button.click();
  
@@ -91,7 +79,7 @@ export class ConsulterMarcheesComponent implements OnInit {
    getMetierChoisis(metierId:number){
     console.log("id du metier choisis"+metierId);
     this.onGetMetierById(metierId);
-    this.getMarchees(metierId);
+    this.getTypes(metierId);
     
     
 
@@ -134,6 +122,7 @@ export class ConsulterMarcheesComponent implements OnInit {
   }
 
 
+
   //recuperer les metiers liés au secteur choisis
   public getMetiers(idSecteur:number):void{
      //récuperer les metiers par secteurs
@@ -152,60 +141,66 @@ export class ConsulterMarcheesComponent implements OnInit {
 
   }
 
-   //récuperer la liste total  des marchees 
-   public getAllMarchees():void{
-    this.marcheeService.getMarchees(this.idOrgan).subscribe({
-      next: (response:Marchee[]) => {
-      this.marchees=response;
-      for (let i = 0; i < this.marchees.length; i++) {
-        this.getBonsDeCommandes(this.marchees[i]);
-      }
-        console.log("marchees par metiers et organ"+this.marchees);
-        this.MarcheestotalLength=this.marchees.length;
+   //récuperer la liste des types
+  public getTypes(idMetier:number):void{
+    this.typeService.getTypessByMetier(idMetier).subscribe({
+      next: (response:Type[]) => {
+      this.types=response;
+        console.log("types par metiers"+this.types);
+        this.totalLength=this.types.length;
       },
       error: (error:HttpErrorResponse) => {
         alert(error.message);
 
        },
-      complete: () => console.info('getMarchees complete') 
-  })
-  }
-
-   //récuperer la liste des marchees par organisation et metier
-  public getMarchees(idMetier:number):void{
-    this.marcheeService.getMarcheesbyMetierandOrganisation(idMetier,this.idOrgan).subscribe({
-      next: (response:Marchee[]) => {
-      this.marchees=response;
-      for (let i = 0; i < this.marchees.length; i++) {
-        this.getBonsDeCommandes(this.marchees[i]);
-      }
-        console.log("marchees par metiers et organ"+this.marchees);
-        this.MarcheestotalLength=this.marchees.length;
-      },
-      error: (error:HttpErrorResponse) => {
-        alert(error.message);
-
-       },
-      complete: () => console.info('getMarchees complete') 
-  })
-  }
-
-   //récuperer la liste des bonsDeCommandes par marchee
-   public getBonsDeCommandes(marchee:Marchee):void{
-    this.bonDeCommandeService.getAllBondeCommandeJoinbybcId(marchee.id).subscribe({
-      next: (response:BondeCommande[]) => {
-        marchee.listeBondeCommandes=response;
-        console.log("code premiere bc du marchee"+marchee.listeBondeCommandes[1]?.codebc);
-      },
-      error: (error:HttpErrorResponse) => {
-        alert(error.message);
-
-       },
-      complete: () => console.info('get bcs complete') 
+      complete: () => console.info('complete') 
   })
   }
   
-  
+
+
+
+   //ajouter un type
+   public addType(idMetier:number,type:Type):void{
+    this.typeService.addType(idMetier,type).subscribe({
+     next: (response:Type) =>{
+       console.log("id du type ajoutee "+response.id);
+       this.getTypes(this.metierC.id);
+       
+     },
+     error: (error:HttpErrorResponse) => {
+      alert(error.message);
+
+      },
+     complete: () => console.info('complete') 
+ })  
+
+ }
+
+//ajout du type apres le clic du bouton ajouter
+ public ajouterType(typeForm:NgForm):void{
+  this.typeService.getTypebyLib(typeForm.value.typeLib).subscribe({
+    next: (response:Type) => {
+      this.alerteLibTypeutilisee=true;
+      console.log(" nom du type :   "+typeForm.value.typeLib+"  est deja utilisee");
+     
+    },
+    error: (error:HttpErrorResponse) => {
+      this.addType(this.metierC.id,typeForm.value);
+      document.getElementById('closeAjoutModal')?.click();
+      typeForm.reset();
+     },
+    complete: () => console.info('complete') 
+})
+ 
+ }
+
+
+//fermer un alerte
+public closeAlert():void{
+  this.alerteLibTypeutilisee = false;
+ 
+}
 
 
 }

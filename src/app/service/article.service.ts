@@ -41,4 +41,14 @@ export class ArticleService {
   {
     return this.http.post<Article>(`${this.apiServeUrl}/admin/metier/${metierId}/type/${typeId}/article`,article);
   }
+
+  public editArticle(articleId:number,article:Article): Observable<Article>
+  {
+    return this.http.put<Article>(`${this.apiServeUrl}/admin/editArticle/${articleId}`,article);
+  }
+
+  public deleteArticle(articleId:number): Observable<void>
+  {
+    return this.http.delete<void>(`${this.apiServeUrl}/admin/articles/${articleId}`);
+  }
 }

@@ -42,4 +42,17 @@ export class BondeCommandeService {
    {
      return this.http.get<BondeCommande[]>(`${this.apiServeUrl}/admin/marchee/${marcheeId}/bondescommandes`);
    }
+
+   
+    //récuperer les bondesCommandesJoin parbcId
+    public getAllBondeCommandeJoinbybcId(marcheeId:number): Observable<BondeCommande[]>
+    {
+      return this.http.get<BondeCommande[]>(`${this.apiServeUrl}/admin/AllbondeCommandesJoin/${marcheeId}`);
+    }
+
+    //récuperer les bondesCommandesJoin parbcId
+    public getBondeCommandeJoinbybcId(bcId:number): Observable<BondeCommande>
+    {
+      return this.http.get<BondeCommande>(`${this.apiServeUrl}/admin/bondeCommandesJoin/${bcId}`);
+    }
 }

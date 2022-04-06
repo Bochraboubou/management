@@ -5,10 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { AjouterOrganisationComponent } from './ajouter-organisation/ajouter-organisation.component';
-import { AddEntrepriseModalComponent } from './add-entreprise-modal/add-entreprise-modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
-import { EntreprisePopupComponent } from './entreprise-popup/entreprise-popup.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { OrganisationComponent } from './organisation/organisation.component';
@@ -17,7 +15,7 @@ import { MenuMycpmComponent } from './espaceMyCPM/menu-mycpm/menu-mycpm.componen
 import { MarcheeComponent } from './Marchee/marchee/marchee.component';
 import { DetailOrganisationComponent } from './sectionOrganisation/detail-organisation/detail-organisation.component';
 import { EntreprisesComponent } from './sectionOrganisation/entreprises/entreprises.component';
-import { ArticlespecifieeComponent } from './sectionOrganisation/articlespecifiee/articlespecifiee.component';
+import { ArticlespecifieeComponent } from './Marchee/articlespecifiee/articlespecifiee.component';
 import { LoginComponent } from './Inscription/login/login.component';
 import { RegisterComponent } from './Inscription/register/register.component';
 import { DemandeComponent } from './Inscription/demande/demande.component';
@@ -31,6 +29,9 @@ import { ArticleComponent } from './Articles/article/article.component';
 import { TypesComponent } from './Articles/types/types.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ConsulterMarcheesComponent } from './Marchee/consulter-marchees/consulter-marchees.component';
+import { MetiersAdminComponent } from './CPM/metiers-admin/metiers-admin.component';
+import { ArticlesAdminComponent } from './CPM/articles-admin/articles-admin.component';
+import { TypesAdminComponent } from './CPM/types-admin/types-admin.component';
 
 
 
@@ -41,8 +42,6 @@ import { ConsulterMarcheesComponent } from './Marchee/consulter-marchees/consult
     AppComponent,
     MenuComponent,
     AjouterOrganisationComponent,
-    AddEntrepriseModalComponent,
-    EntreprisePopupComponent,
     OrganisationComponent,
     DetailComponent,
     MenuMycpmComponent,
@@ -58,7 +57,10 @@ import { ConsulterMarcheesComponent } from './Marchee/consulter-marchees/consult
     GestionMetiersComponent,
     ArticleComponent,
     TypesComponent,
-    ConsulterMarcheesComponent
+    ConsulterMarcheesComponent,
+    MetiersAdminComponent,
+    ArticlesAdminComponent,
+    TypesAdminComponent
     
    
   ],

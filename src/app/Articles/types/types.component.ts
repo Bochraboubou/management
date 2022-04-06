@@ -29,7 +29,9 @@ export class TypesComponent implements OnInit {
   alerteLibTypeutilisee:boolean = false;
 
   
-  chosenSecteur!: Secteur;
+  deletedType!: Type;
+  editType!: Type;
+ 
 
  
   constructor(private secteurService:SecteurService,private metierService:MetierService,private typeService:TypeService,private toastr: ToastrService) {}
@@ -51,6 +53,28 @@ export class TypesComponent implements OnInit {
  
    }
 
+    //Modal pour la suppression et la modification d'un type
+    public onOpenDeleteandModifTypeModal(type:Type,mode:string):void{
+      const container=document.getElementById('main-container');
+      const button=document.createElement('button');
+      button.type='button';
+      button.style.display='none';
+      button.setAttribute('data-toggle','modal');
+      if(mode==='modifier')
+      {
+        this.editType=type;
+        button.setAttribute('data-target','#modifierTypeModal');
+      }
+      if(mode==='supprimer')
+      {
+         this.deletedType=type;
+         button.setAttribute('data-target','#supprimerTypeModal');
+           
+      }
+       container?.appendChild(button);
+        button.click();
+  
+    }
 
 
   //récuperer la liste des secteurs
@@ -131,7 +155,7 @@ export class TypesComponent implements OnInit {
      this.metierService.getMetiersBySecteur(idSecteur).subscribe({
       next: (response:Metier[]) =>{
         this.metiers=response;
-        console.log("metiers du du secteur de id "+this.secteurC.id+" sont les suivants"+response);
+        console.log("metiers du du secteur de id "+this.secteurC?.id+" sont les suivants"+response);
         
       },
       error: (error:HttpErrorResponse) => {
@@ -196,6 +220,50 @@ export class TypesComponent implements OnInit {
 })
  
  }
+
+   //supprimer un type
+   public deleteType(idType:number):void{
+    this.typeService.deleteType(idType).subscribe({
+     next: (response:void) =>{
+       console.log("reponse de suppression "+response);
+       this.getTypes(this.metierC.id);
+       
+     },
+     error: (error:HttpErrorResponse) => {
+      alert(error.message);
+
+      },
+     complete: () => console.info('complete') 
+ })  
+
+ }
+
+
+ //suppression du type apres le clic du bouton supprimer
+ public supprimerType(idType:number):void{
+   this.deleteType(idType);
+   document.getElementById('closeSuppressionModal')?.click();
+   
+
+}
+
+//modifier un type
+public modifierType(modifiedTypeForm:NgForm):void{
+  this.typeService.editType(modifiedTypeForm.value.id,modifiedTypeForm.value).subscribe({
+    next: (response:Type) =>{
+      console.log("id du type modifiee "+response.id);
+      this.getTypes(this.metierC.id);
+      document.getElementById('closeModifModal')?.click();
+      
+    },
+    error: (error:HttpErrorResponse) => {
+     alert(error.message);
+
+     },
+    complete: () => console.info('complete') 
+})  
+}
+
 
 
 //fermer un alerte

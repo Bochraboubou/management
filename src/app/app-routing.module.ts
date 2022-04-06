@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AjouterOrganisationComponent } from './ajouter-organisation/ajouter-organisation.component';
 import { DetailComponent } from './detail/detail.component';
-import { EntreprisePopupComponent } from './entreprise-popup/entreprise-popup.component';
-import { ArticlespecifieeComponent } from './sectionOrganisation/articlespecifiee/articlespecifiee.component';
+import { ArticlespecifieeComponent } from './Marchee/articlespecifiee/articlespecifiee.component';
 import { DetailOrganisationComponent } from './sectionOrganisation/detail-organisation/detail-organisation.component';
 import { EntreprisesComponent } from './sectionOrganisation/entreprises/entreprises.component';
 import { MarcheeComponent } from './Marchee/marchee/marchee.component';
@@ -19,24 +18,30 @@ import { GestionMetiersComponent } from './sectionOrganisation/gestion-metiers/g
 import { ArticleComponent } from './Articles/article/article.component';
 import { TypesComponent } from './Articles/types/types.component';
 import { ConsulterMarcheesComponent } from './Marchee/consulter-marchees/consulter-marchees.component';
+import { MetiersAdminComponent } from './CPM/metiers-admin/metiers-admin.component';
+import { TypesAdminComponent } from './CPM/types-admin/types-admin.component';
+import { ArticlesAdminComponent } from './CPM/articles-admin/articles-admin.component';
 
 
 const routes: Routes = [
-  {path:'',component:MenuMycpmComponent},
+  {path:'',component:MenuComponent},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
   {path:'Demande',component:DemandeComponent},
-  { path:'cpm/:id',component:MenuComponent,children:[
+  { path:'cpm',component:MenuComponent,children:[
     { path:'addOrganisation',component:AjouterOrganisationComponent},
     { path:'organisations',component:OrganisationComponent},
     { path:'detail',component:DetailComponent},
     {path:'Demande',component:DemandeComponent},
     {path:'listeDemande',component:ListeDemandesComponent},
+    {path:'metiers',component:MetiersAdminComponent},
+    {path:'types',component:TypesAdminComponent},
+    {path:'articles',component:ArticlesAdminComponent}
+    
 
   ]},
   { path:'mycpm',component:MenuMycpmComponent,children:[
     { path:'marchee',component:MarcheeComponent},
-    { path:'popup',component:EntreprisePopupComponent},
     { path:'detailOrganisation',component:DetailOrganisationComponent},
     { path:'entreprises',component:EntreprisesComponent},
     { path:'articlesSpecifiees/:id',component:ArticlespecifieeComponent},

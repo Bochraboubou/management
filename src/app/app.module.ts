@@ -10,10 +10,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { AjouterOrganisationComponent } from './ajouter-organisation/ajouter-organisation.component';
-import { AddEntrepriseModalComponent } from './add-entreprise-modal/add-entreprise-modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
-import { EntreprisePopupComponent } from './entreprise-popup/entreprise-popup.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { OrganisationComponent } from './organisation/organisation.component';
@@ -22,7 +20,7 @@ import { MenuMycpmComponent } from './espaceMyCPM/menu-mycpm/menu-mycpm.componen
 import { MarcheeComponent } from './Marchee/marchee/marchee.component';
 import { DetailOrganisationComponent } from './sectionOrganisation/detail-organisation/detail-organisation.component';
 import { EntreprisesComponent } from './sectionOrganisation/entreprises/entreprises.component';
-import { ArticlespecifieeComponent } from './sectionOrganisation/articlespecifiee/articlespecifiee.component';
+import { ArticlespecifieeComponent } from './Marchee/articlespecifiee/articlespecifiee.component';
 import { LoginComponent } from './Inscription/login/login.component';
 import { RegisterComponent } from './Inscription/register/register.component';
 import { DemandeComponent } from './Inscription/demande/demande.component';
@@ -36,9 +34,9 @@ import { NgxPrintModule } from 'ngx-print';
 
 import { ToastrModule } from 'ngx-toastr';
 
-
-
-
+import { ConsulterMarcheesComponent } from './Marchee/consulter-marchees/consulter-marchees.component';
+import { MetiersAdminComponent } from './CPM/metiers-admin/metiers-admin.component';
+import { SecteursComponent } from './CPM/secteurs/secteurs.component';
 
 import { InboxComponent } from './Inscription/inbox/inbox.component';
 import { TableComponent } from './Inscription/table/table.component';
@@ -68,8 +66,6 @@ import { GestionMetiersComponent } from './sectionOrganisation/gestion-metiers/g
     AppComponent,
     MenuComponent,
     AjouterOrganisationComponent,
-    AddEntrepriseModalComponent,
-    EntreprisePopupComponent,
     OrganisationComponent,
     DetailComponent,
     MenuMycpmComponent,
@@ -87,26 +83,30 @@ import { GestionMetiersComponent } from './sectionOrganisation/gestion-metiers/g
     ArticleComponent,
     TypesComponent,
     ConsulterMarcheesComponent,
+    MetiersAdminComponent,
+    SecteursComponent,
+    InboxComponent,
+    TableComponent,
+    SendMailComponent,
+    DoinscriptionComponent,
+    OneDemandeComponent,
+    WorningEmailComponent,
+    SecteurComponent,
+    DetailSecteurComponent,
+    FileUploadComponent,
+    NouveauSecteurComponent,
+    ListesUtulisateurComponent,
+    FirstInscriptionComponent,
+    GererComptesComponent,
+    ForbiddenComponent,
+    InscriptionetdemandesComponent,
+    GestionUtulisateurComponent,
+    UserDetailComponent,
+    SendEmailUserComponent,
+
     
 
-InboxComponent,
-TableComponent,
-SendMailComponent,
-DoinscriptionComponent,
-OneDemandeComponent,
-WorningEmailComponent,
-SecteurComponent,
-DetailSecteurComponent,
-FileUploadComponent,
-NouveauSecteurComponent,
-ListesUtulisateurComponent,
-FirstInscriptionComponent,
-GererComptesComponent,
-ForbiddenComponent,
-InscriptionetdemandesComponent,
-GestionUtulisateurComponent,
-UserDetailComponent,
-SendEmailUserComponent,
+
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,140 @@
+<div class="container" id="main-container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-6">
+        <h1 style="font-family:Marker Felt, fantasy; font-size: 28px; color:midnightblue">Gestion des secteurs d'activités</h1>
+      </div>
+    </div>
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-6 listDiv">
+          <br>
+         <div>
+          <input type="search" [(ngModel)]="searchS" class="form-control" id="searchM" name="searchM"  placeholder="rechercher la metier par nom"> 
+         </div>
+         <h2 style="font-family: Comic Sans MS; color: midnightblue;">Liste  des secteurs d'activités disponibles </h2>
+         <div>
+          <ul class="list-group">
+  
+            <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let secteur of secteurs |filter:searchS | paginate : {
+              itemsPerPage:4,
+              currentPage:page,
+              totalItems:totalLength
+              }" >
+              {{secteur.nomSecteur}}
+              <div>
+                <button type="button" class="btn btn-success" (click)="onOpenDeleteandModifSecteurModal(secteur,'modifier')"><i class="fa fa-pencil-square" aria-hidden="true"></i></button>&nbsp;
+                <button type="button" class="btn btn-danger" (click)="onOpenDeleteandModifSecteurModal(secteur,'supprimer')"><i class="fa fa-trash" aria-hidden="true"></i></button>
+             
+              </div>
+            </li>
+          </ul>
+          <br>
+          <pagination-controls (pageChange)="page = $event" class="text-center metiersPagination"></pagination-controls>
+         </div>
+         <div *ngIf="alerteSupSecteurUtilisee" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Attention</strong> Impossible de supprimer le secteur"{{deletedSecteur.nomSecteur}}" car il est utilisé par des organisations
+            <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+          </div>
+          <div *ngIf="alerteModifSecteurUtilisee" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Attention</strong> Impossible de modifier le secteur "{{secteurAmodifier.nomSecteur}}" car il est utilisé par des organisations
+            <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+          </div>
+          
+        </div>
+        <div class="col-md-2">
+          <button type="button" class="btn btn-primary" (click)="onOpenAddSecteurModal()" style="background-color: navy;"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        </div>
+      
+    </div>
+  
+     <!-- Add secteur modal -->
+     <div class="modal fade" id="addSecteurModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="exampleModalLongTitle">Ajouter un  secteur d'activité </h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <form #addSecteurForm="ngForm">
+               <div>
+                <label for="nomSecteurM">Nom du secteur</label>
+                <input type="text"ngModel name="nomSecteur"  class="form-control" id="nomSecteurM" placeholder="nom du nouveau secteur" required>
+              </div>
+              <br>
+              <div *ngIf="alerteNomSecteurutilisee" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Attention</strong> nom du secteur deja utilisee
+                <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+              </div>
+              
+                  <div class="modal-footer">
+                     <button type="button" id="closeAjoutModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                     <button [disabled]="addSecteurForm.invalid" type="submit" class="btn btn-primary" (click)="ajouterSecteur(addSecteurForm)"  style="background-color: navy;">Ajouter le secteur</button>
+                  </div>
+                  </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+     <!-- delete secteur modal -->
+     <div class="modal fade" id="supprimerSecteurModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="exampleModalLongTitle">Supprimer un secteur d'activité</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h3>Voulez vous vraiment supprimer le secteur  <h2 style="color: firebrick;">{{deletedSecteur?.nomSecteur}} </h2></h3>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="closeSuppressionModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            <button  type="button" class="btn btn-primary" (click)="supprimerSecteur(deletedSecteur.id)" style="background-color: firebrick;" >Supprimer</button>
+         </div>
+        </div>
+      </div>
+    </div>
+  
+      <!--Modifier Secteur modal  -->
+      <div class="modal fade" id="modifierSecteurModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLongTitle">Modification du secteur "{{ secteurAmodifier?.nomSecteur}}"</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form #modifierSecteurForm="ngForm">
+                  <div>
+                    <input type="hidden" ngModel="{{secteurAmodifier?.id}}" name="id"  class="form-control" id="idSecteurM" required>
+                  </div>
+  
+                  <div>
+                    <label for="nomMetierM">Nom du secteur</label>
+                    <input type="text" ngModel="{{secteurAmodifier?.nomSecteur}}" name="nomSecteur"  class="form-control" id="nomSecteurM" placeholder="nom du secteur à modifier" required>
+                  </div>
+                  <br>
+                  <div *ngIf="alerteNomSecteurutilisee" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Attention</strong> nom du secteur deja utilisee
+                    <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+                  </div>
+                
+                    <div class="modal-footer">
+                       <button type="button" id="closeModifModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                       <button [disabled]="modifierSecteurForm.invalid" type="submit" class="btn btn-success" (click)="modifierSecteur(modifierSecteurForm)">Modifier</button>
+                    </div>
+                    </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    
+    

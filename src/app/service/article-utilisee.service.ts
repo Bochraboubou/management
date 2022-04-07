@@ -22,4 +22,10 @@ public addArticleUtilisee(bcId:number,articleId:number,articleUtilisee:ArticleUt
  {
    return this.http.get<ArticleUtilisee[]>(`${this.apiServeUrl}/admin/bondecommande/${bcId}/articlesutilisees`);
  }
+
+ //récuperer les articleUtilisés par article
+ public getArticlesUtiliseesbyArticle(articleId:number): Observable<ArticleUtilisee[]>
+ {
+   return this.http.get<ArticleUtilisee[]>(`${this.apiServeUrl}/admin/article/${articleId}/articlesutilisees`);
+ }
 }

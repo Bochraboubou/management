@@ -8,6 +8,11 @@ import { SecteurComponent } from './CPM/secteur/secteur.component';
 import { SendEmailUserComponent } from './CPM/send-email-user/send-email-user.component';
 import { UserDetailComponent } from './CPM/user-detail/user-detail.component';
 import { DetailComponent } from './detail/detail.component';
+import { ArticlespecifieeComponent } from './Marchee/articlespecifiee/articlespecifiee.component';
+import { DetailOrganisationComponent } from './sectionOrganisation/detail-organisation/detail-organisation.component';
+import { EntreprisesComponent } from './sectionOrganisation/entreprises/entreprises.component';
+import { MarcheeComponent } from './Marchee/marchee/marchee.component';
+
 import { EntreprisePopupComponent } from './entreprise-popup/entreprise-popup.component';
 //import { ArticlespecifieeComponent } from './espaceMyCPM/articlespecifiee/articlespecifiee.component';
 //import { DetailOrganisationComponent } from './espaceMyCPM/detail-organisation/detail-organisation.component';
@@ -35,11 +40,32 @@ import { GestionMetiersComponent } from './sectionOrganisation/gestion-metiers/g
 import { ArticleComponent } from './Articles/article/article.component';
 import { TypesComponent } from './Articles/types/types.component';
 import { ConsulterMarcheesComponent } from './Marchee/consulter-marchees/consulter-marchees.component';
+import { MetiersAdminComponent } from './CPM/metiers-admin/metiers-admin.component';
+import { SecteursComponent } from './CPM/secteurs/secteurs.component';
 import { MenuMycpmComponent } from './espaceMyCPM/menu-mycpm/menu-mycpm.component';
 import { MarcheeComponent } from './Marchee/marchee/marchee.component';
 import { EntreprisesComponent } from './sectionOrganisation/entreprises/entreprises.component';
 import { DetailOrganisationComponent } from './sectionOrganisation/detail-organisation/detail-organisation.component';
 import { ArticlespecifieeComponent } from './sectionOrganisation/articlespecifiee/articlespecifiee.component';
+
+
+
+/*const routes: Routes = [
+  {path:'',component:MenuComponent},
+  {path:'login',component:LoginComponent},
+  {path:'register',component:RegisterComponent},
+  {path:'Demande',component:DemandeComponent},
+  { path:'cpm',component:MenuComponent,children:[
+    { path:'addOrganisation',component:AjouterOrganisationComponent},
+    { path:'organisations',component:OrganisationComponent},
+    { path:'detail',component:DetailComponent},
+    {path:'Demande',component:DemandeComponent},
+    {path:'listeDemande',component:ListeDemandesComponent},
+    {path:'metiers',component:GestionMetiersComponent},
+    {path:'secteurs',component:SecteursComponent}
+    */
+    
+
 
 
 const routes: Routes = [
@@ -81,16 +107,24 @@ const routes: Routes = [
     {path:'listeDemande',component:ListeDemandesComponent,canActivate:[AdminCPMGuard]},
     {path:'gestionUtulisateur',component:GestionUtulisateurComponent},
     {path:'table',component:FileUploadComponent},
+     {path:'metiers',component:GestionMetiersComponent},
+    {path:'secteurs',component:SecteursComponent}
+    
    
 
    
+
 
   ]},
  
   { path:'mycpm',component:MenuMycpmComponent,children:[
     { path:'marchee',component:MarcheeComponent},
+
+    { path:'detailOrganisation',component:DetailOrganisationComponent},
+
     { path:'popup',component:EntreprisePopupComponent,canActivate:[AdminMYCPMGuard]},
     {path:'gererComptes',component:GererComptesComponent},
+
     { path:'entreprises',component:EntreprisesComponent},
     { path:'articlesSpecifiees/:id',component:ArticlespecifieeComponent},
     { path:'metiers',component:GestionMetiersComponent},

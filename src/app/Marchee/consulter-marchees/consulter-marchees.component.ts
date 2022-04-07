@@ -44,6 +44,7 @@ export class ConsulterMarcheesComponent implements OnInit {
   constructor(private secteurService:SecteurService,private metierService:MetierService,private typeService:TypeService,private marcheeService:MarcheeService,private bonDeCommandeService :BondeCommandeService,private organisationService:OrganisationServiceService) {}
 
   ngOnInit(): void {
+    this.getAllMarchees();
     this.onGetSecteurs();
   }
 
@@ -132,25 +133,6 @@ export class ConsulterMarcheesComponent implements OnInit {
   })
   }
 
-  
-   //récuperer l'entreprise par Bon de Commande
-   public onGetEntrepoByBC(bonDeCommande:BondeCommande):void{
-    this.organisationService.getOrganisationbyBonDeCommande(bonDeCommande.id).subscribe({
-      next: (response:Organisation) => {
-        bonDeCommande.nomEntrep=response.nom;
-        console.log(" nom d'entreprise cherché :   "+bonDeCommande.nomEntrep);
-       
-      },
-      error: (error:HttpErrorResponse) => {
-        alert(error.message);
-
-       },
-      complete: () => console.info('get entreprise complete') 
-  })
-  }
-
-
-
 
   //recuperer les metiers liés au secteur choisis
   public getMetiers(idSecteur:number):void{
@@ -168,6 +150,25 @@ export class ConsulterMarcheesComponent implements OnInit {
       complete: () => console.info('complete') 
   })  
 
+  }
+
+   //récuperer la liste total  des marchees 
+   public getAllMarchees():void{
+    this.marcheeService.getMarchees(this.idOrgan).subscribe({
+      next: (response:Marchee[]) => {
+      this.marchees=response;
+      for (let i = 0; i < this.marchees.length; i++) {
+        this.getBonsDeCommandes(this.marchees[i]);
+      }
+        console.log("marchees par metiers et organ"+this.marchees);
+        this.MarcheestotalLength=this.marchees.length;
+      },
+      error: (error:HttpErrorResponse) => {
+        alert(error.message);
+
+       },
+      complete: () => console.info('getMarchees complete') 
+  })
   }
 
    //récuperer la liste des marchees par organisation et metier
@@ -191,13 +192,9 @@ export class ConsulterMarcheesComponent implements OnInit {
 
    //récuperer la liste des bonsDeCommandes par marchee
    public getBonsDeCommandes(marchee:Marchee):void{
-    this.bonDeCommandeService.getBCsByMarchee(marchee.id).subscribe({
+    this.bonDeCommandeService.getAllBondeCommandeJoinbybcId(marchee.id).subscribe({
       next: (response:BondeCommande[]) => {
         marchee.listeBondeCommandes=response;
-        for (let i = 0; i < marchee.listeBondeCommandes.length; i++) {
-          this.onGetEntrepoByBC(marchee.listeBondeCommandes[i]);
-        }
-      
         console.log("code premiere bc du marchee"+marchee.listeBondeCommandes[1]?.codebc);
       },
       error: (error:HttpErrorResponse) => {

@@ -6,10 +6,10 @@ export class BondeCommande{
     codebc!: string;
     montant!: number;
     delais!: number;
-    valide:boolean=false;
-    listeArticles:Article[]=[];
     idEntrep!: number;
     nomEntrep!: string;
+    valide:boolean=false;
+    listeArticles:Article[]=[];
 
     constructor(){}
     

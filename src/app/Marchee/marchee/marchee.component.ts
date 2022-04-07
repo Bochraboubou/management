@@ -17,7 +17,7 @@ import { MarcheeService } from 'src/app/service/marchee.service';
 import { MetierService } from 'src/app/service/metier.service';
 import { OrganisationServiceService } from 'src/app/service/organisation-service.service';
 import { SecteurService } from 'src/app/service/secteur.service';
-import { ArticlespecifieeComponent } from '../../sectionOrganisation/articlespecifiee/articlespecifiee.component';
+import { ArticlespecifieeComponent } from '../articlespecifiee/articlespecifiee.component';
 
 @Component({
   selector: 'app-marchee',

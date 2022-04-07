@@ -21,6 +21,16 @@ export class SecteurService {
     return this.http.get<Secteur[]>(`${this.apiServeUrl}/admin/secteurs`);
   }
 
+  public editSecteur(secteurId:number,secteur:Secteur): Observable<Secteur>
+  {
+    return this.http.put<Secteur>(`${this.apiServeUrl}/admin/secteurs/${secteurId}`,secteur);
+  }
+
+  public deleteSecteur(secteurId:number): Observable<void>
+  {
+    return this.http.delete<void>(`${this.apiServeUrl}/admin/secteurs/${secteurId}`);
+  }
+
   //récuperer le secteur par nom
   public getSecteurbyNom(nomSecteur:string): Observable<Secteur>
   {

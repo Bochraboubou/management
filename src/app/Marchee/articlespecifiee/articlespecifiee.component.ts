@@ -6,6 +6,7 @@ import { ArticleUtilisee } from 'src/app/model/ArticleUtilisee';
 import { BondeCommande } from 'src/app/model/BondeCommande';
 import { Metier } from 'src/app/model/Metier';
 import { Secteur } from 'src/app/model/Secteur';
+import { ArticleRService } from 'src/app/service/article-r.service';
 import { ArticleUtiliseeService } from 'src/app/service/article-utilisee.service';
 import { ArticleService } from 'src/app/service/article.service';
 import { BondeCommandeService } from 'src/app/service/bonde-commande.service';
@@ -19,12 +20,12 @@ import { SecteurService } from 'src/app/service/secteur.service';
 export class ArticlespecifieeComponent implements OnInit {
   idBc!: any;
   bonDeCommande!: BondeCommande;
-  articles!: Article;
-  articlesUtilisees!: ArticleUtilisee[];
+  articles!: Article[];
+ 
   
 
  
-  constructor(private bonDeCommandeService:BondeCommandeService,private articleService:ArticleService,private articleUtiliseeService:ArticleUtiliseeService,private route:ActivatedRoute,
+  constructor(private bonDeCommandeService:BondeCommandeService,private articleReliseeService:ArticleRService,private route:ActivatedRoute,
     private router:Router) {}
 
   ngOnInit(): void {
@@ -39,10 +40,11 @@ export class ArticlespecifieeComponent implements OnInit {
 
   //récuperer la bonDeCommande recus
   public onGetBonDeCommandeById(idBC:number):void{
-    this.bonDeCommandeService.getBCbyId(idBC).subscribe({
+    this.bonDeCommandeService.getBondeCommandeJoinbybcId(idBC).subscribe({
       next: (response:BondeCommande) => {
         this.bonDeCommande=response;
         console.log(" code du bc recus :   "+this.bonDeCommande.codebc);
+        this.onGetArticlesRealisees(idBC);
        
       },
       error: (error:HttpErrorResponse) => {
@@ -53,37 +55,22 @@ export class ArticlespecifieeComponent implements OnInit {
   })
 }
 
-//récuperer les articlesUtilisées par bc
-public onGetArticlesUtilisees(idBC:number):void{
-  this.articleUtiliseeService.getArticlesUtiliseesbyBC(idBC).subscribe({
-    next: (response:ArticleUtilisee[]) => {
-      this.articlesUtilisees=response;
-      console.log(" prix du premier article utilisee :   "+this.articlesUtilisees[0].prix);
+//récuperer les articlesRealisees par bc
+public onGetArticlesRealisees(idBC:number):void{
+  this.articleReliseeService.getArticlesRealiseesbybcId(idBC).subscribe({
+    next: (response:Article[]) => {
+      this.articles=response;
+      console.log(" prix du premier article utilisee :   "+this.articles[0].prix);
      
     },
     error: (error:HttpErrorResponse) => {
       alert(error.message);
 
      },
-    complete: () => console.info('get ariclesUtilisees complete') 
+    complete: () => console.info('get ariclesRealisees complete') 
 })
 }
 
-  //récuperer la bonDeCommande recus
-  public onGetArticlebyArticleUtilisee(articleUtilisee:ArticleUtilisee):void{
-    this.articleService.getArticlebyId(articleUtilisee.id.article_id).subscribe({
-      next: (response:Article) => {
-        
-        //console.log(" code du bc recus :   "+this.bonDeCommande.codebc);
-       
-      },
-      error: (error:HttpErrorResponse) => {
-        alert(error.message);
-
-       },
-      complete: () => console.info('recus bc  complete') 
-  })
-}
   
 
  

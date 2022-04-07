@@ -16,6 +16,11 @@ export class MetierService {
     return this.http.post<Metier>(`${this.apiServeUrl}/admin/secteurs/${secteurId}/metiers`,metier);
   }
 
+  public editMetier(metierId:number,metier:Metier): Observable<Metier>
+  {
+    return this.http.put<Metier>(`${this.apiServeUrl}/admin/metierEdit/${metierId}`,metier);
+  }
+
   public getMetiersBySecteur(secteurId:number): Observable<Metier[]>
   {
     return this.http.get<Metier[]>(`${this.apiServeUrl}/admin/secteurs/${secteurId}/metiers`);

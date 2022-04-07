@@ -3,10 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Article } from 'src/app/model/Article';
+import { ArticleUtilisee } from 'src/app/model/ArticleUtilisee';
 import { Metier } from 'src/app/model/Metier';
 import { Secteur } from 'src/app/model/Secteur';
 import { Type } from 'src/app/model/Type';
 import { ArticleRService } from 'src/app/service/article-r.service';
+import { ArticleUtiliseeService } from 'src/app/service/article-utilisee.service';
 import { ArticleService } from 'src/app/service/article.service';
 import { MetierService } from 'src/app/service/metier.service';
 import { SecteurService } from 'src/app/service/secteur.service';
@@ -34,19 +36,21 @@ export class ArticleComponent implements OnInit {
   editArticle!: Article;
   
   alerteCodeArticleutilisee:boolean = false;
+  alerteSupArticleUtilisee:boolean=false;
+  alerteModifArticleUtilisee:boolean=false;
 
 
  
 
  
-  constructor(private secteurService:SecteurService,private metierService:MetierService,private articleService:ArticleService,private toastr: ToastrService,private typeService:TypeService,private articleRealiseeService:ArticleRService) {}
+  constructor(private secteurService:SecteurService,private metierService:MetierService,private articleService:ArticleService,private typeService:TypeService,private articleRealiseeService:ArticleRService,private articleUtiliseeService:ArticleUtiliseeService) {}
 
   ngOnInit(): void {
     this.onGetSecteurs();
   }
 
    //Modal pour l'ajout d'un metier
-   public onOpenAddMetierModal():void{
+   public onOpenAddArticleModal():void{
     const container=document.getElementById('main-container');
      const button=document.createElement('button');
      button.type='button';
@@ -69,16 +73,47 @@ export class ArticleComponent implements OnInit {
     if(mode==='modifier')
     {
       this.editArticle=article;
-      button.setAttribute('data-target','#modifierArticleModal');
+      this.articleUtiliseeService.getArticlesUtiliseesbyArticle(article.id).subscribe({
+        next: (response:ArticleUtilisee[]) => {
+          console.log("articles utilisees de cet article :  "+response);
+          let artcs=response;
+          if(artcs.length!=0){
+            this.alerteModifArticleUtilisee=true;
+    
+          }else{
+            button.setAttribute('data-target','#modifierArticleModal');
+            container?.appendChild(button);
+            button.click();
+          }
+        },
+        error: (error:HttpErrorResponse) => {
+          alert(error.message);
+         },
+        complete: () => console.info('complete') 
+     })
     }
     if(mode==='supprimer')
     {
-       this.deletedArticle=article;
-       button.setAttribute('data-target','#supprimerArticleModal');
-         
+      this.deletedArticle=article;
+      this.articleUtiliseeService.getArticlesUtiliseesbyArticle(article.id).subscribe({
+        next: (response:ArticleUtilisee[]) => {
+          console.log("articles utilisees de cet article :  "+response);
+          let artcs=response;
+          if(artcs.length!=0){
+            this.alerteModifArticleUtilisee=true;
+    
+          }else{
+            button.setAttribute('data-target','#supprimerArticleModal');
+            container?.appendChild(button);
+            button.click();
+          }
+        },
+        error: (error:HttpErrorResponse) => {
+          alert(error.message);
+         },
+        complete: () => console.info('complete') 
+     })   
     }
-     container?.appendChild(button);
-      button.click();
 
   }
 
@@ -296,6 +331,8 @@ public modifierArticle(modifiedArticle:NgForm):void{
 //fermer un alerte
 public closeAlert():void{
   this.alerteCodeArticleutilisee = false;
+  this.alerteModifArticleUtilisee=false;
+  this.alerteSupArticleUtilisee=false;
  
 }
 

@@ -26,6 +26,15 @@
                 {{metier.nomMetier}}
               </option>
               </select>
+              <br>
+              <div *ngIf="alerteSupArticleUtilisee" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Attention</strong> Impossible de supprimer l article"{{deletedArticle.designation" car il est deja utilisé par des marchés
+                <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+              </div>
+              <div *ngIf="alerteModifArticleUtilisee" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Attention</strong> Impossible de modifier l article "{{editArticle.designation}}" car il est deja utilisé par des marchés
+                <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+              </div>
           </div>
           <br>
 
@@ -75,7 +84,7 @@
         </div>
 
         <div *ngIf="metier.dirty" class="col-md-2">
-          <button type="button" class="btn btn-primary" (click)="onOpenAddMetierModal()" style="background-color: navy;"><i class="fa fa-plus" aria-hidden="true"></i></button>
+          <button type="button" class="btn btn-primary" (click)="onOpenAddArticleModal()" style="background-color: navy;"><i class="fa fa-plus" aria-hidden="true"></i></button>
         </div>
       
     </div>

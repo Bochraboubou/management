@@ -1,8 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Article } from 'src/app/model/Article';
 import { Metier } from 'src/app/model/Metier';
 import { Secteur } from 'src/app/model/Secteur';
+import { ArticleService } from 'src/app/service/article.service';
 import { MetierService } from 'src/app/service/metier.service';
 import { SecteurService } from 'src/app/service/secteur.service';
 
@@ -21,14 +23,15 @@ export class GestionMetiersComponent implements OnInit {
   totalLength:any;
   page:number = 1;
   alerteNomMetierutilisee:boolean = false;
-  alerteMetierUtilisee:boolean=false;
+  alerteSupMetierUtilisee:boolean=false;
+  alerteModifMetierUtilisee:boolean=false;
   metierAmodifier!: Metier;
 
   
-  chosenSecteur!: Secteur;
+
 
  
-  constructor(private secteurService:SecteurService,private metierService:MetierService) {}
+  constructor(private secteurService:SecteurService,private metierService:MetierService,private articleService:ArticleService) {}
 
   ngOnInit(): void {
     this.onGetSecteurs();
@@ -58,16 +61,48 @@ export class GestionMetiersComponent implements OnInit {
     if(mode==='modifier')
     {
       this.metierAmodifier=metier;
-      button.setAttribute('data-target','#modifierMetierModal');
+      this.articleService.getArticlebyMetierId(metier.id).subscribe({
+        next: (response:Article[]) => {
+          console.log("articles par metier :  "+response);
+          let artcs=response;
+          if(artcs.length!=0){
+            this.alerteModifMetierUtilisee=true;
+    
+          }else{
+            button.setAttribute('data-target','#modifierMetierModal');
+            container?.appendChild(button);
+            button.click();
+          }
+        },
+        error: (error:HttpErrorResponse) => {
+          alert(error.message);
+         },
+        complete: () => console.info('complete') 
+     })
     }
     if(mode==='supprimer')
     {
-       this.deletedMetier=metier;
-       button.setAttribute('data-target','#supprimerMetierModal');
-         
+      this.deletedMetier=metier;
+      this.articleService.getArticlebyMetierId(metier.id).subscribe({
+        next: (response:Article[]) => {
+          console.log("articles par metier :  "+response);
+          let artcs=response;
+          if(artcs.length!=0){
+            this.alerteSupMetierUtilisee=true;
+    
+          }else{
+           button.setAttribute('data-target','#supprimerMetierModal');
+           container?.appendChild(button);
+           button.click();
+          }
+        },
+        error: (error:HttpErrorResponse) => {
+          alert(error.message);
+         },
+        complete: () => console.info('complete') 
+     })    
     }
-     container?.appendChild(button);
-      button.click();
+     
 
   }
 
@@ -134,6 +169,7 @@ export class GestionMetiersComponent implements OnInit {
   }
 
 
+
    //ajouter une metier
    public addMetier(idSecteur:number,metier:Metier):void{
     this.metierService.addMetier(idSecteur,metier).subscribe({
@@ -188,13 +224,11 @@ export class GestionMetiersComponent implements OnInit {
 
  //suppression du metier apres le clic du bouton supprimer
  public supprimerMetier(idMetier:number):void{
-   this.deleteMetier(idMetier);
-   document.getElementById('closeSuppressionModal')?.click();
-   
-
+  this.deleteMetier(idMetier);
+  document.getElementById('closeSuppressionModal')?.click();
 }
 
-//modifier un Metier
+//modifier un Metier s'il nest pas utilisee;
 public modifierMetier(modifiedMetier:NgForm):void{
   this.metierService.editMetier(this.metierAmodifier.id,modifiedMetier.value).subscribe({
     next: (response:Metier) =>{
@@ -211,9 +245,13 @@ public modifierMetier(modifiedMetier:NgForm):void{
 })  
 }
 
+
+
 //fermer un alerte
 public closeAlert():void{
   this.alerteNomMetierutilisee = false;
+  this.alerteSupMetierUtilisee=false;
+  this.alerteModifMetierUtilisee=false;
  
 }
 

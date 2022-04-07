@@ -14,23 +14,21 @@ import { SecteurService } from 'src/app/service/secteur.service';
   styleUrls: ['./metiers-admin.component.css']
 })
 export class MetiersAdminComponent implements OnInit {
-
   secteurs!: Secteur[];
   metiers!: Metier[];
   secteur!: Secteur;
-  artcs: Article[]=[];
   searchM:any;
   affich:boolean = false;
   deletedMetier!: Metier;
   totalLength:any;
   page:number = 1;
   alerteNomMetierutilisee:boolean = false;
-  alerteMetierUtilisee:boolean=false;
+  alerteSupMetierUtilisee:boolean=false;
+  alerteModifMetierUtilisee:boolean=false;
   metierAmodifier!: Metier;
-  
 
   
-  chosenSecteur!: Secteur;
+
 
  
   constructor(private secteurService:SecteurService,private metierService:MetierService,private articleService:ArticleService) {}
@@ -53,28 +51,61 @@ export class MetiersAdminComponent implements OnInit {
    }
 
 
-    //Modal pour la suppression et la modification d'un metier
-    public onOpenDeleteandModifMetierModal(metier:Metier,mode:string):void{
-       const container=document.getElementById('main-container');
-       const button=document.createElement('button');
-       button.type='button';
-       button.style.display='none';
-       button.setAttribute('data-toggle','modal');
-       if(mode==='modifier')
-       {
-         this.metierAmodifier=metier;
-         button.setAttribute('data-target','#modifierMetierModal');
-       }
-       if(mode==='supprimer')
-       {
-          this.deletedMetier=metier;
-          button.setAttribute('data-target','#supprimerMetierModal');
-            
-       }
-        container?.appendChild(button);
-         button.click();
-   
-     }
+   //Modal pour la suppression et la modification d'un metier
+   public onOpenDeleteandModifMetierModal(metier:Metier,mode:string):void{
+    const container=document.getElementById('main-container');
+    const button=document.createElement('button');
+    button.type='button';
+    button.style.display='none';
+    button.setAttribute('data-toggle','modal');
+    if(mode==='modifier')
+    {
+      this.metierAmodifier=metier;
+      this.articleService.getArticlebyMetierId(metier.id).subscribe({
+        next: (response:Article[]) => {
+          console.log("articles par metier :  "+response);
+          let artcs=response;
+          if(artcs.length!=0){
+            this.alerteModifMetierUtilisee=true;
+    
+          }else{
+            button.setAttribute('data-target','#modifierMetierModal');
+            container?.appendChild(button);
+            button.click();
+          }
+        },
+        error: (error:HttpErrorResponse) => {
+          alert(error.message);
+         },
+        complete: () => console.info('complete') 
+     })
+    }
+    if(mode==='supprimer')
+    {
+      this.deletedMetier=metier;
+      this.articleService.getArticlebyMetierId(metier.id).subscribe({
+        next: (response:Article[]) => {
+          console.log("articles par metier :  "+response);
+          let artcs=response;
+          if(artcs.length!=0){
+            this.alerteSupMetierUtilisee=true;
+    
+          }else{
+           button.setAttribute('data-target','#supprimerMetierModal');
+           container?.appendChild(button);
+           button.click();
+          }
+        },
+        error: (error:HttpErrorResponse) => {
+          alert(error.message);
+         },
+        complete: () => console.info('complete') 
+     })    
+    }
+     
+
+  }
+
 
   //récuperer la liste des secteurs
   public onGetSecteurs():void{
@@ -137,20 +168,6 @@ export class MetiersAdminComponent implements OnInit {
 
   }
 
-  //chercher les articles liées au metier
-  public getArticlesParMetier(idMetier:number):void{
- this.articleService.getArticlebyMetierId(idMetier).subscribe({
-    next: (response:Article[]) => {
-      this.artcs=response;
-      console.log("artsddddddcc"+this.artcs);
-      console.log("articles par metier :  "+response);
-    },
-    error: (error:HttpErrorResponse) => {
-      console.log("metier non utilisee");
-     },
-    complete: () => console.info('complete') 
- })
-}
 
 
    //ajouter une metier
@@ -173,23 +190,20 @@ export class MetiersAdminComponent implements OnInit {
  
    //supprimer un metier
    public deleteMetier(idMetier:number):void{
-    
-      this.metierService.deleteMetier(idMetier).subscribe({
-        next: (response:void) =>{
-          console.log("reponse de suppression "+response);
-          this.getMetiers(this.secteur.id);
-          
-        },
-        error: (error:HttpErrorResponse) => {
-         alert(error.message);
-   
-         },
-        complete: () => console.info('complete') 
-    })  
-   
-   }
-    
+    this.metierService.deleteMetier(idMetier).subscribe({
+     next: (response:void) =>{
+       console.log("reponse de suppression "+response);
+       this.getMetiers(this.secteur.id);
+       
+     },
+     error: (error:HttpErrorResponse) => {
+      alert(error.message);
 
+      },
+     complete: () => console.info('complete') 
+ })  
+
+ }
 //ajout du metier apres le clic du bouton ajouter
  public ajouterMetier(metierForm:NgForm):void{
   this.metierService.getMetierbyNom(metierForm.value.nomMetier).subscribe({
@@ -210,13 +224,11 @@ export class MetiersAdminComponent implements OnInit {
 
  //suppression du metier apres le clic du bouton supprimer
  public supprimerMetier(idMetier:number):void{
-   this.deleteMetier(idMetier);
-   document.getElementById('closeSuppressionModal')?.click();
-   
-
+  this.deleteMetier(idMetier);
+  document.getElementById('closeSuppressionModal')?.click();
 }
 
-//modifier un Metier
+//modifier un Metier s'il nest pas utilisee;
 public modifierMetier(modifiedMetier:NgForm):void{
   this.metierService.editMetier(this.metierAmodifier.id,modifiedMetier.value).subscribe({
     next: (response:Metier) =>{
@@ -233,10 +245,13 @@ public modifierMetier(modifiedMetier:NgForm):void{
 })  
 }
 
+
+
 //fermer un alerte
 public closeAlert():void{
   this.alerteNomMetierutilisee = false;
-  this.alerteMetierUtilisee=false;
+  this.alerteSupMetierUtilisee=false;
+  this.alerteModifMetierUtilisee=false;
  
 }
 

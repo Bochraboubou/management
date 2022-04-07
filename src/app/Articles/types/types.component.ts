@@ -27,6 +27,8 @@ export class TypesComponent implements OnInit {
   totalLength:any;
   page:number = 1;
   alerteLibTypeutilisee:boolean = false;
+  alerteSupTypeUtilisee:boolean=false;
+  alerteModifTypeUtilisee:boolean=false;
 
   
   deletedType!: Type;
@@ -34,14 +36,14 @@ export class TypesComponent implements OnInit {
  
 
  
-  constructor(private secteurService:SecteurService,private metierService:MetierService,private typeService:TypeService,private toastr: ToastrService) {}
+  constructor(private secteurService:SecteurService,private metierService:MetierService,private typeService:TypeService,private articleService:ArticleService) {}
 
   ngOnInit(): void {
     this.onGetSecteurs();
   }
 
    //Modal pour l'ajout d'un metier
-   public onOpenAddMetierModal():void{
+   public onOpenAddTypeModal():void{
     const container=document.getElementById('main-container');
      const button=document.createElement('button');
      button.type='button';
@@ -63,17 +65,48 @@ export class TypesComponent implements OnInit {
       if(mode==='modifier')
       {
         this.editType=type;
-        button.setAttribute('data-target','#modifierTypeModal');
+        this.articleService.getArticlesbyTypeId(type.id).subscribe({
+          next: (response:Article[]) => {
+            console.log("articles par type :  "+response);
+            let artcs=response;
+            if(artcs.length!=0){
+              this.alerteModifTypeUtilisee=true;
+      
+            }else{
+              button.setAttribute('data-target','#modifierTypeModal');
+              container?.appendChild(button);
+              button.click();
+            }
+          },
+          error: (error:HttpErrorResponse) => {
+            alert(error.message);
+           },
+          complete: () => console.info('complete') 
+       })
+       
       }
       if(mode==='supprimer')
       {
-         this.deletedType=type;
-         button.setAttribute('data-target','#supprimerTypeModal');
-           
+        this.deletedType=type;
+        this.articleService.getArticlesbyTypeId(type.id).subscribe({
+          next: (response:Article[]) => {
+            console.log("articles par type :  "+response);
+            let artcs=response;
+            if(artcs.length!=0){
+              this.alerteSupTypeUtilisee=true;
+      
+            }else{
+             button.setAttribute('data-target','#supprimerTypeModal');
+             container?.appendChild(button);
+             button.click();
+            }
+          },
+          error: (error:HttpErrorResponse) => {
+            alert(error.message);
+           },
+          complete: () => console.info('complete') 
+       })     
       }
-       container?.appendChild(button);
-        button.click();
-  
     }
 
 
@@ -269,6 +302,8 @@ public modifierType(modifiedTypeForm:NgForm):void{
 //fermer un alerte
 public closeAlert():void{
   this.alerteLibTypeutilisee = false;
+  this.alerteSupTypeUtilisee=false;
+  this.alerteModifTypeUtilisee=false;
  
 }
 

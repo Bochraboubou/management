@@ -31,11 +31,18 @@ export class ArticleService {
      return this.http.get<Article>(`${this.apiServeUrl}/admin/articlesbyid/${idArticle}`);
    }
 
-   //récuperer l'article par metier
+   //récuperer les articles par metier
    public getArticlebyMetierId(metierId:number): Observable<Article[]>
    {
      return this.http.get<Article[]>(`${this.apiServeUrl}/admin/metiers/${metierId}/articles`);
    }
+
+   //récuperer les articles par types
+   public getArticlesbyTypeId(typeId:number): Observable<Article[]>
+   {
+     return this.http.get<Article[]>(`${this.apiServeUrl}/admin/type/${typeId}/articles`);
+   }
+
   //ajouter un article
    public addArticle(metierId:number,typeId:number,article:Article): Observable<Article>
   {

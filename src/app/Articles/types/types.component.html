@@ -26,6 +26,15 @@
                   {{metier.nomMetier}}
                 </option>
                 </select>
+                <br>
+                <div *ngIf="alerteSupTypeUtilisee" class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Attention</strong> Impossible de supprimer le type"{{deletedType.typeLib}}" car il est associé à des articles
+                  <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+                </div>
+                <div *ngIf="alerteModifTypeUtilisee" class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Attention</strong> Impossible de modifier le type "{{editType.typeLib}}" car il est associé à des articles
+                  <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+                </div>
             </div>
           
          
@@ -59,7 +68,7 @@
          
         </div>
         <div *ngIf="metier.dirty" class="col-md-2">
-          <button type="button" class="btn btn-primary" (click)="onOpenAddMetierModal()" style="background-color: navy;"><i class="fa fa-plus" aria-hidden="true"></i></button>
+          <button type="button" class="btn btn-primary" (click)="onOpenAddTypeModal()" style="background-color: navy;"><i class="fa fa-plus" aria-hidden="true"></i></button>
         </div>
       
     </div>

@@ -19,8 +19,7 @@ import { ArticleComponent } from './Articles/article/article.component';
 import { TypesComponent } from './Articles/types/types.component';
 import { ConsulterMarcheesComponent } from './Marchee/consulter-marchees/consulter-marchees.component';
 import { MetiersAdminComponent } from './CPM/metiers-admin/metiers-admin.component';
-import { TypesAdminComponent } from './CPM/types-admin/types-admin.component';
-import { ArticlesAdminComponent } from './CPM/articles-admin/articles-admin.component';
+import { SecteursComponent } from './CPM/secteurs/secteurs.component';
 
 
 const routes: Routes = [
@@ -34,9 +33,8 @@ const routes: Routes = [
     { path:'detail',component:DetailComponent},
     {path:'Demande',component:DemandeComponent},
     {path:'listeDemande',component:ListeDemandesComponent},
-    {path:'metiers',component:MetiersAdminComponent},
-    {path:'types',component:TypesAdminComponent},
-    {path:'articles',component:ArticlesAdminComponent}
+    {path:'metiers',component:GestionMetiersComponent},
+    {path:'secteurs',component:SecteursComponent}
     
 
   ]},

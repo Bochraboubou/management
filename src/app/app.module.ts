@@ -30,8 +30,7 @@ import { TypesComponent } from './Articles/types/types.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ConsulterMarcheesComponent } from './Marchee/consulter-marchees/consulter-marchees.component';
 import { MetiersAdminComponent } from './CPM/metiers-admin/metiers-admin.component';
-import { ArticlesAdminComponent } from './CPM/articles-admin/articles-admin.component';
-import { TypesAdminComponent } from './CPM/types-admin/types-admin.component';
+import { SecteursComponent } from './CPM/secteurs/secteurs.component';
 
 
 
@@ -59,8 +58,7 @@ import { TypesAdminComponent } from './CPM/types-admin/types-admin.component';
     TypesComponent,
     ConsulterMarcheesComponent,
     MetiersAdminComponent,
-    ArticlesAdminComponent,
-    TypesAdminComponent
+    SecteursComponent
     
    
   ],

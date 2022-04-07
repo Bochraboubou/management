@@ -27,15 +27,29 @@ export class OrganisationServiceService {
     return this.http.get<Organisation>(`${this.apiServeUrl}/admin/oneorganisations/${organId}`);
   }
 
+
   //récuperer l'organisation par code
   public getOrganisationbyBonDeCommande(bcId:number): Observable<Organisation>
   {
     return this.http.get<Organisation>(`${this.apiServeUrl}/admin/organisationbyBonDeCommande/${bcId}`);
   }
+//récuperer l'organisation par code != id !!
 
-//récuperer l'organisation par code
   public getOrganisationbyCode(codeOrgan:string): Observable<Organisation>
   {
     return this.http.get<Organisation>(`${this.apiServeUrl}/admin/organisationbyCode/${codeOrgan}`);
   }
+// get an organisation By user id
+  public getOrganisationbyUser(userid:number): Observable<Organisation>
+  {
+    return this.http.get<Organisation>(`${this.apiServeUrl}/admin/organisationByUser/${userid}`);
+  }
+
+
+  // get organisation by id 
+  public getOrganisationbyId(id:number): Observable<Organisation>
+  {
+    return this.http.get<Organisation>(`${this.apiServeUrl}/admin/oneorganisations/${id}`);
+  }
+  
 }

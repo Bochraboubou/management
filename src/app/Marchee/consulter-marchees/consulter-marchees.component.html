@@ -39,7 +39,7 @@
     </div>
     <br>
     <div>
-      <h2 style="font-family: Comic Sans MS; color: midnightblue;">Liste  des marchés  par metier "{{metierC?.nomMetier}}"</h2>
+      <h2 *ngIf="metier.dirty" style="font-family: Comic Sans MS; color: midnightblue;">Liste  des marchés  par metier "{{metierC?.nomMetier}}"</h2>
       <div *ngIf="marchees?.length==0"><h2>Aucun marché dans le metier "{{metierC.nomMetier}}"</h2></div>
      <div *ngFor="let marchee of marchees | filter:searchM | paginate : {
       itemsPerPage:4,

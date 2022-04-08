@@ -33,5 +33,15 @@ export class TypeService {
    {
      return this.http.get<Type>(`${this.apiServeUrl}/admin/typebyArticle/${articleId}`);
    }
+
+   public editType(typeId:number,type:Type): Observable<Type>
+   {
+     return this.http.put<Type>(`${this.apiServeUrl}/admin/editType/${typeId}`,type);
+   }
+ 
+   public deleteType(typeId:number): Observable<void>
+   {
+     return this.http.delete<void>(`${this.apiServeUrl}/admin/types/${typeId}`);
+   }
  
 }

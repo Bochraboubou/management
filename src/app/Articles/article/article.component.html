@@ -1,6 +1,4 @@
 <div class="container" id="main-container">
- <button (click)="affichili()">consoly etype</button>
- <h3>{{nour}}</h3>
     <div class="row d-flex justify-content-center">
       <div class="col-md-6">
         <h1 style="font-family:Marker Felt, fantasy; font-size: 28px; color:midnightblue">Gestion des articles</h1>
@@ -28,6 +26,15 @@
                 {{metier.nomMetier}}
               </option>
               </select>
+              <br>
+              <div *ngIf="alerteSupArticleUtilisee" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Attention</strong> Impossible de supprimer l article"{{deletedArticle.designation" car il est deja utilisé par des marchés
+                <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+              </div>
+              <div *ngIf="alerteModifArticleUtilisee" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Attention</strong> Impossible de modifier l article "{{editArticle.designation}}" car il est deja utilisé par des marchés
+                <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+              </div>
           </div>
           <br>
 
@@ -46,6 +53,8 @@
                   <th scope="col" class="bg-primary">Designation</th>
                   <th scope="col" class="bg-primary">Unitee</th>
                   <th scope="col" class="bg-primary">Type</th>
+                  <th scope="col" class="bg-primary">Action</th>
+                  <th scope="col" class="bg-primary"></th>
                 </tr>
               </thead>
               <tbody>
@@ -59,7 +68,9 @@
                   <td>{{article.code}}</td>
                   <td>{{article.designation}}</td>
                   <td>{{article.unitee}}</td>
-                  <td>{{article.typeArticle}}</td>
+                  <td>{{article.typeLib}}</td>
+                  <td><button type="button" class="btn btn-success" (click)="onOpenDeleteandModifArticleModal(article,'modifier')"><i class="fa fa-pencil-square" aria-hidden="true"></i></button></td>
+                  <td><button type="button" class="btn btn-danger" (click)="onOpenDeleteandModifArticleModal(article,'supprimer')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
                  
                 </tr>
               </tbody>
@@ -73,7 +84,7 @@
         </div>
 
         <div *ngIf="metier.dirty" class="col-md-2">
-          <button type="button" class="btn btn-primary" (click)="onOpenAddMetierModal()" style="background-color: navy;"><i class="fa fa-plus" aria-hidden="true"></i></button>
+          <button type="button" class="btn btn-primary" (click)="onOpenAddArticleModal()" style="background-color: navy;"><i class="fa fa-plus" aria-hidden="true"></i></button>
         </div>
       
     </div>
@@ -124,6 +135,75 @@
                   <div class="modal-footer">
                      <button type="button" id="closeAjoutModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                      <button [disabled]="addArticleForm.invalid" type="submit" class="btn btn-primary" (click)="ajouterArticle(addArticleForm)"  style="background-color: navy;">Ajouter l'article</button>
+                  </div>
+                  </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+     <!-- delete Article modal -->
+   <div class="modal fade" id="supprimerArticleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLongTitle">Supprimer un metier</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h3>Voulez vous vraiment supprimer l'article  <h2 style="color: firebrick;">{{deletedArticle?.designation}}</h2> du metier <h2 style="color: firebrick;">{{metierC?.nomMetier}}</h2></h3>
+            
+               
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="closeSuppressionModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+          <button  type="button" class="btn btn-primary" (click)="supprimerArticle(deletedArticle.id)" style="background-color: firebrick;" >Supprimer</button>
+       </div>
+      </div>
+    </div>
+  </div>
+
+    <!--Modifier Article modal  -->
+    <div class="modal fade" id="modifierArticleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="exampleModalLongTitle">Modification d'article "{{ editArticle?.designation}}"</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <form #modifierArticleForm="ngForm">
+                <div>
+                  <input type="hidden" ngModel="{{editArticle?.id}}" name="id"  class="form-control" id="idMetierM" required>
+                </div>
+
+                <div>
+                  <label for="codeM">Code d'article</label>
+                  <input type="text" ngModel="{{editArticle?.code}}" name="code"  class="form-control" id="codeM" placeholder="code" required>
+                </div>
+
+                <div>
+                  <label for="designationM">Designation</label>
+                  <input type="text" ngModel="{{editArticle?.designation}}" name="designation"  class="form-control" id="designationM" placeholder="designation" required>
+                </div>
+
+                <div>
+                  <label for="uniteeM">Unitéc</label>
+                  <input type="text" ngModel="{{editArticle?.unitee}}" name="unitee"  class="form-control" id="uniteeM" placeholder="unitee" required>
+                </div>
+                <br>
+                <div *ngIf="alerteCodeArticleutilisee" class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Attention</strong> Code d'article déja utilisée
+                  <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+                </div>
+              
+                  <div class="modal-footer">
+                     <button type="button" id="closeModifModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                     <button [disabled]="modifierArticleForm.invalid" type="submit" class="btn btn-success" (click)="modifierArticle(modifierArticleForm)">Modifier</button>
                   </div>
                   </form>
           </div>

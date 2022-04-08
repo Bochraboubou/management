@@ -39,6 +39,16 @@ export class OrganisationServiceService {
   {
     return this.http.get<Organisation>(`${this.apiServeUrl}/admin/organisationbyCode/${codeOrgan}`);
   }
+  
+  public getOrganisationbyCode2(codeOrgan:string): Observable<Organisation>
+  {
+    return this.http.get<Organisation>(`${this.apiServeUrl}/admin/orgbyCode/${codeOrgan}`);
+  }
+  // trouver par nom
+  public getOrganisationbyNom(nomOrg:string): Observable<Organisation>
+  {
+    return this.http.get<Organisation>(`${this.apiServeUrl}/admin/organisationByNom/${nomOrg}`);
+  }
 // get an organisation By user id
   public getOrganisationbyUser(userid:number): Observable<Organisation>
   {

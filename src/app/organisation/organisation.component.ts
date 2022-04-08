@@ -12,7 +12,9 @@ import { OrganisationServiceService } from '../service/organisation-service.serv
 export class OrganisationComponent implements OnInit {
   organisations!: Organisation[];
   
-
+  terme:any;
+  page:number = 1;
+  totalLength:any;
   constructor(private organisationservice:OrganisationServiceService, private router:Router) { }
 
   ngOnInit(): void {

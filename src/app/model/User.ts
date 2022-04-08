@@ -5,16 +5,16 @@ import { Role } from "./Role";
     name!:string;
     email!:string;
     password!: string;
-    username!: string;
-    codeConfirmation!: string;
-    roles:Role[]=[];
-     role!:string;
-     active!:boolean;
-     adresse!:string
-     tel!:number
-     datenaissance!:Date
-     organisation!:Organisation;
+   username!: string;
+   codeConfirmation!: string;
+   roles:Role[]=[];
+   active!:boolean;
+   adresse!:string
+   tel!:number
+   datenaissance!:Date
+   organisation!:Organisation;
     image!:string;
     code!:string
+    nomRole!:string;
     constructor( ){}
     }

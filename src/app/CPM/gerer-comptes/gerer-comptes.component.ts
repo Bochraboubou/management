@@ -31,11 +31,14 @@ export class GererComptesComponent implements OnInit {
   good!: number;
   liste2!:Array<Role>;
   sppalerte=0
+  terme:any;
+  page:number = 1;
+  totalLength:any;
   constructor(public service:UserService,private registerService:RegisterService, private roleService:RoleService,private orgService:OrganisationServiceService, public loginService:LoginService) { }
 
   ngOnInit(): void {
     let liste:Role[];
-  console.log( " i m in gerer component logged user is "+this.loginService.loggedUser);
+ 
 this.roleService.findAll().subscribe({
   next: (response:Role[]) => {
     this.roles=response;
@@ -76,6 +79,7 @@ getEmployees(){
           this.loginService.getNewEmployees(this.organisation.id).subscribe({
             next: (response:User[]) => {
                 this.users=response;
+                this.totalLength=response.length;
                 console.log("users are ::"+response);
               },
               error: (error:HttpErrorResponse) => {

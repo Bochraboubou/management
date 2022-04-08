@@ -17,7 +17,7 @@
 							modification avec succés
 							<!--<a href="#" class="alert-link">an example lin</a>. Give it a click if you like.-->
 						</div>
-						<div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="attention==1">
+						<!--<div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="attention==1">
 							<strong> échec !</strong>premier nom est utulisé! .
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
@@ -28,7 +28,7 @@
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-						</div>
+						</div>-->
 						<!-- alerte-->
 						<form #infoForm="ngForm" (ngSubmit)="updateUser(infoForm)" id="billing" class="form-horizontal"
 							method="post" action="#" role="form">
@@ -80,10 +80,10 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">tel</label>
+								<label class="col-sm-3 control-label"> Telephone </label>
 								<div class="col-sm-9">
-									<input [(ngModel)]="user.tel" name="tel" id="tel" type="number"
-										class="form-control">
+									<input [(ngModel)]="user.tel" name="tel" id="tel"
+										type="number"  class="form-control">
 
 								</div>
 							</div>
@@ -124,8 +124,8 @@
 									<!-- Form Group (first name)-->
 									<div class="col-md-6">
 										<label class="small mb-1" for="inputLastName">Roles</label>
-										<select ngModel name="secteur_d_activite" class="form-control"
-											id="secteur_d_activite">
+										<select ngModel name="role" class="form-control"
+											id="role">
 											<option *ngFor="let role of roles">
 												{{role.name}}
 											</option>

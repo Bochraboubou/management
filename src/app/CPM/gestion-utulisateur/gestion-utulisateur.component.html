@@ -11,11 +11,12 @@
 						<div class="col-xs-6">
 							<div class="col-md-4">
 							<div class="form-outline">
-								<input type="search" id="form1" class="form-control" placeholder="recherche" aria-label="Search" />
+								<input  [(ngModel)]="terme" name="terme" type="search" id="terme" class="form-control" placeholder="recherche" aria-label="Search" />
 							  </div>
 							</div>
-							<a routerLink="/inscriptionetdemandes/inscritEmployee"  class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>ajouter employer</span></a>
-							<a (click)="onOpenDeleteAllModal()" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Supprimer tous</span></a>						
+						
+							<a (click)="onOpenDeleteAllModal()" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Supprimer tout</span></a>	
+							<a routerLink="/inscriptionetdemandes/inscritEmployee"  class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>ajouter employer</span></a>					
 						</div>
 					</div>
 				</div>
@@ -28,27 +29,32 @@
 						<tr>
 							
 
-							<th>Image</th>
+							<th>Photo</th>
 							<th>Premier nom</th>
 							<th>Email</th>
+							<th>Role</th>
 						    <th>Actions</th>
 						</tr>
 					</thead>
-					<tbody *ngFor="let u of users">
+					<tbody *ngFor="let u of users| filter:terme | paginate : {
+						itemsPerPage:4,
+						currentPage:page,
+						totalItems:totalLength}">
 						<tr>
 						<!--	<td><button
 								[ngClass]="{'btn btn-success':u.active ,'btn btn-danger':!u.active}"
 								type="button">
 								<i class="fa fa-check-square"></i>
 							</button></td>-->
+							
 							<td><img src="{{this.service.apiServeUrl+'/api/ImgUser/'+u.id}}"
 								style="height :100px;width:fil-content" alt="">
                             </td>
 							<td>{{u.username}}</td>
 							<td>{{u.email}}</td>
+							<td>{{u.nomRole}}</td>
 							
-							
-							<td><!---->
+							<td>
 								<a (click)="onAfficheDetailUser(u.id)" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 								<a (click)="onOpenDeleteModal(u.id)" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 								
@@ -57,11 +63,12 @@
 						
 					</tbody>
 				</table>
+				<pagination-controls (pageChange)="page = $event" class="text-center entreprisePagination">
+				</pagination-controls>
 				</div>
 				</div>
-				
-			
-				<div class="clearfix">
+				<!--
+			    <div class="clearfix">
 					<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
 					<ul class="pagination">
 						<li class="page-item disabled"><a href="#">Previous</a></li>
@@ -73,6 +80,7 @@
 						<li class="page-item"><a href="#" class="page-link">Next</a></li>
 					</ul>
 				</div>
+				-->
 				
 			</div>
 		</div>

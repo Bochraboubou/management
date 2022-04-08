@@ -1,9 +1,11 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Demande } from 'src/app/model/Demande';
 import { Email } from 'src/app/model/Email';
 import { DemandeService } from 'src/app/service/demande.service';
 import { EmailService } from 'src/app/service/email.service';
+import { RegisterService } from 'src/app/service/register.service';
 
 @Component({
   selector: 'app-worning-email',
@@ -14,8 +16,10 @@ export class WorningEmailComponent implements OnInit {
 demande!:Demande;
 id!:number;
 email=new Email();
+alertEmail=0
+good=0
 
-  constructor(private activeRoute:ActivatedRoute, private demandeService:DemandeService, private mailService:EmailService) { }
+  constructor(private registerService:RegisterService,private activeRoute:ActivatedRoute, private demandeService:DemandeService, private mailService:EmailService) { }
 
   ngOnInit(): void {
     this.id=this.activeRoute.snapshot.params['id'];
@@ -28,28 +32,31 @@ email=new Email();
     )
   }
 
+/*
 
-  sendEmail(){
-  const message=" Bonjour"+this.demande.nomAdmin+"Bienvenue dans CMP-GROUP +nous sommes ravis de vous avoir à bord et nous aimerions vous remercier au nom de toute notre entreprise de nous avoir choisis vous monquez les informations suivant :                 pour votre inscription .Prends soin de toi,CPM-GROUP";
-  this.email.destinataire=this.demande.emailAdmin;
-  this.email.message=message;
   this.email.objet="CPM-GRPOUP";
-    this.mailService.affiche(this.email).subscribe(
-      (data: any)=>{
-        console.log("accepteeeee");
-        console.log(data);
-   
-       },  
-    
-      ( error: any) =>{
-        alert(error.message)
-        console.log(error)
+*/
+  sendEmail(){
 
+
+    this.email.destinataire=this.demande.emailAdmin;
+     this.email.objet="CPM-Group"
+     console.log(this.email.message)
+     console.log(this.email)
     
-      console.log("please cheak your Adresse destinataire");
-    }
-      );
+ 
+  this.registerService.envoyerUnEmail(this.email).subscribe({
+        next: (response:Email) => {
+            this.email=response;
+            this.good=1
+          },
+          error: (error:HttpErrorResponse) => {
+           this.alertEmail=1
+
+          
       
-    
+           },
+          complete: () => console.info('complete') 
+      })
   }
 }

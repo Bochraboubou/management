@@ -40,23 +40,15 @@ import { MarcheeComponent } from './Marchee/marchee/marchee.component';
 import { EntreprisesComponent } from './sectionOrganisation/entreprises/entreprises.component';
 import { DetailOrganisationComponent } from './sectionOrganisation/detail-organisation/detail-organisation.component';
 import { ArticlespecifieeComponent } from './sectionOrganisation/articlespecifiee/articlespecifiee.component';
+import { UserProfileComponent } from './Inscription/user-profile/user-profile.component';
 
 
 const routes: Routes = [
-
- 
   {path:'firstPage',component:FirstPageComponent},
   { path:'sendToUser/:id',component:SendEmailUserComponent},
   {path:'inscritEmployee',component:FirstInscriptionComponent},
   {path:'passerdemande',component:DoinscriptionComponent},
-  {path:'inscriptionetdemandes',component:InscriptionetdemandesComponent,children:[
-    
-   
-    
-  ]},
-  
   {path:'upload',component:FileUploadComponent},
- 
   {path:'nouveauSecteur',component:NouveauSecteurComponent},
   {path:'warningMail/:id',component:WorningEmailComponent},
   {path:'DemandeDetail/:id',component:OneDemandeComponent},
@@ -69,9 +61,8 @@ const routes: Routes = [
   { path:'DetailOrg/:id',component:DetailOrganisationComponent},
  
  
-  //{path:'send',component:SendMailComponent},
-
-    { path:'cpm',component:MenuComponent,children:[
+   { path:'cpm',component:MenuComponent,children:[
+    { path:'userProfile',component:UserProfileComponent},
     { path:'addOrganisation',component:AjouterOrganisationComponent,canActivate:[AdminCPMGuard]},
     { path:'organisations',component:OrganisationComponent,canActivate:[AdminCPMGuard]},
     { path:'detail',component:DetailComponent,canActivate:[AdminCPMGuard]},

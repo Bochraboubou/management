@@ -38,6 +38,7 @@ organisation=new Organisation();
 lien="http://localhost:4200/register"
  objet="cpm-Group";
 message!:string
+alertEnvoyer=0
   constructor(private orgService:OrganisationServiceService,private prospectService:ProspectService,private registerService:RegisterService,private sendsend:MainSkipTestsService   ,  private mailService:EmailService, private activeRoute:ActivatedRoute,private demandeService:DemandeService ) { }
   
 
@@ -66,17 +67,18 @@ this.showinformation();
 
   public envoyerEmail(){
    this.code=this.randomString(8)
-    this.email.message=" Bonjour"+this.demande.nomAdmin+"Bienvenue dans CMP-GROUP +nous sommes ravis de vous avoir à bord.code de confirmation est :"+this.code+"lien"+this.lien+" pour s'inscrire .Prends soin de toi,CPM-GROUP";
+    this.email.message=" Bonjour"+this.demande.nomAdmin+"Bienvenue dans CMP-GROUP +nous sommes ravis de vous avoir à bord.code de confirmation est :"+this.code+"--lien"+this.lien+" pour s'inscrire .Prends soin de toi,CPM-GROUP";
     this.email.destinataire=this.demande.emailAdmin
     this.email.objet="CPM-Group"
     console.log(this.email)
+    console.log(this.email.message)
    
 
   this.registerService.envoyerUnEmail(this.email).subscribe(
       
         (data:Email)=>{console.log(data);
-          alert("envoyer......")
-          
+         // alert("envoyer......")
+          this.alertEnvoyer=1
         // ajouter organisation
      this.organisation.nom=this.demande.nom;
      this.organisation.code=this.demande.code;

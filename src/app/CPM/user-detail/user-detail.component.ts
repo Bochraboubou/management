@@ -32,6 +32,7 @@ userFile:any;
   code!:string;
 AllRoles!:Role[]
 noroleAlerte=0
+nomRole!:string
 
   constructor(private router:Router,private organisationservice:OrganisationServiceService, private roleService:RoleService,private registerService:RegisterService,private route:ActivatedRoute, public Service:UserService) { }
 
@@ -64,9 +65,7 @@ noroleAlerte=0
 
 
   }
-  /// newwwwwwwwwwww
-  // methode pour l' upload d'image
-
+  
 
   public updateUser(infoForm: NgForm): void {
 
@@ -123,6 +122,7 @@ onSelectFile(event:any){
       next: (response:Role[]) => {
         this.roles=response;
         console.log("roles"+this.roles)
+        
       },
       error: (error:HttpErrorResponse) => {
         alert(error.message);
@@ -131,6 +131,7 @@ onSelectFile(event:any){
       complete: () => console.info('complete') 
   })
   } 
+
   
 public onGetCodeOrganisation(){
   this.organisationservice.getOrganisationbyUser(this.user.id).subscribe({

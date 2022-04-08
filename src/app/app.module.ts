@@ -62,6 +62,7 @@ import { ConsulterMarcheesComponent } from './Marchee/consulter-marchees/consult
 import { TypesComponent } from './Articles/types/types.component';
 import { ArticleComponent } from './Articles/article/article.component';
 import { GestionMetiersComponent } from './sectionOrganisation/gestion-metiers/gestion-metiers.component';
+import { UserProfileComponent } from './Inscription/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -107,6 +108,7 @@ InscriptionetdemandesComponent,
 GestionUtulisateurComponent,
 UserDetailComponent,
 SendEmailUserComponent,
+UserProfileComponent,
   ],
   imports: [
     BrowserModule,

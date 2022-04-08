@@ -14,7 +14,7 @@
             
             <div class="col-md-3">
               <div class="form-outline">
-                <input type="search" id="form1" class="form-control" placeholder="recherche" aria-label="Search" />
+                <input [(ngModel)]="terme" name="terme" id="terme" type="search"  class="form-control" placeholder="recherche" />
                 </div>
               </div>
             <a  (click)="onOpenDeleteAllModal()" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Supprimer tous</span></a>						
@@ -30,13 +30,17 @@
           <tr>
             
 
-            <th>Image</th>
+            <th>Photo</th>
             <th>Premier nom</th>
             <th>Email</th>
               <th>Actions</th>
           </tr>
         </thead>
-        <tbody *ngFor="let u of users">
+        <tbody *ngFor="let u of users| filter:terme | paginate : {
+          itemsPerPage:4,
+          currentPage:page,
+          totalItems:totalLength
+          }">
           <tr>
           <!--	<td><button
               [ngClass]="{'btn btn-success':u.active ,'btn btn-danger':!u.active}"
@@ -59,7 +63,8 @@
           
         </tbody>
       </table>
-    
+     <pagination-controls (pageChange)="page = $event" class="text-center entreprisePagination">
+      </pagination-controls>
       </div>
       </div>
 </div>
@@ -139,11 +144,11 @@ aria-hidden="true">
         </div>
       <form>
         <div class="modal-header">						
-          <h4 class="modal-title">Supprimer Employee</h4>
+          <h4 class="modal-title">Supprimer Employée</h4>
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         </div>
         <div class="modal-body">					
-          <p>Vous etes sure de supprimer cette employee ??</p>
+          <p>Vous etes sure de supprimer cette employée ??</p>
           <p class="text-warning"><small>	Cette action ne peut pas être annulée..</small></p>
         </div>
         <div class="modal-footer">
@@ -160,7 +165,7 @@ aria-hidden="true">
     <div class="modal-content">
       <form>
         <div class="modal-header">						
-          <h4 class="modal-title">Delete Employee</h4>
+          <h4 class="modal-title">Supprimer tout les Employee</h4>
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         </div>
         <div class="modal-body">					

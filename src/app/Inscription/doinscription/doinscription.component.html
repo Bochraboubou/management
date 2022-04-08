@@ -6,10 +6,40 @@
             <div class="alert alert-success" *ngIf="notification==1">
                 <strong>demande envoyer..</strong>
             </div>
+
+
+            <div class="alert alert-warning alert-dismissible fade show" role="alert"*ngIf="alertNomOrg==1" >
+                <strong>attention !</strong>NOM organisation utulisé !
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              
+              <div class="alert alert-warning alert-dismissible fade show" role="alert"*ngIf="alertUser==1" >
+                <strong>attention !</strong>L'Email de l'admin est utulisé !
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="alert alert-warning alert-dismissible fade show" role="alert"*ngIf="demandeAlerte==1" >
+                <strong>attention !</strong>L'Email de l'admin est utulisé !
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert"*ngIf="alertcodeOrgExiste==1" >
+                <strong>attention !</strong>CODE organisation utulisé !
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            <div class="alert alert-success" *ngIf="alertOrganisation==1">
+                <strong>organisation cpm ajouter avec succée..</strong>
+            </div>
             <form #addForm="ngForm" (ngSubmit)="onAddDemande(addForm)">
 
                 <div class="card mb-4 mb-xl-0">
-                    <div class="card-header">Directeur generale et admin</div>
+                  
                     <div class="card-body text-center">
 
 
@@ -18,13 +48,13 @@
                             <!-- Form Group (first name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputFirstName"> Nom: </label>
-                                <input ngModel name="nomDG" class="form-control" id="nomDG" type="text"
+                                <input [(ngModel)]="demande.nomDG" name="nomDG" class="form-control" id="nomDG" type="text"
                                     placeholder="nom Directeur generale " required>
                             </div>
                             <!-- Form Group (last name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputLastName">tel: </label>
-                                <input ngModel name="telDG" class="form-control" id="telDG" type="tel"
+                                <input [(ngModel)]="demande.telDG"  name="telDG" class="form-control" id="telDG" type="tel"
                                     placeholder="tel directeur generale" required>
                             </div>
 
@@ -34,13 +64,13 @@
                             <!-- Form Group (first name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputFirstName">Email </label>
-                                <input ngModel name="emailDG" class="form-control" id="emailDG" type="email"
+                                <input [(ngModel)]="demande.emailDG" name="emailDG" class="form-control" id="emailDG" type="email"
                                     placeholder="Enterer address email " required>
                             </div>
                             <!-- Form Group (last name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputLastName">Adresse </label>
-                                <input ngModel name="adresse" class="form-control" id="adresse" type="text"
+                                <input [(ngModel)]="demande.adresse" name="adresse" class="form-control" id="adresse" type="text"
                                     placeholder="Enterer adresse du directeur generale" required>
                             </div>
 
@@ -56,13 +86,13 @@
                                 <!-- Form Group (first name)-->
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputFirstName"> Nom Admin </label>
-                                    <input ngModel name="nomAdmin" class="form-control" id="nomAdmin" type="text"
+                                    <input  [(ngModel)]="demande.nomAdmin" name="nomAdmin" class="form-control" id="nomAdmin" type="text"
                                         placeholder="Enternom admin">
                                 </div>
                                 <!-- Form Group (last name)-->
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputLastName">tel Admin </label>
-                                    <input ngModel name="telAdmin" class="form-control" id="telAdmin" type="tel"
+                                    <input  [(ngModel)]="demande.telAdmin" name="telAdmin" class="form-control" id="telAdmin" type="tel"
                                         placeholder="Enter tel Admin " required>
                                 </div>
 
@@ -72,7 +102,7 @@
                                 <!-- Form Group (first name)-->
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputFirstName"> Admin Email </label>
-                                    <input ngModel name="emailAdmin" class="form-control" id="emailAdmin" type="email"
+                                    <input [(ngModel)]="demande.emailAdmin"name="emailAdmin" class="form-control" id="emailAdmin" type="email"
                                         placeholder="Enter Admin email" required>
                                 </div>
                                 <!-- Form Group (last name)-->
@@ -101,7 +131,7 @@
                     <!-- Form Group (username)-->
                     <div class="mb-3">
                         <label class="small mb-1" for="inputUsername">Nom organisation</label>
-                        <input ngModel name="nom" class="form-control" id="nom" type="text"
+                        <input [(ngModel)]="demande.nom" name="nom" class="form-control" id="nom" type="text"
                             placeholder="nom de l' organisation" required>
                     </div>
                     <!-- Form Row-->
@@ -109,13 +139,13 @@
                         <!-- Form Group (first name)-->
                         <div class="col-md-6">
                             <label class="small mb-1" for="inputFirstName"> Code </label>
-                            <input ngModel name="code" class="form-control" id="code" type="text"
+                            <input [(ngModel)]="demande.code" name="code" class="form-control" id="code" type="text"
                                 placeholder="Enter your code organisation" required>
                         </div>
                         <!-- Form Group (last name)-->
                         <div class="col-md-6">
                             <label class="small mb-1" for="inputLastName">Secteur d'ativité</label>
-                            <select ngModel name="secteur_d_activite" class="form-control" id="secteur_d_activite">
+                            <select [(ngModel)]="demande.secteur_d_activite" name="secteur_d_activite" class="form-control" id="secteur_d_activite">
                                 <option *ngFor="let sect of secteurs" [value]="sect.nomSecteur">
                                     {{sect.nomSecteur}}
                                 </option>
@@ -131,13 +161,13 @@
                         <!-- Form Group (organization name)-->
                         <div class="col-md-6">
                             <label class="small mb-1" for="inputOrgName">Email</label>
-                            <input ngModel name="email" class="form-control" id="email" type="mail"
+                            <input [(ngModel)]="demande.email" name="email" class="form-control" id="email" type="mail"
                                 placeholder="Enter your organization mail" requred>
                         </div>
                         <!-- Form Group (location)-->
                         <div class="col-md-4 mb-3">
                             <label for="code"> Pays</label>
-                            <select ngModel name="pays" id="pays" class="form-select">
+                            <select [(ngModel)]="demande.pays" name="pays" id="pays" class="form-select">
                                 <optgroup label="A">
                                     <option value="afghanistan">Afghanistan</option>
                                     <option value="afrique-du-sud">Afrique du Sud</option>
@@ -443,7 +473,7 @@
                     <!-- Form Group (email address)-->
                     <div class="mb-3">
                         <label class="small mb-1" for="inputEmailAddress">Region</label>
-                        <input ngModel name="region" class="form-control" id="region" type="text"
+                        <input [(ngModel)]="demande.region" name="region" class="form-control" id="region" type="text"
                             placeholder="Enter organization place" required>
                     </div>
                     <!-- Form Row-->
@@ -451,15 +481,19 @@
                         <!-- Form Group (phone number)-->
                         <div class="col-md-6">
                             <label class="small mb-1" for="inputPhone">Tel Organisation</label>
-                            <input ngModel name="telOrg" class="form-control" id="telOrg" type="tel"
+                            <input [(ngModel)]="demande.telOrg" name="telOrg" class="form-control" id="telOrg" type="tel"
                                 placeholder="Enterer le numero du telephone" required>
                         </div>
 
-                        <div class="col-md-6">
-                            <label class="small mb-1" for="inputBirthday">type</label>
-                            <input ngModel name="type" class="form-control" id="type" type="text"
-                                placeholder="Enterer le  type d'organization" required>
-                        </div>
+                       
+                        <div class="col-md-4 mb-3">
+                            <label for="code"> Type</label>
+                            <select [(ngModel)]="demande.type" name="type" id="type" class="form-select" required>
+
+                                <option >main-d'oeuvre</option>
+                                    <option >main d'oeuvrage</option>
+                                </select>
+                                </div>
                     </div>
                     <div>
 
@@ -467,7 +501,7 @@
                         <br>
                         <div class="form-group">
                             <label> Logo </label>
-                            <input ngModel type="file" name="filename" accept="image/*" (change)="onSelectFile($event)"
+                            <input [(ngModel)]="demande.filename" type="file" name="filename" id="filename" accept="image/*" (change)="onSelectFile($event)"
                                 required>
                             <img [src]="imgURL" height="200" *ngIf="imgURL">
                         </div>

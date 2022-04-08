@@ -8,6 +8,7 @@ import { Organisation } from 'src/app/model/Organisation';
 import { Secteur } from 'src/app/model/Secteur';
 import { Type } from 'src/app/model/Type';
 import { BondeCommandeService } from 'src/app/service/bonde-commande.service';
+import { LoginService } from 'src/app/service/login.service';
 import { MarcheeService } from 'src/app/service/marchee.service';
 import { MetierService } from 'src/app/service/metier.service';
 import { OrganisationServiceService } from 'src/app/service/organisation-service.service';
@@ -22,6 +23,8 @@ import { TypeService } from 'src/app/service/type.service';
 export class ConsulterMarcheesComponent implements OnInit {
 
   idOrgan:number=2;
+  organisationConnectee: Organisation | undefined;
+  username!: string;
   secteurs!: Secteur[];
   metiers!: Metier[];
   marchees!: Marchee[];
@@ -39,9 +42,10 @@ export class ConsulterMarcheesComponent implements OnInit {
 
   
   chosenSecteur!: Secteur;
+ 
 
  
-  constructor(private secteurService:SecteurService,private metierService:MetierService,private typeService:TypeService,private marcheeService:MarcheeService,private bonDeCommandeService :BondeCommandeService,private organisationService:OrganisationServiceService) {}
+  constructor(private secteurService:SecteurService,private metierService:MetierService,private typeService:TypeService,private marcheeService:MarcheeService,private bonDeCommandeService :BondeCommandeService,private organisationService:OrganisationServiceService,private loginService:LoginService) {}
 
   ngOnInit(): void {
     this.getAllMarchees();
@@ -202,6 +206,24 @@ export class ConsulterMarcheesComponent implements OnInit {
 
        },
       complete: () => console.info('get bcs complete') 
+  })
+  }
+
+  
+  //récuperer l'organisation connecté actuellement
+  public onGetOrganisationbyUser():void{
+    this.username=this.loginService.loggedUser;
+    this.organisationService.getOrganisationbyUserName(this.username).subscribe({
+      next: (response:Organisation) => {
+        this.organisationConnectee=response;
+        console.log("organisation conectee"+this.organisationConnectee);
+        this.onGetSecteurs();
+      },
+      error: (error:HttpErrorResponse) => {
+        alert(error.message);
+
+       },
+      complete: () => console.info('complete') 
   })
   }
   

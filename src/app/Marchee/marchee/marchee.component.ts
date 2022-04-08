@@ -9,14 +9,17 @@ import { Marchee } from 'src/app/model/Marchee';
 import { Metier } from 'src/app/model/Metier';
 import { Organisation } from 'src/app/model/Organisation';
 import { Secteur } from 'src/app/model/Secteur';
+import { UniteeMonnee } from 'src/app/model/UniteeMonnee';
 import { ArticleUtiliseeService } from 'src/app/service/article-utilisee.service';
 import { ArticleService } from 'src/app/service/article.service';
 import { BondeCommandeService } from 'src/app/service/bonde-commande.service';
 import { EntrepriseServiceService } from 'src/app/service/entreprise-service.service';
+import { LoginService } from 'src/app/service/login.service';
 import { MarcheeService } from 'src/app/service/marchee.service';
 import { MetierService } from 'src/app/service/metier.service';
 import { OrganisationServiceService } from 'src/app/service/organisation-service.service';
 import { SecteurService } from 'src/app/service/secteur.service';
+import { UniteeMonneeService } from 'src/app/service/unitee-monnee.service';
 import { ArticlespecifieeComponent } from '../articlespecifiee/articlespecifiee.component';
 
 @Component({
@@ -27,6 +30,7 @@ import { ArticlespecifieeComponent } from '../articlespecifiee/articlespecifiee.
 export class MarcheeComponent implements OnInit {
  
   idOrgan:number=2;
+  organisationConnectee!: Organisation;
   idSecteur!: number;
   idEntreprise!: number;
   idMarchee!: number;
@@ -56,7 +60,7 @@ export class MarcheeComponent implements OnInit {
   metiers!: Metier[];
   secteurs!: Secteur[];
   articlesParMetier!: Article[];
-  listeUniteesMontant:string[] = ["Dollar américain (USD)","Euro (EUR)","Yen japonais (JPY)","Livre sterling (GBP)","Dollar australien (AUD)","Dinar tunisien","Dinar Koweïtien (KWD)","Dinar Bahreïni (BHD)","Rial omanais (OMR)","Dinar Jordanien (JOD)"];
+  listeUniteesMontant!: UniteeMonnee[];
   //variables boolean
  
   marcheeValide:boolean = false;
@@ -71,6 +75,7 @@ export class MarcheeComponent implements OnInit {
   alerteArticleExisteDeja:boolean=false;
   alertecodeBCexiste=false;
   montantTotaldeBCs!: number;
+  username!: string;
   
 
  
@@ -82,11 +87,11 @@ export class MarcheeComponent implements OnInit {
 
 
 
-  constructor(private organService:OrganisationServiceService,private secteurService:SecteurService,private metierService:MetierService,private marcheeService:MarcheeService,private entrepriseService:EntrepriseServiceService,private bondeCommandeService:BondeCommandeService,private articleService:ArticleService,private articleUtiliseeService:ArticleUtiliseeService) { }
+  constructor(private organService:OrganisationServiceService,private secteurService:SecteurService,private metierService:MetierService,private marcheeService:MarcheeService,private bondeCommandeService:BondeCommandeService,private articleService:ArticleService,private articleUtiliseeService:ArticleUtiliseeService,private organisationService:OrganisationServiceService,public loginService:LoginService,private uniteeMonneeService:UniteeMonneeService) { }
 
   ngOnInit(): void {
-    //this.getOrganisation(this.idOrgan);
     this.onGetSecteurs();
+    this.onGetUnitees();
    
    
    
@@ -229,6 +234,21 @@ export class MarcheeComponent implements OnInit {
     })
      
     }
+  }
+
+   //récuperer la liste des unitees de monnais
+   public onGetUnitees():void{
+    this.uniteeMonneeService.getUnitees().subscribe({
+      next: (response:UniteeMonnee[]) => {
+        this.listeUniteesMontant=response;
+        console.log("uniteesDeMonnaies"+this.listeUniteesMontant)
+      },
+      error: (error:HttpErrorResponse) => {
+        alert(error.message);
+
+       },
+      complete: () => console.info('complete') 
+  })
   }
 
 
@@ -607,6 +627,24 @@ public deleteArticle(){
   document.getElementById('closeDeleteArticleModal')?.click();
   
 }
+
+
+  //récuperer l'organisation connecté actuellement
+  public onGetOrganisationbyUser():void{
+    this.username=this.loginService.loggedUser;
+    this.organisationService.getOrganisationbyUserName(this.username).subscribe({
+      next: (response:Organisation) => {
+        this.organisationConnectee=response;
+        console.log("organisation conectee"+this.organisationConnectee);
+        this.onGetSecteurs();
+      },
+      error: (error:HttpErrorResponse) => {
+        alert(error.message);
+
+       },
+      complete: () => console.info('complete') 
+  })
+  }
 
 
   

@@ -56,7 +56,6 @@ import { InscriptionetdemandesComponent } from './Inscription/inscriptionetdeman
 import { GestionUtulisateurComponent } from './CPM/gestion-utulisateur/gestion-utulisateur.component';
 import { UserDetailComponent } from './CPM/user-detail/user-detail.component';
 import { SendEmailUserComponent } from './CPM/send-email-user/send-email-user.component';
-import { ConsulterMarcheesComponent } from './Marchee/consulter-marchees/consulter-marchees.component';
 import { TypesComponent } from './Articles/types/types.component';
 import { ArticleComponent } from './Articles/article/article.component';
 import { GestionMetiersComponent } from './sectionOrganisation/gestion-metiers/gestion-metiers.component';

@@ -60,6 +60,7 @@ import { TypesComponent } from './Articles/types/types.component';
 import { ArticleComponent } from './Articles/article/article.component';
 import { GestionMetiersComponent } from './sectionOrganisation/gestion-metiers/gestion-metiers.component';
 import { UserProfileComponent } from './Inscription/user-profile/user-profile.component';
+import { AjouterattachementComponent } from './attachement/ajouterattachement/ajouterattachement.component';
 
 @NgModule({
   declarations: [
@@ -119,6 +120,7 @@ NouveauSecteurComponent,
 ListesUtulisateurComponent,
 FirstInscriptionComponent,
 GererComptesComponent,
+AjouterattachementComponent,
 
 
 

@@ -27,7 +27,7 @@ import { OneDemandeComponent } from './Inscription/one-demande/one-demande.compo
 import { RegisterComponent } from './Inscription/register/register.component';
 import { SendMailComponent } from './Inscription/send-mail/send-mail.component';
 import { WorningEmailComponent } from './Inscription/worning-email/worning-email.component';
-import { ManagementGuard } from './management.guard';
+
 
 import { MenuComponent } from './menu/menu.component';
 import { OrganisationComponent } from './organisation/organisation.component';
@@ -40,12 +40,10 @@ import { MenuMycpmComponent } from './espaceMyCPM/menu-mycpm/menu-mycpm.componen
 import { MarcheeComponent } from './Marchee/marchee/marchee.component';
 import { EntreprisesComponent } from './sectionOrganisation/entreprises/entreprises.component';
 import { DetailOrganisationComponent } from './sectionOrganisation/detail-organisation/detail-organisation.component';
-
-//import { ArticlespecifieeComponent } from './sectionOrganisation/articlespecifiee/articlespecifiee.component';
 import { UserProfileComponent } from './Inscription/user-profile/user-profile.component';
 import { ArticlespecifieeComponent } from './Marchee/articlespecifiee/articlespecifiee.component';
+import { AjouterattachementComponent } from './attachement/ajouterattachement/ajouterattachement.component';
 
-//import { ArticlespecifieeComponent } from './Marchee/articlespecifiee/articlespecifiee.component';
 
 
 const routes: Routes = [
@@ -96,8 +94,8 @@ const routes: Routes = [
     { path:'metiers',component:GestionMetiersComponent},
     { path:'articles',component:ArticleComponent},
     { path:'types',component:TypesComponent},
-    { path:'consulterMarchees',component:ConsulterMarcheesComponent}
-
+    { path:'consulterMarchees',component:ConsulterMarcheesComponent},
+    { path:'ajouterAttachement',component:AjouterattachementComponent}
   ]},
     {path:'',redirectTo:'mycpm',pathMatch:'full'}
 

@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 import { Prospect } from 'src/app/model/Prospect';
 import { Role } from 'src/app/model/Role';
@@ -23,20 +24,117 @@ export class RegisterComponent implements OnInit {
   user2!:User
   notification=0
   erreur=0
-  
-
+  good=0
+  alertInscrire=0
+  alertUsernameexiste=0
+  alertemailutulise=0
+  imgURL:any;
+userFile:any;
+codeOrg!:string
+message:string='';
+public imagePath:any;
 
   constructor( private serviceProspect:ProspectService,private _service :RegisterService) { }
 
   ngOnInit(): void {
-    
-   
   }
-  RegistryUser(){
-//this.email=this.user.email;
-//console.log(this.email)
+  RegistryUser(formRegistration:NgForm){
+   
 
-this.trouverProspect(this.user.email,this.user.codeConfirmation,this.user.username)
+    const formData=new FormData();
+    const user=formRegistration.value;
+    formData.append('user',JSON.stringify(user));
+    formData.append('file',this.userFile)
+  console.log(user);
+
+
+  this._service.findByUserName(user.username).subscribe({
+    next: (response:User) => {
+     this.user2=response;
+      console.log("user"+response);
+      
+      if(this.user2!=null){
+      this.alertUsernameexiste=1
+      }else{
+        console.log("username n existe pas ");
+        this._service.findByEmail(user.email).subscribe({
+          next: (response:User) => {
+            this.user2=response;
+            console.log("user"+response);
+            if (this.user2!=null){
+             this.alertemailutulise=1
+             console.log("email utulisé")
+            }
+            else {
+              console.log("email n existe pas ")
+              console.log(user.email)
+              console.log(user.codeConfirmation)
+              this.serviceProspect.trouverParEmailEtCode(user.email,user.codeConfirmation).subscribe({
+                next: (response:Prospect) => {
+                  this.prospect=response;
+                  console.log("bbbbbbbbbbbbb")
+                  console.log("prospect"+response);
+                  if (this.prospect==null){
+                   this.alertInscrire=1
+
+                  }
+                  else{
+                    console .log("aaaaaaaaaa")
+                    this._service.createUser(formData,this.prospect.id_org,this.prospect.id_role).subscribe({
+                      next: (response:User) => {
+                        console.log(this.user) 
+                        this.user=response;
+                       this.notification=1
+                      
+                       formRegistration.reset();
+                      },
+                      error: (error:HttpErrorResponse) => {
+                        this.erreur=1
+                        alert(error.message)
+                       },
+                      complete: () => console.info('complete') 
+                  })
+                    
+                    /*
+
+                   this._service.RegisterFromRemote(this.user,this.prospect.id_org,this.prospect.id_role).subscribe({
+                      next: (response:User) => {
+                        this.user=response;
+                        this.notification=1;
+                    
+                      },
+                      error: (error:HttpErrorResponse) => {
+                        this.erreur=1
+                        alert(error.message)
+                       },
+                      complete: () => console.info('complete') 
+                  })*/
+                    
+                  }
+                },
+                error: (error:HttpErrorResponse) => {
+                  alert(error.message);
+                 },
+                complete: () => console.info('complete') 
+            })
+
+            }
+          },
+          error: (error:HttpErrorResponse) => {
+            alert(error.message);
+           },
+          complete: () => console.info('complete') 
+      })
+      }
+    },
+    error: (error:HttpErrorResponse) => {
+      alert(error.message);
+     },
+    complete: () => console.info('complete') 
+})
+
+
+//this.trouverProspect(this.user.email,this.user.codeConfirmation,this.user.username)
    
 
   }
@@ -50,7 +148,7 @@ this.trouverProspect(this.user.email,this.user.codeConfirmation,this.user.userna
     next: (response:User) => {
      this.user2=response;
       console.log("user"+response);
-      //console.log("user"+this.user2.id);
+      
       if(this.user2!=null){
         alert(" username deja exisete");
       }else{
@@ -76,12 +174,7 @@ this.trouverProspect(this.user.email,this.user.codeConfirmation,this.user.userna
                       next: (response:User) => {
                         this.user=response;
                         this.notification=1;
-                       /* if(this.user!=null){
-                          alert( "inscription avec suucces ")
-                        console.log("user"+response+"bien ajouter ");
-                      }else {
-                        console.log("user"+response+"n'est pas ajouter ajouter ");
-                      }*/
+                    
                       },
                       error: (error:HttpErrorResponse) => {
                         this.erreur=1
@@ -113,36 +206,29 @@ this.trouverProspect(this.user.email,this.user.codeConfirmation,this.user.userna
     complete: () => console.info('complete') 
 })
 
-   /* this.serviceProspect.trouverParEmailEtCode(emailll,coode).subscribe
-    ( (data:Prospect)=>{console.log(data);
-      this.prospect=data ;
-      alert("user bien inscrit")
-      this.idOrg=this.prospect.id_org
-      this.roleId=this.prospect.id_role;
-      //console.log(this.idOrg)
-      //console.log(this.roleId)
-      console.log(this.user)
-      this._service.RegisterFromRemote(this.user,this.idOrg,this.roleId).subscribe(
-        (data:User)=>{console.log(data)
-        this.user=data
-        alert(this.user.username+"bienvennue chez CPM-Group")
-      },
-      (error:any)=>{
-        console.log(error)
-        alert("erreur !")
-      }
-      
-      )
-
-    
-  },
-  ( error: any) =>{
-   console.log(error)
-  alert(" vous n'etes plus inscrit")}
-   )*/
+   
  
   }
+//////////////
 
+onSelectFile(event:any){
+  if (event.target.files.length>0){
+    const file=event.target.files[0];
+    this.userFile=file;
+    //this.f['profile'].setValue(file);
+    var mimeType =event.target.files[0].type;
+    if(mimeType.match(/image\/*/)==null){
+  this.message="Only images are suported.";
+  return;
+    }
+    var reader= new FileReader();
+    this.imagePath=file;
+    reader.readAsDataURL(file);
+    reader.onload=(_event)=>{
+      this.imgURL=reader.result;
+    }
+  }
+   }
 ///////
 public onGetRoles():void{
   this._service.getRoles().subscribe({

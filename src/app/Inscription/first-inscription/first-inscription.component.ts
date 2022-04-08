@@ -34,15 +34,20 @@ codeOrg!:string
  message:string='';
  public imagePath:any;
  organisation!:Organisation
+ alerttel=0
+ notificationAdmin=0
+ ORGnexistepas=0
   constructor(private organisationser:OrganisationServiceService,private _service:RegisterService,private serviceProspect:ProspectService) { }
 
   ngOnInit(): void {
+
+    
   }
-  RegistryUser(){
+  /*RegistryUser(){
     this.verifier(this.user.email,this.user.username)
    
   }
-
+*/
 
  verifier(emailll:string,username:string ){
    
@@ -64,7 +69,7 @@ codeOrg!:string
               console.log("user"+response);
               if (this.user2!=null){
                
-                this.emailutulise=1;
+               this.emailutulise=1;
               }
               else {
                 console.log("email n existe pas ")
@@ -129,6 +134,37 @@ public onAddUser(addForm: NgForm): void {
   formData.append('user',JSON.stringify(user));
   formData.append('file',this.userFile)
 console.log(user);
+console.log(user.code)
+
+if(user.code=="CPMGROUP"){
+  this.organisationser.getOrganisationbyCode(user.code).subscribe({
+    next: (response:Organisation) => {
+      this.organisation=response;
+      console.log(this.organisation.id)
+      this._service.createUser(formData,this.organisation.id,3).subscribe({
+        next: (response:User) => {
+          console.log(this.user) 
+          this.user=response;
+         
+         this.notificationAdmin=1
+        console.log("vous etes l'admin du cpm")
+         addForm.reset();
+        },
+        error: (error:HttpErrorResponse) => {
+         alert(error.message);
+       
+         },
+        complete: () => console.info('complete') 
+    })
+    },
+    error: (error:HttpErrorResponse) => {
+     alert(error.message);
+   
+     },
+    complete: () => console.info('complete') 
+})
+
+}else{
 this.organisationser.getOrganisationbyCode(user.code).subscribe({
   next: (response:Organisation) => {
     this.organisation=response;
@@ -156,7 +192,11 @@ this.organisationser.getOrganisationbyCode(user.code).subscribe({
                   next: (response:Prospect) => {
                     this.prospect=response;
                     console.log("prospect"+response);
+
                     if (this.prospect==null){
+                      console.log(user.tel)
+                      console.log(user.tel.length)
+                      
                      this._service.createUser(formData,this.organisation.id,this.id_role).subscribe({
                         next: (response:User) => {
                           console.log(this.user) 
@@ -164,20 +204,15 @@ this.organisationser.getOrganisationbyCode(user.code).subscribe({
                          this.notification=1
                         
                          addForm.reset();
-                         /* if(this.user!=null){
-                            alert( "inscription avec suucces ")
-                          console.log("user"+response+"bien ajouter ");
-                        }else {
-                          console.log("user"+response+"n'est pas ajouter ajouter ");
-                        }*/
+                         
                         },
                         error: (error:HttpErrorResponse) => {
                          // alert(error.message);
-                         this.codeorgani=1
+                         this.ORGnexistepas=1
                          },
                         complete: () => console.info('complete') 
                     })
-                      
+                  
                         
 
                     }
@@ -217,7 +252,7 @@ this.organisationser.getOrganisationbyCode(user.code).subscribe({
    },
   complete: () => console.info('complete') 
 })
-
+}
   
 /*this.codeOrg=addForm.value.codeOrg;
    this._service.createUser(formData,6,7).subscribe(
@@ -236,9 +271,7 @@ this.organisationser.getOrganisationbyCode(user.code).subscribe({
  
 }
 
-ok(){
-  console.log(this.user)
-}
+
 
 onSelectFile(event:any){
 if (event.target.files.length>0){
@@ -259,30 +292,6 @@ return;
 }
  }
 
-/*
-public onAddUser(addForm: NgForm): void {
 
-  const formData=new FormData();
-  const demande=addForm.value;
-  formData.append('user',JSON.stringify(demande));
-  formData.append('file',this.userFile)
-   
-  this.codeOrg=addForm.value.codeOrg;
-   this._service.createUser(formData,6,7).subscribe(
-     (response: User) => {
-       console.log(response);
-      this.notification=1
-      addForm.reset();
-     },
-     (error: HttpErrorResponse) => {
-       alert(error.message);
-       console.log("erreur");
-       //addForm.reset();
-     }
-   );
-   
- 
-  }
-*/
 
 }

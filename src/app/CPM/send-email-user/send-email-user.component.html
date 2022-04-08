@@ -6,7 +6,15 @@
         <div class="container bootdey">
         <div class="email-app">
                <main>
-               
+                <div class="alert alert-success" *ngIf="good==1">
+                    <strong>email envoyer a {{email.destinataire}}..</strong>
+                </div>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert"*ngIf="alertEmail==1" >
+                    <strong>Attention !</strong> vérifier l 'adresse email{{email.destinataire}} .
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
                 <form #sendMilForm="ngForm" (ngSubmit)="envoyerEmail()">
                     <div class="form-row mb-3">
                         <label for="to" class="col-2 col-sm-1 col-form-label">To:</label>
@@ -17,7 +25,7 @@
                     <div class="form-row mb-3">
                         <label for="cc" class="col-2 col-sm-1 col-form-label">objet</label>
                         <div class="col-10 col-sm-11">
-                            <input  name="objet"  type="text" class="form-control" id="objet" value="CPM-GROUP">
+                            <input name="objet"  type="text" class="form-control" id="objet" value="CPM-GROUP">
                         </div>
                     </div>
                     <div class="row">
@@ -80,7 +88,7 @@
                         </div>
                     </div>
                     <div class="form-group mt-4">
-                        <textarea name="message" name="message" class="form-control" id="message" rows="12" >
+                        <textarea [(ngModel)]="email.message" name="message" name="message" class="form-control" id="message" rows="12" >
               
               
                         </textarea>

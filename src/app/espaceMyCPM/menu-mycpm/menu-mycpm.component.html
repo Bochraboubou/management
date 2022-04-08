@@ -220,7 +220,7 @@
               <li>
                 <a class="dropdown-item d-flex align-items-center" (click)="loginService.logout()">
                   <i class="bi bi-box-arrow-right"></i>
-                  <span>S'inscrire</span>
+                  <span>Déconnexion</span>
                 </a>
               </li>
   
@@ -240,7 +240,7 @@
         <li class="nav-item">
           <a class="nav-link " routerLink="/mycpm">
             <i class="bi bi-grid"></i>
-            <span>Dashboard</span>
+            <span>Tableau de bord</span>
           </a>
         </li><!-- End Dashboard Nav -->
   
@@ -395,12 +395,22 @@
 
         <li class="nav-item">
           <a  *ngIf="!loginService.isEmployeeAchat()" class="nav-link collapsed" data-bs-target="#icons-nav2" data-bs-toggle="collapse" href="#" >
-            <i class="bi bi-gem"></i><span>Gérer les comptes </span><i class="bi bi-chevron-down ms-auto"></i>
+            <i class="bi bi-gem"></i><span>Gestion RH</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
           <ul id="icons-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
             <li>
               <a routerLink="gererComptes">
                 <i class="bi bi-circle"></i><span>listes des nouveaux comptes </span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="gererComptes">
+                <i class="bi bi-circle"></i><span>Ajouter un ouvrier </span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="gererComptes">
+                <i class="bi bi-circle"></i><span>Liste des employées </span>
               </a>
             </li>
            
@@ -411,7 +421,7 @@
         <li class="nav-heading">Pages</li>
   
         <li class="nav-item">
-          <a class="nav-link collapsed" href="users-profile.html">
+          <a  routerLink="/userProfile"  class="nav-link collapsed">
             <i class="bi bi-person"></i>
             <span>Profile</span>
           </a>
@@ -420,7 +430,7 @@
         <li class="nav-item">
           <a class="nav-link collapsed" href="pages-faq.html">
             <i class="bi bi-question-circle"></i>
-            <span>F.A.Q</span>
+            <span>F.A.Q</span>bbbbbbbbbb
           </a>
         </li><!-- End F.A.Q Page Nav -->
   
@@ -466,11 +476,11 @@
     <main id="main" class="main" style="width: 1900px;">
   
       <div class="pagetitle">
-        <h1>Dashboard</h1>
+        <h1>Tableau de bord</h1>
         <nav>
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item active">Dashboard</li>
+            <li class="breadcrumb-item active">Tableau de bord</li>
           </ol>
         </nav>
       </div><!-- End Page Title -->

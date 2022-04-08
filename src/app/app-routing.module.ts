@@ -40,44 +40,19 @@ import { MenuMycpmComponent } from './espaceMyCPM/menu-mycpm/menu-mycpm.componen
 import { MarcheeComponent } from './Marchee/marchee/marchee.component';
 import { EntreprisesComponent } from './sectionOrganisation/entreprises/entreprises.component';
 import { DetailOrganisationComponent } from './sectionOrganisation/detail-organisation/detail-organisation.component';
+
+import { UserProfileComponent } from './Inscription/user-profile/user-profile.component';
+
 import { ArticlespecifieeComponent } from './Marchee/articlespecifiee/articlespecifiee.component';
-/*import { ArticlespecifieeComponent } from './sectionOrganisation/articlespecifiee/articlespecifiee.component';*/
-
-
-
-/*const routes: Routes = [
-  {path:'',component:MenuComponent},
-  {path:'login',component:LoginComponent},
-  {path:'register',component:RegisterComponent},
-  {path:'Demande',component:DemandeComponent},
-  { path:'cpm',component:MenuComponent,children:[
-    { path:'addOrganisation',component:AjouterOrganisationComponent},
-    { path:'organisations',component:OrganisationComponent},
-    { path:'detail',component:DetailComponent},
-    {path:'Demande',component:DemandeComponent},
-    {path:'listeDemande',component:ListeDemandesComponent},
-    {path:'metiers',component:GestionMetiersComponent},
-    {path:'secteurs',component:SecteursComponent}
-    */
-    
 
 
 
 const routes: Routes = [
-
- 
   {path:'firstPage',component:FirstPageComponent},
   { path:'sendToUser/:id',component:SendEmailUserComponent},
   {path:'inscritEmployee',component:FirstInscriptionComponent},
   {path:'passerdemande',component:DoinscriptionComponent},
-  {path:'inscriptionetdemandes',component:InscriptionetdemandesComponent,children:[
-    
-   
-    
-  ]},
-  
   {path:'upload',component:FileUploadComponent},
- 
   {path:'nouveauSecteur',component:NouveauSecteurComponent},
   {path:'warningMail/:id',component:WorningEmailComponent},
   {path:'DemandeDetail/:id',component:OneDemandeComponent},
@@ -90,9 +65,8 @@ const routes: Routes = [
   { path:'DetailOrg/:id',component:DetailOrganisationComponent},
  
  
-  //{path:'send',component:SendMailComponent},
-
-    { path:'cpm',component:MenuComponent,children:[
+   { path:'cpm',component:MenuComponent,children:[
+    { path:'userProfile',component:UserProfileComponent},
     { path:'addOrganisation',component:AjouterOrganisationComponent,canActivate:[AdminCPMGuard]},
     { path:'organisations',component:OrganisationComponent,canActivate:[AdminCPMGuard]},
     { path:'detail',component:DetailComponent,canActivate:[AdminCPMGuard]},

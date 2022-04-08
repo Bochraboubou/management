@@ -59,6 +59,7 @@ import { SendEmailUserComponent } from './CPM/send-email-user/send-email-user.co
 import { TypesComponent } from './Articles/types/types.component';
 import { ArticleComponent } from './Articles/article/article.component';
 import { GestionMetiersComponent } from './sectionOrganisation/gestion-metiers/gestion-metiers.component';
+import { UserProfileComponent } from './Inscription/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -102,9 +103,26 @@ import { GestionMetiersComponent } from './sectionOrganisation/gestion-metiers/g
     GestionUtulisateurComponent,
     UserDetailComponent,
     SendEmailUserComponent,
-
     
-
+InboxComponent,
+TableComponent,
+SendMailComponent,
+DoinscriptionComponent,
+OneDemandeComponent,
+WorningEmailComponent,
+SecteurComponent,
+DetailSecteurComponent,
+FileUploadComponent,
+NouveauSecteurComponent,
+ListesUtulisateurComponent,
+FirstInscriptionComponent,
+GererComptesComponent,
+ForbiddenComponent,
+InscriptionetdemandesComponent,
+GestionUtulisateurComponent,
+UserDetailComponent,
+SendEmailUserComponent,
+UserProfileComponent,
 
   ],
   imports: [

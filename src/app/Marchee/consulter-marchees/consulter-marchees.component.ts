@@ -8,6 +8,7 @@ import { Organisation } from 'src/app/model/Organisation';
 import { Secteur } from 'src/app/model/Secteur';
 import { Type } from 'src/app/model/Type';
 import { BondeCommandeService } from 'src/app/service/bonde-commande.service';
+import { LoginService } from 'src/app/service/login.service';
 import { MarcheeService } from 'src/app/service/marchee.service';
 import { MetierService } from 'src/app/service/metier.service';
 import { OrganisationServiceService } from 'src/app/service/organisation-service.service';
@@ -22,6 +23,8 @@ import { TypeService } from 'src/app/service/type.service';
 export class ConsulterMarcheesComponent implements OnInit {
 
   idOrgan:number=2;
+  organisationConnectee: Organisation | undefined;
+  username!: string;
   secteurs!: Secteur[];
   metiers!: Metier[];
   marchees!: Marchee[];
@@ -39,11 +42,13 @@ export class ConsulterMarcheesComponent implements OnInit {
 
   
   chosenSecteur!: Secteur;
+ 
 
  
-  constructor(private secteurService:SecteurService,private metierService:MetierService,private typeService:TypeService,private marcheeService:MarcheeService,private bonDeCommandeService :BondeCommandeService,private organisationService:OrganisationServiceService) {}
+  constructor(private secteurService:SecteurService,private metierService:MetierService,private typeService:TypeService,private marcheeService:MarcheeService,private bonDeCommandeService :BondeCommandeService,private organisationService:OrganisationServiceService,private loginService:LoginService) {}
 
   ngOnInit(): void {
+    this.getAllMarchees();
     this.onGetSecteurs();
   }
 
@@ -132,25 +137,6 @@ export class ConsulterMarcheesComponent implements OnInit {
   })
   }
 
-  
-   //récuperer l'entreprise par Bon de Commande
-   public onGetEntrepoByBC(bonDeCommande:BondeCommande):void{
-    this.organisationService.getOrganisationbyBonDeCommande(bonDeCommande.id).subscribe({
-      next: (response:Organisation) => {
-        bonDeCommande.nomEntrep=response.nom;
-        console.log(" nom d'entreprise cherché :   "+bonDeCommande.nomEntrep);
-       
-      },
-      error: (error:HttpErrorResponse) => {
-        alert(error.message);
-
-       },
-      complete: () => console.info('get entreprise complete') 
-  })
-  }
-
-
-
 
   //recuperer les metiers liés au secteur choisis
   public getMetiers(idSecteur:number):void{
@@ -168,6 +154,25 @@ export class ConsulterMarcheesComponent implements OnInit {
       complete: () => console.info('complete') 
   })  
 
+  }
+
+   //récuperer la liste total  des marchees 
+   public getAllMarchees():void{
+    this.marcheeService.getMarchees(this.idOrgan).subscribe({
+      next: (response:Marchee[]) => {
+      this.marchees=response;
+      for (let i = 0; i < this.marchees.length; i++) {
+        this.getBonsDeCommandes(this.marchees[i]);
+      }
+        console.log("marchees par metiers et organ"+this.marchees);
+        this.MarcheestotalLength=this.marchees.length;
+      },
+      error: (error:HttpErrorResponse) => {
+        alert(error.message);
+
+       },
+      complete: () => console.info('getMarchees complete') 
+  })
   }
 
    //récuperer la liste des marchees par organisation et metier
@@ -191,13 +196,9 @@ export class ConsulterMarcheesComponent implements OnInit {
 
    //récuperer la liste des bonsDeCommandes par marchee
    public getBonsDeCommandes(marchee:Marchee):void{
-    this.bonDeCommandeService.getBCsByMarchee(marchee.id).subscribe({
+    this.bonDeCommandeService.getAllBondeCommandeJoinbybcId(marchee.id).subscribe({
       next: (response:BondeCommande[]) => {
         marchee.listeBondeCommandes=response;
-        for (let i = 0; i < marchee.listeBondeCommandes.length; i++) {
-          this.onGetEntrepoByBC(marchee.listeBondeCommandes[i]);
-        }
-      
         console.log("code premiere bc du marchee"+marchee.listeBondeCommandes[1]?.codebc);
       },
       error: (error:HttpErrorResponse) => {
@@ -205,6 +206,24 @@ export class ConsulterMarcheesComponent implements OnInit {
 
        },
       complete: () => console.info('get bcs complete') 
+  })
+  }
+
+  
+  //récuperer l'organisation connecté actuellement
+  public onGetOrganisationbyUser():void{
+    this.username=this.loginService.loggedUser;
+    this.organisationService.getOrganisationbyUserName(this.username).subscribe({
+      next: (response:Organisation) => {
+        this.organisationConnectee=response;
+        console.log("organisation conectee"+this.organisationConnectee);
+        this.onGetSecteurs();
+      },
+      error: (error:HttpErrorResponse) => {
+        alert(error.message);
+
+       },
+      complete: () => console.info('complete') 
   })
   }
   

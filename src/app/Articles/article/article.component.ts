@@ -3,9 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Article } from 'src/app/model/Article';
+import { ArticleUtilisee } from 'src/app/model/ArticleUtilisee';
 import { Metier } from 'src/app/model/Metier';
 import { Secteur } from 'src/app/model/Secteur';
 import { Type } from 'src/app/model/Type';
+import { ArticleRService } from 'src/app/service/article-r.service';
+import { ArticleUtiliseeService } from 'src/app/service/article-utilisee.service';
 import { ArticleService } from 'src/app/service/article.service';
 import { MetierService } from 'src/app/service/metier.service';
 import { SecteurService } from 'src/app/service/secteur.service';
@@ -25,25 +28,29 @@ export class ArticleComponent implements OnInit {
   metierC!: Metier;
   searchA:any;
   idType!: number;
-  affich:boolean = false;
-  deletedMetier!: Metier;
+  
   totalLength:any;
   page:number = 1;
-  alerteCodeArticleutilisee:boolean = false;
 
+  deletedArticle!: Article;
+  editArticle!: Article;
   
-  chosenSecteur!: Secteur;
-  nour!: string;
+  alerteCodeArticleutilisee:boolean = false;
+  alerteSupArticleUtilisee:boolean=false;
+  alerteModifArticleUtilisee:boolean=false;
+
 
  
-  constructor(private secteurService:SecteurService,private metierService:MetierService,private articleService:ArticleService,private toastr: ToastrService,private typeService:TypeService) {}
+
+ 
+  constructor(private secteurService:SecteurService,private metierService:MetierService,private articleService:ArticleService,private typeService:TypeService,private articleRealiseeService:ArticleRService,private articleUtiliseeService:ArticleUtiliseeService) {}
 
   ngOnInit(): void {
     this.onGetSecteurs();
   }
 
    //Modal pour l'ajout d'un metier
-   public onOpenAddMetierModal():void{
+   public onOpenAddArticleModal():void{
     const container=document.getElementById('main-container');
      const button=document.createElement('button');
      button.type='button';
@@ -54,6 +61,62 @@ export class ArticleComponent implements OnInit {
      button.click();
  
    }
+
+   
+   //Modal pour la suppression et la modification d'un article
+   public onOpenDeleteandModifArticleModal(article:Article,mode:string):void{
+    const container=document.getElementById('main-container');
+    const button=document.createElement('button');
+    button.type='button';
+    button.style.display='none';
+    button.setAttribute('data-toggle','modal');
+    if(mode==='modifier')
+    {
+      this.editArticle=article;
+      this.articleUtiliseeService.getArticlesUtiliseesbyArticle(article.id).subscribe({
+        next: (response:ArticleUtilisee[]) => {
+          console.log("articles utilisees de cet article :  "+response);
+          let artcs=response;
+          if(artcs.length!=0){
+            this.alerteModifArticleUtilisee=true;
+    
+          }else{
+            button.setAttribute('data-target','#modifierArticleModal');
+            container?.appendChild(button);
+            button.click();
+          }
+        },
+        error: (error:HttpErrorResponse) => {
+          alert(error.message);
+         },
+        complete: () => console.info('complete') 
+     })
+    }
+    if(mode==='supprimer')
+    {
+      this.deletedArticle=article;
+      this.articleUtiliseeService.getArticlesUtiliseesbyArticle(article.id).subscribe({
+        next: (response:ArticleUtilisee[]) => {
+          console.log("articles utilisees de cet article :  "+response);
+          let artcs=response;
+          if(artcs.length!=0){
+            this.alerteModifArticleUtilisee=true;
+    
+          }else{
+            button.setAttribute('data-target','#supprimerArticleModal');
+            container?.appendChild(button);
+            button.click();
+          }
+        },
+        error: (error:HttpErrorResponse) => {
+          alert(error.message);
+         },
+        complete: () => console.info('complete') 
+     })   
+    }
+
+  }
+
 
 
 
@@ -90,7 +153,7 @@ export class ArticleComponent implements OnInit {
     this.onGetMetierById(metierId);
     this.getArticles(metierId);
     this.getTypes(metierId);
-    this.affich=true;
+  
     
 
     
@@ -153,15 +216,11 @@ export class ArticleComponent implements OnInit {
 
   //récuperer la liste des articles
   public getArticles(idMetier:number):void{
-    this.articleService.getArticlebyMetierId(idMetier).subscribe({
+    this.articleRealiseeService.getArticlesJoinsbyMetierId(idMetier).subscribe({
       next: (response:Article[]) => {
         this.articles=response;
-        console.log("articles"+this.secteurs)
+        console.log("articles"+this.articles)
         this.totalLength=this.articles.length;
-        for (let i = 0; i < this.articles.length; i++){
-          this.getTypeByArticle(this.articles[i])
-
-        }
       },
       error: (error:HttpErrorResponse) => {
         alert(error.message);
@@ -186,33 +245,6 @@ export class ArticleComponent implements OnInit {
   })
   }
 
-  //récuperer le type d'article
- public getTypeByArticle(article:Article):void{
-  this.typeService.getTypebyArticleId(article.id).subscribe({
-    next: (response:Type) => {
-      article.typeArticle=response.typeLib;
-      console.log("type cherchee :  "+article.typeArticle);
-    
-    },
-    error: (error:HttpErrorResponse) => {
-      console.log("typee non trouvee");
-    
-    
-     },
-     complete: () => console.info('type by article complete') 
-})
-
-}
-public affichili():void{
- 
-  console.log("etype howa nour var "+this.nour);
-}
-   
- 
-
-
-  
-
 
 
    //ajouter un article
@@ -227,7 +259,7 @@ public affichili():void{
       alert(error.message);
 
       },
-     complete: () => console.info('complete') 
+     complete: () => console.info(' add article complete') 
  }) 
  }
 
@@ -248,12 +280,59 @@ public affichili():void{
 })
  
  }
+
+ 
+   //supprimer un article
+   public deleteArticle(idArticle:number):void{
+    this.articleService.deleteArticle(idArticle).subscribe({
+     next: (response:void) =>{
+       console.log("reponse de suppression "+response);
+       this.getArticles(this.metierC.id);
+       
+     },
+     error: (error:HttpErrorResponse) => {
+      alert(error.message);
+
+      },
+     complete: () => console.info('delete article complete') 
+ })  
+
+ }
+
+
+ //suppression du article apres le clic du bouton supprimer
+ public supprimerArticle(idArticle:number):void{
+   this.deleteArticle(idArticle);
+   document.getElementById('closeSuppressionModal')?.click();
+   
+
+}
+
+//modifier un article
+public modifierArticle(modifiedArticle:NgForm):void{
+  this.articleService.editArticle(modifiedArticle.value.id,modifiedArticle.value).subscribe({
+    next: (response:Article) =>{
+      console.log("id du article modifiee "+response.id);
+      this.getArticles(this.metierC.id);
+      document.getElementById('closeModifModal')?.click();
+      
+    },
+    error: (error:HttpErrorResponse) => {
+     alert(error.message);
+
+     },
+    complete: () => console.info('complete') 
+})  
+}
+
  
 
 
 //fermer un alerte
 public closeAlert():void{
   this.alerteCodeArticleutilisee = false;
+  this.alerteModifArticleUtilisee=false;
+  this.alerteSupArticleUtilisee=false;
  
 }
 

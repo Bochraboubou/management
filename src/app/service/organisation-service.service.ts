@@ -61,5 +61,12 @@ export class OrganisationServiceService {
   {
     return this.http.get<Organisation>(`${this.apiServeUrl}/admin/oneorganisations/${id}`);
   }
+
+  // get an organisation By user Name
+  public getOrganisationbyUserName(userName:string): Observable<Organisation>
+  {
+    return this.http.get<Organisation>(`${this.apiServeUrl}/admin/organisationbyUserName/${userName}`);
+  }
+
   
 }

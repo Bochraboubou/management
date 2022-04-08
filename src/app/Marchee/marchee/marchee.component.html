@@ -79,8 +79,8 @@
               <select [(ngModel)]="newMarchee.unitee" name="unitee" id="uniteeMontant" class="form-select" placeholder="unitee" aria-label="Default select example" required #unitee="ngModel"  [class.is-invalid]="unitee.invalid && unitee.touched">
                 <!--<option selected>choisir une option</option>-->
                 <option   *ngFor="let unitee of listeUniteesMontant"
-                [value]="unitee">
-                {{unitee}}
+                [value]="unitee.libelUnitee">
+                {{unitee.libelUnitee}}
               </option>
               </select>
             </div>
@@ -363,6 +363,7 @@
                                       <th scope="col">prix</th>
                                       <th scope="col">quantitee</th>
                                       <th scope="col">Action</th>
+                                      <th scope="col"></th>
                                     </tr>
                                   </thead>
                                   <tbody>
@@ -530,13 +531,13 @@
                </div>
       
                <div>
-                 <label for="quantiteeEditArticle">delais</label>
+                 <label for="quantiteeEditArticle">Quantité</label>
                  <input type="number" ngModel="{{modifiedArticle?.quantitee}}"  name="quantiteeEditArticle"  class="form-control" id="quantiteeEditArticle" placeholder="montantArticle" required>
                </div>
       
                <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" id="closeEditArticleButton" data-dismiss="modal">Fermer</button>
-                <button [disabled]="editArticleForm.invalid" type="submit" class="btn btn-primary" style="background-color: navy;" (click)="editArticle(editArticleForm)">Enreistrer</button>
+                <button [disabled]="editArticleForm.invalid" type="submit" class="btn btn-primary" style="background-color: navy;" (click)="editArticle(editArticleForm)">Modifier</button>
              </div>
       
                </form>

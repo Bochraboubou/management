@@ -9,11 +9,11 @@ import { MetierService } from 'src/app/service/metier.service';
 import { SecteurService } from 'src/app/service/secteur.service';
 
 @Component({
-  selector: 'app-gestion-metiers',
-  templateUrl: './gestion-metiers.component.html',
-  styleUrls: ['./gestion-metiers.component.css']
+  selector: 'app-metiers-admin',
+  templateUrl: './metiers-admin.component.html',
+  styleUrls: ['./metiers-admin.component.css']
 })
-export class GestionMetiersComponent implements OnInit {
+export class MetiersAdminComponent implements OnInit {
   secteurs!: Secteur[];
   metiers!: Metier[];
   secteur!: Secteur;
@@ -254,7 +254,6 @@ public closeAlert():void{
   this.alerteModifMetierUtilisee=false;
  
 }
-
 
 
 

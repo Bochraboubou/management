@@ -86,7 +86,7 @@ import { AjouterattachementComponent } from './attachement/ajouterattachement/aj
     ConsulterMarcheesComponent,
     MetiersAdminComponent,
     SecteursComponent,
-    InboxComponent,
+ 
     TableComponent,
     SendMailComponent,
     DoinscriptionComponent,
@@ -104,11 +104,12 @@ import { AjouterattachementComponent } from './attachement/ajouterattachement/aj
     GestionUtulisateurComponent,
     UserDetailComponent,
     SendEmailUserComponent,
-
     
 
+
+
 InboxComponent,
-TableComponent,
+
 SendMailComponent,
 DoinscriptionComponent,
 OneDemandeComponent,
@@ -120,6 +121,7 @@ NouveauSecteurComponent,
 ListesUtulisateurComponent,
 FirstInscriptionComponent,
 GererComptesComponent,
+
 AjouterattachementComponent,
 
 
@@ -127,6 +129,14 @@ AjouterattachementComponent,
 
 
 
+
+
+ForbiddenComponent,
+InscriptionetdemandesComponent,
+GestionUtulisateurComponent,
+UserDetailComponent,
+SendEmailUserComponent,
+UserProfileComponent,
 
 
   ],

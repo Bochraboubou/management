@@ -57,7 +57,7 @@ export class ArticlespecifieeComponent implements OnInit {
 
 //récuperer les articlesRealisees par bc
 public onGetArticlesRealisees(idBC:number):void{
-  this.articleReliseeService.getArticlesRealiseesbybcId(idBC).subscribe({
+  this.articleReliseeService.getArticlesUtiliseesbybcId(idBC).subscribe({
     next: (response:Article[]) => {
       this.articles=response;
       console.log(" prix du premier article utilisee :   "+this.articles[0].prix);

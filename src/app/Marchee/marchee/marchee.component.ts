@@ -29,7 +29,6 @@ import { ArticlespecifieeComponent } from '../articlespecifiee/articlespecifiee.
 })
 export class MarcheeComponent implements OnInit {
  
-  idOrgan:number=2;
   organisationConnectee!: Organisation;
   idSecteur!: number;
   idEntreprise!: number;
@@ -90,8 +89,7 @@ export class MarcheeComponent implements OnInit {
   constructor(private organService:OrganisationServiceService,private secteurService:SecteurService,private metierService:MetierService,private marcheeService:MarcheeService,private bondeCommandeService:BondeCommandeService,private articleService:ArticleService,private articleUtiliseeService:ArticleUtiliseeService,private organisationService:OrganisationServiceService,public loginService:LoginService,private uniteeMonneeService:UniteeMonneeService) { }
 
   ngOnInit(): void {
-    this.onGetSecteurs();
-    this.onGetUnitees();
+   this.onGetOrganisationbyUser();
    
    
    
@@ -471,7 +469,7 @@ public validerMontantsetDelaisBCs():void{
 
 //ajouter le marchee si il est valide
 public EnregistrerMarchee( addMarcheeForm:NgForm):void{
-        this.marcheeService.addMarchee(this.idOrgan,this.idMetier,this.newMarchee).subscribe({
+        this.marcheeService.addMarchee(this.organisationConnectee.id,this.idMetier,this.newMarchee).subscribe({
           next: (response:Marchee) =>{
            // this.marchee=response;
             this.idMarchee=response.id;
@@ -584,7 +582,7 @@ public editArticle(modifierArticleForm:NgForm){
 
 //valider les information du marchee
 public validerInformationsMarchee(addMarcheeForm:NgForm){
-  this.marcheeService.getMarcheebyCodeandOrganisation(addMarcheeForm.value.code,this.idOrgan).subscribe({
+  this.marcheeService.getMarcheebyCodeandOrganisation(addMarcheeForm.value.code,this.organisationConnectee.id).subscribe({
     next: (response:Marchee) => {
       this.showExistMarcheeAlert=true;
       console.log("code existe deja");
@@ -637,6 +635,7 @@ public deleteArticle(){
         this.organisationConnectee=response;
         console.log("organisation conectee"+this.organisationConnectee);
         this.onGetSecteurs();
+        this.onGetUnitees();
       },
       error: (error:HttpErrorResponse) => {
         alert(error.message);

@@ -22,8 +22,7 @@ import { TypeService } from 'src/app/service/type.service';
 })
 export class ConsulterMarcheesComponent implements OnInit {
 
-  idOrgan:number=2;
-  organisationConnectee: Organisation | undefined;
+  organisationConnectee!: Organisation;
   username!: string;
   secteurs!: Secteur[];
   metiers!: Metier[];
@@ -37,7 +36,7 @@ export class ConsulterMarcheesComponent implements OnInit {
 
   MarcheestotalLength:any;
   Mpage:number = 1;
-  Bpage:number = 1;
+ 
   
 
   
@@ -48,8 +47,7 @@ export class ConsulterMarcheesComponent implements OnInit {
   constructor(private secteurService:SecteurService,private metierService:MetierService,private typeService:TypeService,private marcheeService:MarcheeService,private bonDeCommandeService :BondeCommandeService,private organisationService:OrganisationServiceService,private loginService:LoginService) {}
 
   ngOnInit(): void {
-    this.getAllMarchees();
-    this.onGetSecteurs();
+   this.onGetOrganisationbyUser();
   }
 
    //Collapse pour l'affichage des bonsDeCommandes
@@ -86,11 +84,9 @@ export class ConsulterMarcheesComponent implements OnInit {
   getSecteurChoisis(secteurId:number){
     console.log("id du secteur choisis"+secteurId);
     this.onGetSecteurById(secteurId);
-    this.getMetiers(secteurId);
- 
-    
-
+    this.getMetiers(secteurId); 
   }
+
    //event lors du choix du metier
    getMetierChoisis(metierId:number){
     console.log("id du metier choisis"+metierId);
@@ -158,7 +154,7 @@ export class ConsulterMarcheesComponent implements OnInit {
 
    //récuperer la liste total  des marchees 
    public getAllMarchees():void{
-    this.marcheeService.getMarchees(this.idOrgan).subscribe({
+    this.marcheeService.getMarchees(this.organisationConnectee.id).subscribe({
       next: (response:Marchee[]) => {
       this.marchees=response;
       for (let i = 0; i < this.marchees.length; i++) {
@@ -177,7 +173,7 @@ export class ConsulterMarcheesComponent implements OnInit {
 
    //récuperer la liste des marchees par organisation et metier
   public getMarchees(idMetier:number):void{
-    this.marcheeService.getMarcheesbyMetierandOrganisation(idMetier,this.idOrgan).subscribe({
+    this.marcheeService.getMarcheesbyMetierandOrganisation(idMetier,this.organisationConnectee.id).subscribe({
       next: (response:Marchee[]) => {
       this.marchees=response;
       for (let i = 0; i < this.marchees.length; i++) {
@@ -196,7 +192,7 @@ export class ConsulterMarcheesComponent implements OnInit {
 
    //récuperer la liste des bonsDeCommandes par marchee
    public getBonsDeCommandes(marchee:Marchee):void{
-    this.bonDeCommandeService.getAllBondeCommandeJoinbybcId(marchee.id).subscribe({
+    this.bonDeCommandeService.getAllBondeCommandeJoinbyMarcheeId(marchee.id).subscribe({
       next: (response:BondeCommande[]) => {
         marchee.listeBondeCommandes=response;
         console.log("code premiere bc du marchee"+marchee.listeBondeCommandes[1]?.codebc);
@@ -217,6 +213,7 @@ export class ConsulterMarcheesComponent implements OnInit {
       next: (response:Organisation) => {
         this.organisationConnectee=response;
         console.log("organisation conectee"+this.organisationConnectee);
+        this.getAllMarchees();
         this.onGetSecteurs();
       },
       error: (error:HttpErrorResponse) => {

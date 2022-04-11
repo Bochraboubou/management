@@ -44,6 +44,7 @@ import { DetailOrganisationComponent } from './sectionOrganisation/detail-organi
 import { UserProfileComponent } from './Inscription/user-profile/user-profile.component';
 
 import { ArticlespecifieeComponent } from './Marchee/articlespecifiee/articlespecifiee.component';
+import { ConnsulterAttachementComponent } from './Attachement/connsulter-attachement/connsulter-attachement.component';
 
 
 
@@ -95,10 +96,11 @@ const routes: Routes = [
     { path:'metiers',component:GestionMetiersComponent},
     { path:'articles',component:ArticleComponent},
     { path:'types',component:TypesComponent},
-    { path:'consulterMarchees',component:ConsulterMarcheesComponent}
+    { path:'consulterMarchees',component:ConsulterMarcheesComponent},
+    { path:'consulterAttachements',component:ConnsulterAttachementComponent}
 
   ]},
-    {path:'',redirectTo:'mycpm',pathMatch:'full'}
+    {path:'',redirectTo:'firstPage',pathMatch:'full'}
 
 
 ];

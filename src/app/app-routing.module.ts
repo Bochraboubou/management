@@ -48,9 +48,8 @@ import { AjouterattachementComponent } from './attachement/ajouterattachement/aj
 import { UserProfileComponent } from './Inscription/user-profile/user-profile.component';
 
 import { ArticlespecifieeComponent } from './Marchee/articlespecifiee/articlespecifiee.component';
-
-
-
+import { DetailBonDeCommandeComponent } from './attachement/detail-bon-de-commande/detail-bon-de-commande.component';
+import { DeeeetailBCComponent } from './attachement/deeeetail-bc/deeeetail-bc.component';
 
 const routes: Routes = [
   {path:'firstPage',component:FirstPageComponent},
@@ -66,7 +65,7 @@ const routes: Routes = [
   {path:'send/:id',component:SendMailComponent},
   {path: 'forbidden', component:ForbiddenComponent},
   {path:'userDetail/:id',component:UserDetailComponent},
- 
+  {path:'mycpm/inscritEmployee',component:FirstInscriptionComponent},
   { path:'DetailOrg/:id',component:DetailOrganisationComponent},
  
  
@@ -101,9 +100,13 @@ const routes: Routes = [
     { path:'articles',component:ArticleComponent},
     { path:'types',component:TypesComponent},
     { path:'consulterMarchees',component:ConsulterMarcheesComponent},
-    { path:'ajouterAttachement',component:AjouterattachementComponent}
+    { path:'ajouterAttachement',component:AjouterattachementComponent},
+    { path:'userProfilemycpm',component:UserProfileComponent},
+   
+    { path:'detailBondeCommande/:id',component:DetailBonDeCommandeComponent},
+    { path:'detailBC/:id',component:DeeeetailBCComponent},
   ]},
-    {path:'',redirectTo:'mycpm',pathMatch:'full'}
+    {path:'',redirectTo:'firstPage',pathMatch:'full'}
 
 
 ];

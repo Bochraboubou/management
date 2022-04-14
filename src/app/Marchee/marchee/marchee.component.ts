@@ -10,6 +10,7 @@ import { Metier } from 'src/app/model/Metier';
 import { Organisation } from 'src/app/model/Organisation';
 import { Secteur } from 'src/app/model/Secteur';
 import { UniteeMonnee } from 'src/app/model/UniteeMonnee';
+import { User } from 'src/app/model/User';
 import { ArticleUtiliseeService } from 'src/app/service/article-utilisee.service';
 import { ArticleService } from 'src/app/service/article.service';
 import { BondeCommandeService } from 'src/app/service/bonde-commande.service';
@@ -18,6 +19,7 @@ import { LoginService } from 'src/app/service/login.service';
 import { MarcheeService } from 'src/app/service/marchee.service';
 import { MetierService } from 'src/app/service/metier.service';
 import { OrganisationServiceService } from 'src/app/service/organisation-service.service';
+import { RegisterService } from 'src/app/service/register.service';
 import { SecteurService } from 'src/app/service/secteur.service';
 import { UniteeMonneeService } from 'src/app/service/unitee-monnee.service';
 import { ArticlespecifieeComponent } from '../articlespecifiee/articlespecifiee.component';
@@ -29,7 +31,7 @@ import { ArticlespecifieeComponent } from '../articlespecifiee/articlespecifiee.
 })
 export class MarcheeComponent implements OnInit {
  
-  idOrgan:number=2;
+  idOrgan!:number
   organisationConnectee!: Organisation;
   idSecteur!: number;
   idEntreprise!: number;
@@ -77,19 +79,53 @@ export class MarcheeComponent implements OnInit {
   montantTotaldeBCs!: number;
   username!: string;
   
+ //
+ user=new User()
+ organisation!:Organisation
 
- 
-  
- 
- 
-  
-
-
-
-
-  constructor(private organService:OrganisationServiceService,private secteurService:SecteurService,private metierService:MetierService,private marcheeService:MarcheeService,private bondeCommandeService:BondeCommandeService,private articleService:ArticleService,private articleUtiliseeService:ArticleUtiliseeService,private organisationService:OrganisationServiceService,public loginService:LoginService,private uniteeMonneeService:UniteeMonneeService) { }
+  constructor(private organService:OrganisationServiceService,
+    private secteurService:SecteurService,private metierService:MetierService,
+    private marcheeService:MarcheeService,
+    private bondeCommandeService:BondeCommandeService,
+    private articleService:ArticleService,
+    private articleUtiliseeService:ArticleUtiliseeService,
+    private organisationService:OrganisationServiceService,
+    public loginService:LoginService,
+    private uniteeMonneeService:UniteeMonneeService
+    ,private register:RegisterService,
+   ) { }
 
   ngOnInit(): void {
+
+//nour
+//trouver l id de l'organisation
+
+this.username=this.loginService.loggedUser
+this.register.findByUserName(this.username).subscribe(
+  data=>{
+    this.user=data;
+    this.organisationService.getOrganisationbyUser(this.user.id).subscribe({
+      next: (response:Organisation) => {
+        this.organisation=response;
+        console.log("organisation"+response);
+        this.idOrgan=this.organisation.id;
+        console.log(this.organisation.id)
+      },
+      error: (error:HttpErrorResponse) => {
+        console.log(error.message);
+       // alert("vous n'etes plus attaché a une organisation")
+       },
+      complete: () => console.info('complete') 
+    })
+
+
+
+  }
+)
+
+
+
+
     this.onGetSecteurs();
     this.onGetUnitees();
    

@@ -1,1 +1,114 @@
+<!-- title of table
+    <div class="row">
+        <div class="col-md-8">
+            <div class="table-title">
+                Liste des marchées
+            </div>
+    </div>-->
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 
+<div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alertecodemarchee==1">
+    <strong>Attention !</strong> code de marchée n'existe pas !.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+
+<div class="container" id="container">
+    <form action="">
+        <!--  <div class="form-outline">
+            <label class="form-label" for="form1">
+                <h3>Code marchée</h3>
+            </label>
+            <input [(ngModel)]="m.code" name="terme" type="search" data-toggle="modal" /><i class="material-icons"></i>
+            <button (click)="recherche()" type="button" class="btn btn-primary btn-sm">Recherche</button>
+
+        </div>-->
+        <br>
+
+
+        <div class="row gx-3 mb-3">
+            <!-- Form Group (first name)-->
+            <div class="col-md-4">
+                <label class="small mb-1" for="inputLastName">choisir un code du marchée</label>
+                <select [(ngModel)]="m.code" name="code" class="form-control" id="code">
+                    <option *ngFor="let mm of marchees" [value]="mm.code">
+                        {{mm.code}}
+                    </option>
+
+                </select>
+            </div>
+            <!-- Form Group (last name)-->
+            <div class="col-md-6">
+                <br>
+
+                <button (click)="recherche()" type="button" class="btn btn-primary">Chercher</button>
+            </div>
+
+
+        </div>
+
+
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-10">
+                <div class="table-title">
+                    
+                    liste des Bon de commande du marchée &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 
+                    <input  name="terme" type="search" data-toggle="modal" /><i class="material-icons"></i>
+               
+                </div>
+                
+        </div>
+        <div class="row">
+            <div class="col-md-10">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th><span>id </span></th>
+                            <th><span>code </span></th>
+                            <th><span>montant</span></th>
+                            <th><span>Action</span></th>
+
+                        </tr>
+
+
+                    </thead>
+                    <tbody>
+                        <!-- -->
+                        <tr *ngFor="let bc of bondeCommandes   | filter:terme | paginate : {
+                            itemsPerPage:4,
+                            currentPage:page,
+                            totalItems:totalLength
+                            }, let i=index">
+                            <td>
+
+                                <span class="label label-default">{{bc.id}}</span>
+                            </td>
+
+
+                            <td>
+                                <span class="label label-default">{{bc.codebc}}</span>
+                            </td>
+                            <td>
+                                <span class="label label-default">{{bc.montant}}</span>
+                            </td>
+
+                            <td>
+                                <div>
+
+
+                                    <a (click)="more(bc.id)" class="btn btn-default btn-sm">
+                                        <i class="fa fa-cog"></i> More
+                                    </a>
+                               
+                                </div>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+               

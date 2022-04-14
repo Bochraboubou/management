@@ -61,6 +61,9 @@ import { ArticleComponent } from './Articles/article/article.component';
 import { GestionMetiersComponent } from './sectionOrganisation/gestion-metiers/gestion-metiers.component';
 import { UserProfileComponent } from './Inscription/user-profile/user-profile.component';
 import { AjouterattachementComponent } from './attachement/ajouterattachement/ajouterattachement.component';
+import { DetailBonDeCommandeComponent } from './attachement/detail-bon-de-commande/detail-bon-de-commande.component';
+
+import { DeeeetailBCComponent } from './attachement/deeeetail-bc/deeeetail-bc.component';
 
 @NgModule({
   declarations: [
@@ -137,6 +140,9 @@ GestionUtulisateurComponent,
 UserDetailComponent,
 SendEmailUserComponent,
 UserProfileComponent,
+DetailBonDeCommandeComponent,
+
+DeeeetailBCComponent,
 
 
   ],

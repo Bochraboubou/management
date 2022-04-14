@@ -45,6 +45,7 @@ export class MarcheeComponent implements OnInit {
   codeNewBC!: string;
   montantNewBC!: number;
   delaisNewBC!: number;
+  dateDTNewBC!: Date;
   newArticle:Article= new Article();
   codeArticle!: string;
   key:any;
@@ -77,6 +78,7 @@ export class MarcheeComponent implements OnInit {
   alertecodeBCexiste=false;
   montantTotaldeBCs!: number;
   username!: string;
+  montantAvecTVAPrintedBC!: number;
   
  //
  user=new User()
@@ -256,6 +258,7 @@ this.register.findByUserName(this.username).subscribe(
           newBC.codebc=this.codeNewBC;
           newBC.montant=this.montantNewBC;
           newBC.delais=this.delaisNewBC;
+          newBC.dateDebutTraveaux=this.dateDTNewBC;
           this.newMarchee.listeBondeCommandes.push(newBC);
           addBCForm.reset(); 
     
@@ -604,6 +607,7 @@ public printBC(indiceP :number,printMarcheeForm:NgForm):void{
     button.style.display='none';
     button.setAttribute('data-toggle','modal');
     this.printedBCommande = this.newMarchee.listeBondeCommandes[indiceP];
+    this.montantAvecTVAPrintedBC=this.newMarchee.listeBondeCommandes[indiceP].montant +( this.newMarchee.listeBondeCommandes[indiceP].montant * 0.19);
     this.printMarchee = printMarcheeForm.value;
     button.setAttribute('data-target','#printBCModal');
     container?.appendChild(button);
@@ -639,14 +643,18 @@ public validerInformationsMarchee(addMarcheeForm:NgForm){
 }
 //modifier bc
 public modifierBC(editBCForm:NgForm){
-  if(this.validerDelaiBC(editBCForm.value.delais,this.newMarchee)){
+  this.newMarchee.listeBondeCommandes[this.indiceBC].montant=editBCForm.value.montant;
+  document.getElementById('closeEditBCModal')?.click();
+
+ /* if(this.validerDelaiBC(editBCForm.value.delais,this.newMarchee)){
     this.newMarchee.listeBondeCommandes[this.indiceBC].montant=editBCForm.value.montant;
-    this.newMarchee.listeBondeCommandes[this.indiceBC].delais=editBCForm.value.delais;
+    //this.newMarchee.listeBondeCommandes[this.indiceBC].delais=editBCForm.value.delais;
     document.getElementById('closeEditBCModal')?.click();
 
   }else{
     this.alerteDelaisBCs=true;
   }
+  */
 }
 
 //supprimer bc
@@ -672,7 +680,7 @@ public deleteArticle(){
     this.organisationService.getOrganisationbyUserName(this.username).subscribe({
       next: (response:Organisation) => {
         this.organisationConnectee=response;
-        console.log("organisation conectee"+this.organisationConnectee);
+        console.log("organisation connectee"+this.organisationConnectee);
         this.onGetSecteurs();
         this.onGetUnitees();
       },

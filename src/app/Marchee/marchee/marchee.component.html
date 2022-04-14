@@ -134,7 +134,8 @@
                 <th scope="col">Code</th>
                 <th scope="col">Montant</th>
                 <th scope="col">Delais</th>
-                <th scope="col">Entreprise</th>
+                <th scope="col">DateDebutTraveaux</th>
+                <th scope="col">Entreprise(Fournisseur)</th>
                 <th scope="col">Articles</th>
                 <th scope="col">Action</th>
                 <th scope="col">Impression</th>
@@ -146,6 +147,7 @@
                 <td>{{bc.codebc}}</td>
                 <td>{{bc.montant}}</td>
                 <td>{{bc.delais}}</td>
+                <td>{{bc.dateDebutTraveaux}}</td>
                 <td>{{bc.nomEntrep}}</td>
                 <td><button type="button" [ngClass]="{'btn btn-success':bc.valide ,'btn btn-danger':!bc.valide}" (click)="onOpenArticlesModal(i)" [disabled]="!BCsvalides">Articles</button></td>
                 <td>
@@ -205,6 +207,11 @@
                   <label for="delais">delais</label>
                   <input type="number" [(ngModel)]="delaisNewBC" name="delais"  class="form-control" id="delais" placeholder="delais" required>
                 </div>
+
+                <div>
+                  <label for="dateDebutTraveaux">Date debut traveaux</label>
+                  <input type="date" [(ngModel)]="dateDTNewBC" name="dateDebutTraveaux"  class="form-control" id="dateDebutTraveaux" placeholder="date debut traveaux" required>
+                </div>
       
                 
                 <div>
@@ -242,7 +249,8 @@
         <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h3 class="modal-title" id="exampleModalLongTitle">Spécifier les articles</h3>
+              <h3 class="modal-title" id="exampleModalLongTitle">Code bon de commande: {{newMarchee.listeBondeCommandes[indiceBC]?.codebc}}</h3>
+              <h3 class="modal-title" id="exampleModalLongTitle">Entreprise(Fournisseur): {{newMarchee.listeBondeCommandes[indiceBC]?.nomEntrep}}</h3>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -446,32 +454,25 @@
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Informations du commande à imprimer</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Informations du bon de  commande à imprimer</h5>
               <button type="button" class="btn-close" data-dismisss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <div id="printedBC">
-                <h1 style="text-align: center; font-family:Marker Felt, fantasy; color: firebrick;">Details du bon_de commande</h1>
+                <h1 style="font-family:Marker Felt, fantasy;">Bon de commande</h1>
+                <br>
                <div>
-                <h1 style="text-align: center; color: navy;">1/Informations sur le marché :</h1>
-                <h3>Secteur d'activité :  {{printMarchee?.secteur_d_activite}}</h3>
-                <h3>Metier du marché :  {{printMarchee?.metier}}</h3>
-                <h3>Designation du marché :  {{printMarchee?.designation}}</h3>
-                <h3>Budget marché :  {{printMarchee?.budget}}</h3>
-                <h3>Type du marché :  {{printMarchee?.type}}</h3>
-                <h3>Montant marché :  {{printMarchee?.montant}}</h3>
-                <h3>Unitée :  {{printMarchee?.unitee}}</h3>
-                <h3>Delais du marché :  {{printMarchee?.delais}}</h3>
+                <h3>Organisation :  {{organisationConnectee?.nom}}</h3>
                </div>
                <div>
-                <h1 style="text-align: center; color: navy;">2/Informations sur la bon_de commande :</h1>
-                <h3>Code du bon_de commande :   {{printedBCommande?.codebc}}</h3>
-                <h3>Montant du bon_de commande :  {{printedBCommande?.montant}}</h3>
-                <h3>Delais du bon_de commande :  {{printedBCommande?.delais}}</h3>
+                <h2><strong>Informations sur la bon de commande :</strong></h2>
+                <h4>Code du bon_de commande :   {{printedBCommande?.codebc}}</h4>
+                <h4>Date debut traveaux :  {{printedBCommande?.dateDebutTraveaux}}</h4>
+                <h4>Delais du bon_de commande :  {{printedBCommande?.delais}}</h4>
                 <h3>Entreprise :  {{printedBCommande?.nomEntrep}}</h3>
                </div>
                <div>
-                <h1 style="text-align: center; color: navy;">3/Articles spécifiées</h1> 
+                <h2><strong>Articles :</strong></h2> 
                 <table class="table table-success table-striped">
                   <thead>
                     <tr>
@@ -481,6 +482,7 @@
                       <th scope="col">unitee</th>
                       <th scope="col">prix</th>
                       <th scope="col">quantitee</th>
+                      <th scope="col">Total HT</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -491,11 +493,22 @@
                       <td>{{art.unitee}}</td>
                       <td>{{art.prix}}</td>
                       <td>{{art.quantitee}}</td>
+                      <td>{{art.quantitee * art.prix}}</td>
                       
                     </tr>
                   </tbody>
                 </table>
                </div>
+               <div>
+                 <br>
+                <h4>Montant du bon_de commande hors TVA :  {{printedBCommande?.montant}}</h4>
+                <h4>Montant du bon_de commande avec TVA :  {{montantAvecTVAPrintedBC}}</h4>
+               </div>
+               <br style="height: 100px;">
+              <div class="row">
+                <div class="col"><h4>Observations :</h4></div>
+                <div class="col"><h4>Signature :</h4></div>
+              </div> 
                 </div>
             </div>
             <div class="modal-footer">
@@ -599,7 +612,13 @@
                   
                   <div>
                     <label for="delais">delais</label>
-                    <input type="number" ngModel={{modifiedBC?.delais}} name="delais"  class="form-control" id="delais" placeholder="delais" required>
+                    <input type="number" ngModel={{modifiedBC?.delais}} name="delais"  class="form-control" id="delais" placeholder="delais" required disabled>
+                  </div>
+
+                   
+                  <div>
+                    <label for="dateDebutTraveaux">Date debut Traveaux</label>
+                    <input type="date" ngModel={{modifiedBC?.dateDebutTraveaux}} name="dateDebutTraveaux"  class="form-control" id="dateDebutTraveauxM" placeholder="date debut traveaux" required disabled>
                   </div>
         
                   

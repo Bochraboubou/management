@@ -4,6 +4,7 @@ export class Article{
     designation!: string;
     unitee!: string;
     prix!: number;
+    classe!: string;
     quantitee!: number;
     quantiteeRealisee!: number;
     idType!: number;

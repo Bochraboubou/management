@@ -30,6 +30,12 @@ export class MarcheeService {
      return this.http.get<Marchee>(`${this.apiServeUrl}/admin/marcheebycode/${codeMarchee}`);
    }
 
+   //récuperer le marchee par Id
+   public getMarcheebyId(idMarchee:number): Observable<Marchee>
+   {
+     return this.http.get<Marchee>(`${this.apiServeUrl}/admin/marcheebyId/${idMarchee}`);
+   }
+
    //récuperer le marchee par code et organ id
    public getMarcheebyCodeandOrganisation(codeMarchee:string,organId:number): Observable<Marchee>
    {

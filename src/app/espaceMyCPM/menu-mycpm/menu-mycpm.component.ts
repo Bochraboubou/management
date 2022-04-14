@@ -74,7 +74,6 @@ this.userServi.getUserById(this.id).subscribe(
  )
     console.log("user is :"+this.user)
     console.log( "logged user is "+this.loginService.loggedUser);
-    console.log( "ya nour rani f mycpm "+this.loginService.loggedUser);*/
 
 }
 

@@ -44,6 +44,9 @@ import { DetailOrganisationComponent } from './sectionOrganisation/detail-organi
 
 import { AjouterattachementComponent } from './attachement/ajouterattachement/ajouterattachement.component';
 
+import { ArticlespecifieeComponent } from './Marchee/articlespecifiee/articlespecifiee.component';
+import { ConnsulterAttachementComponent } from './Attachement/connsulter-attachement/connsulter-attachement.component';
+
 
 import { UserProfileComponent } from './Inscription/user-profile/user-profile.component';
 
@@ -105,6 +108,7 @@ const routes: Routes = [
    
     { path:'detailBondeCommande/:id',component:DetailBonDeCommandeComponent},
     { path:'detailBC/:id',component:DeeeetailBCComponent},
+    { path:'consulterAttachements',component:ConnsulterAttachementComponent}
   ]},
     {path:'',redirectTo:'firstPage',pathMatch:'full'}
 

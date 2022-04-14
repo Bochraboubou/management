@@ -1,0 +1,85 @@
+<div class="row">
+    <div class="col-md-8">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th><span>id </span></th>
+                    <th><span>code </span></th>
+                    <th><span>prix</span></th>
+                    <th><span>qte</span></th>
+
+                </tr>
+
+
+            </thead>
+            <tbody>
+
+                <tr *ngFor="let c of articlesUtulisees">
+                    <td>
+
+                        <span class="label label-default">{{c.id.article_id}}</span>
+                    </td>
+
+                    <td>{{c.codeArt}}</td>
+                    <td>
+                        <span class="label label-default">{{c.prix}}</span>
+                    </td>
+                    <td>
+                        <span class="label label-default">{{c?.quantitee}}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<br>
+<div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alertecodeArticle==1">
+    <strong>Attention !</strong> code article  n'existe pas !.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="row gx-3 mb-3">
+    <!-- Form Group (first name)-->
+    <div class="col-md-2">
+        <!-- [(ngModel)]="m.code"-->
+        <label class="small mb-1" for="inputLastName">Code article:</label>
+        <input [(ngModel)]="code" name="code" class="form-control" id="code">
+
+    </div>
+    <!-- Form Group (last name)-->
+    <div class="col-md-6">
+        <br>
+
+        <button (click)="recherche2()" type="button" class="btn btn-primary">chercher</button>
+    </div>
+
+
+</div>
+<div><br></div>
+<div class="row gx-3 mb-3">
+    <!-- Form Group (first name)-->
+    <div class="col-md-2">
+        <!-- [(ngModel)]="m.code"-->
+        <label class="small mb-1" for="inputLastName">Désigniation</label>
+        <input  [(ngModel)]="article.designation" name="designation" class="form-control" id="designation" readonly>
+
+    </div>
+    <!-- Form Group (last name)-->
+    <div class="col-md-2">
+        <label class="small mb-1" for="inputLastName">Unité</label>
+        <input  [(ngModel)]="article.unitee" name="unitee" id="unitee" class="form-control" readonly>
+
+
+       
+    </div>
+
+
+</div>
+<div class="col-md-2">
+    <!-- [(ngModel)]="m.code"-->
+    <label class="small mb-1" for="inputLastName">Quantité réalisées</label>
+    <input  name="code" class="form-control" id="code">
+
+</div>
+<button routerLink="/dddd">ok</button>

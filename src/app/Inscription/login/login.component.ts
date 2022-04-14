@@ -53,7 +53,7 @@ loginUser(){
          console.log("user id "+this.user.id);
          console.log("roooooooole "+this.user.roles);
          this.loginService.signIn(this.user);
-         console.log(this.loginService.loggedUser);
+        // console.log(this.loginService.loggedUser);
        //
        this.roleServ.findRoleOfUser(this.user.id).subscribe({
         next: (response:Role[]) => {

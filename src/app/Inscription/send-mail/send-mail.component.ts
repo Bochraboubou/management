@@ -39,6 +39,8 @@ lien="http://localhost:4200/register"
  objet="cpm-Group";
 message!:string
 alertEnvoyer=0
+alertnewProspect=0
+alertOrganisation=0
   constructor(private orgService:OrganisationServiceService,private prospectService:ProspectService,private registerService:RegisterService,private sendsend:MainSkipTestsService   ,  private mailService:EmailService, private activeRoute:ActivatedRoute,private demandeService:DemandeService ) { }
   
 
@@ -115,6 +117,8 @@ saveNewUser(prospect:Prospect){
 this.prospectService.addProspect(prospect).subscribe(
   
   (data:Prospect)=>{console.log(data);
+
+  this.  alertnewProspect=1
     alert(" new user bien enregistrer")
  
 },
@@ -130,8 +134,10 @@ saveNewOrganisation(organisation:Organisation){
     (data:Organisation)=>{
       this.organisation=data
       console.log(data);
-      alert("organisation enregistrer")
-      alert(" l id de l'organisation est"+this.organisation.id)
+      this.alertOrganisation=1
+      console.log("organisation enregistrer")
+
+      console.log(" l id de l'organisation est"+this.organisation.id)
        //ajouter email,code ,idORG,idRole a la table prospect
        this.prospect.id_org=this.organisation.id;
        this.prospect.email=this.email.destinataire;

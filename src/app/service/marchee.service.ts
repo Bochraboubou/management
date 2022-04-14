@@ -47,6 +47,13 @@ export class MarcheeService {
    {
      return this.http.get<Marchee[]>(`${this.apiServeUrl}/admin/marcheebyMetier/${metierId}/andOrgan/${organId}`);
    }
+//get marchee by organisation id
 
+//organisations/{organId}/marchees
   
+public getMarcheesbyorganisationId(organId:number): Observable<Marchee[]>
+{
+  return this.http.get<Marchee[]>(`${this.apiServeUrl}/admin/organisations/${organId}/marchees`);
+}
+
 }

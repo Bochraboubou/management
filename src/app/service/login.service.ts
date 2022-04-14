@@ -63,7 +63,7 @@ export class LoginService {
       let admin: Boolean = false;
       if (!this.roles) //this.roles== undefiened
       return false;
-      console.log(this.roles)
+      //console.log(this.roles)
       this.roles.forEach((curRole) => {
       if(curRole.name =='ADMIN-CPM') {
       admin = true;

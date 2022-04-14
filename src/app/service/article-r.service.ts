@@ -26,7 +26,6 @@ export class ArticleRService {
    {
      return this.http.get<Article[]>(`${this.apiServeUrl}/admin/articlesJoinsByMetier/${metierId}`);
    }
-
    
    //récuperer les articles realisees par bc
    public getArticlesRealiseesbybcId(bcId:number): Observable<Article[]>
@@ -46,4 +45,5 @@ export class ArticleRService {
     {
       return this.http.get<Article[]>(`${this.apiServeUrl}/admin/articlesRealiseesJoinParPeriode/${bcId}/${date1}/${date2}`);
     }
+
 }

@@ -8,6 +8,15 @@
             Email envoyer.. cliquer <a routerLink="/login" class="alert-link">ICI</a>pour crer un compte
          
           </div>
+          
+          <div class="alert alert-success" role="alert" *ngIf="alertnewProspect==1">
+            Email envoyer.. cliquer <a routerLink="/login" class="alert-link">ICI</a>pour crer un compte
+         
+          </div>
+          <div class="alert alert-success" role="alert" *ngIf="alertOrganisation==1">
+            Organisation ajouter avec succée ...
+         
+          </div>
         <form #sendMilForm="ngForm" (ngSubmit)="envoyerEmail()">
             <div class="form-row mb-3">
                 <label for="to" class="col-2 col-sm-1 col-form-label">To:</label>

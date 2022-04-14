@@ -119,15 +119,7 @@ public onOpenModal(id:number, mode: string): void {
   if (mode ==='edit') {
     
     button.setAttribute('data-target', '#addroleModal');
-  }/*
-  if (mode ==='supprimer') {
-    //this.addRole = user;
-    button.setAttribute('data-target', '#deleteEmployeeModal');
   }
-  if (mode ==='supprimerTous') {
-    //this.addRole = user;
-    button.setAttribute('data-target', '#deleteAllEmployeeModal');
-  }*/
   
   container?.appendChild(button);
   button.click();

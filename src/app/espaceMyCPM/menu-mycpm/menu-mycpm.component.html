@@ -172,7 +172,7 @@
           <li class="nav-item dropdown pe-3">
   
             <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-              <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+              <img src="{{this.Service.apiServeUrl+'/api/ImgUser/'+user.id}}" alt="Profile" class="rounded-circle">
               <span class="d-none d-md-block dropdown-toggle ps-2">{{this.loginService.loggedUser}}</span>
             </a><!-- End Profile Iamge Icon -->
   
@@ -188,7 +188,7 @@
               </li>
   
               <li>
-<a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+<a    routerLink="userProfilemycpm" class="dropdown-item d-flex align-items-center" >
                   <i class="bi bi-person"></i>
                   <span>Profile</span>
                 </a>
@@ -374,7 +374,7 @@
            
           <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
             <li>
-              <a href="icons-bootstrap.html">
+              <a routerLink="ajouterAttachement">
                 <i class="bi bi-circle"></i><span>Ajouter un attachement</span>
               </a>
             </li>
@@ -404,15 +404,11 @@
               </a>
             </li>
             <li>
-              <a routerLink="gererComptes">
+              <a routerLink="inscritEmployee">
                 <i class="bi bi-circle"></i><span>Ajouter un ouvrier </span>
               </a>
             </li>
-            <li>
-              <a routerLink="gererComptes">
-                <i class="bi bi-circle"></i><span>Liste des employées </span>
-              </a>
-            </li>
+          
            
            
           </ul>
@@ -421,7 +417,7 @@
         <li class="nav-heading">Pages</li>
   
         <li class="nav-item">
-          <a  routerLink="/userProfile"  class="nav-link collapsed">
+          <a  routerLink="userProfilemycpm"  class="nav-link collapsed">
             <i class="bi bi-person"></i>
             <span>Profile</span>
           </a>
@@ -430,7 +426,7 @@
         <li class="nav-item">
           <a class="nav-link collapsed" href="pages-faq.html">
             <i class="bi bi-question-circle"></i>
-            <span>F.A.Q</span>bbbbbbbbbb
+            <span>F.A.Q</span>
           </a>
         </li><!-- End F.A.Q Page Nav -->
   

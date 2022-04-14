@@ -115,7 +115,8 @@ export class ConnsulterAttachementComponent implements OnInit {
    public getAttachementGlobal(idbc:number):void{
     this.articleRservice.getArticlesRealiseesbybcId(this.bondeCommandeC.id).subscribe({
      next: (response:Article[]) =>{
-       this.attachementsGlobals=response;
+       this.attachementsGlobals=response.sort((a, b) => (a.typeLib > b.typeLib) ? 1 : -1);
+      // this.attachementsGlobals = this.attachementsGlobals.sort((a,b) => a.typeLib > b.typeLib ? 1 : -1);
        
      },
      error: (error:HttpErrorResponse) => {
@@ -131,7 +132,7 @@ export class ConnsulterAttachementComponent implements OnInit {
  public getAttachementJournalier(idbc:number,dateA:Date):void{
   this.articleRservice.getArticlesRealiseesJournalierbybcId(this.bondeCommandeC.id,dateA).subscribe({
    next: (response:Article[]) =>{
-     this.attachementsJournaliers=response;
+     this.attachementsJournaliers=response.sort((a, b) => (a.typeLib > b.typeLib) ? 1 : -1);
      
    },
    error: (error:HttpErrorResponse) => {
@@ -147,7 +148,7 @@ export class ConnsulterAttachementComponent implements OnInit {
 public getAttachementParPeriode(idbc:number,date1:Date,date2:Date):void{
   this.articleRservice.getArticlesRealiseesbybcIdparPeriode(this.bondeCommandeC.id,date1,date2).subscribe({
    next: (response:Article[]) =>{
-     this.attachementsParPeriode=response;
+     this.attachementsParPeriode=response.sort((a, b) => (a.typeLib > b.typeLib) ? 1 : -1);
      
    },
    error: (error:HttpErrorResponse) => {

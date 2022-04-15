@@ -47,13 +47,27 @@ export class MarcheeService {
    {
      return this.http.get<Marchee[]>(`${this.apiServeUrl}/admin/marcheebyMetier/${metierId}/andOrgan/${organId}`);
    }
-//get marchee by organisation id
 
-//organisations/{organId}/marchees
-  
+   //get marchee by organisation id
 public getMarcheesbyorganisationId(organId:number): Observable<Marchee[]>
 {
   return this.http.get<Marchee[]>(`${this.apiServeUrl}/admin/organisations/${organId}/marchees`);
 }
+
+   //get marchee with type'projet' by organisation id
+public getMarcheestypeProjetbyorganisationId(organId:number): Observable<Marchee[]>
+{
+  return this.http.get<Marchee[]>(`${this.apiServeUrl}/admin/organisations/${organId}/marcheestypeProjet`);
+}
+
+ //get marchee with type'MC' by organisation id
+ public getMarcheestypeMCbyorganisationId(organId:number): Observable<Marchee[]>
+ {
+   return this.http.get<Marchee[]>(`${this.apiServeUrl}/admin/organisations/${organId}/marcheestypeMC`);
+ }
+
+  
+   
+
 
 }

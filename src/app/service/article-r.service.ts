@@ -28,22 +28,42 @@ export class ArticleRService {
    }
    
    //récuperer les articles realisees par bc
-   public getArticlesRealiseesbybcId(bcId:number): Observable<Article[]>
+   public getArticlesRealiseesPresbybcId(bcId:number): Observable<Article[]>
    {
-     return this.http.get<Article[]>(`${this.apiServeUrl}/admin/articlesRealiseesJoinGlobalbyBC/${bcId}`);
+     return this.http.get<Article[]>(`${this.apiServeUrl}/admin/articlesRealiseesJoinGlobalbyBC/prestation/${bcId}`);
    }
 
     //récuperer les articles realisees journalier par bc
-    public getArticlesRealiseesJournalierbybcId(bcId:number,dateA:Date): Observable<Article[]>
+    public getArticlesRealiseesPresJournalierbybcId(bcId:number,dateA:Date): Observable<Article[]>
     {
-      return this.http.get<Article[]>(`${this.apiServeUrl}/admin/articlesRealiseesJoinbydate/${bcId}/date/${dateA}`);
+      return this.http.get<Article[]>(`${this.apiServeUrl}/admin/articlesRealiseesJoinbydate/prestation/${bcId}/date/${dateA}`);
     }
 
     
     //récuperer les articles realisees journalier par bc
-    public getArticlesRealiseesbybcIdparPeriode(bcId:number,date1:Date,date2:Date): Observable<Article[]>
+    public getArticlesRealiseesPresbybcIdparPeriode(bcId:number,date1:Date,date2:Date): Observable<Article[]>
     {
-      return this.http.get<Article[]>(`${this.apiServeUrl}/admin/articlesRealiseesJoinParPeriode/${bcId}/${date1}/${date2}`);
+      return this.http.get<Article[]>(`${this.apiServeUrl}/admin/articlesRealiseesJoinParPeriode/prestation/${bcId}/${date1}/${date2}`);
+    }
+
+
+     //récuperer les articles realisees par bc
+   public getArticlesRealiseesMFbybcId(bcId:number): Observable<Article[]>
+   {
+     return this.http.get<Article[]>(`${this.apiServeUrl}/admin/articlesRealiseesJoinGlobalbyBC/MF/${bcId}`);
+   }
+
+    //récuperer les articles realisees journalier par bc
+    public getArticlesRealiseesMFJournalierbybcId(bcId:number,dateA:Date): Observable<Article[]>
+    {
+      return this.http.get<Article[]>(`${this.apiServeUrl}/admin/articlesRealiseesJoinbydate/MF/${bcId}/date/${dateA}`);
+    }
+
+    
+    //récuperer les articles realisees journalier par bc
+    public getArticlesRealiseesMFbybcIdparPeriode(bcId:number,date1:Date,date2:Date): Observable<Article[]>
+    {
+      return this.http.get<Article[]>(`${this.apiServeUrl}/admin/articlesRealiseesJoinParPeriode/MF/${bcId}/${date1}/${date2}`);
     }
 
 }

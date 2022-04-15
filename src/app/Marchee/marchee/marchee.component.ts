@@ -97,46 +97,7 @@ export class MarcheeComponent implements OnInit {
    ) { }
 
   ngOnInit(): void {
-
-//nour
-//trouver l id de l'organisation
-
-this.username=this.loginService.loggedUser
-this.register.findByUserName(this.username).subscribe(
-  data=>{
-    this.user=data;
-    this.organisationService.getOrganisationbyUser(this.user.id).subscribe({
-      next: (response:Organisation) => {
-        this.organisation=response;
-        console.log("organisation"+response);
-        this.idOrgan=this.organisation.id;
-        console.log(this.organisation.id)
-      },
-      error: (error:HttpErrorResponse) => {
-        console.log(error.message);
-       // alert("vous n'etes plus attaché a une organisation")
-       },
-      complete: () => console.info('complete') 
-    })
-
-
-
-  }
-)
-
-
-
-
-
-  ngOnInit(): void {
    this.onGetOrganisationbyUser();
-
-   
-   
-   
-    console.log("heye hey heeey");
-    console.log("hello");
-    //console.log("lll "+this.newBC.listeArticles.length);
   }
 
   //modal pour l'ajout dune bonde commande

@@ -41,18 +41,13 @@ import { MarcheeComponent } from './Marchee/marchee/marchee.component';
 import { EntreprisesComponent } from './sectionOrganisation/entreprises/entreprises.component';
 import { DetailOrganisationComponent } from './sectionOrganisation/detail-organisation/detail-organisation.component';
 
-
-import { AjouterattachementComponent } from './attachement/ajouterattachement/ajouterattachement.component';
-
 import { ArticlespecifieeComponent } from './Marchee/articlespecifiee/articlespecifiee.component';
 import { ConnsulterAttachementComponent } from './Attachement/connsulter-attachement/connsulter-attachement.component';
-
-
 import { UserProfileComponent } from './Inscription/user-profile/user-profile.component';
-
-import { ArticlespecifieeComponent } from './Marchee/articlespecifiee/articlespecifiee.component';
+import { AjouterattachementComponent } from './attachement/ajouterattachement/ajouterattachement.component';
 import { DetailBonDeCommandeComponent } from './attachement/detail-bon-de-commande/detail-bon-de-commande.component';
 import { DeeeetailBCComponent } from './attachement/deeeetail-bc/deeeetail-bc.component';
+
 
 const routes: Routes = [
   {path:'firstPage',component:FirstPageComponent},

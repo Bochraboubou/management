@@ -76,7 +76,7 @@
                             <!--espace pour ajouter les attachements global-->
                               <div class="tab-pane fade" id="Aglobal" role="tabpanel" aria-labelledby="pills-cloud-tab">
                                 <div>
-                                  <h2 style="font-family: Comic Sans MS; color: midnightblue;">liste total des articles realisés par attachements dans cette bon de commande</h2>
+                                  <h2 style="font-family: Comic Sans MS; color: midnightblue;">Traveaux et prestations exécutés par attachements dans cette bon de commande</h2>
                                   <table class="table table-primary table-hover table-striped">
                                     <thead>
                                       <tr>
@@ -89,7 +89,7 @@
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      <tr *ngFor="let attach of attachementsGlobals ,let i= index">
+                                      <tr *ngFor="let attach of attachementsGlobalsPrestations ,let i= index">
                                         <th scope="row">{{i}}</th>
                                         <td>{{attach.code}}</td>
                                         <td>{{attach.designation}}</td>
@@ -99,7 +99,44 @@
                                       </tr>
                                     </tbody>
                                   </table>
-                                </div>
+                                 </div>
+                                 <br>
+
+                              
+                                  <div>
+                                    <h2 style="font-family: Comic Sans MS; color: midnightblue;">Materiels Fournisseur realisés par attachements dans cette bon de commande</h2>
+                                    <table class="table table-primary table-hover table-striped">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col" class="bg-primary">N°</th>
+                                          <th scope="col" class="bg-primary">CodeArticle</th>
+                                          <th scope="col" class="bg-primary">Designiation</th>
+                                          <th scope="col" class="bg-primary">Unité</th>
+                                          <th scope="col" class="bg-primary">Quantité total réalisée</th>
+                                          <th scope="col" class="bg-primary">Type</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr *ngFor="let attach of attachementsGlobalsMFs ,let i= index">
+                                          <th scope="row">{{i}}</th>
+                                          <td>{{attach.code}}</td>
+                                          <td>{{attach.designation}}</td>
+                                          <td>{{attach.unitee}}</td>
+                                          <td>{{attach.quantiteeRealisee}}</td>
+                                          <td>{{attach.typeLib}}</td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                  <div>
+                                    <button type="button" class="btn btn-dark"
+                                     [useExistingCss]="true"
+                                     printTitle="Attachement"  
+                                     printSectionId="PrintAttachementGlobal"  
+                                     ngxPrint>
+                                      Imprimer<i class="fa fa-print" aria-hidden="true"></i>
+                                     </button>
+                                 </div>
                               </div><!--end teb pane-->
         
                               <!--espace pour les attachements journaliers-->
@@ -110,7 +147,7 @@
                                     <input type="date"   name="dateA" (ngModelChange)="getDateAttachementJournalier($event)" [(ngModel)]="dateA" class="form-control" id="dateA" placeholder="date" required>
                                   </div>
                                   <br>
-                                  <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size:large;">listes des articles realisés par attachements dans cette bon de commande à la date "{{dateA}}"</h2>
+                                  <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size:large;">Traveaux et prestations exécutés par attachements dans cette bon de commande à la date "{{dateA}}"</h2>
                                   <table class="table table-primary table-hover table-striped">
                                     <thead>
                                       <tr>
@@ -123,7 +160,7 @@
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      <tr *ngFor="let attach of attachementsJournaliers ,let i= index">
+                                      <tr *ngFor="let attach of attachementsJournaliersPrestations ,let i= index">
                                         <th scope="row">{{i}}</th>
                                         <td>{{attach.code}}</td>
                                         <td>{{attach.designation}}</td>
@@ -134,6 +171,43 @@
                                     </tbody>
                                   </table>
                                 </div>
+                                <br>
+
+
+                                <div>
+                                  <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size:large;">Materiels Fournisseur realisés par attachements dans cette bon de commande à la date "{{dateA}}"</h2>
+                                  <table class="table table-primary table-hover table-striped">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col" class="bg-primary">N°</th>
+                                        <th scope="col" class="bg-primary">CodeArticle</th>
+                                        <th scope="col" class="bg-primary">Designiation</th>
+                                        <th scope="col" class="bg-primary">Unité</th>
+                                        <th scope="col" class="bg-primary">Quantité  totalréalisée</th>
+                                        <th scope="col" class="bg-primary">Type</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let attach of attachementsJournaliersMFs ,let i= index">
+                                        <th scope="row">{{i}}</th>
+                                        <td>{{attach.code}}</td>
+                                        <td>{{attach.designation}}</td>
+                                        <td>{{attach.unitee}}</td>
+                                        <td>{{attach.quantiteeRealisee}}</td>
+                                        <td>{{attach.typeLib}}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <div>
+                                  <button type="button" class="btn btn-dark"
+                                   [useExistingCss]="true"
+                                   printTitle="Attachement"  
+                                   printSectionId="printAttachementJournalier"  
+                                   ngxPrint>
+                                    Imprimer<i class="fa fa-print" aria-hidden="true"></i>
+                                   </button>
+                               </div>
                               </div><!--end teb pane-->
         
                               <!--espace pour les attachements par période -->
@@ -151,10 +225,10 @@
                                   </div>
 
                                   <div class="col-md-4">
-                                    <button type="button" class="btn btn-dark" (click)="getAttachementParPeriode(bondeCommandeC.id!,date1,date2)">OK</button>
+                                    <button type="button" class="btn btn-dark" (click)="getAllAttachementsParPeriode(bondeCommandeC.id!,date1,date2)">OK</button>
                                   </div>
                                   <br>
-                                  <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size: large;">listes des articles realisés dans les attachements par bon de commande à la periode :(de "{{date1}}" à "{{date2}}" )</h2>
+                                  <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size: large;">Traveaux et prestations exécutés dans les attachements par bon de commande à la periode :(de "{{date1}}" à "{{date2}}" )</h2>
                                   <table class="table table-primary table-hover table-striped">
                                     <thead>
                                       <tr>
@@ -167,7 +241,7 @@
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      <tr *ngFor="let attach of attachementsParPeriode ,let i= index">
+                                      <tr *ngFor="let attach of attachementsParPeriodePrestations ,let i= index">
                                         <th scope="row">{{i}}</th>
                                         <td>{{attach.code}}</td>
                                         <td>{{attach.designation}}</td>
@@ -178,12 +252,262 @@
                                     </tbody>
                                   </table>
                                 </div>
+                                <br>
+
+
+                                <div>
+                                  <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size: large;">Materiels Fournisseur realisés dans les attachements par bon de commande à la periode :(de "{{date1}}" à "{{date2}}" )</h2>
+                                  <table class="table table-primary table-hover table-striped">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col" class="bg-primary">N°</th>
+                                        <th scope="col" class="bg-primary">CodeArticle</th>
+                                        <th scope="col" class="bg-primary">Designiation</th>
+                                        <th scope="col" class="bg-primary">Unité</th>
+                                        <th scope="col" class="bg-primary">Quantité total réalisée</th>
+                                        <th scope="col" class="bg-primary">Type</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let attach of attachementsParPeriodeMFs ,let i= index">
+                                        <th scope="row">{{i}}</th>
+                                        <td>{{attach.code}}</td>
+                                        <td>{{attach.designation}}</td>
+                                        <td>{{attach.unitee}}</td>
+                                        <td>{{attach.quantiteeRealisee}}</td>
+                                        <td>{{attach.typeLib}}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <div>
+                                  <button type="button" class="btn btn-dark"
+                                   [useExistingCss]="true"
+                                   printTitle="Attachement"  
+                                   printSectionId="printAttachementParPeriode"  
+                                   ngxPrint>
+                                    Imprimer<i class="fa fa-print" aria-hidden="true"></i>
+                                   </button>
+                               </div>
                               </div><!--end teb pane-->
                      </div>
                   </div>
           </div>
           </div>
     
+</div>
+
+
+
+
+
+<div id="PrintAttachementGlobal" style="display: none;">
+    <div><h4><strong>Organisation :</strong>{{organisationConnectee?.nom}}</h4></div>
+  <h2 style="font-family:Marker Felt, fantasy; font-size: 28px; text-align: center; color: black;"> Attachement global</h2>
+    <div>
+      <div>
+        <h3><strong>Code du bon de commande : </strong>{{bondeCommandeC?.codebc}}</h3>
+        <h3><strong >Entreprise(Fournisseur) </strong> {{bondeCommandeC?.nomEntrep}}</h3>
+          </div>
+      <h4 style="font-family: Comic Sans MS; color: midnightblue;">Traveaux et prestations exécutés par attachements dans cette bon de commande</h4>
+      <table class="table table-primary table-hover table-striped">
+        <thead>
+          <tr>
+            <th scope="col" class="bg-primary">N°</th>
+            <th scope="col" class="bg-primary">CodeArticle</th>
+            <th scope="col" class="bg-primary">Designiation</th>
+            <th scope="col" class="bg-primary">Unité</th>
+            <th scope="col" class="bg-primary">Quantité total réalisée</th>
+            <th scope="col" class="bg-primary">Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let attach of attachementsGlobalsPrestations ,let i= index">
+            <th scope="row">{{i}}</th>
+            <td>{{attach.code}}</td>
+            <td>{{attach.designation}}</td>
+            <td>{{attach.unitee}}</td>
+            <td>{{attach.quantiteeRealisee}}</td>
+            <td>{{attach.typeLib}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+     <br>
+
+  
+      <div>
+        <h4 style="font-family: Comic Sans MS; color: midnightblue;">Materiels Fournisseur realisés par attachements dans cette bon de commande</h4>
+        <table class="table table-primary table-hover table-striped">
+          <thead>
+            <tr>
+              <th scope="col" class="bg-primary">N°</th>
+              <th scope="col" class="bg-primary">CodeArticle</th>
+              <th scope="col" class="bg-primary">Designiation</th>
+              <th scope="col" class="bg-primary">Unité</th>
+              <th scope="col" class="bg-primary">Quantité total réalisée</th>
+              <th scope="col" class="bg-primary">Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let attach of attachementsGlobalsMFs ,let i= index">
+              <th scope="row">{{i}}</th>
+              <td>{{attach.code}}</td>
+              <td>{{attach.designation}}</td>
+              <td>{{attach.unitee}}</td>
+              <td>{{attach.quantiteeRealisee}}</td>
+              <td>{{attach.typeLib}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br style="height: 100px;">
+      <div class="row">
+        <div class="col"><h4>Observations :</h4></div>
+        <div class="col"><h4>Signature :</h4></div>
+      </div> 
+</div>
+
+
+
+<div id="printAttachementJournalier" style="display: none;">
+    <div><h4><strong>Organisation :</strong>{{organisationConnectee?.nom}}</h4></div>
+  <h2 style="font-family:Marker Felt, fantasy; font-size: 28px; text-align: center; color: black;"> Attachement Journalier</h2>
+      <div>
+        <h3><strong>Code du bon de commande : </strong>{{bondeCommandeC?.codebc}}</h3>
+        <h3><strong >Entreprise(Fournisseur) </strong> {{bondeCommandeC?.nomEntrep}}</h3>
+      </div>
+    <div>
+      <div><h4><strong>Date :</strong> {{dateA}}</h4></div>
+      <br>
+      <h4 style="font-family: Comic Sans MS; color: midnightblue; font-size:large;">Traveaux et prestations exécutés par attachements dans cette bon de commande à la date "{{dateA}}"</h4>
+      <table class="table table-primary table-hover table-striped">
+        <thead>
+          <tr>
+            <th scope="col" class="bg-primary">N°</th>
+            <th scope="col" class="bg-primary">CodeArticle</th>
+            <th scope="col" class="bg-primary">Designiation</th>
+            <th scope="col" class="bg-primary">Unité</th>
+            <th scope="col" class="bg-primary">Quantité  totalréalisée</th>
+            <th scope="col" class="bg-primary">Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let attach of attachementsJournaliersPrestations ,let i= index">
+            <th scope="row">{{i}}</th>
+            <td>{{attach.code}}</td>
+            <td>{{attach.designation}}</td>
+            <td>{{attach.unitee}}</td>
+            <td>{{attach.quantiteeRealisee}}</td>
+            <td>{{attach.typeLib}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <br>
+
+
+    <div>
+      <h4 style="font-family: Comic Sans MS; color: midnightblue; font-size:large;">Materiels Fournisseur realisés par attachements dans cette bon de commande à la date "{{dateA}}"</h4>
+      <table class="table table-primary table-hover table-striped">
+        <thead>
+          <tr>
+            <th scope="col" class="bg-primary">N°</th>
+            <th scope="col" class="bg-primary">CodeArticle</th>
+            <th scope="col" class="bg-primary">Designiation</th>
+            <th scope="col" class="bg-primary">Unité</th>
+            <th scope="col" class="bg-primary">Quantité  totalréalisée</th>
+            <th scope="col" class="bg-primary">Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let attach of attachementsJournaliersMFs ,let i= index">
+            <th scope="row">{{i}}</th>
+            <td>{{attach.code}}</td>
+            <td>{{attach.designation}}</td>
+            <td>{{attach.unitee}}</td>
+            <td>{{attach.quantiteeRealisee}}</td>
+            <td>{{attach.typeLib}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <br style="height: 100px;">
+      <div class="row">
+        <div class="col"><h4>Observations :</h4></div>
+        <div class="col"><h4>Signature :</h4></div>
+      </div> 
+</div>
+
+
+<div id="printAttachementParPeriode" style="display: none;">
+ <div><h4><strong>Organisation :</strong>{{organisationConnectee?.nom}}</h4></div>
+  <h4 style="font-family:Marker Felt, fantasy; font-size: 28px; text-align: center; color: black;"> Attachement par Période</h4>
+    <div>
+      <h3><strong>Code du bon de commande : </strong>{{bondeCommandeC?.codebc}}</h3>
+      <h3><strong >Entreprise(Fournisseur) </strong> {{bondeCommandeC?.nomEntrep}}</h3>
+    </div>
+        <div class="col-md-4"><h4><strong>Journée du :</strong>{{date1}}<strong> à :{{date2}}</strong></h4></div>
+    <br>
+    <div>
+      <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size: large;">Traveaux et prestations exécutés dans les attachements par bon de commande à la periode :(de "{{date1}}" à "{{date2}}" )</h2>
+      <table class="table table-primary table-hover table-striped">
+        <thead>
+          <tr>
+            <th scope="col" class="bg-primary">N°</th>
+            <th scope="col" class="bg-primary">CodeArticle</th>
+            <th scope="col" class="bg-primary">Designiation</th>
+            <th scope="col" class="bg-primary">Unité</th>
+            <th scope="col" class="bg-primary">Quantité total réalisée</th>
+            <th scope="col" class="bg-primary">Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let attach of attachementsParPeriodePrestations ,let i= index">
+            <th scope="row">{{i}}</th>
+            <td>{{attach.code}}</td>
+            <td>{{attach.designation}}</td>
+            <td>{{attach.unitee}}</td>
+            <td>{{attach.quantiteeRealisee}}</td>
+            <td>{{attach.typeLib}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <br>
+
+
+    <div>
+      <h4 style="font-family: Comic Sans MS; color: midnightblue; font-size: large;">Materiels Fournisseur realisés dans les attachements par bon de commande à la periode :(de "{{date1}}" à "{{date2}}" )</h4>
+      <table class="table table-primary table-hover table-striped">
+        <thead>
+          <tr>
+            <th scope="col" class="bg-primary">N°</th>
+            <th scope="col" class="bg-primary">CodeArticle</th>
+            <th scope="col" class="bg-primary">Designiation</th>
+            <th scope="col" class="bg-primary">Unité</th>
+            <th scope="col" class="bg-primary">Quantité total réalisée</th>
+            <th scope="col" class="bg-primary">Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let attach of attachementsParPeriodeMFs ,let i= index">
+            <th scope="row">{{i}}</th>
+            <td>{{attach.code}}</td>
+            <td>{{attach.designation}}</td>
+            <td>{{attach.unitee}}</td>
+            <td>{{attach.quantiteeRealisee}}</td>
+            <td>{{attach.typeLib}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <br style="height: 100px;">
+      <div class="row">
+        <div class="col"><h4>Observations :</h4></div>
+        <div class="col"><h4>Signature :</h4></div>
+      </div> 
+
 </div>
 
 

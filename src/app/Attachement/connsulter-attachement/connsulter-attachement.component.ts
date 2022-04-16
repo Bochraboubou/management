@@ -27,9 +27,13 @@ export class ConnsulterAttachementComponent implements OnInit {
   marcheeC!: Marchee;
   bondeCommandeC!: BondeCommande;
 
-  attachementsGlobals!: Article[];
-  attachementsJournaliers!: Article[];
-  attachementsParPeriode!: Article[];
+  attachementsGlobalsPrestations!: Article[];
+  attachementsJournaliersPrestations!: Article[];
+  attachementsParPeriodePrestations!: Article[];
+
+  attachementsGlobalsMFs!: Article[];
+  attachementsJournaliersMFs!: Article[];
+  attachementsParPeriodeMFs!: Article[];
   dateA!: Date;
   date1!: Date;
   date2!: Date;
@@ -69,19 +73,21 @@ export class ConnsulterAttachementComponent implements OnInit {
   getBondeCommandeChoisis(bondeCommandeIndice:number){
     console.log("indice du bc choisis"+bondeCommandeIndice);
     this.bondeCommandeC=this.bonsdeCommandes[bondeCommandeIndice];
-    this.getAttachementGlobal(this.bondeCommandeC.id);
+    this.getAttachementGlobalPrestations(this.bondeCommandeC.id);
+    this.getAttachementGlobalMFs(this.bondeCommandeC.id);
   }
 
    //event lors du choix du date d'attachement journalier
    getDateAttachementJournalier(dateAjournalier:Date){
     console.log("date d'attachement journalier"+dateAjournalier);
-    this.getAttachementJournalier(this.bondeCommandeC.id,dateAjournalier);
+    this.getAttachementJournalierPrestations(this.bondeCommandeC?.id,dateAjournalier);
+    this.getAttachementJournalierMFs(this.bondeCommandeC.id,dateAjournalier);
   }
 
 
    //récuperer la liste des marchhees dans l'organisation connecté
    public onGetmarchees():void{
-    this.marcheeService.getMarchees(this.idOrgan).subscribe({
+    this.marcheeService.getMarcheestypeProjetbyorganisationId(this.idOrgan).subscribe({
       next: (response:Marchee[]) => {
         this.marchees=response;
         console.log("marchees de l'organisation connecté"+this.marchees)
@@ -111,11 +117,11 @@ export class ConnsulterAttachementComponent implements OnInit {
 
  }
 
-   //recuperer les attachements globals
-   public getAttachementGlobal(idbc:number):void{
-    this.articleRservice.getArticlesRealiseesbybcId(this.bondeCommandeC.id).subscribe({
+   //recuperer les attachements globals (prestations)
+   public getAttachementGlobalPrestations(idbc:number):void{
+    this.articleRservice.getArticlesRealiseesPresbybcId(this.bondeCommandeC.id).subscribe({
      next: (response:Article[]) =>{
-       this.attachementsGlobals=response.sort((a, b) => (a.typeLib > b.typeLib) ? 1 : -1);
+       this.attachementsGlobalsPrestations=response.sort((a, b) => (a.typeLib > b.typeLib) ? 1 : -1);
       // this.attachementsGlobals = this.attachementsGlobals.sort((a,b) => a.typeLib > b.typeLib ? 1 : -1);
        
      },
@@ -128,11 +134,11 @@ export class ConnsulterAttachementComponent implements OnInit {
 
  }
 
- //recuperer les attachements journaliers
- public getAttachementJournalier(idbc:number,dateA:Date):void{
-  this.articleRservice.getArticlesRealiseesJournalierbybcId(this.bondeCommandeC.id,dateA).subscribe({
+ //recuperer les attachements journaliers (prestations)
+ public getAttachementJournalierPrestations(idbc:number,dateA:Date):void{
+  this.articleRservice.getArticlesRealiseesPresJournalierbybcId(this.bondeCommandeC.id,dateA).subscribe({
    next: (response:Article[]) =>{
-     this.attachementsJournaliers=response.sort((a, b) => (a.typeLib > b.typeLib) ? 1 : -1);
+     this.attachementsJournaliersPrestations=response.sort((a, b) => (a.typeLib > b.typeLib) ? 1 : -1);
      
    },
    error: (error:HttpErrorResponse) => {
@@ -144,11 +150,11 @@ export class ConnsulterAttachementComponent implements OnInit {
 
 }
 
-//recuperer les attachements par periode
-public getAttachementParPeriode(idbc:number,date1:Date,date2:Date):void{
-  this.articleRservice.getArticlesRealiseesbybcIdparPeriode(this.bondeCommandeC.id,date1,date2).subscribe({
+//recuperer les attachements par periode(prestations)
+public getAttachementParPeriodePrestations(idbc:number,date1:Date,date2:Date):void{
+  this.articleRservice.getArticlesRealiseesPresbybcIdparPeriode(this.bondeCommandeC.id,date1,date2).subscribe({
    next: (response:Article[]) =>{
-     this.attachementsParPeriode=response.sort((a, b) => (a.typeLib > b.typeLib) ? 1 : -1);
+     this.attachementsParPeriodePrestations=response.sort((a, b) => (a.typeLib > b.typeLib) ? 1 : -1);
      
    },
    error: (error:HttpErrorResponse) => {
@@ -156,6 +162,60 @@ public getAttachementParPeriode(idbc:number,date1:Date,date2:Date):void{
 
     },
    complete: () => console.info('get attachements par periode by bc complete') 
+})  
+
+}
+
+public getAllAttachementsParPeriode(idbc:number,date1:Date,date2:Date):void{
+  this.getAttachementParPeriodePrestations(idbc,date1,date2);
+  this.getAttachementParPeriodeMFs(idbc,date1,date2);
+}
+
+ //recuperer les attachements globals (MFs)
+ public getAttachementGlobalMFs(idbc:number):void{
+  this.articleRservice.getArticlesRealiseesMFbybcId(this.bondeCommandeC.id).subscribe({
+   next: (response:Article[]) =>{
+     this.attachementsGlobalsMFs=response.sort((a, b) => (a.typeLib > b.typeLib) ? 1 : -1);
+    // this.attachementsGlobals = this.attachementsGlobals.sort((a,b) => a.typeLib > b.typeLib ? 1 : -1);
+     
+   },
+   error: (error:HttpErrorResponse) => {
+     alert(error.message);
+
+    },
+   complete: () => console.info('get attachements globals by bc complete') 
+})  
+
+}
+
+//recuperer les attachements journaliers (MFs)
+public getAttachementJournalierMFs(idbc:number,dateA:Date):void{
+this.articleRservice.getArticlesRealiseesMFJournalierbybcId(this.bondeCommandeC.id,dateA).subscribe({
+ next: (response:Article[]) =>{
+   this.attachementsJournaliersMFs=response.sort((a, b) => (a.typeLib > b.typeLib) ? 1 : -1);
+   
+ },
+ error: (error:HttpErrorResponse) => {
+   alert(error.message);
+
+  },
+ complete: () => console.info('get attachements journaliers by bc complete') 
+})  
+
+}
+
+//recuperer les attachements par periode(MFs)
+public getAttachementParPeriodeMFs(idbc:number,date1:Date,date2:Date):void{
+this.articleRservice.getArticlesRealiseesMFbybcIdparPeriode(this.bondeCommandeC.id,date1,date2).subscribe({
+ next: (response:Article[]) =>{
+   this.attachementsParPeriodeMFs=response.sort((a, b) => (a.typeLib > b.typeLib) ? 1 : -1);
+   
+ },
+ error: (error:HttpErrorResponse) => {
+   alert(error.message);
+
+  },
+ complete: () => console.info('get attachements par periode by bc complete') 
 })  
 
 }

@@ -68,6 +68,7 @@ import { DeeeetailBCComponent } from './attachement/deeeetail-bc/deeeetail-bc.co
 
 import { ConnsulterAttachementComponent } from './Attachement/connsulter-attachement/connsulter-attachement.component';
 import { AjouterOTComponent } from './Attachement/ajouter-ot/ajouter-ot.component';
+import { DetailOTComponent } from './Attachement/detail-ot/detail-ot.component';
 
 
 @NgModule({
@@ -149,6 +150,7 @@ DetailBonDeCommandeComponent,
 DeeeetailBCComponent,
 ConnsulterAttachementComponent,
 AjouterOTComponent,
+DetailOTComponent,
 
   ],
   imports: [

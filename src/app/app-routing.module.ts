@@ -47,6 +47,8 @@ import { UserProfileComponent } from './Inscription/user-profile/user-profile.co
 import { AjouterattachementComponent } from './attachement/ajouterattachement/ajouterattachement.component';
 import { DetailBonDeCommandeComponent } from './attachement/detail-bon-de-commande/detail-bon-de-commande.component';
 import { DeeeetailBCComponent } from './attachement/deeeetail-bc/deeeetail-bc.component';
+import { AjouterOTComponent } from './Attachement/ajouter-ot/ajouter-ot.component';
+import { DetailOTComponent } from './Attachement/detail-ot/detail-ot.component';
 
 
 const routes: Routes = [
@@ -103,7 +105,9 @@ const routes: Routes = [
    
     { path:'detailBondeCommande/:id',component:DetailBonDeCommandeComponent},
     { path:'detailBC/:id',component:DeeeetailBCComponent},
-    { path:'consulterAttachements',component:ConnsulterAttachementComponent}
+    { path:'consulterAttachements',component:ConnsulterAttachementComponent},
+    { path:'ajouterOT',component:AjouterOTComponent},
+    { path:'detailOT/:id',component:DetailOTComponent}
   ]},
     {path:'',redirectTo:'firstPage',pathMatch:'full'}
 

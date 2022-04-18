@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import { Component, OnInit } from '@angular/core';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleUtilisee } from 'src/app/model/ArticleUtilisee';
 import { Organisation } from 'src/app/model/Organisation';
 import { User } from 'src/app/model/User';
@@ -36,7 +36,7 @@ username!:string
     public loginService:LoginService,
     public Service:UserService,
     private OrganisationService:OrganisationServiceService,
-    private register:RegisterService) { }
+    private register:RegisterService, private router:Router) { }
 
   ngOnInit(): void {
 
@@ -123,5 +123,8 @@ this.userServi.getUserById(this.id).subscribe(
     })
 
   }
+  onAfficheDetailOrganisation(id:number){
+    this.router.navigate(['DetailOrg',id])
+  } 
 
 }

@@ -20,13 +20,14 @@ import { DoinscriptionComponent } from './Inscription/doinscription/doinscriptio
 import { FileUploadComponent } from './Inscription/file-upload/file-upload.component';
 import { FirstInscriptionComponent } from './Inscription/first-inscription/first-inscription.component';
 import { FirstPageComponent } from './Inscription/first-page/first-page.component';
-import { InscriptionetdemandesComponent } from './Inscription/inscriptionetdemandes/inscriptionetdemandes.component';
+//import { InscriptionetdemandesComponent } from './Inscription/inscriptionetdemandes/inscriptionetdemandes.component';
 import { ListeDemandesComponent } from './Inscription/liste-demandes/liste-demandes.component';
 import { LoginComponent } from './Inscription/login/login.component';
 import { OneDemandeComponent } from './Inscription/one-demande/one-demande.component';
 import { RegisterComponent } from './Inscription/register/register.component';
 import { SendMailComponent } from './Inscription/send-mail/send-mail.component';
 import { WorningEmailComponent } from './Inscription/worning-email/worning-email.component';
+
 
 
 import { MenuComponent } from './menu/menu.component';
@@ -43,15 +44,22 @@ import { DetailOrganisationComponent } from './sectionOrganisation/detail-organi
 
 
 import { AjouterattachementComponent } from './attachement/ajouterattachement/ajouterattachement.component';
-
-
 import { UserProfileComponent } from './Inscription/user-profile/user-profile.component';
 
 import { ArticlespecifieeComponent } from './Marchee/articlespecifiee/articlespecifiee.component';
 import { DetailBonDeCommandeComponent } from './attachement/detail-bon-de-commande/detail-bon-de-commande.component';
 import { DeeeetailBCComponent } from './attachement/deeeetail-bc/deeeetail-bc.component';
+import { ImprimerAttachementComponent } from './attachement/imprimer-attachement/imprimer-attachement.component';
+import { PageGardeComponent } from './Inscription/page-garde/page-garde.component';
+import { DemandeEnAttenteComponent } from './Inscription/demande-en-attente/demande-en-attente.component';
+import { ListeEmployeesComponent } from './espaceMyCPM/liste-employees/liste-employees.component';
+import { GessComponent } from './gess/gess.component';
 
 const routes: Routes = [
+  {path:'looog',component:ImprimerAttachementComponent},
+  {path:'gess',component:GessComponent},
+  // only for guess
+  {path:'premierPage',component:PageGardeComponent},
   {path:'firstPage',component:FirstPageComponent},
   { path:'sendToUser/:id',component:SendEmailUserComponent},
   {path:'inscritEmployee',component:FirstInscriptionComponent},
@@ -67,8 +75,12 @@ const routes: Routes = [
   {path:'userDetail/:id',component:UserDetailComponent},
   {path:'mycpm/inscritEmployee',component:FirstInscriptionComponent},
   { path:'DetailOrg/:id',component:DetailOrganisationComponent},
- 
- 
+  { path:'imprimerAttachement/:id',component:ImprimerAttachementComponent},
+
+//cette page contient la nouvelle page login
+  //{ path:'',component:ImprimerAttachementComponent},
+
+
    { path:'cpm',component:MenuComponent,children:[
     { path:'userProfile',component:UserProfileComponent},
     { path:'addOrganisation',component:AjouterOrganisationComponent,canActivate:[AdminCPMGuard]},
@@ -78,6 +90,7 @@ const routes: Routes = [
     {path:'Demande',component:DemandeComponent,canActivate:[AdminCPMGuard]},
     {path:'gererComptes',component:GererComptesComponent,canActivate:[AdminCPMGuard]},
     {path:'listeDemande',component:ListeDemandesComponent,canActivate:[AdminCPMGuard]},
+    {path:'demandeEnAttente',component:DemandeEnAttenteComponent,canActivate:[AdminCPMGuard]},
     {path:'gestionUtulisateur',component:GestionUtulisateurComponent},
     {path:'table',component:FileUploadComponent},
      {path:'metiers',component:GestionMetiersComponent},
@@ -102,11 +115,11 @@ const routes: Routes = [
     { path:'consulterMarchees',component:ConsulterMarcheesComponent},
     { path:'ajouterAttachement',component:AjouterattachementComponent},
     { path:'userProfilemycpm',component:UserProfileComponent},
-   
+    { path:'listeEmployeeMycpm',component:ListeEmployeesComponent},
     { path:'detailBondeCommande/:id',component:DetailBonDeCommandeComponent},
     { path:'detailBC/:id',component:DeeeetailBCComponent},
   ]},
-    {path:'',redirectTo:'firstPage',pathMatch:'full'}
+   {path:'',redirectTo:'premierPage',pathMatch:'full'}
 
 
 ];

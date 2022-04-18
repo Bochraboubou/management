@@ -24,13 +24,150 @@ totalLength:any;
 role!:Role;
 roles!:Role[];
 nomRole:string="";
+userQuery!:User[]
+
+nouvellecollection:User[]=[]
   constructor(private roleService:RoleService,public service:UserService, private router:Router) { }
 
   ngOnInit(): void {
-    this.getUsers();
-  
+   // this.getUsers();
+  this. onGetUsers()
 
   }
+
+onGetUsers(){
+  this.service.findUsersORG().subscribe({
+    next: (response:User[]) => {
+      this.userQuery=response;
+      console.log(this.userQuery)
+      this.userQuery.forEach((curUser) => {
+        let id=curUser.id
+        this.roleService.findRoleOfUser(id).subscribe({
+          next: (response:Role[]) => {
+            this.roles=response;
+            curUser.nomRole=this.roles[0]?.name
+                console.log(curUser.nomRole)
+                if (curUser.nomRole=="ADMIN_MYCPM"){
+                  this.nouvellecollection.push(curUser)
+              
+                }
+
+          },
+          error: (error:HttpErrorResponse) => {
+            alert(error.message);
+            alert("ttttttttt")
+        
+           },
+          complete: () => console.info('complete') 
+        }) 
+
+      })
+     
+        
+    
+      
+    },
+    error: (error:HttpErrorResponse) => {
+      alert(error.message);
+      alert("ttttttttt")
+  
+     },
+    complete: () => console.info('complete') 
+  }) 
+ console.log(this.userQuery) 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ok(){
+
+    console.log(this.nouvellecollection)
+   /*this. RolesMyCpm()
+   console .log("la collections est:")
+   console.log(this.nouvellecollection)
+   */
+  }
+
+
+
+  RolesMyCpm(){
+    this.service.getAllUsers().subscribe({
+      next: (response:User[]) => {
+        this.users=response;
+        this.totalLength=response.length;
+        for (let i = 0; i <this.users.length; i++){
+  
+let id=  this.users[i].id
+console.log("iiiiiiiiiii"+id)
+this.roleService.findRoleOfUser(id).subscribe({
+  next: (response:Role[]) => {
+    this.roles=response;
+console.log(this.roles)
+this.users[i].nomRole=this.roles[0]?.name
+console.log(this.users[i].nomRole)
+
+  
+  
+   
+  },
+  error: (error:HttpErrorResponse) => {
+    alert(error.message);
+    alert("ttttttttt")
+
+   },
+  complete: () => console.info('complete') 
+}) 
+
+//FIN BOOCLE FOR
+ }
+ this.users.forEach((curUser) => {
+  if (curUser.nomRole=="ADMIN_MYCPM"){
+    this.nouvellecollection.push(curUser)
+
+  }
+
+})
+console.log("fffffffffffffffffff")
+ console.log(this.users)
+ console.log(this.nouvellecollection)
+      },
+      error: (error:HttpErrorResponse) => {
+        alert(error.message);
+       },
+      complete: () => console.info('complete') 
+     
+    })
+  }
+
+okk(){
+  console.log(this.users)
+  this.users.forEach((curUser) => {
+    if (curUser.nomRole=="ADMIN_MYCPM"){
+      this.nouvellecollection.push(curUser)
+
+    }
+
+  })
+  console.log(this.nouvellecollection)
+
+}
+
+/*
+
 public onGetRoles(id:number):void{
     this.roleService.findRoleOfUser(this.user.id).subscribe({
       next: (response:Role[]) => {
@@ -45,6 +182,9 @@ public onGetRoles(id:number):void{
       complete: () => console.info('complete') 
   })
   } 
+*/
+
+
 /*
   public roleOfUser(id:number):any{
     this.roleService.findRoleOfUser(id).subscribe({
@@ -160,6 +300,8 @@ supprimer(id:number){
   
 
 }
+
+
 spprimertous(){
 
 this.service.DeleteAllUsers().subscribe({
@@ -175,5 +317,7 @@ this.service.DeleteAllUsers().subscribe({
       complete: () => console.info('complete') 
   })
 }
+
+
 
 }

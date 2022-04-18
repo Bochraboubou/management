@@ -35,4 +35,16 @@ DeleteUser(id:number):Observable<void>{
 DeleteAllUsers():Observable<void>{
   return this.http.delete<void>(`${this.apiServeUrl}/api/deleteAllUsers`);
 }
+
+//@Query
+
+findUsersOfOneOrg(code:string ):Observable<any>{
+  return this.http.get<any>(`${this.apiServeUrl}/api/mycpm/${code}`);
+}
+
+//find users with them code organisation 
+findUsersORG():Observable<any>{
+    return this.http.get<any>(`${this.apiServeUrl}/api/allusersBYQuery`);
+
+}
 }

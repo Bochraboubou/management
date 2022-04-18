@@ -20,5 +20,10 @@ export class ArticleRealiseeService {
   return this.http.post<ArticleRealisee>(`${this.apiServeUrl}/admin/attachement/${attachementID}/article/${articleId}/articlerealisee`,artr);
 }
 
+// find liste of article realisee by attachement  id 
+public findARbyAttId(attachementID:number): Observable<ArticleRealisee[]>
+{
+  return this.http.get<ArticleRealisee[]>(`${this.apiServeUrl}/admin/listeARByAttachId/${attachementID}`);
+}
   
 }

@@ -15,7 +15,7 @@
 
                 </div>
                 <h2>liste <b>des demandes </b>
-                    <h5> ({{demandes.length}} demandes) </h5>
+                
                 </h2>
                 <div class="row">
                     <div class="col-md-2">
@@ -54,7 +54,7 @@
 
                 </thead>
                 <tbody>
-                    <tr *ngFor="let demande of demandes | filter:terme | paginate : {
+                    <tr *ngFor="let demande of ListeApprouvee | filter:terme | paginate : {
                             itemsPerPage:4,
                             currentPage:page,
                             totalItems:totalLength

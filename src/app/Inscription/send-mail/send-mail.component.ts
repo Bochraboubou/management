@@ -1,4 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
+import { ThisReceiver } from '@angular/compiler';
 import { error } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -32,7 +33,7 @@ code2:string="";
  msg=""
   id!:number;
   code!:string
-
+  userFile:any;
   prospect=new Prospect();
 organisation=new Organisation();
 lien="http://localhost:4200/register"
@@ -41,6 +42,7 @@ message!:string
 alertEnvoyer=0
 alertnewProspect=0
 alertOrganisation=0
+notification=0
   constructor(private orgService:OrganisationServiceService,private prospectService:ProspectService,private registerService:RegisterService,private sendsend:MainSkipTestsService   ,  private mailService:EmailService, private activeRoute:ActivatedRoute,private demandeService:DemandeService ) { }
   
 
@@ -63,7 +65,9 @@ this.showinformation();
   }
  
 
-
+ok(){
+  console.log(this.demande)
+}
 
 
 
@@ -97,11 +101,15 @@ this.showinformation();
      this.organisation.nomAdmin=this.demande.nomAdmin;
      this.organisation.telAdmin=this.demande.telAdmin;
      this.organisation.emailAdmin=this.demande.emailAdmin
-     this.organisation.logo=this.demande.logopath;
+     this.organisation.fileName=this.demande.fileName
      this.organisation.document=this.demande.documentpath;
       console.log(this.organisation)
-      this.saveNewOrganisation(this.organisation);
-       this.updateDemande(this.demande.id,this.demande);
+   //
+
+   console.log(this.organisation)
+   this.saveNewOrganisation(this.organisation);
+    //this.OncreateOrganisation(this.organisation)
+      
       
      
       },
@@ -111,6 +119,40 @@ this.showinformation();
     )
 
   }
+
+
+
+  OncreateOrganisation(organisation:Organisation){
+    const formData=new FormData();
+      //const organisation=addForm.value;
+      formData.append('organisation',JSON.stringify(organisation));
+      formData.append('file',this.userFile)
+      this.orgService.createOrganisation(formData).subscribe(
+        (response: Organisation) => {
+          console.log(response);
+         this.notification=1
+         this.updateDemande(this.demande.id,this.demande);
+        
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+          console.log(error);
+          
+        }
+      );
+  }
+
+
+
+
+
+
+
+
+
+
+
+
  //ajouter un utulistateur pour la prés inscription
 saveNewUser(prospect:Prospect){
   
@@ -189,7 +231,24 @@ complete: () => console.info('complete')
  this.code=this.randomString(6);
  console.log(this.code);
   }
+
+
+
+
+ 
+
+
+  closeAlerte(){
+   this.alertEnvoyer=0
+   this.alertnewProspect=0
+   this.alertOrganisation=0
+   this.notification=0
+  }
 /////////the end //////////
+
+
+
+
 }
 
  

@@ -60,6 +60,7 @@ import { TypesComponent } from './Articles/types/types.component';
 import { ArticleComponent } from './Articles/article/article.component';
 import { GestionMetiersComponent } from './sectionOrganisation/gestion-metiers/gestion-metiers.component';
 import { UserProfileComponent } from './Inscription/user-profile/user-profile.component';
+
 import { AjouterattachementComponent } from './attachement/ajouterattachement/ajouterattachement.component';
 import { DetailBonDeCommandeComponent } from './attachement/detail-bon-de-commande/detail-bon-de-commande.component';
 
@@ -69,6 +70,9 @@ import { PageGardeComponent } from './Inscription/page-garde/page-garde.componen
 import { DemandeEnAttenteComponent } from './Inscription/demande-en-attente/demande-en-attente.component';
 import { ListeEmployeesComponent } from './espaceMyCPM/liste-employees/liste-employees.component';
 import { GessComponent } from './gess/gess.component';
+
+import { ConnsulterAttachementComponent } from './Attachement/connsulter-attachement/connsulter-attachement.component';
+
 
 @NgModule({
   declarations: [
@@ -146,13 +150,16 @@ UserDetailComponent,
 SendEmailUserComponent,
 UserProfileComponent,
 DetailBonDeCommandeComponent,
-
 DeeeetailBCComponent,
+
   ImprimerAttachementComponent,
   PageGardeComponent,
   DemandeEnAttenteComponent,
   ListeEmployeesComponent,
   GessComponent,
+
+
+ConnsulterAttachementComponent,
 
 
   ],

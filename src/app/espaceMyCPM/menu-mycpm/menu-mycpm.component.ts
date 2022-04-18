@@ -62,6 +62,10 @@ this.register.findByUserName(this.username).subscribe(
 
   }
 )
+  }
+  onAfficheDetailOrganisation(id:number){
+    
+  }
 /*
     //pour connaitre le code de l'organisation 
     this.id=this.route.snapshot.params['id'];
@@ -74,7 +78,6 @@ this.userServi.getUserById(this.id).subscribe(
  )
     console.log("user is :"+this.user)
     console.log( "logged user is "+this.loginService.loggedUser);
-    console.log( "ya nour rani f mycpm "+this.loginService.loggedUser);*/
 
 }
 
@@ -128,3 +131,5 @@ this.userServi.getUserById(this.id).subscribe(
   } 
 
 }
+*/
+  }

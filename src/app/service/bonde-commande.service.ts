@@ -45,7 +45,7 @@ export class BondeCommandeService {
 
    
     //récuperer les bondesCommandesJoin parbcId
-    public getAllBondeCommandeJoinbybcId(marcheeId:number): Observable<BondeCommande[]>
+    public getAllBondeCommandeJoinbyMarcheeId(marcheeId:number): Observable<BondeCommande[]>
     {
       return this.http.get<BondeCommande[]>(`${this.apiServeUrl}/admin/AllbondeCommandesJoin/${marcheeId}`);
     }

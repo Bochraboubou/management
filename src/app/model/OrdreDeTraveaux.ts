@@ -4,7 +4,6 @@ import { OrdreDefinitif } from "./OrdreDefinitif";
 export class OrdreDeTraveaux{
     id!: number;
     codeOrdre!: string;
-    //datesysteme
     dateOrdre!: Date;
     dateDebutOrdre!: Date;
     delais!: number;

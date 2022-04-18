@@ -1,0 +1,182 @@
+<div class="container">
+  <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+          <div class="d-flex justify-content-center py-4">
+            <!-- <a href="index.html" class="logo d-flex align-items-center w-auto">
+                    <img src="assets/menu/img/logo.png" alt="">-->
+            <span class="d-none d-lg-block">Inscription Admin MYCPM</span>
+
+            <!--  </a>-->
+          </div><!-- End Logo -->
+
+          <div class="card mb-3">
+
+            <div class="card-body">
+
+              <div class="pt-4 pb-2">
+                <h5 class="card-title text-center pb-0 fs-4">Creer un compte</h5>
+                <p class="text-center small">Enter vos données personnel pour crée un compte</p>
+              </div>
+              <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alertemailutulise==1">
+                <strong>Attention !</strong> l'adresse email est deja utulisé.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alertUsernameexiste==1">
+                <strong>Attention !</strong> premier nom deja existe .
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="alert alert-success" role="alert" *ngIf="notification==1">
+                inscription avec succés <a routerLink="/login" class="alert-link">login</a>. cliquer si vous voulez
+                s'authentifier.
+              </div>
+              <div class="alert alert-danger" *ngIf="erreur==1">
+                <strong>echec d'inscription..</strong>
+              </div>
+              <div class="alert alert-danger" *ngIf="alertInscrire==1">
+                <strong>vous n'avez pas envoyer une demande !..</strong>
+              </div>
+              <form class="row g-3 needs-validation" novalidate #formRegistration="ngForm"
+                (ngSubmit)="RegistryUser(formRegistration)">
+                <small class="text-danger">{{msg}}</small>
+                <div class="col-12">
+                  <label for="yourName" class="form-label">premier nom</label>
+                  <input type="text" name="username" class="form-control" id="yourUserName" [(ngModel)]="user.username"
+                    required #username="ngModel" [class.is-invalid]="username.invalid && username.touched">
+                  <div class="invalid-feedback">Entrer votre premier nom!</div>
+                </div>
+
+                <div class="col-12">
+                  <label for="yourName" class="form-label">Nom</label>
+                  <input [(ngModel)]="user.name" name="name" type="text" class="form-control" id="name" required
+                    #name="ngModel" [class.is-invalid]="name.invalid && name.touched">
+                  <div class="invalid-feedback">Entrer votre nom!</div>
+                </div>
+
+
+                <div class="col-12">
+                  <label for="yourEmail" class="form-label">code de confirmation</label>
+                  <input [(ngModel)]="user.codeConfirmation" type="text" name="codeConfirmation" class="form-control"
+                    id="codeConfirmation" required #codeConfirmation="ngModel"
+                    [class.is-invalid]="codeConfirmation.invalid && codeConfirmation.touched">
+                  <div class="invalid-feedback">Entrer un code valide !</div>
+                </div>
+
+                <div class="col-12">
+                  <label for="yourUsername" class="form-label">Email</label>
+                  <div class="input-group has-validation">
+                    <span class="input-group-text" id="inputGroupPrepend">@</span>
+                    <!---////ancienne il y une faute 
+                          <input type="text" name="mail" class="form-control" id="yourEmail" [(ngModel)]="user.email" name="mail" required 
+                          pattern="^\w+@[a-zA-Z]+?\.[a-zA-Z]{2,3}$"
+                          #email="ngModel" 
+                         [class.is-invalid]="email.invalid && email.touched" > 
+                          <small class="text-danger" [class.d-none]="email.valid || email.untouched">
+                            <div *ngIf="email.errors && (email.invalid && email.touched)">
+                          <small class="text-danger"*ngIf="email.errors.required">  Email is required field</small>
+                          <small class="text-danger" *ngIf="email.errors.['pattern']">  Enter the valid email</small>
+                           </div>-->
+                    <!--pattern="^\w+@[a-zA-Z]+?\.[a-zA-Z]{2,3}$"-->
+                    <input [(ngModel)]="user.email" name="email" type="email" class="form-control"
+                      placeholder="Email Address" required #email="ngModel"
+                      [class.is-invalid]="email.invalid && email.touched">
+                    <small class="text-danger" [class.d-none]="email.valid || email.untouched">
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AA Email is required
+                      field</small>
+                    <div *ngIf="email.errors && (email.invalid && email.touched)">
+                      <small class="text-danger" *ngIf="email.errors['required']"> &nbsp;&nbsp; Email is required
+                        field</small>
+                      <small class="text-danger" *ngIf="email.errors['pattern']"> &nbsp;&nbsp; Enter the valid
+                        email</small>
+                    </div>
+                    <div class="invalid-feedback">Entrer un email valide!</div>
+
+                  </div>
+
+                </div>
+                <!--
+                      <div class="col">
+                        <select [(ngModel)]="user.roles" name="role" id="roles" class="form-select" placeholder="role " aria-label="Default select example">
+                          <option selected>choisir une option</option>
+                          <option   *ngFor="let role of roles"
+                          [value]="role.id">
+                          {{role.name}}
+                        </option>
+                        </select>
+                        
+                      </div>-->
+                <div class="col-12">
+                  <label for="yourName" class="form-label">tel</label>
+                  <input [(ngModel)]="user.tel" name="tel" type="tel" class="form-control" id="tel" required
+                    #tel="ngModel" [class.is-invalid]="tel.invalid && tel.touched">
+                  <div class="invalid-feedback">Entrer votre numero de telephone !</div>
+                </div>
+                
+                <div class="col-12">
+                  <label for="yourName" class="form-label">Adresse</label>
+                  <input  [(ngModel)]="user.adresse" type="text" name="adresse" class="form-control" id="adresse"   required 
+                  #adresse="ngModel" 
+                [class.is-invalid]="adresse.invalid && adresse.touched">
+                  <div class="invalid-feedback">Entrer votre  adresse</div>
+                </div>
+                <div class="col-12">
+                  <label for="yourPassword" class="form-label">Mot de passe</label>
+                  <input type="password" class="form-control" id="Password" name="password" [(ngModel)]="user.password"
+                    required #password="ngModel" [class.is-invalid]="password.invalid && password.touched">
+                  <div class="invalid-feedback">Entrer une mot de passe valide !</div>
+                </div>
+                <div class="col-12">
+                  <label for="yourPassword" class="form-label"> Confirmer mot de passe </label>
+                  <input type="password" class="form-control" id="confirmPassword" name="cpassword"
+                    (ngModel)="user.password" required #cpassword="ngModel"
+                    [class.is-invalid]="cpassword.invalid && cpassword.touched">
+                  <small class="text-danger"
+                    [class.d-none]="(password.value == cpassword.value) || cpassword.untouched">les deus mots ne sont
+                    pas compatibles </small>
+                </div>
+                <div class="form-group">
+                  <label> Photo: </label>
+                  <input ngModel type="file" name="filename" accept="image/*" (change)="onSelectFile($event)" required>
+                  <img [src]="imgURL" height="200" *ngIf="imgURL">
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required
+                      checked>
+                    <label class="form-check-label" for="acceptTerms">j'accepte <a href="#">les termes et les
+                        conditions</a></label>
+                    <div class="invalid-feedback">vous devez accepter avant s'inscrire.</div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <button [disabled]="formRegistration.form.invalid" class="btn btn-primary w-100" type="submit">Creer
+                    un compte</button>
+                </div>
+                <!-- <div class="col-12">
+                        <button  (click)="trouverProspect(user.email,user.codeConfirmation,user.username)" class="btn btn-primary w-100" type="submit">Create Account</button>
+                      </div>-->
+                <div class="col-12">
+                  <p class="small mb-0">avez vous deja un compte? <a [routerLink]="['/login']">Log in</a></p>
+                </div>
+              </form>
+
+            </div>
+          </div>
+
+          <div class="credits">
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</div>

@@ -1,0 +1,241 @@
+<div class="container" id="mainContainer">
+	<div class="view-account">
+		<section class="module">
+			<div class="module-inner">
+
+
+				<div class="content-panel">
+					<h1>Detail utulisateur</h1>
+					<br>
+					<div><br></div>
+					<br>
+					<div><br></div>
+
+					<div class="billing">
+						<!-- alerte-->
+						<div class="alert alert-success" role="alert" *ngIf="notification==1">
+							modification avec succés
+							<!--<a href="#" class="alert-link">an example lin</a>. Give it a click if you like.-->
+						</div>
+						<!--<div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="attention==1">
+							<strong> échec !</strong>premier nom est utulisé! .
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="attention==1">
+							<strong> échec !</strong>email deja utulisé! .
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>-->
+						<!-- alerte-->
+						<form #infoForm="ngForm" (ngSubmit)="updateUser(infoForm)" id="billing" class="form-horizontal"
+							method="post" action="#" role="form">
+							<div class="user-info">
+								<img ngModel class="img-profile img-circle img-responsive center-block"
+									src="{{this.Service.apiServeUrl+'/api/ImgUser/'+user.id}}"
+									style="height :100px;width:fil-content" alt="">
+
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">id :</label>
+								<div class="col-sm-9">
+									<input type="text" name="id" class="form-control" id="id" [(ngModel)]="user.id"
+										required>
+
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">nom :</label>
+								<div class="col-sm-9">
+									<input type="text" name="name" class="form-control" id="name"
+										[(ngModel)]="user.name" required>
+
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">premier nom </label>
+								<div class="col-sm-9">
+									<input [(ngModel)]="user.username" name="username" id="username" type="text"
+										class="form-control">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">email </label>
+								<div class="col-sm-9">
+									<input [(ngModel)]="user.email" name="email" id="email" type="text"
+										class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label"> Date naissance </label>
+								<div class="col-sm-9">
+									<input [(ngModel)]="user.datenaissance" name="datenaissance" id="datenaissance"
+										type="date" min="1950-01-01" max="2022-06-30" class="form-control">
+
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label"> Telephone </label>
+								<div class="col-sm-9">
+									<input [(ngModel)]="user.tel" name="tel" id="tel"
+										type="number"  class="form-control">
+
+								</div>
+							</div>
+							<br>
+
+							<div class="address">
+								<div class="form-group">
+									<label class="col-sm-3 control-label">adresse</label>
+									<div class="col-sm-9">
+										<input [(ngModel)]="user.adresse" name="adresse" id="adresse" type="text"
+											class="form-control">
+									</div>
+									<br>
+								</div>
+
+
+
+								<div class="form-group">
+									<div class="col-sm-5 col-sm-offset-3">
+										<label class="col-sm-3 control-label">password</label>
+										<input [(ngModel)]="user.password" name="password" id="password" type="text"
+											class="form-control">
+									</div>
+
+
+								</div>
+								<div class="form-group">
+									<div class="col-sm-5 col-sm-offset-3">
+										<label class="col-sm-3 control-label">code_organisation</label>
+										<input [(ngModel)]="user.code" name="code" id="code" type="text"
+											class="form-control" readonly>
+									</div>
+
+
+								</div>
+
+								<div class="row gx-3 mb-3">
+									<!-- Form Group (first name)-->
+									<div class="col-md-6">
+										<label class="small mb-1" for="inputLastName">Roles</label>
+										<select ngModel name="role" class="form-control"
+											id="role">
+											<option *ngFor="let role of roles">
+												{{role.name}}
+											</option>
+
+										</select>
+									</div>
+									<!-- Form Group (last name)-->
+									<div class="col-md-6">
+										<svg (click)="onOpenAddRoleeModal()" xmlns="http://www.w3.org/2000/svg"
+											width="30" height="30" fill="currentColor" class="bi bi-plus-circle-fill"
+											viewBox="0 0 16 16">
+											<path
+												d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+										</svg>
+									</div>
+
+
+								</div>
+
+
+
+								<div><br><br></div>
+
+								<div class="form-group">
+									<label> image: </label>
+									<input ngModel type="file" name="image" accept="image/*"
+										(change)="onSelectFile($event)">
+									<img [src]="imgURL" height="200" *ngIf="imgURL">
+								</div>
+							</div>
+							<br>
+
+
+
+
+							<section>
+
+								<!--example of checked and  defaultdesabled-->
+								<div>
+									<label>
+										<h1>Active :</h1>
+									</label>
+									<input type="checkbox" ngModel id="active" name="active">
+
+								</div>
+
+							</section>
+							<!--example of checked and desabled-->
+							<div><br><br><br></div>
+
+
+							<div class="action-btn">
+
+								<button type="submit" class="btn btn-success btn-lg">
+									Modifier!
+									<i class="fa fa-chevron-right"></i>
+								</button>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<button (click)="sendEmail(user.id)" type="button" class="btn btn-warning btn-lg">
+									Envoyer un Email
+									<i class="fa fa-chevron-right"></i>
+								</button>
+
+							</div>
+
+							<div class="alert alert-danger" *ngIf="attention==1">
+								<strong>échec vous n'avez rien changé ..</strong>
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span></button>
+							</div>
+
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>
+
+<div id="addRole" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="alert alert-success" role="alert" *ngIf="roleAjouter==1">
+				supression avec succés
+				<!--<a href="#" class="alert-link">an example lin</a>. Give it a click if you like.-->
+			</div>
+			<form>
+				<div class="modal-header">
+					<h4 class="modal-title">attribuer un rôle</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="col-md-6">
+					<label class="small mb-1" for="inputLastName">Roles</label>
+					<select ngModel name="secteur_d_activite" class="form-control"
+						id="secteur_d_activite">
+						<option *ngFor="let role of AllRoles">
+							{{role.name}}
+						</option>
+
+					</select>
+				</div>
+			
+	 
+			
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input (click)="ajouter()" type="submit" class="btn btn-success" value="Ajouter">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

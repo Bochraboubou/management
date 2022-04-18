@@ -2,16 +2,27 @@
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="section-title text-center mb-4 pb-2">
-                <h1 style="color: darkblue;" class="title mb-4">L istes des Organisations</h1>
+                <h1 style="color: darkblue;" class="title mb-4">Listes des Organisations</h1>
                 <p class="text-muted para-desc mx-auto mb-0"></p>
+                <h3>il existe {{organisations.length}} organisations</h3>
+               
             </div>
         </div><!--end col-->
     </div><!--end row-->
-
+    <div class="search-bar">
+        <form class="search-form d-flex align-items-center" method="POST" action="#">
+          <input  [(ngModel)]="terme" name="terme" id="terme" type="text"  placeholder="recherche">
+          <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+        </form>
+      </div><!-- End Search Bar -->
     <div class="row">
    
 
-        <div *ngFor="let o of organisations" class="col-lg-4 col-md-6 col-12 mt-4 pt-2">
+        <div *ngFor="let o of organisations | filter:terme | paginate : {
+            itemsPerPage:4,
+            currentPage:page,
+            totalItems:totalLength
+            }" class="col-lg-4 col-md-6 col-12 mt-4 pt-2">
             <div class="card service-wrapper rounded border-0 shadow p-4">
                 <div class="icon text-center text-custom h1 shadow rounded bg-white">
                     <span class="uim-svg" ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em"><path class="uim-quaternary" d="M6,23H2a.99974.99974,0,0,1-1-1V16a.99974.99974,0,0,1,1-1H6a.99974.99974,0,0,1,1,1v6A.99974.99974,0,0,1,6,23Z"></path><path class="uim-tertiary" d="M14,23H10a.99974.99974,0,0,1-1-1V10a.99974.99974,0,0,1,1-1h4a.99974.99974,0,0,1,1,1V22A.99974.99974,0,0,1,14,23Z"></path><path class="uim-primary" d="M22,23H18a.99974.99974,0,0,1-1-1V2a.99974.99974,0,0,1,1-1h4a.99974.99974,0,0,1,1,1V22A.99974.99974,0,0,1,22,23Z"></path></svg></span>
@@ -19,15 +30,17 @@
                 <div class="content mt-4">
                     <h5 class="title">{{o.nom}}</h5>
                     <p class="text-muted mt-3 mb-0">{{o.email}}</p>
-                    <div class="mt-3">
-                        <a  routerLink="/detail" class="text-custom">Read More <i class="mdi mdi-chevron-right"></i></a>
+                    <div class="mt-3"><!--(click)="goTODetail(o.id)"-->
+                        <a   (click)="onAfficheDetailOrganisation(o.id)" class="text-custom">Read More <i class="mdi mdi-chevron-right"></i></a>
                     </div>
+                   
                 </div>
                 <div class="big-icon h1 text-custom">
                     <span class="uim-svg" ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em"><path class="uim-quaternary" d="M6,23H2a.99974.99974,0,0,1-1-1V16a.99974.99974,0,0,1,1-1H6a.99974.99974,0,0,1,1,1v6A.99974.99974,0,0,1,6,23Z"></path><path class="uim-tertiary" d="M14,23H10a.99974.99974,0,0,1-1-1V10a.99974.99974,0,0,1,1-1h4a.99974.99974,0,0,1,1,1V22A.99974.99974,0,0,1,14,23Z"></path><path class="uim-primary" d="M22,23H18a.99974.99974,0,0,1-1-1V2a.99974.99974,0,0,1,1-1h4a.99974.99974,0,0,1,1,1V22A.99974.99974,0,0,1,22,23Z"></path></svg></span>
                 </div>
             </div>
         </div><!--end col-->
-       
+        <pagination-controls (pageChange)="page = $event" class="text-center entreprisePagination">
+        </pagination-controls>
     </div><!--end row-->
 </div>

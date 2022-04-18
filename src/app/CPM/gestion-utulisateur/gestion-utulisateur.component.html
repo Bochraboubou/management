@@ -1,0 +1,145 @@
+<div class="container" id="main-container">
+     <div class="table-responsive">
+			<div class="table-wrapper">
+				<div class="row">
+					<div class="col-md-11">
+				<div class="table-title">
+					<div class="row">
+						<div class="col-xs-6">
+							<h2>Gestion  <b>utulisateurs</b></h2>
+						</div>
+						<div class="col-xs-6">
+							<div class="col-md-4">
+							<div class="form-outline">
+								<input  [(ngModel)]="terme" name="terme" type="search" id="terme" class="form-control" placeholder="recherche" aria-label="Search" />
+							  </div>
+							</div>
+						
+							<a (click)="onOpenDeleteAllModal()" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Supprimer tout</span></a>	
+							<a routerLink="/inscriptionetdemandes/inscritEmployee"  class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>ajouter employer</span></a>					
+						</div>
+					</div>
+				</div>
+				</div>
+				</div>
+				<div class="row">
+					<div class="col-md-11">
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							
+
+							<th>Photo</th>
+							<th>Premier nom</th>
+							<th>Email</th>
+							<th>Role</th>
+						    <th>Actions</th>
+						</tr>
+					</thead>
+					<tbody *ngFor="let u of users| filter:terme | paginate : {
+						itemsPerPage:4,
+						currentPage:page,
+						totalItems:totalLength}">
+						<tr>
+						<!--	<td><button
+								[ngClass]="{'btn btn-success':u.active ,'btn btn-danger':!u.active}"
+								type="button">
+								<i class="fa fa-check-square"></i>
+							</button></td>-->
+							
+							<td><img src="{{this.service.apiServeUrl+'/api/ImgUser/'+u.id}}"
+								style="height :100px;width:fil-content" alt="">
+                            </td>
+							<td>{{u.username}}</td>
+							<td>{{u.email}}</td>
+							<td>{{u.nomRole}}</td>
+							
+							<td>
+								<a (click)="onAfficheDetailUser(u.id)" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+								<a (click)="onOpenDeleteModal(u.id)" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+								
+							</td>
+						</tr>
+						
+					</tbody>
+				</table>
+				<pagination-controls (pageChange)="page = $event" class="text-center entreprisePagination">
+				</pagination-controls>
+				</div>
+				</div>
+				<!--
+			    <div class="clearfix">
+					<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+					<ul class="pagination">
+						<li class="page-item disabled"><a href="#">Previous</a></li>
+						<li class="page-item"><a href="#" class="page-link">1</a></li>
+						<li class="page-item"><a href="#" class="page-link">2</a></li>
+						<li class="page-item active"><a href="#" class="page-link">3</a></li>
+						<li class="page-item"><a href="#" class="page-link">4</a></li>
+						<li class="page-item"><a href="#" class="page-link">5</a></li>
+						<li class="page-item"><a href="#" class="page-link">Next</a></li>
+					</ul>
+				</div>
+				-->
+				
+			</div>
+		</div>
+	   </div>
+	
+	
+	
+	 <!-- Delete one HTML -->
+	 <div id="delete" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="alert alert-success" role="alert" *ngIf="sppalerte==1">
+					supression avec succés <!--<a href="#" class="alert-link">an example lin</a>. Give it a click if you like.-->
+				  </div>
+				<form>
+					<div class="modal-header">						
+						<h4 class="modal-title">Supprimer Employee</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">					
+						<p>vous etes sure de Supprimer  cet utulisateur??</p>
+						<p class="text-warning"><small>
+							Cette action ne peut pas être annulée..</small></p>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						
+						<input (click)="supprimer(user.id)" type="button" class="btn btn-danger" value="Supprimer">
+					</div>
+				</form>
+			</div>
+		</div>
+		</div>
+
+ <!-- Delete All HTML -->
+		<div id="deleteAll" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="alert alert-success" role="alert" *ngIf="suptous==1">
+						supression avec succés <!--<a href="#" class="alert-link">an example lin</a>. Give it a click if you like.-->
+					  </div>
+					<form>
+						<div class="modal-header">						
+							<h4 class="modal-title">Supprimer tous les  employee</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						</div>
+						<div class="modal-body">					
+							<p>vous etes sure de Supprimer tous les utulisateur??</p>
+							<p class="text-warning"><small>les données seront archivé.</small></p>
+						</div>
+						<div class="modal-footer">
+							<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+							<input  (click)="spprimertous()"type="submit" class="btn btn-danger" value="supprimer tous">
+						</div>
+					</form>
+				</div>
+			</div>
+			</div>
+
+
+
+

@@ -1,0 +1,118 @@
+<div class="container" id="main-container">
+  <div>
+    <h2 style="font-family:Marker Felt, fantasy; font-size: 28px; text-align: center; color: black;"> Bon-De commande</h2>
+  <div>
+   <h4><strong>Code : </strong>{{bonDeCommande?.codebc}}</h4>
+   <div class="row">
+    <div class="col-md-4"><h4><strong>Date debut traveaux :</strong> {{bonDeCommande?.dateDebutTraveaux}}</h4></div>
+     <div class="col-md-4"><h4><strong>Delais :</strong>{{bonDeCommande?.delais}}</h4></div>
+  </div>
+   <div class="col-md-4"><h4><strong>Entreprise(Fournisseur) </strong> {{bonDeCommande?.nomEntrep}}</h4></div>
+     </div>
+    <br>
+    <h4><strong>Articles :</strong></h4>
+   <div>
+       <table class="table table-primary table-hover table-striped w-75">
+         <thead>
+           <tr>
+             <th scope="col" class="bg-primary">N°</th>
+             <th scope="col" class="bg-primary">Code</th>
+             <th scope="col" class="bg-primary">Designation</th>
+             <th scope="col" class="bg-primary">Unité</th>
+             <th scope="col" class="bg-primary">Type</th>
+             <th scope="col" class="bg-primary">Prix</th>
+             <th scope="col" class="bg-primary">Quantité</th>
+             <th scope="col" class="bg-primary">Total HT</th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr *ngFor="let article of articles ,let i= index">
+             <th scope="row">{{i}}</th>
+             <td>{{article.code}}</td>
+             <td>{{article.designation}}</td>
+             <td>{{article.unitee}}</td>
+             <td>{{article.typeLib}}</td>
+             <td>{{article.prix}}</td>
+             <td>{{article.quantitee}}</td>
+             <td>{{article.prix * article.quantitee}}</td>
+           </tr>
+         </tbody>
+       </table>
+       <br>
+       <div class="col-md-4"><h4><strong>Montant :</strong>{{bonDeCommande?.montant}}</h4></div>
+       <div class="col-md-4"><h4><strong>TVA :</strong>19% </h4></div>
+       <div class="col-md-4"><h4><strong>Montant avec TVA :</strong>{{bonDeCommande.montant + (bonDeCommande.montant * 0.19)}}</h4></div>
+    </div>
+  </div>
+  <br>
+
+  <div>
+     <button type="button" class="btn btn-dark"
+      [useExistingCss]="true"
+      printTitle="Bon de Commande"  
+      printSectionId="printBC-section"  
+      ngxPrint>
+       Imprimer<i class="fa fa-print" aria-hidden="true"></i>
+      </button>
+  </div>
+    
+    
+   
+</div>
+
+<div id="printBC-section" style="display: none;">
+  <div class="row">
+    <div class="col-md-4"><h4><strong>Organisation :</strong>{{organisationConnectee?.nom}}</h4></div>
+  <h2 style="font-family:Marker Felt, fantasy; font-size: 28px; text-align: center; color: black;"> Bon-De commande</h2>
+  <div>
+   <h4><strong>Code : </strong>{{bonDeCommande?.codebc}}</h4>
+   <div class="row">
+     <div class="col-md-4"><h4><strong>Date debut traveaux :</strong> {{bonDeCommande?.dateDebutTraveaux}}</h4></div>
+     <div class="col-md-4"><h4><strong>Delais :</strong>{{bonDeCommande?.delais}}</h4></div>
+  </div>
+   <div class="col-md-4"><h4><strong>Entreprise(Fournisseur) </strong> {{bonDeCommande?.nomEntrep}}</h4></div>
+     </div>
+    <br>
+    <h4><strong>Articles :</strong></h4>
+   <div>
+       <table class="table table-primary table-hover table-striped w-75">
+         <thead>
+           <tr>
+             <th scope="col" class="bg-primary">N°</th>
+             <th scope="col" class="bg-primary">Code</th>
+             <th scope="col" class="bg-primary">Designation</th>
+             <th scope="col" class="bg-primary">Unité</th>
+             <th scope="col" class="bg-primary">Type</th>
+             <th scope="col" class="bg-primary">Prix</th>
+             <th scope="col" class="bg-primary">Quantité</th>
+             <th scope="col" class="bg-primary">Total HT</th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr *ngFor="let article of articles ,let i= index">
+             <th scope="row">{{i}}</th>
+             <td>{{article.code}}</td>
+             <td>{{article.designation}}</td>
+             <td>{{article.unitee}}</td>
+             <td>{{article.typeLib}}</td>
+             <td>{{article.prix}}</td>
+             <td>{{article.quantitee}}</td>
+             <td>{{article.prix * article.quantitee}}</td>
+           </tr>
+         </tbody>
+        
+       </table>
+       <br>
+       <div class="col-md-4"><h4><strong>Montant :</strong>{{bonDeCommande?.montant}}</h4></div>
+       <div class="col-md-4"><h4><strong>TVA :</strong>19% </h4></div>
+       <div class="col-md-4"><h4><strong>Montant avec TVA :</strong>{{bonDeCommande.montant + (bonDeCommande.montant * 0.19)}}</h4></div>
+    </div>
+</div>
+<br style="height: 100px;">
+<div class="row">
+  <div class="col"><h4>Observations :</h4></div>
+  <div class="col"><h4>Signature :</h4></div>
+</div> 
+</div>
+  
+  

@@ -1,0 +1,9 @@
+.marcheeCard{
+    background-color: #AED6F1;
+    border-style:solid;
+    border-color: black;
+}
+.pagination /deep/ .ngx-pagination .current {
+    background:navy;
+    
+  }

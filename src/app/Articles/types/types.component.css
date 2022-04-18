@@ -1,0 +1,6 @@
+.typesPagination /deep/ .ngx-pagination .current {
+    background:navy;
+  }
+  .listDiv{
+      background-color:#AED6F1;
+  }

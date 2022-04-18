@@ -1,0 +1,19 @@
+body{margin-top:20px;
+}
+
+.nav-pills .nav-link {
+  color: #2f3c4e !important;
+  margin: auto 15px;
+  border: 1px solid #e9ecef;
+}
+
+.nav-pills .nav-link.active {
+  background-color: #f89d36;
+  color: #ffffff !important;
+  -webkit-box-shadow: 0 0 3px rgba(47, 60, 78, 0.15);
+          box-shadow: 0 0 3px rgba(47, 60, 78, 0.15);
+}
+
+.nav-pills a .screenshot .title {
+  font-size: 18px;
+}

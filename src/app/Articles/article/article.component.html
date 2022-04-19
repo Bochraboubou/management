@@ -53,6 +53,7 @@
                   <th scope="col" class="bg-primary">Designation</th>
                   <th scope="col" class="bg-primary">Unitee</th>
                   <th scope="col" class="bg-primary">Type</th>
+                  <th scope="col" class="bg-primary">Classe</th>
                   <th scope="col" class="bg-primary">Action</th>
                   <th scope="col" class="bg-primary"></th>
                 </tr>
@@ -69,6 +70,7 @@
                   <td>{{article.designation}}</td>
                   <td>{{article.unitee}}</td>
                   <td>{{article.typeLib}}</td>
+                  <td>{{article.classe}}</td>
                   <td><button type="button" class="btn btn-success" (click)="onOpenDeleteandModifArticleModal(article,'modifier')"><i class="fa fa-pencil-square" aria-hidden="true"></i></button></td>
                   <td><button type="button" class="btn btn-danger" (click)="onOpenDeleteandModifArticleModal(article,'supprimer')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
                  
@@ -125,6 +127,20 @@
               <div>
                 <label for="montant">Unité</label>
                 <input type="text"ngModel name="unitee"  class="form-control" id="unitee" placeholder="unité du nouveau article" required #unitee="ngModel"  [class.is-invalid]="unitee.invalid && unitee.touched">
+              </div>
+
+              <div>
+                <label for="classe">classe</label>
+                <div class="form-check">
+                  <div class="choice">
+                    <input class="form-check-input" type="radio" ngModel name="classe" id="prestation" value="prestation"   required/>
+                    <label class="form-check-label" for="projet">prestation</label>
+                </div>
+                <div class="choice">
+                  <input class="form-check-input" type="radio" ngModel="" name="classe" id="materielFournisseur" value="materielFournisseur"  required/>
+                  <label class="form-check-label" for="mc">materiel fournisseur</label>
+              </div>
+              </div> 
               </div>
               <br>
               <div *ngIf="alerteCodeArticleutilisee" class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -195,6 +211,7 @@
                   <label for="uniteeM">Unitéc</label>
                   <input type="text" ngModel="{{editArticle?.unitee}}" name="unitee"  class="form-control" id="uniteeM" placeholder="unitee" required>
                 </div>
+
                 <br>
                 <div *ngIf="alerteCodeArticleutilisee" class="alert alert-danger alert-dismissible fade show" role="alert">
                   <strong>Attention</strong> Code d'article déja utilisée

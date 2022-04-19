@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { DeeeetailBCComponent } from './deeeetail-bc.component';
+
+
 
 describe('DeeeetailBCComponent', () => {
   let component: DeeeetailBCComponent;

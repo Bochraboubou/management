@@ -6,6 +6,7 @@ export class BondeCommande{
     codebc!: string;
     montant!: number;
     delais!: number;
+    dateDebutTraveaux!: Date;
     idEntrep!: number;
     nomEntrep!: string;
     valide:boolean=false;

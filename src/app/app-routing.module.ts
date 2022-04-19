@@ -43,10 +43,10 @@ import { EntreprisesComponent } from './sectionOrganisation/entreprises/entrepri
 import { DetailOrganisationComponent } from './sectionOrganisation/detail-organisation/detail-organisation.component';
 
 
-import { AjouterattachementComponent } from './attachement/ajouterattachement/ajouterattachement.component';
-import { UserProfileComponent } from './Inscription/user-profile/user-profile.component';
-
 import { ArticlespecifieeComponent } from './Marchee/articlespecifiee/articlespecifiee.component';
+
+import { UserProfileComponent } from './Inscription/user-profile/user-profile.component';
+import { AjouterattachementComponent } from './attachement/ajouterattachement/ajouterattachement.component';
 import { DetailBonDeCommandeComponent } from './attachement/detail-bon-de-commande/detail-bon-de-commande.component';
 import { DeeeetailBCComponent } from './attachement/deeeetail-bc/deeeetail-bc.component';
 import { ImprimerAttachementComponent } from './attachement/imprimer-attachement/imprimer-attachement.component';
@@ -54,6 +54,11 @@ import { PageGardeComponent } from './Inscription/page-garde/page-garde.componen
 import { DemandeEnAttenteComponent } from './Inscription/demande-en-attente/demande-en-attente.component';
 import { ListeEmployeesComponent } from './espaceMyCPM/liste-employees/liste-employees.component';
 import { GessComponent } from './gess/gess.component';
+import { ConnsulterAttachementComponent } from './Attachement/connsulter-attachement/connsulter-attachement.component';
+//import { ConnsulterAttachementComponent } from './Attachement/connsulter-attachement/connsulter-attachement.component';
+//import { ConnsulterAttachementComponent } from './Attachement/connsulter-attachement/connsulter-attachement.component';
+
+
 
 const routes: Routes = [
   {path:'looog',component:ImprimerAttachementComponent},
@@ -118,6 +123,7 @@ const routes: Routes = [
     { path:'listeEmployeeMycpm',component:ListeEmployeesComponent},
     { path:'detailBondeCommande/:id',component:DetailBonDeCommandeComponent},
     { path:'detailBC/:id',component:DeeeetailBCComponent},
+    { path:'consulterAttachements',component:ConnsulterAttachementComponent}
   ]},
    {path:'',redirectTo:'premierPage',pathMatch:'full'}
 

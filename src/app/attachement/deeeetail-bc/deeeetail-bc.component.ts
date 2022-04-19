@@ -129,7 +129,7 @@ sumDesArticles(){
           },
           error: (error:HttpErrorResponse) => {
             console.log(error.message);
-           // alert("vous n'etes plus attaché a une organisation")
+           
            },
           complete: () => console.info('complete')
       })
@@ -144,7 +144,7 @@ sumDesArticles(){
     },
     error: (error:HttpErrorResponse) => {
       console.log(error.message);
-     // alert("vous n'etes plus attaché a une organisation")
+     
      },
     complete: () => console.info('complete') 
   })

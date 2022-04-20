@@ -65,6 +65,11 @@ import { AjouterattachementComponent } from './attachement/ajouterattachement/aj
 import { DetailBonDeCommandeComponent } from './attachement/detail-bon-de-commande/detail-bon-de-commande.component';
 
 import { DeeeetailBCComponent } from './attachement/deeeetail-bc/deeeetail-bc.component';
+import { ImprimerAttachementComponent } from './attachement/imprimer-attachement/imprimer-attachement.component';
+import { PageGardeComponent } from './Inscription/page-garde/page-garde.component';
+import { DemandeEnAttenteComponent } from './Inscription/demande-en-attente/demande-en-attente.component';
+import { ListeEmployeesComponent } from './espaceMyCPM/liste-employees/liste-employees.component';
+import { GessComponent } from './gess/gess.component';
 
 import { ConnsulterAttachementComponent } from './Attachement/connsulter-attachement/connsulter-attachement.component';
 import { AjouterOTComponent } from './Attachement/ajouter-ot/ajouter-ot.component';
@@ -148,9 +153,18 @@ SendEmailUserComponent,
 UserProfileComponent,
 DetailBonDeCommandeComponent,
 DeeeetailBCComponent,
+
+  ImprimerAttachementComponent,
+  PageGardeComponent,
+  DemandeEnAttenteComponent,
+  ListeEmployeesComponent,
+  GessComponent,
+
+
 ConnsulterAttachementComponent,
 AjouterOTComponent,
 DetailOTComponent,
+
 
   ],
   imports: [

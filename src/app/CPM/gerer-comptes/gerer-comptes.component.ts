@@ -34,6 +34,8 @@ export class GererComptesComponent implements OnInit {
   terme:any;
   page:number = 1;
   totalLength:any;
+  //où je vais afficher un user
+  userAff!:User[]
   constructor(public service:UserService,private registerService:RegisterService, private roleService:RoleService,private orgService:OrganisationServiceService, public loginService:LoginService) { }
 
   ngOnInit(): void {
@@ -57,6 +59,8 @@ this.getEmployees()
 this.listeRoles()
 
 }
+
+// get employees of one organisation by code 
 
 
  

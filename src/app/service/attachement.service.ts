@@ -31,7 +31,14 @@ public getAttachementByCode(code:string): Observable<Attachement>
    return this.http.get<Attachement>(`${this.apiServeUrl}/admin/byCode2/${code}/`);
  }
 
+ public getAttachementById(id:number): Observable<Attachement>
+ {
+   return this.http.get<Attachement>(`${this.apiServeUrl}/admin/byCode2/${id}/`);
+ }
+// find all attachement
 
-
-
+public getAllAttachement(): Observable<Attachement[]>
+ {
+   return this.http.get<Attachement[]>(`${this.apiServeUrl}/admin/allAttachement`);
+ }
 }

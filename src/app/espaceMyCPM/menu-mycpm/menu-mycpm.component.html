@@ -250,7 +250,7 @@
           </a>
           <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
               <li>
-                <a routerLink="/mycpm/detailOrganisation">
+                <a  (click)="onAfficheDetailOrganisation(organisation.id)">
                   <i class="bi bi-circle"></i><span>Qui somme nous</span>
                 </a>
               </li>
@@ -374,10 +374,24 @@
            
           <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
             <li>
-              <a routerLink="ajouterAttachement">
+             <a routerLink="ajouterAttachement">
                 <i class="bi bi-circle"></i><span>Ajouter un attachement</span>
               </a>
+              
+
             </li>
+            <ul>
+              <li>
+                <a routerLink="/login">
+                  <i class="bi bi-circle"></i><span>Projet</span>
+                </a>
+              </li>
+              <li>
+                <a >
+                  <i class="bi bi-circle"></i><span>MC</span>
+                </a>
+              </li>
+            </ul>
             <li>
               <a routerLink="/mycpm/consulterAttachements">
                 <i class="bi bi-circle"></i><span>Consulter les attachements</span>
@@ -398,6 +412,11 @@
             <i class="bi bi-gem"></i><span>Gestion RH</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
           <ul id="icons-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li>
+              <a routerLink="listeEmployeeMycpm">
+                <i class="bi bi-circle"></i><span>listes des Employées </span>
+              </a>
+            </li>
             <li>
               <a routerLink="gererComptes">
                 <i class="bi bi-circle"></i><span>listes des nouveaux comptes </span>

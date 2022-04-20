@@ -1,4 +1,6 @@
 <div class="container" id="main-container">
+
+
      <div class="table-responsive">
 			<div class="table-wrapper">
 				<div class="row">
@@ -28,15 +30,15 @@
 					<thead>
 						<tr>
 							
-
+							<th>Code org</th>
 							<th>Photo</th>
 							<th>Premier nom</th>
-							<th>Email</th>
+							
 							<th>Role</th>
 						    <th>Actions</th>
 						</tr>
 					</thead>
-					<tbody *ngFor="let u of users| filter:terme | paginate : {
+					<tbody *ngFor="let u of nouvellecollection| filter:terme | paginate : {
 						itemsPerPage:4,
 						currentPage:page,
 						totalItems:totalLength}">
@@ -46,12 +48,12 @@
 								type="button">
 								<i class="fa fa-check-square"></i>
 							</button></td>-->
-							
+							<td>{{u.code}}</td>
 							<td><img src="{{this.service.apiServeUrl+'/api/ImgUser/'+u.id}}"
 								style="height :100px;width:fil-content" alt="">
                             </td>
 							<td>{{u.username}}</td>
-							<td>{{u.email}}</td>
+							
 							<td>{{u.nomRole}}</td>
 							
 							<td>

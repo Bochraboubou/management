@@ -1,3 +1,4 @@
+
 <div class="col-xl-12">
 
     <div class="card mb-4">
@@ -501,7 +502,7 @@
                         <br>
                         <div class="form-group">
                             <label> Logo </label>
-                            <input [(ngModel)]="demande.filename" type="file" name="filename" id="filename" accept="image/*" (change)="onSelectFile($event)"
+                            <input [(ngModel)]="demande.fileName" type="file" name="fileName" id="fileName" accept="image/*" (change)="onSelectFile($event)"
                                 required>
                             <img [src]="imgURL" height="200" *ngIf="imgURL">
                         </div>

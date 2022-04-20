@@ -1,18 +1,24 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Article } from 'src/app/model/Article';
 import { ArticleRealisee } from 'src/app/model/ArticleRealisee';
 import { ArticleRealiseeId } from 'src/app/model/ArticleRealiseeId';
 import { ArticleUtilisee } from 'src/app/model/ArticleUtilisee';
 import { Attachement } from 'src/app/model/Attachement';
 import { BondeCommande } from 'src/app/model/BondeCommande';
+import { Organisation } from 'src/app/model/Organisation';
+import { User } from 'src/app/model/User';
 import { ArticleRealiseeService } from 'src/app/service/article-realisee.service';
 import { ArticleUtiliseeService } from 'src/app/service/article-utilisee.service';
 import { ArticleService } from 'src/app/service/article.service';
 import { AttachementService } from 'src/app/service/attachement.service';
 import { BondeCommandeService } from 'src/app/service/bonde-commande.service';
+import { LoginService } from 'src/app/service/login.service';
+import { OrganisationServiceService } from 'src/app/service/organisation-service.service';
+import { RegisterService } from 'src/app/service/register.service';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-deeeetail-bc',
@@ -21,6 +27,7 @@ import { BondeCommandeService } from 'src/app/service/bonde-commande.service';
 })
 export class DeeeetailBCComponent implements OnInit {
 id!:number
+username!:string
 supArticle!:string
 ModifArticle!:string
 modifArticleVar=new Article()
@@ -32,8 +39,10 @@ articlesUtulisees!:ArticleUtilisee[]
 article!:Article
 article2= new Article()
 code!:string
+date=new Date()
 alertecodeArticle=0
 desig!:string
+existe="";
 unite!:string
 listeArticles:Article[]=[]
 attachement1=new Attachement()
@@ -55,16 +64,27 @@ echecSuppression=0
 echecModification=0
 alertModifierArticle=0
 codeExisteAlerte=0
-constructor( private attachementService:AttachementService,
+articleAjouter=0;
+alertAttachementExiste=0
+user!:User
+organisation!:Organisation
+idOrgan!:number
+attachementliste!:Attachement[]
+listeArtR!:ArticleRealisee[]
+artID!:number
+//la somme a afficher
+sommeAff!:number
+constructor( private router:Router, public loginService:LoginService,private attachementService:AttachementService,
   private artService:ArticleService,
   private articleUtuliseeService:ArticleUtiliseeService,
   private route:ActivatedRoute,
   private BCService:BondeCommandeService
-  ,private articleRealService:ArticleRealiseeService) { }
+  ,private articleRealService:ArticleRealiseeService,private register:RegisterService,
+ public organisationService:OrganisationServiceService) { }
 
 
   ngOnInit(): void {
-
+    this.username=this.loginService.loggedUser
     this.id=this.route.snapshot.params['id'];
     this.bondeCommande=new BondeCommande();
     this.BCService.getBCbyId(this.id).subscribe(
@@ -76,9 +96,107 @@ constructor( private attachementService:AttachementService,
       }
     )
    // this.initialiserAttachementModal()
-
+   this.findOrganisation(this.username);
     this.trouverArticles()
   }
+
+sumDesArticles(){
+   let somme=0
+  this.attachementService.getAllAttachement().subscribe({
+    next: (response:Attachement[]) => {
+      this.attachementliste=response
+      console.log(this.attachementliste )
+
+      this.attachementliste.forEach((curAttachement) => {
+        this.articleRealService.findARbyAttId(curAttachement.id).subscribe({
+          next: (response:ArticleRealisee[]) => {
+           // liste des articles realiséee
+            this.listeArtR=response
+            console.log("aaa")
+            console.log(this.listeArtR)
+// parcourir la liste 
+           this.listeArtR.forEach((currAricleR) => {
+                         if (currAricleR.id.article_id==this.artID){
+                           somme=somme+currAricleR.quantiteeRealisee
+                         }
+
+
+           })
+           console.log("la somme est :")
+           console.log(somme)
+           this.sommeAff=somme
+         
+          },
+          error: (error:HttpErrorResponse) => {
+            console.log(error.message);
+           // alert("vous n'etes plus attaché a une organisation")
+           },
+          complete: () => console.info('complete')
+      })
+
+
+
+//end for
+      })
+       
+        
+    
+    },
+    error: (error:HttpErrorResponse) => {
+      console.log(error.message);
+     // alert("vous n'etes plus attaché a une organisation")
+     },
+    complete: () => console.info('complete') 
+  })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  verifier(){
+    if(this.existe==""){
+      this.alertAttachementExiste=1
+
+    }
+    else{
+      this.openImprimerModal();
+    }
+  }
+  findOrganisation(username:string){
+    this.register.findByUserName(this.username).subscribe(
+      data=>{
+        this.user=data;
+        this.organisationService.getOrganisationbyUser(this.user.id).subscribe({
+          next: (response:Organisation) => {
+            this.organisation=response;
+            console.log("organisation"+response);
+            this.idOrgan=this.organisation.id;
+            console.log(this.organisation.id)
+          },
+          error: (error:HttpErrorResponse) => {
+            console.log(error.message);
+           // alert("vous n'etes plus attaché a une organisation")
+           },
+          complete: () => console.info('complete') 
+        })
+     }
+    )
+  }
+
+  
+
+
+
 
   remplirTableau(form:NgForm){
     let articleT=new Article()
@@ -90,6 +208,8 @@ constructor( private attachementService:AttachementService,
     articleT.quantitee=this.Qte
     articleT.designation=this.article2.designation
     this.listeArticles.push(articleT)
+    form.reset()
+   this. articleAjouter=1;
     console.log(this.listeArticles)
     }
   }
@@ -180,6 +300,7 @@ if( this.attachement==null){
 this.attachementService.addAttachement(this.attachement1,this.id).subscribe({
   next:(response:Attachement)=>{
    this.attachement=response
+   this.existe="nn"
    this.attachementId=this.attachement.id
    console.log(this.attachement) 
    this.notificatideCreation=1
@@ -253,8 +374,10 @@ RemplirListeArticleRealisee(){
     this.articleRealiseeID=new ArticleRealiseeId()
   
 })
+
 console.log(this.listeArticlesRealisee)
 console.log(this.listeArticlesRealisee.length)
+  this.AddListeArticesRtoBD();
  }
 
 //Ajouter la liste des articles realisee a la base de donnée
@@ -287,6 +410,55 @@ AddListeArticesRtoBD(){
 
 //chercher code article utulisee
   recherche2(){
+    let res=""
+    let artUltulTab=new ArticleUtilisee()
+    for (let i=0;i<this.articlesUtulisees.length;i++){
+      if(this.articlesUtulisees[i].codeArt==this.code){
+        res=this.articlesUtulisees[i].codeArt
+        // stocker du id de l'article courante
+
+       
+        artUltulTab=this.articlesUtulisees[i]
+    }}
+
+    //res contient le code de l'article 
+    // un test sur res si elle est vide donc code n'existe pas snn oui existe 
+    if(res==""){
+      this.alertecodeArticle=1 
+    }else{
+      console.log(" code existe")
+
+      this.codeArticleRealisee=this.code
+      //pour remplir designiation et unitee
+this.artService.getArticlebyCode(this.code).subscribe({
+next: (response:Article) =>{
+ this.article=response
+ // stocker l id de l article dans artID
+ this.artID=this.article.id
+//
+//remplir le champ  quantite realisee dans les autres attachement 
+this.sumDesArticles();
+ //remplir les champ designiation et unitee
+ this.article2.designation=this.article.designation
+ this.article2.unitee=this.article.unitee
+ this.article2.quantitee=artUltulTab.quantitee
+ // ****
+ //pour remplir  article realiseeId 
+ this.articleRealiseeID.article_id=this.article.id
+
+},
+error: (error:HttpErrorResponse) => {
+  console.log(error.message);
+  this.alertecodeArticle=1
+ // alert("vous n'etes plus attaché a une organisation")
+ },
+complete: () => console.info('complete')  
+})
+
+    }
+  }
+  
+    /*
     for (let i=0;i<this.articlesUtulisees.length;i++){
       if(this.articlesUtulisees[i].codeArt==this.code){
         console.log("ouiiii existe")
@@ -319,11 +491,9 @@ AddListeArticesRtoBD(){
       }
 
 
-      else{
-        this.alertecodeArticle=1
-      }
-    }
-  }
+     
+    }*/
+  
 
 //////juste
   trouverArticles(){
@@ -383,53 +553,7 @@ AddListeArticesRtoBD(){
     button.setAttribute('data-target','#getListeArticlesUtulisee');
     container?.appendChild(button);
     button.click();
-  
-  }/*
-  //attachement
-  public initialiserAttachementModal():void{
-    const container=document.getElementById('container');
-    const button=document.createElement('button');
-    button.type='button';
-    button.style.display='none';
-    button.setAttribute('data-toggle','modal');
-    button.setAttribute('data-target','#attachement1');
-    container?.appendChild(button);
-    button.click();
-  
-  }*/
-
-
-
-
-/*
-//article suivant
-addAraticleRealisee(form:NgForm){
- 
-  console.log(this.attachementId)
-  if(this.attachementId==undefined){
-   
-    this.alertAttachemnt=1
-
-  }else{
-  console.log(this.articleRealiseeID)
-  this.articleRealisee.id=this.articleRealiseeID
-  console.log(this.articleRealisee.quantiteeRealisee)
-  console.log("l'article realisée est :")
-  console.log(this.articleRealisee)
-  this.articleRealisee2.id=this.articleRealiseeID
-  console.log(this.articleRealisee2.qtePlanifieee=this.article2.quantitee)
-  console.log(this.articleRealisee2.quantiteeRealisee=this.articleRealisee.quantiteeRealisee)
-
-   this.listeArticlesRealisee.push(this.articleRealisee2)
-//this.listeArticlesRealisee.push({id:this.articleRealiseeID,quantiteeRealisee:this.articleRealisee.quantiteeRealisee})
-
-    console.log("bbbbbbb"+this.articleRealisee.quantiteeRealisee)
-   form.reset()
-}
-
-}
-*/
-
+  }
 
 // Afficher liste des articles realisees
 listedesArticlesRealiseeModal():void{
@@ -444,7 +568,32 @@ listedesArticlesRealiseeModal():void{
 
 
 }
-
-
+imprimer(id:number){
+ 
+  this.router.navigate(['imprimerAttachement',id])
+}
+openImprimerModal(){
+  const container=document.getElementById('container');
+  const button=document.createElement('button');
+  button.type='button';
+  button.style.display='none';
+  button.setAttribute('data-toggle','modal');
+  button.setAttribute('data-target','#imprimer');
+  container?.appendChild(button);
+  button.click();
+}
+closeAlerts(){
+  this.notificatideCreation=0
+this.echecCreationAttachement=0
+this.alertAttachemnt=0
+this.alertSuppression=0
+this.echecSuppression=0
+this.echecModification=0
+this.alertModifierArticle=0
+this.codeExisteAlerte=0
+  this.alertecodeArticle=0
+  this.articleAjouter=0;
+  this.alertAttachementExiste=0
+}
 
 }

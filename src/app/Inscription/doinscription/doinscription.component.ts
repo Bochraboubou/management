@@ -75,7 +75,7 @@ public imagePath:any;
       this.organisation.nomAdmin=this.demande.nomAdmin;
       this.organisation.telAdmin=this.demande.telAdmin;
       this.organisation.emailAdmin=this.demande.emailAdmin
-      this.organisation.filename=this.demande.filename;
+      this.organisation.fileName=this.demande.fileName;
       this.organisation.document=this.demande.documentpath;
        console.log(this.organisation)
        this.saveNewOrganisation(this.organisation);
@@ -278,11 +278,24 @@ public getSecteurs():void
 
 }*/
 
-
+createOrganisation(addForm:NgForm){
+  const formData=new FormData();
+    const organisation=addForm.value;
+    formData.append('organisation',JSON.stringify(organisation));
+    formData.append('file',this.userFile)
+    this.orgService.createOrganisation(formData).subscribe(
+      (response: Organisation) => {
+        console.log(response);
+       this.notification=1
+       addForm.reset();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+        console.log("erreur");
+        
+      }
+    );
+}
 
 }
   
-/*
-
-
-*/

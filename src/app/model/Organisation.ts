@@ -21,7 +21,7 @@ export class Organisation{
      emailAdmin!:string;
     document!:string;
     logo!:string;
-    filename!:string
+    fileName!:string
    users!:Array<User>;
     listmarchees!:Array<Marchee>;
     constructor(){}

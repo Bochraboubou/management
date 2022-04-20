@@ -15,7 +15,7 @@ export class OrganisationComponent implements OnInit {
   terme:any;
   page:number = 1;
   totalLength:any;
-  constructor(private organisationservice:OrganisationServiceService, private router:Router) { }
+  constructor(public organisationservice:OrganisationServiceService, private router:Router) { }
 
   ngOnInit(): void {
     this.getOrganisations();

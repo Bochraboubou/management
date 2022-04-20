@@ -8,7 +8,7 @@ import { Organisation } from '../model/Organisation';
   providedIn: 'root'
 })
 export class OrganisationServiceService {
-  private apiServeUrl =environment.apiBaseUrl;
+  public apiServeUrl =environment.apiBaseUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -67,6 +67,8 @@ export class OrganisationServiceService {
   {
     return this.http.get<Organisation>(`${this.apiServeUrl}/admin/organisationbyUserName/${userName}`);
   }
-
+  createOrganisation(formData:FormData): Observable<any> {
+    return this.http.post(`${this.apiServeUrl}/admin/NewOrganisation`,formData);
+  }
   
 }

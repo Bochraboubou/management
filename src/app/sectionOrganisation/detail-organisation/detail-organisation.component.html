@@ -1,386 +1,124 @@
-<div class="container" id="main-container">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <div class="container bootstrap snippets bootdeys">
-        <div class="row" id="user-profile">
-            <div class="col-lg-9 col-md-8 col-sm-8" style="width: 1450px;">
-                <div class="main-box clearfix">
-                    <div class="profile-header">
-                        <h3><span> information de l'Organisation </span></h3>
-                        <a routerLink="/mycpm/entreprises" class="btn btn-primary edit-profile" style="color: black;">
-                            Entreprises associés
-                        </a>
-                    </div>
 
-                    <div class="row profile-user-info">
-                        <div class="col-sm-8">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+    <div class="view-account">
+        <section class="module">
+        	<div class="module-inner">
+        		<div class="side-bar">
+        			<div class="user-info">
+        				<img class="img-profile img-circle img-responsive center-block"  src="{{this.service.apiServeUrl+'/admin/ImgOrganisation/'+organisation.id}}"
+                        style="height :100px;width:fil-content"  alt="">
+        			
+        			</div>
+                    
+        			
+        		</div>
+        		
+        		<div class="content-panel">
+        			<h1 >Detail organisation</h1>
+                    <br><div><br></div>
+                    <br><div><br></div>
+
+                    <h2>info organisation :</h2>
+                    <div class="address">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Nom</label>
+                            <div class="col-sm-9">
+                                <input ngModel="{{organisation.nom}}" name="nomAdmin" id="nomAdmin"  type="text" class="form-control"readonly >
+                            </div>
+                        </div>
+                       
+                        <div class="form-group">
+                            <div class="col-sm-5 col-sm-offset-3">
+                                <label class="col-sm-3 control-label">email</label>
+                                <input  ngModel="{{organisation.email}}" name="emailAdmin" id="emailAdmin" type="text" class="form-control" readonly>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="col-sm-3 control-label">tel</label>
+                                <input ngModel="{{organisation.tel}}" name="tel" id="tel" type="text" class="form-control" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-5 col-sm-offset-3">
+                                <label class="col-sm-3 control-label">Document</label>
+                                <input  ngModel="{{organisation.document}}" name="emailAdmin" id="emailAdmin" type="text" class="form-control" readonly>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="col-sm-3 control-label">Adresse</label>
+                                <input ngModel="{{organisation.adresse}}" name="adresse" id="adresse" type="text" class="form-control" readonly>
+                            </div>
+                        </div>
+                        </div>
+
+
+                    <h2>info directeur generale </h2>
+        			<div class="billing">
+        			
+        				<form #infoForm="ngForm"  id="billing" class="form-horizontal" method="post" action="#" role="form">
+        					<div class="form-group">
+        						<label class="col-sm-3 control-label">nom :</label>
+        						<div class="col-sm-9">
+        							<input ngModel="{{organisation.nomDG}}" name="nomDG"  id ="nomDG"type="text" class="form-control" readonly>
+        							
+        						</div>
+        					</div>
+        					<div class="form-group">
+        						<label class="col-sm-3 control-label">Email </label>
+        						<div class="col-sm-9">
+        							<input ngModel="{{organisation.emailDG}}" name="emailDG" id="emailDG" type="text" class="form-control" readonly >
+        							</div>
+        					</div>
+        					
+        					<div class="form-group">
+        						<label class="col-sm-3 control-label">tel</label>
+        						<div class="col-sm-9">
+        							<input ngModel="{{organisation.telDG}}" name="telDG" id="telDG"  type="text" class="form-control"  readonly >
+        						
+        						</div>
+        					</div>
+                            <br>
+                            <h2>info admin :</h2>
+        					<div class="address">
+        						<div class="form-group">
+        							<label class="col-sm-3 control-label">Nom</label>
+        							<div class="col-sm-9">
+        								<input ngModel="{{organisation.nomAdmin}}" name="nomAdmin" id="nomAdmin"  type="text" class="form-control"readonly >
+        							</div>
+                                   
+        						</div>
+                               
+        						<div class="form-group">
+        							<div class="col-sm-5 col-sm-offset-3">
+                                        <label class="col-sm-3 control-label">email</label>
+        								<input  ngModel="{{organisation.emailAdmin}}" name="emailAdmin" id="emailAdmin" type="text" class="form-control" readonly>
+        							</div>
+        							<div class="col-sm-4">
+                                        <label class="col-sm-3 control-label">tel</label>
+        								<input ngModel="{{organisation.telAdmin}}" name="telAdmin" id="telAdmin" type="text" class="form-control" readonly>
+        							</div>
+                                    <label class="col-sm-3 control-label">Adresse</label>
+        							<div class="col-sm-9">
+        								<input ngModel="{{organisation.nomAdmin}}" name="nomAdmin" id="nomAdmin"  type="text" class="form-control"readonly >
+        							</div>
+        						</div>
+        						
+        					</div>
+                           
+        						
+        				
 
 
 
                             
-                           
-                            <div class="col-sm-4 profile-social">
-                                <ul class="fa-ul">
-
-                                    <li>
-                                        <div class="profile-user-details clearfix">
-                                            <div class="profile-user-details-label">
-                                                Name
-                                            </div>
-                                            <div class="profile-user-details-value">
-                                                {{organisation.nom}}
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="profile-user-details clearfix">
-                                            <div class="profile-user-details-label">
-                                                code
-                                            </div>
-                                            <div class="profile-user-details-value">
-                                                {{organisation.code}}
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="profile-user-details clearfix">
-                                            <div class="profile-user-details-label">
-                                                Secteur
-                                            </div>
-
-                                            <div class="profile-user-details-value">
-                                                {{organisation.secteur_d_activite }}
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li><div class="profile-user-details clearfix">
-                                        <div class="profile-user-details-label">
-                                            Email
-                                        </div>
-                                        <div class="profile-user-details-value">
-                                            {{organisation.email}}
-                                        </div>
-                                    </div></li>
-                                    <li> <div class="profile-user-details clearfix">
-                                        <div class="profile-user-details-label">
-                                            Adresse
-                                        </div>
-                                        <div class="profile-user-details-value">
-                                            {{organisation.pays}},
-                                            <br> {{organisation.region}}, {{organisation.adresse}}
-                                        </div>
-                                    </div></li>
-                                    <li><div class="profile-user-details clearfix">
-                                        <div class="profile-user-details-label">
-                                            Telephone
-                                        </div>
-                                        <div class="profile-user-details-value">
-                                            {{organisation.tel}}
-                                        </div>
-                                    </div></li>
-                                    <li><div class="profile-user-details clearfix">
-                                        <div class="profile-user-details-label">
-                                            Type
-                                        </div>
-                                        <div class="profile-user-details-value">
-                                            {{organisation.type}}
-                                        </div>
-                                    </div></li>
-                                    <hr>
-                                    <h3> directeur generale  </h3>
-                                    <li>
-                                        <div class="profile-user-details clearfix">
-                                            <div class="profile-user-details-label">
-                                                nom 
-                                            </div>
-                                            <div class="profile-user-details-value">
-                                                {{organisation.nomDG}}
-                                            </div>
-                                        </div>  
-                                    </li>
-                                    <li>
-                                        <div class="profile-user-details clearfix">
-                                            <div class="profile-user-details-label">
-                                                tel
-                                            </div>
-                                            <div class="profile-user-details-value">
-                                                {{organisation.telDG}}
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="profile-user-details clearfix">
-                                            <div class="profile-user-details-label">
-                                                Email
-                                            </div>
-                                            <div class="profile-user-details-value">
-                                                {{organisation.emailDG}}
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <hr>
-                                    <h3>information de l'admin  </h3>
-                                    <li><div class="profile-user-details clearfix">
-                                        <div class="profile-user-details-label">
-                                            Nom
-                                        </div>
-                                        <div class="profile-user-details-value">
-                                            {{organisation.nomAdmin}}
-                                        </div>
-                                    </div></li>
-                                    <li><div class="profile-user-details clearfix">
-                                        <div class="profile-user-details-label">
-                                            tel
-                                        </div>
-                                        <div class="profile-user-details-value">
-                                            {{organisation.telAdmin}}
-                                        </div>
-                                    </div></li>
-                                    <li><div class="profile-user-details clearfix">
-                                        <div class="profile-user-details-label">
-                                            email
-                                        </div>
-                                        <div class="profile-user-details-value">
-                                            {{organisation.emailAdmin}}
-                                        </div>
-                                    </div></li>
-                                   
-                                </ul>
-                            </div>
-                        </div>
-                       
-                    </div>
-
-                    <div class="tabs-wrapper profile-tabs">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#tab-activity " data-toggle="tab">Marché&#160; &#160;&#160;
-                                    &#160;</a></li>
-                            <li><a href="#tab-friends" data-toggle="tab">projets&#160;&#160;&#160;</a></li>
-                            <li><a href="#tab-chat" data-toggle="tab">Bande Commandes&#160; &#160;&#160;</a></li>
-                        </ul>
-
-                        <div class="tab-content">
-                            <div class="tab-pane fade in active" id="tab-activity">
-
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <tbody>
-
-
-
-                                            {{organisation.nom}}
-
-                                            <tr>
-                                                <td class="text-center">
-                                                    <i class="fa fa-truck"></i>
-                                                </td>
-                                                <td>
-                                                    John Doe changed order status from <span
-                                                        class="label label-primary">Pending</span> to <span
-                                                        class="label label-success">Completed</span>
-                                                </td>
-                                                <td>
-                                                    2014/08/08 12:08
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-
-                            <div class="tab-pane fade" id="tab-friends">
-                                <ul class="widget-users row">
-                                    <li class="col-md-6">
-                                        <div class="img">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                class="img-responsive" alt="">
-                                        </div>
-                                        <div class="details">
-                                            <div class="name">
-                                                <a href="#">John Doe </a>
-                                            </div>
-                                            <div class="time">
-                                                <i class="fa fa-clock-o"></i> Last online: 5 minutes ago
-                                            </div>
-                                            <div class="type">
-                                                <span class="label label-danger">Admin</span>
-                                            </div>
-                                        </div>
-                                    </li>
-
-
-
-                                    <li class="col-md-6">
-                                        <div class="img">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                class="img-responsive" alt="">
-                                        </div>
-                                        <div class="details">
-                                            <div class="name">
-                                                <a href="#">Mila Kunis</a>
-                                            </div>
-                                            <div class="time online">
-                                                <i class="fa fa-check-circle"></i> Online
-                                            </div>
-                                            <div class="type">
-                                                <span class="label label-warning">Pending</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="col-md-6">
-                                        <div class="img">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                class="img-responsive" alt="">
-                                        </div>
-                                        <div class="details">
-                                            <div class="name">
-                                                <a href="#">Ryan Gossling</a>
-                                            </div>
-                                            <div class="time online">
-                                                <i class="fa fa-check-circle"></i> Online
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <br>
-                                <a href="#" class="btn btn-success pull-right">View all users</a>
-                            </div>
-
-                            <div class="tab-pane fade" id="tab-chat">
-                                <div class="conversation-wrapper">
-                                    <div class="conversation-content">
-                                        <div class="slimScrollDiv"
-                                            style="position: relative; overflow: hidden; width: auto; height: 340px;">
-                                            <div class="conversation-inner"
-                                                style="overflow: hidden; width: auto; height: 340px;">
-
-                                                <div class="conversation-item item-left clearfix">
-                                                    <div class="conversation-user">
-                                                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                            class="img-responsive" alt="">
-                                                    </div>
-                                                    <div class="conversation-body">
-                                                        <div class="name">
-                                                            Ryan Gossling
-                                                        </div>
-                                                        <div class="time hidden-xs">
-                                                            September 21, 2013 18:28
-                                                        </div>
-                                                        <div class="text">
-                                                            I don't think they tried to market it to the billionaire,
-                                                            spelunking, base-jumping crowd.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="conversation-item item-right clearfix">
-                                                    <div class="conversation-user">
-                                                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                            class="img-responsive" alt="">
-                                                    </div>
-                                                    <div class="conversation-body">
-                                                        <div class="name">
-                                                            Mila Kunis
-                                                        </div>
-                                                        <div class="time hidden-xs">
-                                                            September 21, 2013 12:45
-                                                        </div>
-                                                        <div class="text">
-                                                            Normally, both your asses would be dead as fucking fried
-                                                            chicken, but you happen to pull this shit while I'm in a
-                                                            transitional period so I don't wanna kill you, I wanna help
-                                                            you.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="conversation-item item-right clearfix">
-                                                    <div class="conversation-user">
-                                                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                            class="img-responsive" alt="">
-                                                    </div>
-                                                    <div class="conversation-body">
-                                                        <div class="name">
-                                                            Mila Kunis
-                                                        </div>
-                                                        <div class="time hidden-xs">
-                                                            September 21, 2013 12:45
-                                                        </div>
-                                                        <div class="text">
-                                                            Normally, both your asses would be dead as fucking fried
-                                                            chicken, but you happen to pull this shit while I'm in a
-                                                            transitional period so I don't wanna kill you, I wanna help
-                                                            you.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="conversation-item item-left clearfix">
-                                                    <div class="conversation-user">
-                                                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                            class="img-responsive" alt="">
-                                                    </div>
-                                                    <div class="conversation-body">
-                                                        <div class="name">
-                                                            Ryan Gossling
-                                                        </div>
-                                                        <div class="time hidden-xs">
-                                                            September 21, 2013 18:28
-                                                        </div>
-                                                        <div class="text">
-                                                            I don't think they tried to market it to the billionaire,
-                                                            spelunking, base-jumping crowd.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="conversation-item item-right clearfix">
-                                                    <div class="conversation-user">
-                                                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                            class="img-responsive" alt="">
-                                                    </div>
-                                                    <div class="conversation-body">
-                                                        <div class="name">
-                                                            Mila Kunis
-                                                        </div>
-                                                        <div class="time hidden-xs">
-                                                            September 21, 2013 12:45
-                                                        </div>
-                                                        <div class="text">
-                                                            Normally, both your asses would be dead as fucking fried
-                                                            chicken, but you happen to pull this shit while I'm in a
-                                                            transitional period so I don't wanna kill you, I wanna help
-                                                            you.
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                            <div class="slimScrollBar"
-                                                style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; background: rgb(0, 0, 0);">
-                                            </div>
-                                            <div class="slimScrollRail"
-                                                style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="conversation-new-message">
-                                        <form>
-                                            <div class="form-group">
-                                                <textarea class="form-control" rows="2"
-                                                    placeholder="Enter your message..."></textarea>
-                                            </div>
-
-                                            <div class="clearfix">
-                                                <button type="submit" class="btn btn-success pull-right">Send
-                                                    message</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+        					<hr>
+   
+								
+        					
+        				</form>
+        			</div>
+        		</div>
+        	</div>
+        </section>
     </div>
 </div>

@@ -22,6 +22,7 @@ export class ListeDemandesComponent implements OnInit {
   terme:any;
   page:number = 1;
   totalLength:any;
+  ListeApprouvee:Demande[]=[]
   
  
   constructor(public _servicedemande:DemandeService, private router:Router) { }
@@ -39,6 +40,15 @@ export class ListeDemandesComponent implements OnInit {
       (response:Demande[])=>{
         this.demandes=response;
         this.totalLength=response.length;
+        this.demandes.forEach((curDemande) => {
+          if (curDemande.demandeStatus==true){
+            console.log("ouii")
+           this. ListeApprouvee.push(curDemande)
+          } else{
+            console.log("nnnnnnnnnn")
+          }
+      
+        })
       },
       (error:HttpErrorResponse)=>{
         alert(error.message);

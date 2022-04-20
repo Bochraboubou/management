@@ -18,7 +18,7 @@ export class Demande {
      logopath!:string;
      documentpath!:string;
      demandeStatus:boolean=true;
-     filename!:string
+     fileName!:string
      constructor(){
          
      }

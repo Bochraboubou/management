@@ -13,7 +13,7 @@ export class DetailOrganisationComponent implements OnInit {
  organisation!: Organisation;
  id!:number;
 
-  constructor(private route:ActivatedRoute, private service:OrganisationServiceService) { }
+  constructor(private route:ActivatedRoute,public service:OrganisationServiceService) { }
 
   ngOnInit(): void {
     this.id=this.route.snapshot.params['id'];

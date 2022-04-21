@@ -1,1 +1,83 @@
-<p>detail-ot works!</p>
+<div>
+    <form #addArticleForm="ngForm">
+      
+        <div class="row">
+            <div class="col-md-4">
+                <h2 style="font-family: Comic Sans MS; color: midnightblue;">Choisissez le code d'article</h2>
+                <select ngModel (ngModelChange)="getArticleChoisis($event)" name="articlebc" id="articlebc" class="form-select" placeholder="code du marché" aria-label="Default select example" required #marchee="ngModel"  [class.is-invalid]="marchee.invalid && marchee.touched">
+                  <option selected value="" >choisir le code d'article</option>-->
+                  <option   *ngFor="let articleBC of articlesBC let i=index"
+                  [value]="i">
+                  {{articleBC.code}}
+                </option>
+                </select>
+            </div>
+        </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <label for="designation">Designation</label>
+              <input type="text" ngModel  name="designation"  class="form-control" id="designationArtc" placeholder="designation" required disabled>
+            </div>
+        
+            <div class="col-md-4">
+              <label for="unitee">Unité</label>
+              <input type="text" ngModel  name="unitee"  class="form-control" id="unitee" placeholder="unitee" required disabled>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+                <label for="Prix">Prix</label>
+                <input type="number" ngModel  name="prix"  class="form-control" id="prixArtC" placeholder="prix" required disabled>
+            </div>
+            <div class="col-md-4">
+                <label for="delais">Quantitée</label>
+                <input type="number" [(ngModel)]="articleC.quantiteeOrderee!"  name="quantiteeOrderee"  class="form-control" id="quantiteeOrderee" placeholder="quantitee" required>
+            </div>
+          </div>
+        <br>
+
+        <div *ngIf="alerteArticleExisteDeja" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Attention</strong> cet article est deja ajoutee dans cette bonde commande
+          <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+        </div>
+
+        <div class="col-md-3 .ms-auto">
+          <button type="button" class="btn btn-success" (click)="addArticletoOrdre()" [disabled]="addArticleForm.invalid">Article suivant</button>
+        </div>
+        <div class="row">
+          <div class="row"><h3 style="color: darkred;">nombre article saisies : {{articlesOT?.length}} </h3></div>
+          <div class="row"><h3 style="color: darkred;">montant total {{calculTotalArticles(articlesOT)}} : </h3></div>
+        </div>
+    </form>
+    <br>
+    
+    <div>
+        <h2 style="font-family: Comic Sans MS; color: midnightblue;">   Liste d'articles de l'OT "</h2>
+        <table class="table table-primary table-hover table-striped" style="width: 70%;">
+          <thead>
+            <tr>
+              <th scope="col" class="bg-primary">N°</th>
+              <th scope="col" class="bg-primary">Code Article</th>
+              <th scope="col" class="bg-primary">Designiation</th>
+              <th scope="col" class="bg-primary">Unitee</th>
+              <th scope="col" class="bg-primary">Prix</th>
+              <th scope="col" class="bg-primary">Quantitee</th>
+              <th scope="col" class="bg-primary">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let articleOT of articlesOT ,let i= index">
+              <th scope="row">{{i}}</th>
+              <td>{{articleOT.code}}</td>
+              <td>{{articleOT.designation}}</td>
+              <td>{{articleOT.unitee}}</td>
+              <td>{{articleOT.prix}}</td>
+              <td>{{articleOT.quantiteeOrderee}}</td>
+              <td><button type="button" class="btn btn-success" >Modifier</button></td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+</div>

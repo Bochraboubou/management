@@ -13,9 +13,9 @@ export class OrdreDeTraveauxService {
   constructor(private http: HttpClient) { }
   
   //récuperer le total des montant des OT
-  public getTotalMontantOT(): Observable<number>
+  public getTotalMontantOT(bcId:number): Observable<number>
   {
-    return this.http.get<number>(`${this.apiServeUrl}/admin/montantTotalOT`);
+    return this.http.get<number>(`${this.apiServeUrl}/admin/bondeCommande/${bcId}/montantTotalOT`);
   }
 
   //ajouter OT
@@ -23,4 +23,12 @@ export class OrdreDeTraveauxService {
   {
     return this.http.post<OrdreDeTraveaux>(`${this.apiServeUrl}/admin/bondecommande/${bcId}/ordreTraveaux`,OT);
   }
+
+  //get OT by codeOT and BCId
+  
+   //récuperer la bc par code
+   public getOTByCodeOTandBCId(codeOT:string,bcId:number): Observable<OrdreDeTraveaux>
+   {
+     return this.http.get<OrdreDeTraveaux>(`${this.apiServeUrl}/admin/OT/codeOT/${codeOT}/bcId/${bcId}`);
+   }
 }

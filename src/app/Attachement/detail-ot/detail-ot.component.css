@@ -1,0 +1,10 @@
+.bcInformations{
+    border-style:solid;
+    border-color: black;
+    background-color: #AED6F1;
+    width: 40%;
+    height: 40%;
+    padding: 10px;
+    margin-left: 150px;
+    margin-bottom: 30px;
+}

@@ -1,9 +1,16 @@
 <div class="container" id="main-container">
-  <div>
-    <h3><strong>Code BC : </strong>{{BC?.codebc}}</h3>
-    <h3><strong >Montant BC </strong> {{BC?.montant}}</h3>
-    <h3><strong >Entreprise(Fournisseur) </strong> {{BC?.nomEntrep}}</h3>
-      </div>
+  <div  class="row bcInformations">
+    <div class="col">
+      <h4><strong>Code BC : </strong>{{BC?.codebc}}</h4>
+      <h4><strong >Montant BC : </strong> {{BC?.montant}}</h4>
+      <h4><strong >Entreprise(Fournisseur) : </strong> {{BC?.nomEntrep}}</h4>
+    </div>
+    <div class="col">
+      <button type="button" class="btn btn-dark" (click)="onOpenArticlesBCModal()">
+        Articles du BC
+      </button>
+    </div> 
+  </div>
     <form #addArticleForm="ngForm">
       
         <div class="row">
@@ -38,7 +45,7 @@
             </div>
             <div class="col-md-4">
                 <label for="delais">Quantitée</label>
-                <input type="number" [(ngModel)]="articleC.quantiteeOrderee!"  name="quantiteeOrderee"  class="form-control" id="quantiteeOrderee" placeholder="quantitee" required>
+                <input type="number" ngModel  name="quantiteeOrderee"  class="form-control" id="quantiteeOrderee" placeholder="quantitee" required>
             </div>
           </div>
         <br>
@@ -49,7 +56,7 @@
         </div>
 
         <div class="col-md-3 .ms-auto">
-          <button type="button" class="btn btn-success" (click)="addArticletoOrdre()" [disabled]="addArticleForm.invalid">Article suivant</button>
+          <button type="button" class="btn btn-success" (click)="addArticletoOrdre(addArticleForm)" [disabled]="addArticleForm.invalid">Article suivant</button>
         </div>
         <div class="row">
           <div class="row"><h3 style="color: darkred;">nombre article saisies : {{articlesOT?.length}} </h3></div>
@@ -70,6 +77,7 @@
               <th scope="col" class="bg-primary">Prix</th>
               <th scope="col" class="bg-primary">Quantitee</th>
               <th scope="col" class="bg-primary">Action</th>
+              <th scope="col" class="bg-primary"></th>
             </tr>
           </thead>
           <tbody>
@@ -80,7 +88,8 @@
               <td>{{articleOT.unitee}}</td>
               <td>{{articleOT.prix}}</td>
               <td>{{articleOT.quantiteeOrderee}}</td>
-              <td><button type="button" class="btn btn-success" >Modifier</button></td>
+              <td><button type="button" class="btn btn-success" (click)="onOpenmodifierArticleModal(i)"><i class="fa fa-pencil-square" aria-hidden="true"></i></button></td>
+              <td><button type="button" class="btn btn-danger" (click)="onOpenSupprimerArticleModal(i)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
             </tr>
           </tbody>
         </table>
@@ -90,13 +99,18 @@
           <strong>Attention</strong> le montant total des OT "{{montantTotalOT}}" est spérieur au montant du BC "{{BC?.montant}}"
           <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
         </div>
-
         <button type="button" class="btn btn-primary" (click)="EnregisterOT()">Enregister l'OT</button>
+        <br>
+        
+        <div *ngIf="alerteSucceeAjoutOT" class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>Succée</strong> OT enregistré avec succée
+          <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+        </div>
     </div>
 </div>
 
 
- <!-- Add  Article modal -->
+ <!-- Save OT modal -->
  <div class="modal fade" id="enregistrerOTmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -132,10 +146,117 @@
           
               <div class="modal-footer">
                  <button type="button" id="closeAjoutModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                 <button [disabled]="addArticleForm.invalid" type="submit" class="btn btn-primary" (click)="sauvgarderOT(EnregistrerOTform)"  style="background-color: navy;">Enregistrer lOT</button>
+                 <button [disabled]="EnregistrerOTform.invalid" type="submit" class="btn btn-primary" (click)="sauvgarderOT(EnregistrerOTform)"  style="background-color: navy;">Enregistrer lOT</button>
               </div>
               </form>
       </div>
     </div>
   </div>
 </div>
+
+ <!-- Liste articles BC modal -->
+ <div class="modal fade" id="articlesBCModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLongTitle">Articles BC</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="search" [(ngModel)]="searchA"  name="search"  class="form-control" id="search" placeholder="chercher">
+          <br>
+        <table class="table table-primary table-hover table-striped">
+          <thead>
+            <tr>
+              <th scope="col" class="bg-primary">#</th>
+              <th scope="col" class="bg-primary">Code</th>
+              <th scope="col" class="bg-primary">Designation</th>
+              <th scope="col" class="bg-primary">Unitee</th>
+              <th scope="col" class="bg-primary">Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let article of articlesBC | filter:searchA
+                ,let i= index">
+              <th scope="row">{{i}}</th>
+              <td>{{article.code}}</td>
+              <td>{{article.designation}}</td>
+              <td>{{article.unitee}}</td>
+              <td>{{article.typeLib}}</td>
+            </tr>
+          </tbody>
+         
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+ <!-- modifier article modal -->
+ <div class="modal fade" id="editArticleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLongTitle">modifier l'article</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #editArticleForm="ngForm">
+          <div>
+           <label for="codeEditArticle">Code</label>
+           <input type="text" ngModel="{{articlesOT[editArticleIndice]?.code}}" name="codeEditArticle"  class="form-control" id="codeEditArticle" placeholder="code d'article à modifier" disabled required>
+         </div>
+         
+         <div>
+           <label for="delais">Prix</label>
+           <input type="number" ngModel="{{articlesOT[editArticleIndice]?.prix!}}"  name="prixEditArticle"  class="form-control" id="prixEditArticle" placeholder="prixArticle" disabled required>
+         </div>
+
+         <div>
+           <label for="quantiteeEditArticle">Quantité</label>
+           <input type="number" ngModel="{{articlesOT[editArticleIndice]?.quantiteeOrderee}}"  name="quantiteeEditArticle"  class="form-control" id="quantiteeEditArticle" placeholder="montantArticle" required>
+         </div>
+
+         <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="closeEditArticleButton" data-dismiss="modal">Fermer</button>
+          <button [disabled]="editArticleForm.invalid" type="submit" class="btn btn-primary" style="background-color: navy;" (click)="modifierArticle(editArticleForm)">Modifier</button>
+       </div>
+
+         </form>
+     
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+
+  <!-- delete article modal -->
+  <div class="modal fade" id="deleteArticleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLongTitle">Supprimer un article de l'OT</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Voulez vous confirmer la suppression de l'article de cet OT" ?
+            
+          <div class="modal-footer">
+            <button type="button" id="closeDeleteArticleModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            <button  type="submit" class="btn btn-primary" style="background-color: firebrick;" (click)="deleteArticle()"  >Supprimer</button>
+               </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

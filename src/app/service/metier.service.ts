@@ -11,6 +11,7 @@ export class MetierService {
   private apiServeUrl =environment.apiBaseUrl;
 
   constructor(private http: HttpClient) { }
+  
   public addMetier(secteurId:number,metier:Metier): Observable<Metier>
   {
     return this.http.post<Metier>(`${this.apiServeUrl}/admin/secteurs/${secteurId}/metiers`,metier);

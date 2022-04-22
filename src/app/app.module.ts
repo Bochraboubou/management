@@ -74,6 +74,7 @@ import { GessComponent } from './gess/gess.component';
 import { ConnsulterAttachementComponent } from './Attachement/connsulter-attachement/connsulter-attachement.component';
 import { AjouterOTComponent } from './Attachement/ajouter-ot/ajouter-ot.component';
 import { DetailOTComponent } from './Attachement/detail-ot/detail-ot.component';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -185,7 +186,7 @@ MatIconModule,
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

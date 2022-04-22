@@ -1,4 +1,9 @@
-<div>
+<div class="container" id="main-container">
+  <div>
+    <h3><strong>Code BC : </strong>{{BC?.codebc}}</h3>
+    <h3><strong >Montant BC </strong> {{BC?.montant}}</h3>
+    <h3><strong >Entreprise(Fournisseur) </strong> {{BC?.nomEntrep}}</h3>
+      </div>
     <form #addArticleForm="ngForm">
       
         <div class="row">
@@ -79,5 +84,58 @@
             </tr>
           </tbody>
         </table>
+        <br>
+
+        <div *ngIf="alerteMontantBCdepassee" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Attention</strong> le montant total des OT "{{montantTotalOT}}" est spérieur au montant du BC "{{BC?.montant}}"
+          <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+        </div>
+
+        <button type="button" class="btn btn-primary" (click)="EnregisterOT()">Enregister l'OT</button>
     </div>
+</div>
+
+
+ <!-- Add  Article modal -->
+ <div class="modal fade" id="enregistrerOTmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLongTitle">Enregistrer OT</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form #EnregistrerOTform="ngForm">
+
+           <div>
+            <label for="codeOrdre">Code de l'OT</label>
+            <input type="text" [(ngModel)]="OT.codeOrdre" name="codeOrdre"  class="form-control" id="codeOrdre" placeholder="code de l'OT" required #codeOrdre="ngModel"  [class.is-invalid]="codeOrdre.invalid && codeOrdre.touched">
+           </div>
+           
+           <div>
+            <label for="montant">Date debut OT</label>
+            <input type="date" [(ngModel)]="OT.dateDebutOrdre"  name="dateDebutOrdre"  class="form-control" id="dateDebutOrdre" placeholder="date debut OT" required #dateDebutOrdre="ngModel"  [class.is-invalid]="dateDebutOrdre.invalid && dateDebutOrdre.touched">
+          </div>
+
+          <div>
+            <label for="montant">DelaisOT</label>
+            <input type="text" [(ngModel)]="OT.delais"  name="delais"  class="form-control" id="delais" placeholder="delais de l'OT" required #delais="ngModel"  [class.is-invalid]="delais.invalid && delais.touched">
+          </div>
+         
+          <br>
+          <div *ngIf="alerteCodeOTutilisee" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Attention</strong> Le code de l'OT est deja utilisé dans la BC courante
+            <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+          </div>
+          
+              <div class="modal-footer">
+                 <button type="button" id="closeAjoutModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                 <button [disabled]="addArticleForm.invalid" type="submit" class="btn btn-primary" (click)="sauvgarderOT(EnregistrerOTform)"  style="background-color: navy;">Enregistrer lOT</button>
+              </div>
+              </form>
+      </div>
+    </div>
+  </div>
 </div>

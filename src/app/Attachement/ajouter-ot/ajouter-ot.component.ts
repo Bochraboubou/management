@@ -26,6 +26,7 @@ export class AjouterOTComponent implements OnInit {
   marcheeC!: Marchee;
 
 
+
   constructor(private loginService:LoginService,private organisationService:OrganisationServiceService,private marcheeService:MarcheeService,private bondeCommandeService:BondeCommandeService,private articleRservice:ArticleRService) { }
 
   ngOnInit(): void {
@@ -90,6 +91,8 @@ export class AjouterOTComponent implements OnInit {
  })  
 
  }
+
+
 
  
 }

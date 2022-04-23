@@ -1,9 +1,19 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { OrdreDefinitif } from '../model/OrdreDefinitif';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdreDefinitifService {
+  private apiServeUrl =environment.apiBaseUrl;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+//ajouter un ordre definitif à un OT
+  public addOrdreDefinitif(OTId:number,articleId:number,ordreDefinitif:OrdreDefinitif): Observable<OrdreDefinitif>
+{
+  return this.http.post<OrdreDefinitif>(`${this.apiServeUrl}/admin/ordreTraveaux/${OTId}/article/${articleId}/ordreDefintif`,ordreDefinitif);
+}
 }

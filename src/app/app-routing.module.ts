@@ -52,13 +52,16 @@ import { UserProfileComponent } from './Inscription/user-profile/user-profile.co
 import { AjouterattachementComponent } from './attachement/ajouterattachement/ajouterattachement.component';
 import { DetailBonDeCommandeComponent } from './attachement/detail-bon-de-commande/detail-bon-de-commande.component';
 import { DeeeetailBCComponent } from './attachement/deeeetail-bc/deeeetail-bc.component';
+import { AjouterOTComponent } from './Attachement/ajouter-ot/ajouter-ot.component';
+import { DetailOTComponent } from './Attachement/detail-ot/detail-ot.component';
 import { ImprimerAttachementComponent } from './attachement/imprimer-attachement/imprimer-attachement.component';
 import { PageGardeComponent } from './Inscription/page-garde/page-garde.component';
 import { DemandeEnAttenteComponent } from './Inscription/demande-en-attente/demande-en-attente.component';
 import { ListeEmployeesComponent } from './espaceMyCPM/liste-employees/liste-employees.component';
 import { GessComponent } from './gess/gess.component';
 import { ConnsulterAttachementComponent } from './Attachement/connsulter-attachement/connsulter-attachement.component';
-//import { ConnsulterAttachementComponent } from './Attachement/connsulter-attachement/connsulter-attachement.component';
+import { ConsulterAttachementMCComponent } from './Attachement/consulter-attachement-mc/consulter-attachement-mc.component';
+
 
 
 const routes: Routes = [
@@ -124,7 +127,10 @@ const routes: Routes = [
     { path:'listeEmployeeMycpm',component:ListeEmployeesComponent},
     { path:'detailBondeCommande/:id',component:DetailBonDeCommandeComponent},
     { path:'detailBC/:id',component:DeeeetailBCComponent},
-    { path:'consulterAttachements',component:ConnsulterAttachementComponent}
+    { path:'consulterAttachements',component:ConnsulterAttachementComponent},
+    { path:'ajouterOT',component:AjouterOTComponent},
+    { path:'detailOT/:id',component:DetailOTComponent},
+    { path:'consulterAttachementsMC',component:ConsulterAttachementMCComponent},
   ]},
    {path:'',redirectTo:'premierPage',pathMatch:'full'}
 

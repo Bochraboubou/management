@@ -60,6 +60,7 @@ import { DemandeEnAttenteComponent } from './Inscription/demande-en-attente/dema
 import { ListeEmployeesComponent } from './espaceMyCPM/liste-employees/liste-employees.component';
 import { GessComponent } from './gess/gess.component';
 import { ConnsulterAttachementComponent } from './Attachement/connsulter-attachement/connsulter-attachement.component';
+import { ConsulterAttachementMCComponent } from './Attachement/consulter-attachement-mc/consulter-attachement-mc.component';
 
 
 
@@ -128,7 +129,8 @@ const routes: Routes = [
     { path:'detailBC/:id',component:DeeeetailBCComponent},
     { path:'consulterAttachements',component:ConnsulterAttachementComponent},
     { path:'ajouterOT',component:AjouterOTComponent},
-    { path:'detailOT/:id',component:DetailOTComponent}
+    { path:'detailOT/:id',component:DetailOTComponent},
+    { path:'consulterAttachementsMC',component:ConsulterAttachementMCComponent},
   ]},
    {path:'',redirectTo:'premierPage',pathMatch:'full'}
 

@@ -202,7 +202,6 @@ public EnregisterOT():void{
       this.alerteCodeOTutilisee=true;
     },
     error: (error:HttpErrorResponse) => {
-      document.getElementById('closeDeleteArticleModal')?.click();
       this.ordreTraveauxService.addOT(this.BC.id,this.OT).subscribe({
         next: (response:OrdreDeTraveaux) => {
           this.OT=response;
@@ -212,6 +211,7 @@ public EnregisterOT():void{
             od.quantiteeOrderee=this.articlesOT[i].quantiteeOrderee;
             this.ajouterOrdreDefinitif(response.id,this.articlesOT[i].id,od);
           }
+          document.getElementById('closeAjoutModal')?.click();
           this.alerteSucceeAjoutOT=true;
           OTform.reset();
           this.articlesOT=[];

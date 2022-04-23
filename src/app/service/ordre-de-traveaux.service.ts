@@ -31,4 +31,11 @@ export class OrdreDeTraveauxService {
    {
      return this.http.get<OrdreDeTraveaux>(`${this.apiServeUrl}/admin/OT/codeOT/${codeOT}/bcId/${bcId}`);
    }
+
+   //récuperer les ots par bcId
+   public getOTsBybcID(bcID:number): Observable<OrdreDeTraveaux[]>
+   {
+     return this.http.get<OrdreDeTraveaux[]>(`${this.apiServeUrl}/admin/bc/${bcID}/ots`);
+   }
+ 
 }

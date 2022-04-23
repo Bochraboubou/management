@@ -75,6 +75,7 @@ import { ConnsulterAttachementComponent } from './Attachement/connsulter-attache
 import { AjouterOTComponent } from './Attachement/ajouter-ot/ajouter-ot.component';
 import { DetailOTComponent } from './Attachement/detail-ot/detail-ot.component';
 import { DatePipe } from '@angular/common';
+import { ConsulterAttachementMCComponent } from './Attachement/consulter-attachement-mc/consulter-attachement-mc.component';
 
 
 @NgModule({
@@ -165,6 +166,7 @@ DeeeetailBCComponent,
 ConnsulterAttachementComponent,
 AjouterOTComponent,
 DetailOTComponent,
+ConsulterAttachementMCComponent,
 
 
   ],

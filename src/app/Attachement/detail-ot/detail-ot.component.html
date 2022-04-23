@@ -8,6 +8,7 @@
     <div class="col">
       <button type="button" class="btn btn-dark" (click)="onOpenArticlesBCModal()">
         Articles du BC
+        <i class="fa fa-list-alt" aria-hidden="true"></i>
       </button>
     </div> 
   </div>
@@ -99,7 +100,7 @@
           <strong>Attention</strong> le montant total des OT "{{montantTotalOT}}" est spérieur au montant du BC "{{BC?.montant}}"
           <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
         </div>
-        <button type="button" class="btn btn-primary" (click)="EnregisterOT()">Enregister l'OT</button>
+        <button type="button" class="btn btn-primary"  (click)="EnregisterOT()" style="border: navy;">Enregister l'OT</button>
         <br>
         
         <div *ngIf="alerteSucceeAjoutOT" class="alert alert-success alert-dismissible fade show" role="alert">

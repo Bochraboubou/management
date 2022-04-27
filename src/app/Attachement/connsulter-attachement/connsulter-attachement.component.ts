@@ -17,7 +17,7 @@ import { OrganisationServiceService } from 'src/app/service/organisation-service
 })
 export class ConnsulterAttachementComponent implements OnInit {
 
-  idOrgan:number=2;
+
   organisationConnectee!: Organisation;
   username!: string;
   marchees!: Marchee[];
@@ -87,7 +87,7 @@ export class ConnsulterAttachementComponent implements OnInit {
 
    //récuperer la liste des marchhees dans l'organisation connecté
    public onGetmarchees():void{
-    this.marcheeService.getMarcheestypeProjetbyorganisationId(this.idOrgan).subscribe({
+    this.marcheeService.getMarcheestypeProjetbyorganisationId(this.organisationConnectee.id).subscribe({
       next: (response:Marchee[]) => {
         this.marchees=response;
         console.log("marchees de l'organisation connecté"+this.marchees)

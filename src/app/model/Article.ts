@@ -6,6 +6,7 @@ export class Article{
     prix!: number;
     classe!: string;
     quantitee!: number;
+    quantiteeOrderee!: number;
     quantiteeRealisee!: number;
     idType!: number;
     typeLib!: string;

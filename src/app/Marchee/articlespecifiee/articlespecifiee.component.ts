@@ -47,7 +47,7 @@ export class ArticlespecifieeComponent implements OnInit {
       next: (response:BondeCommande) => {
         this.bonDeCommande=response;
         console.log(" code du bc recus :   "+this.bonDeCommande.codebc);
-        this.onGetArticlesRealisees(idBC);
+        this.onGetArticlesUtilisees(idBC);
         this.onGetEntreprise(response.nomEntrep);
       },
       error: (error:HttpErrorResponse) => {
@@ -58,8 +58,8 @@ export class ArticlespecifieeComponent implements OnInit {
   })
 }
 
-//récuperer les articlesRealisees par bc
-public onGetArticlesRealisees(idBC:number):void{
+//récuperer les articlesUtilisees par bc
+public onGetArticlesUtilisees(idBC:number):void{
   this.articleReliseeService.getArticlesUtiliseesbybcId(idBC).subscribe({
     next: (response:Article[]) => {
       this.articles=response.sort((a, b) => (a.typeLib > b.typeLib) ? 1 : -1);

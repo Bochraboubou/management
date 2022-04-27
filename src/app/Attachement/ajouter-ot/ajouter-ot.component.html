@@ -1,0 +1,61 @@
+<div class="container" id="main-container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-6">
+        <h1 style="font-family:Marker Felt, fantasy; font-size: 28px; color:midnightblue">Créer des ordres de traveaux</h1>
+      </div>
+    </div>
+      <div class="row">
+        <div class="col-md-4">
+                <h2 style="font-family: Comic Sans MS; color: midnightblue;">Tou dabord choisissez le code du marché</h2>
+                <select ngModel (ngModelChange)="getMarcheeChoisis($event)" name="marchee" id="marchee" class="form-select" placeholder="code du marché" aria-label="Default select example" required #marchee="ngModel"  [class.is-invalid]="marchee.invalid && marchee.touched">
+                  <option selected value="" >choisir le code du marché</option>-->
+                  <option   *ngFor="let marchee of marchees let i=index"
+                  [value]="i">
+                  {{marchee.code}}
+                </option>
+                </select>
+
+        </div>
+        <div>
+
+        
+        </div>
+    </div>
+    <br>
+
+    <div>
+        <h2 style="font-family: Comic Sans MS; color: midnightblue;">   Bons de Commandes "</h2>
+        <table class="table table-primary table-hover table-striped" style="width: 70%;">
+          <thead>
+            <tr>
+              <th scope="col" class="bg-primary">N°</th>
+              <th scope="col" class="bg-primary">Code BC</th>
+              <th scope="col" class="bg-primary">EntrepriseFournisseur</th>
+              <th scope="col" class="bg-primary">Date de but traveaux</th>
+              <th scope="col" class="bg-primary">Delais</th>
+              <th scope="col" class="bg-primary">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let bc of bonsdeCommandes ,let i= index">
+              <th scope="row">{{i}}</th>
+              <td>{{bc.codebc}}</td>
+              <td>{{bc.nomEntrep}}</td>
+              <td>{{bc.dateDebutTraveaux}}</td>
+              <td>{{bc.delais}}</td>
+              <td><button type="button" class="btn btn-dark" routerLink="/mycpm/detailOT/{{bc.id}}">ajouter un ordre de Traveaux</button></td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  
+</div>
+
+
+
+
+
+
+ 
+ 
+  

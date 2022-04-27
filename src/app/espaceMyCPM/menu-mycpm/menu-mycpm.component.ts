@@ -67,6 +67,10 @@ this.register.findByUserName(this.username).subscribe(
     this.router.navigate(['DetailOrg',id])
   }
   
+
+    
+  }
+
 /*
     //pour connaitre le code de l'organisation 
     this.id=this.route.snapshot.params['id'];
@@ -133,4 +137,4 @@ this.userServi.getUserById(this.id).subscribe(
 
 }
 */
-  }
+  

@@ -72,12 +72,22 @@ import { ListeEmployeesComponent } from './espaceMyCPM/liste-employees/liste-emp
 import { GessComponent } from './gess/gess.component';
 
 
+
 import { MCattachementComponent } from './attachement/mcattachement/mcattachement.component';
 import { MCMarcheeComponent } from './attachement/mcmarchee/mcmarchee.component';
 import { ListeOTComponent } from './attachement/MarcheeMC/liste-ot/liste-ot.component';
-import { ConnsulterAttachementComponent } from './attachement/connsulter-attachement/connsulter-attachement.component';
+
 import { ConsulterOTComponent } from './attachement/MarcheeMC/consulter-ot/consulter-ot.component';
 import { AffichrListeOTmcComponent } from './attachement/MarcheeMC/affichr-liste-otmc/affichr-liste-otmc.component';
+import { AjouterOTComponent } from './attachement/ajouter-ot/ajouter-ot.component';
+import { ConsulterAttachementMCComponent } from './attachement/consulter-attachement-mc/consulter-attachement-mc.component';
+import { DetailOTComponent } from './attachement/detail-ot/detail-ot.component';
+
+
+
+
+import { DatePipe } from '@angular/common';
+import { ConnsulterAttachementComponent } from './attachement/connsulter-attachement/connsulter-attachement.component';
 
 
 
@@ -158,6 +168,7 @@ SendEmailUserComponent,
 UserProfileComponent,
 DetailBonDeCommandeComponent,
 DeeeetailBCComponent,
+
   ImprimerAttachementComponent,
   PageGardeComponent,
   DemandeEnAttenteComponent,
@@ -166,11 +177,17 @@ DeeeetailBCComponent,
 
 
 ConnsulterAttachementComponent,
+
     MCattachementComponent,
     MCMarcheeComponent,
     ListeOTComponent,
     ConsulterOTComponent,
     AffichrListeOTmcComponent,
+
+AjouterOTComponent,
+DetailOTComponent,
+ConsulterAttachementMCComponent,
+
 
 
   ],
@@ -192,7 +209,7 @@ MatIconModule,
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

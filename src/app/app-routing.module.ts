@@ -41,27 +41,26 @@ import { MenuMycpmComponent } from './espaceMyCPM/menu-mycpm/menu-mycpm.componen
 import { MarcheeComponent } from './Marchee/marchee/marchee.component';
 import { EntreprisesComponent } from './sectionOrganisation/entreprises/entreprises.component';
 import { DetailOrganisationComponent } from './sectionOrganisation/detail-organisation/detail-organisation.component';
-
-
 import { ArticlespecifieeComponent } from './Marchee/articlespecifiee/articlespecifiee.component';
-
 import { UserProfileComponent } from './Inscription/user-profile/user-profile.component';
 import { AjouterattachementComponent } from './attachement/ajouterattachement/ajouterattachement.component';
 import { DetailBonDeCommandeComponent } from './attachement/detail-bon-de-commande/detail-bon-de-commande.component';
 import { DeeeetailBCComponent } from './attachement/deeeetail-bc/deeeetail-bc.component';
+
 import { ImprimerAttachementComponent } from './attachement/imprimer-attachement/imprimer-attachement.component';
 import { PageGardeComponent } from './Inscription/page-garde/page-garde.component';
 import { DemandeEnAttenteComponent } from './Inscription/demande-en-attente/demande-en-attente.component';
 import { ListeEmployeesComponent } from './espaceMyCPM/liste-employees/liste-employees.component';
 import { GessComponent } from './gess/gess.component';
-//import { ConnsulterAttachementComponent } from './Attachement/connsulter-attachement/connsulter-attachement.component';
+import { AjouterOTComponent } from './attachement/ajouter-ot/ajouter-ot.component';
+import { ConnsulterAttachementComponent } from './attachement/connsulter-attachement/connsulter-attachement.component';
+import { ConsulterAttachementMCComponent } from './attachement/consulter-attachement-mc/consulter-attachement-mc.component';
+import { DetailOTComponent } from './attachement/detail-ot/detail-ot.component';
+import { AffichrListeOTmcComponent } from './attachement/MarcheeMC/affichr-liste-otmc/affichr-liste-otmc.component';
+import { ConsulterOTComponent } from './attachement/MarcheeMC/consulter-ot/consulter-ot.component';
+import { ListeOTComponent } from './attachement/MarcheeMC/liste-ot/liste-ot.component';
 import { MCattachementComponent } from './attachement/mcattachement/mcattachement.component';
 import { MCMarcheeComponent } from './attachement/mcmarchee/mcmarchee.component';
-import { ListeOTComponent } from './attachement/MarcheeMC/liste-ot/liste-ot.component';
-import { ConsulterOTComponent } from './attachement/MarcheeMC/consulter-ot/consulter-ot.component';
-import { AffichrListeOTmcComponent } from './attachement/MarcheeMC/affichr-liste-otmc/affichr-liste-otmc.component';
-
-
 
 
 const routes: Routes = [
@@ -127,6 +126,7 @@ const routes: Routes = [
     { path:'listeEmployeeMycpm',component:ListeEmployeesComponent},
     { path:'detailBondeCommande/:id',component:DetailBonDeCommandeComponent},
     { path:'detailBC/:id',component:DeeeetailBCComponent},
+
     { path:'MCattachement/:id',component:MCattachementComponent},
     //{ path:'consulterAttachements',component:ConnsulterAttachementComponent},
     { path:'mcattachement',component:MCattachementComponent},
@@ -135,6 +135,12 @@ const routes: Routes = [
     { path:'consulterOT',component:ConsulterOTComponent},
     { path:'McConsulterListeOT/:id',component:AffichrListeOTmcComponent},
     
+
+    { path:'consulterAttachements',component:ConnsulterAttachementComponent},
+    { path:'ajouterOT',component:AjouterOTComponent},
+    { path:'detailOT/:id',component:DetailOTComponent},
+    { path:'consulterAttachementsMC',component:ConsulterAttachementMCComponent},
+
   ]},
    {path:'',redirectTo:'premierPage',pathMatch:'full'}
 

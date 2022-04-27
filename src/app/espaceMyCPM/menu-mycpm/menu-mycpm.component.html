@@ -178,7 +178,7 @@
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6>{{this.loginService.loggedUser}}</h6>
-
+              
               <h6>{{organisation.nom}}</h6>
               <span>Soft engineering Student</span>
             </li>
@@ -187,7 +187,7 @@
             </li>
 
             <li>
-              <a routerLink="userProfilemycpm" class="dropdown-item d-flex align-items-center">
+<a    routerLink="userProfilemycpm" class="dropdown-item d-flex align-items-center" >
                 <i class="bi bi-person"></i>
                 <span>Profile</span>
               </a>
@@ -217,7 +217,7 @@
             </li>
 
             <li>
-              <a routerLink="/login" class="dropdown-item d-flex align-items-center" (click)="loginService.logout()">
+              <a class="dropdown-item d-flex align-items-center" (click)="loginService.logout()">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Déconnexion</span>
               </a>
@@ -244,30 +244,27 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a *ngIf="!loginService.isEmployeeAchat()" class="nav-link collapsed" data-bs-target="#components-nav"
-          data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Gérer votre organisation</span><i
-            class="bi bi-chevron-down ms-auto"></i>
+        <a  *ngIf="!loginService.isEmployeeAchat()" class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Gérer votre organisation</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a (click)="onAfficheDetailOrganisation(organisation.id)">
-              <i class="bi bi-circle"></i><span>Qui somme nous</span>
-            </a>
-          </li>
-          <li>
-            <a routerLink="/mycpm/metiers">
-              <i class="bi bi-circle"></i><span>Metiers</span></a>
+            <li>
+              <a  (click)="onAfficheDetailOrganisation(organisation.id)">
+                <i class="bi bi-circle"></i><span>Qui somme nous</span>
+              </a>
+            </li>
+        <li>
+          <a routerLink="/mycpm/metiers">
+            <i class="bi bi-circle"></i><span>Metiers</span></a>
 
-            <a *ngIf="loginService.isAdminMYCPM()" routerLink="/mycpm/marchee">
-              <i class="bi bi-circle"></i><span>Ajouter un marché</span>
-            </a>
-          </li>
-          <li>
-            <!---->
+                <a *ngIf="loginService.isAdminMYCPM()" 
+                routerLink="/mycpm/marchee">
+                </a>
+              </li>
+          <li><!---->
             <a *ngIf="loginService.isAdminCPM()" routerLink="/mycpm/marchee">
               <i class="bi bi-circle"></i><span>gérer les métiers</span>
-            </a>
+              </a> 
           </li>
           <li>
             <a routerLink="/mycpm/entreprises">
@@ -279,20 +276,13 @@
               <i class="bi bi-circle"></i><span>Configurations</span>
             </a>
           </li>
-          <li>
-            <a href="components-breadcrumbs.html">
-              <i class="bi bi-circle"></i><span>autre</span>
-            </a>
-          </li>
-
         </ul>
       </li><!-- End Components Nav -->
 
       <li class="nav-item">
 
 
-        <a *ngIf="!loginService.isEmployeeAchat()" class="nav-link collapsed" data-bs-target="#forms-nav"
-          data-bs-toggle="collapse" href="#">
+        <a *ngIf="!loginService.isEmployeeAchat()" class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journal-text"></i>
           <span>Articles</span><i class="bi bi-chevron-down ms-auto"></i>
 
@@ -305,17 +295,7 @@
           </li>
           <li>
             <a routerLink="/mycpm/types">
-              <i class="bi bi-circle"></i><span>Gestion des types</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-editors.html">
-              <i class="bi bi-circle"></i><span>autre 2</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-validation.html">
-              <i class="bi bi-circle"></i><span>autre 3</span>
+              <i class="bi bi-circle"></i><span>Gestion des types d'articles</span>
             </a>
           </li>
         </ul>
@@ -336,16 +316,11 @@
               <i class="bi bi-circle"></i><span>Consulter les marchées</span>
             </a>
           </li>
-          <li>
-            <a href="tables-data.html">
-              <i class="bi bi-circle"></i><span>Modifier un marché</span>
-            </a>
-          </li>
         </ul>
       </li><!-- End Tables Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" >
           <i class="bi bi-bar-chart"></i><span>Facturations </span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -368,48 +343,68 @@
       </li><!-- End Charts Nav -->
 
       <li class="nav-item">
-
-
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Suivis et exécutions</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-
-        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+      <a class="nav-link collapsed" data-bs-target="#SEMC" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Suivis et exécutions des projets</span>
+          <i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+         
+           <ul id="SEMC" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a>
+            <a routerLink="ajouterAttachement">
               <i class="bi bi-circle"></i><span>Ajouter un attachement</span>
             </a>
           </li>
-          <ul>
-            <li>
-              <a routerLink="ajouterAttachement">
-                <i class="bi bi-circle"></i><span>Projet</span>
-              </a>
-            </li>
-            <li>
-              <a routerLink="MCmarchee">
-                <i  class="bi bi-circle"></i><span>MC</span>
-              </a>
-            </li>
-          </ul>
           <li>
             <a routerLink="/mycpm/consulterAttachements">
               <i class="bi bi-circle"></i><span>Consulter les attachements</span>
             </a>
-
           </li>
           <li>
-            <a routerLink="/mycpm/consulterOT">
-              <i class="bi bi-circle"></i><span>consulter ordre de traveaux</span>
+            <a href="icons-boxicons.html">
+              <i class="bi bi-circle"></i><span>Stastiques</span>
             </a>
           </li>
         </ul>
       </li><!-- End Icons Nav -->
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav1" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-bar-chart"></i><span>Suivis et exécutions des MC  </span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a routerLink="/mycpm/ajouterOT">
+              <i class="bi bi-circle"></i><span>Ajouter des OT</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/mycpm/consulterOT">
+              <i class="bi bi-circle"></i><span>Consulter les OTs</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="MCmarchee">
+              <i class="bi bi-circle"></i><span>Ajouter un attachement</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/mycpm/consulterAttachementsMC">
+              <i class="bi bi-circle"></i><span>Consulter les attachements</span>
+            </a>
+          </li>
+          <li>
+            <a href="charts-echarts.html">
+              <i class="bi bi-circle"></i><span>Stastistiques</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Charts Nav -->
 
       <li class="nav-item">
-        <a *ngIf="!loginService.isEmployeeAchat()" class="nav-link collapsed" data-bs-target="#icons-nav2"
-          data-bs-toggle="collapse" href="#">
+
+
+      <li class="nav-item">
+        <a  *ngIf="!loginService.isEmployeeAchat()" class="nav-link collapsed" data-bs-target="#icons-nav2" data-bs-toggle="collapse" href="#" >
           <i class="bi bi-gem"></i><span>Gestion RH</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="icons-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -428,16 +423,16 @@
               <i class="bi bi-circle"></i><span>Ajouter un ouvrier </span>
             </a>
           </li>
-
-
-
+        
+         
+         
         </ul>
       </li>
 
       <li class="nav-heading">Pages</li>
 
       <li class="nav-item">
-        <a routerLink="userProfilemycpm" class="nav-link collapsed">
+        <a  routerLink="userProfilemycpm"  class="nav-link collapsed">
           <i class="bi bi-person"></i>
           <span>Profile</span>
         </a>
@@ -493,39 +488,38 @@
 
     <div class="pagetitle">
       <h1>Tableau de bord</h1>
-      <nav>
+     <!-- <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
           <li class="breadcrumb-item active">Tableau de bord</li>
         </ol>
-      </nav>
+      </nav>-->
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
       <div class="row">
 
         <!-- Left side columns -->
-
+        
         <div class="col-lg-8">
           <div class="row">
-
-
-            <div><br></div>
-
+         
+            
+           <div><br></div>
+           
             <div class="container_fluid">
               <router-outlet></router-outlet>
             </div>
           </div>
         </div><!-- End Left side columns -->
 
-
+       
       </div>
     </section>
 
   </main><!-- End #main -->
 
-
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
+ 
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 </div>

@@ -129,7 +129,6 @@ sumDesArticles(){
           },
           error: (error:HttpErrorResponse) => {
             console.log(error.message);
-           
            },
           complete: () => console.info('complete')
       })
@@ -144,7 +143,7 @@ sumDesArticles(){
     },
     error: (error:HttpErrorResponse) => {
       console.log(error.message);
-     
+
      },
     complete: () => console.info('complete') 
   })
@@ -164,7 +163,9 @@ sumDesArticles(){
 
 
   verifier(){
+
      console.log("imprimer")
+
     if(this.existe==""){
       this.alertAttachementExiste=1
 
@@ -459,41 +460,6 @@ complete: () => console.info('complete')
     }
   }
   
-    /*
-    for (let i=0;i<this.articlesUtulisees.length;i++){
-      if(this.articlesUtulisees[i].codeArt==this.code){
-        console.log("ouiiii existe")
-        this.codeArticleRealisee=this.code
-                //pour remplir designiation et unitee
-        this.artService.getArticlebyCode(this.code).subscribe({
-          next: (response:Article) =>{
-           this.article=response
-          
-           console.log("oui il existe")
-           //remplir les champ designiation et unitee
-           this.article2.designation=this.article.designation
-           this.article2.unitee=this.article.unitee
-           this.article2.quantitee=this.articlesUtulisees[i].quantitee
-           // ****
-           //pour remplir  article realiseeId 
-           this.articleRealiseeID.article_id=this.article.id
-
-        
-          },
-          error: (error:HttpErrorResponse) => {
-            console.log(error.message);
-            this.alertecodeArticle=1
-           // alert("vous n'etes plus attaché a une organisation")
-           },
-          complete: () => console.info('complete')  
-        })
-
-
-      }
-
-
-     
-    }*/
   
 
 //////juste

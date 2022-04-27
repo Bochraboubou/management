@@ -54,9 +54,13 @@ import { PageGardeComponent } from './Inscription/page-garde/page-garde.componen
 import { DemandeEnAttenteComponent } from './Inscription/demande-en-attente/demande-en-attente.component';
 import { ListeEmployeesComponent } from './espaceMyCPM/liste-employees/liste-employees.component';
 import { GessComponent } from './gess/gess.component';
-import { ConnsulterAttachementComponent } from './Attachement/connsulter-attachement/connsulter-attachement.component';
 //import { ConnsulterAttachementComponent } from './Attachement/connsulter-attachement/connsulter-attachement.component';
-//import { ConnsulterAttachementComponent } from './Attachement/connsulter-attachement/connsulter-attachement.component';
+import { MCattachementComponent } from './attachement/mcattachement/mcattachement.component';
+import { MCMarcheeComponent } from './attachement/mcmarchee/mcmarchee.component';
+import { ListeOTComponent } from './attachement/MarcheeMC/liste-ot/liste-ot.component';
+import { ConsulterOTComponent } from './attachement/MarcheeMC/consulter-ot/consulter-ot.component';
+import { AffichrListeOTmcComponent } from './attachement/MarcheeMC/affichr-liste-otmc/affichr-liste-otmc.component';
+
 
 
 
@@ -123,7 +127,14 @@ const routes: Routes = [
     { path:'listeEmployeeMycpm',component:ListeEmployeesComponent},
     { path:'detailBondeCommande/:id',component:DetailBonDeCommandeComponent},
     { path:'detailBC/:id',component:DeeeetailBCComponent},
-    { path:'consulterAttachements',component:ConnsulterAttachementComponent}
+    { path:'MCattachement/:id',component:MCattachementComponent},
+    //{ path:'consulterAttachements',component:ConnsulterAttachementComponent},
+    { path:'mcattachement',component:MCattachementComponent},
+    { path:'MCmarchee',component:MCMarcheeComponent},
+    { path:'listeOT/:id',component:ListeOTComponent},
+    { path:'consulterOT',component:ConsulterOTComponent},
+    { path:'McConsulterListeOT/:id',component:AffichrListeOTmcComponent},
+    
   ]},
    {path:'',redirectTo:'premierPage',pathMatch:'full'}
 

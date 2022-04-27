@@ -71,7 +71,14 @@ import { DemandeEnAttenteComponent } from './Inscription/demande-en-attente/dema
 import { ListeEmployeesComponent } from './espaceMyCPM/liste-employees/liste-employees.component';
 import { GessComponent } from './gess/gess.component';
 
-import { ConnsulterAttachementComponent } from './Attachement/connsulter-attachement/connsulter-attachement.component';
+
+import { MCattachementComponent } from './attachement/mcattachement/mcattachement.component';
+import { MCMarcheeComponent } from './attachement/mcmarchee/mcmarchee.component';
+import { ListeOTComponent } from './attachement/MarcheeMC/liste-ot/liste-ot.component';
+import { ConnsulterAttachementComponent } from './attachement/connsulter-attachement/connsulter-attachement.component';
+import { ConsulterOTComponent } from './attachement/MarcheeMC/consulter-ot/consulter-ot.component';
+import { AffichrListeOTmcComponent } from './attachement/MarcheeMC/affichr-liste-otmc/affichr-liste-otmc.component';
+
 
 
 @NgModule({
@@ -159,6 +166,11 @@ DeeeetailBCComponent,
 
 
 ConnsulterAttachementComponent,
+    MCattachementComponent,
+    MCMarcheeComponent,
+    ListeOTComponent,
+    ConsulterOTComponent,
+    AffichrListeOTmcComponent,
 
 
   ],

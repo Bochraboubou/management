@@ -164,6 +164,7 @@ sumDesArticles(){
 
 
   verifier(){
+     console.log("imprimer")
     if(this.existe==""){
       this.alertAttachementExiste=1
 
@@ -568,10 +569,7 @@ listedesArticlesRealiseeModal():void{
 
 
 }
-imprimer(id:number){
- 
-  this.router.navigate(['imprimerAttachement',id])
-}
+
 openImprimerModal(){
   const container=document.getElementById('container');
   const button=document.createElement('button');

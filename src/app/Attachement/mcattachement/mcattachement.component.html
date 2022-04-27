@@ -1,0 +1,743 @@
+<div class="container" id="container"  >
+	<br>
+	<div class="col-md-6">
+		<div><h1 style="font-family:Marker Felt, fantasy; font-size: 28px; color:navy;position:center;">Ajouter attachement</h1></div>
+	  </div>
+	<br>
+
+	<div><br></div>
+	<div class="row">
+		<div class="col-lg-7">
+			<div class="contact">
+				
+				<div class="alert alert-success" role="alert" *ngIf="articleAjouter==1">
+				Article ajouter...
+					<button type="button"  (click)="closeAlerts()"class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alertecodeArticle==1">
+					<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+					<strong>Attention !</strong> code article n'existe pas !.
+
+					<button type="button"  (click)="closeAlerts()" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+
+				</div>
+				<div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="  this.alertAttachementExiste==1">
+					<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+					<strong>Attention !</strong> vous devez ajouter un attachement !.
+
+					<button type="button"  (click)="closeAlerts()" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+
+				</div>
+				<div class="alert alert-danger" role="alert" *ngIf="alertAttachemnt==1">
+					vous devez crérer un attachement en premier!!..cliquer <a routerLink="mycpm/ajouterAttachement"
+						class="alert-link"> ICI</a>pour reconnecté
+				</div>
+				<!--addAraticleRealisee-->
+				
+				<form #addattachement="ngForm" (ngSubmit)="remplirTableau(addattachement)">
+
+					<div class="row gx-2 mb-2">
+						<div class="col-md-6">
+
+							<label>Code article:</label>
+							<input [(ngModel)]="code" name="code" class="form-control" id="code">
+
+						</div>
+						<div class="col-md-3">
+							<div class="single_address">
+								<i (click)="recherche2()" class="fa fa-search" aria-hidden="true"></i>
+
+
+							</div>
+						</div>
+
+					</div>
+
+
+
+
+					<br>
+
+					<div class="row gx-3 mb-3">
+
+						<div class="col-md-6">
+
+							<label class="small mb-1" for="inputLastName">Désigniation</label>
+							<input [(ngModel)]="article2.designation" name="designation" id="designation"
+								class="form-control" readonly>
+
+						</div>
+
+						<div class="col-md-6">
+
+							<label class="small mb-1" for="inputLastName">Unité</label>
+							<input [(ngModel)]="article2.unitee" name="unitee" id="unitee" class="form-control"
+								readonly>
+
+						</div>
+
+					</div>
+
+					<div class="row gx-3 mb-3">
+
+						<div class="col-md-6">
+
+							<label class="small mb-1" for="inputLastName">Quantité réalisée durant les autres attachements</label>
+							<input [(ngModel)]="sommeAff" name="sommeAff" id="sommeAff" type="number" class="form-control" placeholder="0" readonly>
+
+						</div>
+
+						<div class="col-md-6">
+
+							<label class="small mb-1" for="inputLastName">Quantité réalisée</label>
+							<input [(ngModel)]="Qte" name="Qte" id="Qte" type="number" class="form-control" required>
+
+						</div>
+					</div>
+
+
+
+					<div class="col-md-12 text-center">
+						<button [disabled]="addattachement.form.invalid" type="submit" name="submit" id="submitButton"
+							class="btn btn-contact-bg">Article suivant
+							<i class="fa fa-chevron-right"></i></button>
+					</div>
+
+				</form>
+
+
+			</div>
+		</div>
+		<!--- END COL -->
+		<div class="col-lg-5">
+			<div class="single_address">
+				<i (click)="onOpenListeArticleUtuliseeModal()" class="fa fa-bars"></i>
+
+				<h4>Liste globales des articles dans OT </h4>
+
+
+			</div>
+
+			<div class="single_address">
+				<i (click)="listedesArticlesRealiseeModal()" class="fa fa-list-ol" aria-hidden="true"></i>
+				<h4>Liste des articles réalisée</h4>
+
+
+			</div>
+
+			<div class="single_address">
+				<i (click)="onOpenAddAttachementModal()" class="fa fa-database" aria-hidden="true"></i>
+
+				<h4>Sauvegarder attachement</h4>
+			</div>
+			<!--(click)="openImprimerModal()"-->
+			<div class="single_address"><!--(click)="imprimer(attachementId)" -->
+				<i (click)="verifier()" class="fa fa-print" aria-hidden="true"></i>
+
+				<h4>Imprimer attachement</h4>
+				
+		       </div>
+
+
+
+			<div>
+				
+			<!--	<button  [useExistingCss]="true" class="fa fa-print" aria-hidden="true" printSectionId="mytodosItemsId" 
+				printTitle="Attachement journalier"  printSectionId="print-section" ngxPrint>Print</button>
+				-->
+					
+					
+			
+			</div>
+
+		</div>
+		<!--- END COL -->
+	</div>
+	<!--- END ROW -->
+ </div>
+ <!--- END CONTAINER -->
+
+ 
+
+<!-- modal large -->
+<div class="modal fade" id="getListeArticlesUtulisee" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="largeModalLabel">Liste des articles utulisées</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<table class="table table-striped">
+							<thead>
+								<tr class="table-title">
+									<th><span>id OT</span></th>
+									<th><span>id article</span></th>
+									<th><span>code article  </span></th>
+									
+								</tr>
+
+
+							</thead>
+							<tbody>
+
+								<tr *ngFor="let c of ordresDefinitives">
+									<td>
+
+										<span class="label label-default">{{id}}</span>
+									</td>
+									<td>
+
+										<span class="label label-default">{{c.id.article_id}}</span>
+									</td>
+	
+
+									<td>
+										<span class="label label-default">{{c.code}}</span>
+									</td>
+								
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- end modal large -->
+
+
+<!--Ajouter attachement modal-->
+<div id="AddAttachement" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<form #addAttachement="ngForm" (ngSubmit)="ajouterAttachemet(addAttachement)">
+				<div class="modal-header">
+					<h4 class="modal-title">Enregistrer attachement </h4>
+
+				</div>
+				<div class="alert alert-success" role="alert" *ngIf="notificatideCreation==1">
+					Attachement enregistrer avec succée...
+					<button  (click)="closeAlerts()"type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="alert alert-danger" *ngIf="codeExisteAlerte==1">
+					<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+					<strong>Code déja existe</strong>
+
+					<button  (click)="closeAlerts()"type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="alert alert-danger" *ngIf="echecCreationAttachement==1">
+					<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+					<strong>Echec de creation</strong>
+					<button  (click)="closeAlerts()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<div class="col-6">
+
+						<label for="yourName" class="form-label">Code attachement</label>
+						<input [(ngModel)]="attachement1.codeAttachementMC" name="codeAttachementMC" type="text"
+							class="form-control" id="codeAttachementMC" required>
+						<div class="invalid-feedback">Entrer code attachement </div>
+					</div>
+					<div class="col-6">
+
+						<label for="yourName" class="form-label">Date attachement</label>
+						<input [(ngModel)]="attachement1.dateAttachementMC" name="dateAttachementMC" type="date"
+							class="form-control" id="dateAttachementMC" required>
+						<div class="invalid-feedback">Entrer date attachement </div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Retour">
+					<input [disabled]="addAttachement.form.invalid" type="submit" class="btn btn-primary"
+						value="Ajouter">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!--fin ajouter attachement-->
+
+<div class="modal fade" id="articlesRealisee" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="largeModalLabel">Liste des articles réalisées</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<table class="table table-striped">
+							<thead>
+								<tr class="table-title">
+									<th><span>Code-article</span></th>
+									<th><span>Désignation</span></th>
+									<th><span>Quantitée réalisée</span></th>
+
+									<th><span>Action</span></th>
+
+								</tr>
+
+
+							</thead>
+							<tbody>
+
+								<tr *ngFor="let c of listeArticles">
+									<td>
+
+										<span class="label label-default">{{c.code}}</span>
+									</td>
+									<td>
+										<span class="label label-default">{{c.designation}}</span>
+									</td>
+
+
+									<td>
+										<span class="label label-default">{{c.quantitee}}</span>
+									</td>
+
+
+									<td>
+										<a (click)="updateArticleModal(c.code)" class="btn btn-primary">
+											<i class="fa fa-bars" aria-hidden="true"></i>
+										</a>
+
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<a (click)="onOpenDelateArticleModal(c.code)" class="btn btn-danger"
+											aria-label="Delete">
+											<i class="fa fa-trash-o" aria-hidden="true"></i>
+										</a>
+
+									</td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!------------------------------>
+<div id="supprimer" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<form>
+				<div class="modal-header">
+					<h4 class="modal-title">Suprimer article</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="alert alert-success" role="alert" *ngIf="alertSuppression==1">
+					Suppression avec succée...
+					<button  (click)="closeAlerts()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="alert alert-danger" *ngIf="echecSuppression==1">
+					<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+					<strong>Echec de suppression </strong>
+					<button  (click)="closeAlerts()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>Vous etes sure de supprimer cette article ?</p>
+
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Retour">
+					<input (click)="SupprimerArticle()" type="submit" class="btn btn-danger" value="Supprimer">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!--UPDATE MODAL-->
+<div id="Modifier" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<form #ModifForm="ngForm" (ngSubmit)="ModifierForm(ModifForm)">
+
+				<div class="modal-header">
+					<h4 class="modal-title">Modifier article </h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="alert alert-success" role="alert" *ngIf="alertModifierArticle==1">
+					Modification avec succée...
+					<button  (click)="closeAlerts()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="alert alert-danger" *ngIf="echecModification==1">
+					<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+					<strong>Echec de modification </strong>
+					<button  (click)="closeAlerts()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+
+					<div class="row gx-3 mb-3">
+
+						<div class="col-md-6">
+
+							<label class="small mb-1" for="inputLastName">code</label>
+							<input [(ngModel)]="ModifArticle" name="code" id="code" class="form-control">
+
+						</div>
+
+						<div class="col-md-6">
+
+							<label class="small mb-1" for="inputLastName">Quantité</label>
+							<input [(ngModel)]="modifArticleVar.quantitee" name="quantitee" id="quantitee"
+								class="form-control">
+
+						</div>
+
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Retour">
+					<input [disabled]="ModifForm.form.invalid" type="submit" class="btn btn-danger" value="Modifier">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+
+<div class="modal fade" id="articlesRealisee" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="largeModalLabel">Liste des articles réalisées</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th><span>Code-article</span></th>
+									<th><span>Désignation</span></th>
+									<th><span>Quantitée réalisée</span></th>
+
+									<th><span>Action</span></th>
+
+								</tr>
+
+
+							</thead>
+							<tbody>
+
+								<tr *ngFor="let c of listeArticles">
+									<td>
+
+										<span class="label label-default">{{c.code}}</span>
+									</td>
+									<td>
+										<span class="label label-default">{{c.designation}}</span>
+									</td>
+
+
+									<td>
+										<span class="label label-default">{{c.quantitee}}</span>
+									</td>
+
+
+									<td>
+										<a (click)="updateArticleModal(c.code)" class="btn btn-primary">
+											<i class="fa fa-bars" aria-hidden="true"></i>
+										</a>
+
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<a (click)="onOpenDelateArticleModal(c.code)" class="btn btn-danger"
+											aria-label="Delete">
+											<i class="fa fa-trash-o" aria-hidden="true"></i>
+										</a>
+
+									</td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!------------------------------------------------>
+
+<div class="modal fade" id="imprimer"  tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="largeModalLabel">Liste des articles réalisées</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				
+<div  id="print" class="container">
+	<div class="row">
+ 
+	 <br>
+	   <div class="col-md-12">
+		  <div id="content" class="content content-full-width">
+			  <br>
+			 <!-- begin profile -->
+			 <div class="profile">
+				<div class="profile-header">
+				   <!-- BEGIN profile-header-cover -->
+				   <div class="profile-header-cover"></div>
+				   <!-- END profile-header-cover -->
+				   <!-- BEGIN profile-header-content -->
+				   <div class="profile-header-content">
+					  <!-- BEGIN profile-header-img -->
+					  <div class="profile-header-img">
+						<img src="{{this.organisationService.apiServeUrl+'/admin/ImgOrganisation/'+organisation.id}}"
+						style="height :100px;width:fil-content" alt=""
+							class="img-responsive" alt="img">
+					  </div>
+					  <!-- END profile-header-img -->
+					  <!-- BEGIN profile-header-info -->
+					  <div class="profile-header-info">
+						<h4 class="m-t-10 m-b-5">{{organisation.nom}}</h4>
+						 <p class="m-b-10">{{organisation.email}}</p>
+						
+					  </div>
+					  <!-- END profile-header-info -->
+				   </div>
+				   <!-- END profile-header-content -->
+				   <!-- BEGIN profile-header-tab -->
+	   
+				   <!-- END profile-header-tab -->
+				</div>
+			 </div>
+			 <!-- end profile -->
+			 <!-- begin profile-content -->
+			 <div class="profile-content">
+				<!-- begin tab-content -->
+				<div class="tab-content p-0">
+ 
+				   <!-- begin #profile-about tab -->
+				   <div class="tab-pane fade in active show" id="profile-about">
+					  <!-- begin table -->
+					  <div class="table-responsive">
+						 <table class="table table-profile">
+							<thead>
+							   <tr>
+								  <th></th>
+								  <th>
+									 <h4>ATTACHEMENT JOURNALIERE :MC<small></small></h4>
+								  </th>
+							   </tr>
+							</thead>
+							<tbody>
+							   <tr class="highlight">
+								 <td></td> 
+								  <td><strong> A-RENSEIGNEMENTS GENEREAUX</strong> </td>
+							   </tr>
+							   <tr class="divider">
+								  <td colspan="4"></td>
+							   </tr>
+							   <tr>
+								  <td class="field">Surveillant :</td>
+								  <td>{{loginService.loggedUser}}..........  <a href="javascript:;" class="m-l-5">...........<strong>Code projet......</strong><strong>Ordre de traveaux:</strong></a>{{OrdreDeTraveau.codeOrdre}}</td>
+							   </tr>
+							   <tr>
+								  <td class="field">Entreprise</td>
+								  <td><a href="javascript:;">...........<strong>Adresse chantier ........</strong></a></td>
+							   </tr>
+							   <tr>
+								  <td class="field">Office</td>
+								  <td><a href="javascript:;"></a></td>
+							   </tr>
+							   <tr class="divider">
+								  <td colspan="2"></td>
+							   </tr>
+							   <tr class="highlight">
+								  <td class="field"></td>
+								  <td><strong>B-PRESTATION DUES A L'ENTREPRISE</strong></td>
+							   </tr>
+							   
+							   
+							  
+							   <tr class="highlight">
+								  <td class="field"></td>
+								  <td class="p-t-10 p-b-10">
+									 <h4>1- Traveau et prestation exécutés</h4>
+								  </td>
+							   </tr>
+							   <tr class="highlight">
+								 <td class="field"></td>
+								 <td class="p-t-10 p-b-10">
+									 <div class="col-md-12">
+										 <table class="table table-striped">
+											 <thead>
+												 <tr>
+													 <th><span>Article </span></th>
+													 <th><span>Désigniation </span></th>
+													 <th><span>Unité</span></th>
+													 <th><span>Quantité</span></th>
+													 <th><span>Observation</span></th>
+												 </tr>
+								
+								
+											 </thead>
+											 <tbody>
+								<!---->
+												 <tr *ngFor="let c of listeArticles">
+													 <td>
+								<!---->
+														 <span class="label label-default">{{c.code}}</span>
+													 </td>
+								
+													 <td>
+														 <span class="label label-default">{{c.designation}}</span>
+													 </td>
+													 <td>
+														<span class="label label-default">{{c.unitee}}</span>
+													</td>
+													 <td>
+														 <span class="label label-default">{{c?.quantitee}}</span>
+													 </td>
+													 <td>
+														 <span class="label label-default"></span>
+													 </td>
+													
+												 </tr>
+								
+											 </tbody>
+										 </table>
+									 </div>
+								
+								 </td>
+							  </tr>
+							   
+							</tbody>
+						 </table>
+					  </div>
+					  <!-- end table -->
+				   </div>
+				   <!-- end #profile-about tab -->
+				</div>
+				<!-- end tab-content -->
+			 </div>
+			 <!-- end profile-content -->
+		  </div>
+	   </div>
+	</div>
+ </div>
+		 
+le surveillant__________________________le chef de zone _________________l'entrepreneur________________le chef division
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-dark" [useExistingCss]="true" printTitle="Attachement" printSectionId="print" ngxPrint>Imprimer</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!------------------------------>
+
+
+<!------------------------------>
+
+
+
+
+
+<!--
+<div class="modal fade" id="attachementAlerte" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel"
+	aria-hidden="true" data-backdrop="static">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="staticModalLabel">nouveau attachement</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+	
+		
+			<form >
+				<div class="modal-body">
+					<div class="alert alert-success" role="alert" *ngIf="notificatideCreation==1">
+						Attachement enregistrer avec sucée
+	
+					</div>
+					<div class="alert alert-danger" *ngIf="erreur==1">
+						<strong>echec d'enregistrement..</strong>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
+				
+				</div>
+			</form>
+		</div>
+	</div>
+</div>-->
+<!-- end modal static -->

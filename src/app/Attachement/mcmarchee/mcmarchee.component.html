@@ -1,0 +1,282 @@
+<!-- title of table
+    <div class="row">
+        <div class="col-md-8">
+            <div class="table-title">
+                Liste des marchées
+            </div>
+    </div>-->
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alertecodemarchee==1">
+    <strong>Attention !</strong> code de marchée n'existe pas !.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+
+<div class="container" id="container">
+    <div class="text-center">
+        <div><h1 style="font-family:Marker Felt, fantasy; font-size: 28px; color:navy;position:center;">Liste des Marchées Cadre</h1></div>
+      </div>
+<br>
+    
+
+    <div class="row">
+        <!--  <div class="form-outline">
+                <label class="form-label" for="form1">
+                    <h3>Code marchée</h3>
+                </label>
+                <input [(ngModel)]="m.code" name="terme" type="search" data-toggle="modal" /><i class="material-icons"></i>
+                <button (click)="recherche()" type="button" class="btn btn-primary btn-sm">Recherche</button>
+    
+            </div>-->
+        <br>
+
+
+        <div class="row gx-3 mb-3">
+            <!-- Form Group (first name)-->
+            <div class="col-md-4">
+                <label class="small mb-1" for="inputLastName">choisir un code du marchée</label>
+                <select [(ngModel)]="m.code" name="code" class="form-control" id="code">
+                    <option *ngFor="let mm of listesMarcheeMC
+                        " [value]="mm.code">
+                        {{mm.code}}
+                    </option>
+
+                </select>
+            </div>
+            <!-- Form Group (last name)-->
+            <div class="col-md-6">
+                <br>
+
+                <button (click)="recherche()" type="button" class="btn btn-primary">Chercher</button>
+            </div>
+
+
+        </div>
+
+
+        <br>
+        <br>
+        <div class="row">
+          <!-- <div class="col-md-10">
+                <div class="table-title">
+
+                    liste des Bon de commande du marchée &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                    <input name="terme" type="search" data-toggle="modal" /><i class="material-icons"></i>
+
+                </div>
+
+            </div>-->
+            <div class="row">
+                <div class="col-md-10">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr class="table-title">
+                                <th><span>id </span></th>
+                                <th><span>code </span></th>
+                                <th><span>montant</span></th>
+                                <th><span>Action</span>
+                                    
+           &nbsp;
+           &nbsp;
+           &nbsp; &nbsp;
+           &nbsp;
+           &nbsp;
+           &nbsp;
+           &nbsp;
+           &nbsp; &nbsp;
+           &nbsp;
+           &nbsp;
+                               <input  [(ngModel)]="terme" name="terme" type="search" data-toggle="modal" />
+                                  
+                       
+
+                            </tr>
+
+
+                        </thead>
+                        <tbody>
+                            <!-- -->
+                            <tr *ngFor="let bc of bondeCommandes   | filter:terme | paginate : {
+                                itemsPerPage:4,
+                                currentPage:page,
+                                totalItems:totalLength
+                                }, let i=index">
+                                <td>
+
+                                    <span class="label label-default">{{bc.id}}</span>
+                                </td>
+
+
+                                <td>
+                                    <span class="label label-default">{{bc.codebc}}</span>
+                                </td>
+                                <td>
+                                    <span class="label label-default">{{bc.montant}}</span>
+                                </td>
+
+                                <td>
+                                    <div>
+
+                                        <!--<i class="fa fa-th-list" aria-hidden="true"></i>-->
+                                        <!-- <a (click)="more(bc.id)" class="btn btn-default btn-sm">
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i> Attribuer un attachement
+                                        </a>-->
+
+                                        <button (click)="versListeOT(bc.id)" class="btn mb-3 mr-3 btn-orange">Liste des
+                                            OT </button>
+                                    </div>
+
+                                </td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                    <pagination-controls (pageChange)="page = $event" class="text-center entreprisePagination">
+                    </pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- modal large -->
+<div class="modal fade" id="listeOTModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-title">
+                                Liste des ordres de traveaux
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th><span>id </span></th>
+                                        <th><span>code </span></th>
+                                        <th><span>date ordre </span></th>
+                                        <th><span>date début</span></th>
+                                        <th><span>delai</span></th>
+                                        <th><span>Montant</span></th>
+                                    </tr>
+
+
+                                </thead>
+                                <tbody>
+
+                                    <tr *ngFor="let ot of listeOT ">
+                                        <td>
+
+                                            <span class="label label-default">{{ot.id}}</span>
+                                        </td>
+
+                                        <td>
+                                            <span class="label label-default">{{ot.codeOrdre}}</span>
+                                        </td>
+                                        <td>
+                                            <span class="label label-default">{{ot.dateDebutOrdre}}</span>
+                                        </td>
+                                        <td>
+                                            <span class="label label-default">{{ot.dateOrdre}}</span>
+                                        </td>
+                                        <td>
+                                            <span class="label label-default">{{ot.delais}}</span>
+                                        </td>
+                                        <td>
+                                            <span class="label label-default">{{ot.montant}}</span>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Un autre modal-->
+
+<div class="modal fade" id="listeeeeeot" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Ajouter une Bon-de commande</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- <form #addBCForm="ngForm">
+              <div>
+                <label for="delais">code</label>
+                <input type="text" [(ngModel)]="codeNewBC" name="codebc"  class="form-control" id="codeBC" placeholder="code" required>
+              </div>
+
+             <div>
+              <label for="montant">montant</label>
+              <input type="number" [(ngModel)]="montantNewBC" name="montant"  class="form-control" id="montant" placeholder="montant" required>
+            </div>
+            
+            <div>
+              <label for="delais">delais</label>
+              <input type="number" [(ngModel)]="delaisNewBC" name="delais"  class="form-control" id="delais" placeholder="delais" required>
+            </div>
+
+            <div>
+              <label for="dateDebutTraveaux">Date debut traveaux</label>
+              <input type="date" [(ngModel)]="dateDTNewBC" name="dateDebutTraveaux"  class="form-control" id="dateDebutTraveaux" placeholder="date debut traveaux" required>
+            </div>
+  
+            
+            <div>
+              <label for="delais">Entreprise</label>
+              <input type="text"   name="entreprise" [(ngModel)]="codeEntreprise" class="form-control" id="entreprise" placeholder="codeEntreprise" value="codeEntreprise" required>
+            </div>
+  
+                <br>
+                <div *ngIf="alerteCodeInexistant" class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Attention</strong> code entreprise introubable.
+                  <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+                </div>
+                <div *ngIf="alertecodeBCexiste" class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Attention</strong> le code du bon-de commande est deja utilisee
+                  <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+                </div>
+                <div *ngIf="alerteDelaisBCs" class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Attention</strong> le delai maximale des bon_de commandes est superieur au delais du marchee
+                  <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+                </div>
+                
+                <div class="modal-footer">
+                   <button type="button" id="add-entrep-form" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                   <button [disabled]="addBCForm.invalid" type="submit" class="btn btn-primary" style="background-color: navy;" (click)="addBC(addBCForm)" >Enreistrer</button>
+                </div>
+                </form>-->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal scroll -->

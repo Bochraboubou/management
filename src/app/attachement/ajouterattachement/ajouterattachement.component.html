@@ -16,6 +16,10 @@
 
 
 <div class="container" id="container">
+    <div class="col-md-6">
+        <div><h1 style="font-family:Marker Felt, fantasy; font-size: 28px; color:navy;position:center;">Liste des Marchées de type projet</h1></div>
+      </div>
+<br>
     <form action="">
         <!--  <div class="form-outline">
             <label class="form-label" for="form1">
@@ -25,7 +29,7 @@
             <button (click)="recherche()" type="button" class="btn btn-primary btn-sm">Recherche</button>
 
         </div>-->
-        <br>
+       
 
 
         <div class="row gx-3 mb-3">
@@ -33,7 +37,8 @@
             <div class="col-md-4">
                 <label class="small mb-1" for="inputLastName">choisir un code du marchée</label>
                 <select [(ngModel)]="m.code" name="code" class="form-control" id="code">
-                    <option *ngFor="let mm of marchees" [value]="mm.code">
+                    <option *ngFor="let mm of listesMarcheeProjet
+                    " [value]="mm.code">
                         {{mm.code}}
                     </option>
 
@@ -57,7 +62,7 @@
                 <div class="table-title">
                     
                     liste des Bon de commande du marchée &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 
-                    <input  name="terme" type="search" data-toggle="modal" /><i class="material-icons"></i>
+                    <input [(ngModel)]="terme" name="terme" type="search" data-toggle="modal" /><i class="material-icons"></i>
                
                 </div>
                 
@@ -101,7 +106,7 @@
 
 
                                     <a (click)="more(bc.id)" class="btn btn-default btn-sm">
-                                        <i class="fa fa-cog"></i> More
+                                        <i class="fa fa-plus-circle" aria-hidden="true"></i> Attribuer un attachement
                                     </a>
                                
                                 </div>
@@ -110,5 +115,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <pagination-controls (pageChange)="page = $event" class="text-center entreprisePagination">
+                </pagination-controls>
 
                

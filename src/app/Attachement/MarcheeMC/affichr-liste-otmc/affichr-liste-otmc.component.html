@@ -1,0 +1,532 @@
+<div id="container" class="row">
+    <div class="row">
+        <div class="col-md-9">
+           <h1><strong>liste des ordres de traveaux</strong></h1>
+        </div>
+
+
+
+        <div class="col-md-9">
+            <table class="table table-striped">
+                <thead>
+                    <tr class="table-title">
+                        <th><span>id </span></th>
+                        <th><span>code </span></th>
+                        <th><span>date ordre </span></th>
+                        <th><span>date début</span></th>
+                        <th><span>delai</span></th>
+                        <th><span>Montant</span></th>
+                        <th><span>Action</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                            <input [(ngModel)]="terme" name="terme" type="search" data-toggle="modal" />
+
+                        </th>
+
+                    </tr>
+
+
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let ot of listeOT  | filter:terme | paginate : {
+                        itemsPerPage:4,
+                        currentPage:page,
+                        totalItems:totalLength
+                        }, let i=index">
+                        <td>
+
+                            <span class="label label-default">{{ot.id}}</span>
+                        </td>
+
+                        <td>
+                            <span class="label label-default">{{ot.codeOrdre}}</span>
+                        </td>
+                        <td>
+                            <span class="label label-default">{{ot.dateDebutOrdre}}</span>
+                        </td>
+                        <td>
+                            <span class="label label-default">{{ot.dateOrdre}}</span>
+                        </td>
+                        <td>
+                            <span class="label label-default">{{ot.delais}}</span>
+                        </td>
+                        <td>
+                            <span class="label label-default">{{ot.montant}}</span>
+                        </td>
+                        <td>
+                            <button (click)=" OpenModalListeORdreDeffinitive(ot.id)"
+                                class="btn mb-3 btn-sm btn-orange">Ordres définitives</button>
+                        </td>
+
+
+
+
+                    </tr> <!--  -->
+
+                </tbody>
+            </table>
+            <pagination-controls (pageChange)="page = $event" class="text-center entreprisePagination">
+            </pagination-controls>
+            <br>
+            <button  (click)="openImprimerListeOTModal()"type="button" class="btn btn-primary">Imprimer</button>
+ 
+        </div>
+
+
+
+        <div class="modal fade" id="listeODef" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="largeModalLabel">Liste des ordes définitives</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr class="table-title">
+                                    <th><span>code article </span></th>
+                                    <th><span>Désigniation </span></th>
+                                    <th><span>Unité</span></th>
+                                    <th><span>Quantité</span>
+                                        &nbsp;
+
+                                        &nbsp; <input  [(ngModel)]="terme" name="terme" type="search" data-toggle="modal" />
+                                    </th>
+
+
+                                </tr>
+
+
+                            </thead>
+                            <tbody>
+
+                                <tr *ngFor="let od of  ordresDefinitives | filter:terme | paginate : {
+                                    itemsPerPage:4,
+                                    currentPage:page,
+                                    totalItems:totalLength
+                                    }, let i=index">
+                                    <td>
+
+                                        <span class="label label-default">{{od.code}}</span>
+                                    </td>
+
+                                    <td>
+                                        <span class="label label-default">-----</span>
+                                    </td>
+                                    <td></td>
+                                    <td>
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <pagination-controls (pageChange)="page = $event" class="text-center entreprisePagination">
+                        </pagination-controls>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
+                        <button (click)="openImprimerModal()" type="button" class="btn btn-primary">Imprimer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end modal large -->
+
+        <div class="modal fade" id="imprimer" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="largeModalLabel">Liste des ordres définitives </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div id="print" class="container">
+                            <div class="row">
+
+
+                                <div class="col-md-12">
+                                    <div id="content" class="content content-full-width">
+
+                                        <!-- begin profile -->
+                                        <div class="profile">
+                                            <div class="profile-header">
+                                                <!-- BEGIN profile-header-cover -->
+                                                <div class="profile-header-cover"></div>
+                                                <!-- END profile-header-cover -->
+                                                <!-- BEGIN profile-header-content -->
+                                                <div class="profile-header-content">
+                                                    <!-- BEGIN profile-header-img -->
+                                                    <div class="profile-header-img">
+                                                        <img src="{{this.organisationService.apiServeUrl+'/admin/ImgOrganisation/'+organisation?.id}}"
+                                                            style="height :100px;width:fil-content" alt=""
+                                                            class="img-responsive" alt="img">
+                                                    </div>
+                                                    <!-- END profile-header-img -->
+                                                    <!-- BEGIN profile-header-info -->
+                                                    <div class="profile-header-info">
+                                                        <h4 class="m-t-10 m-b-5">{{organisation?.nom}}</h4>
+                                                        <p class="m-b-10">{{organisation?.email}}</p>
+
+                                                    </div>
+                                                    <!-- END profile-header-info -->
+                                                </div>
+                                                <!-- END profile-header-content -->
+                                                <!-- BEGIN profile-header-tab -->
+
+                                                <!-- END profile-header-tab -->
+                                            </div>
+                                        </div>
+                                        <!-- end profile -->
+                                        <!-- begin profile-content -->
+                                        <div class="profile-content">
+                                            <!-- begin tab-content -->
+                                            <div class="tab-content p-0">
+
+                                                <!-- begin #profile-about tab -->
+                                                <div class="tab-pane fade in active show" id="profile-about">
+                                                    <!-- begin table -->
+                                                    <div class="table-responsive">
+                                                        <table class="table table-profile">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th></th>
+                                                                    <th>
+                                                                        <h4> <small></small>
+                                                                        </h4>
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr class="highlight">
+                                                                    <td></td>
+                                                                    <td><strong> A-RENSEIGNEMENTS GENEREAUX</strong>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="divider">
+                                                                    <td colspan="4"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="field">Surveillant :</td>
+                                                                    <td>{{loginService.loggedUser}}.......... <a
+                                                                            href="javascript:;"
+                                                                            class="m-l-5">...........<strong>Code
+                                                                                projet......</strong></a></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="field">Entreprise</td>
+                                                                    <td><a href="javascript:;">...........<strong>Adresse
+                                                                                chantier ........</strong></a></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="field">Office {{organisation?.tel}}</td>
+                                                                    <td><a href="javascript:;"></a></td>
+                                                                </tr>
+                                                                <tr class="divider">
+                                                                    <td colspan="2"></td>
+                                                                </tr>
+                                                                <tr class="highlight">
+                                                                    <td class="field"></td>
+                                                                    <td><strong>B-PRESTATION DUES A
+                                                                            L'ENTREPRISE</strong></td>
+                                                                </tr>
+
+
+
+                                                                <tr class="highlight">
+                                                                    <td class="field"></td>
+                                                                    <td class="p-t-10 p-b-10">
+                                                                        <h4>1- Liste des ordres définitives</h4>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="highlight">
+                                                                    <td class="field"></td>
+                                                                    <td class="p-t-10 p-b-10">
+                                                                        <div class="col-md-12">
+                                                                            <table class="table table-striped">
+                                                                                <thead class="table-title">
+                                                                                    <tr>
+                                                                                        <th><span>Article </span></th>
+                                                                                        <th><span>Désigniation </span>
+</th>
+                                                                                        <th><span>Unité</span></th>
+                                                                                        <th><span>Quantité</span></th>
+                                                                                        <th><span>Observation</span>
+                                                                                        </th>
+                                                                                    </tr>
+
+
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <!---->
+                                                                                    <tr
+                                                                                        *ngFor="let c of ordresDefinitives">
+                                                                                        <td>
+                                                                                            <!---->
+                                                                                            <span
+                                                                                                class="label label-default">{{c.code}}</span>
+                                                                                        </td>
+
+                                                                                        <td>
+                                                                                            <span
+                                                                                                class="label label-default">---</span>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <span
+                                                                                                class="label label-default">----</span>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <span
+                                                                                                class="label label-default">----</span>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <span
+                                                                                                class="label label-default"></span>
+                                                                                        </td>
+
+                                                                                    </tr>
+
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+
+                                                                    </td>
+                                                                </tr>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <!-- end table -->
+                                                </div>
+                                                <!-- end #profile-about tab -->
+                                            </div>
+                                            <!-- end tab-content -->
+                                        </div>
+                                        <!-- end profile-content -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        le surveillant__________________________le chef de zone
+                        _________________l'entrepreneur________________le chef division
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" [useExistingCss]="true" printTitle="Attachement"
+                            printSectionId="print" ngxPrint>Imprimer</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--liiiste ot-->
+        
+        <div class="modal fade" id="imprimerlisteOT" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="largeModalLabel">Liste des ordres définitives </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div id="print" class="container">
+                        <div class="row">
+
+
+                            <div class="col-md-12">
+                                <div id="content" class="content content-full-width">
+
+                                    <!-- begin profile -->
+                                    <div class="profile">
+                                        <div class="profile-header">
+                                            <!-- BEGIN profile-header-cover -->
+                                            <div class="profile-header-cover"></div>
+                                            <!-- END profile-header-cover -->
+                                            <!-- BEGIN profile-header-content -->
+                                            <div class="profile-header-content">
+                                                <!-- BEGIN profile-header-img -->
+                                                <div class="profile-header-img">
+                                                    <img src="{{this.organisationService.apiServeUrl+'/admin/ImgOrganisation/'+organisation?.id}}"
+                                                        style="height :100px;width:fil-content" alt=""
+                                                        class="img-responsive" alt="img">
+                                                </div>
+                                                <!-- END profile-header-img -->
+                                                <!-- BEGIN profile-header-info -->
+                                                <div class="profile-header-info">
+                                                    <h4 class="m-t-10 m-b-5">{{organisation?.nom}}</h4>
+                                                    <p class="m-b-10">{{organisation?.email}}</p>
+
+                                                </div>
+                                                <!-- END profile-header-info -->
+                                            </div>
+                                            <!-- END profile-header-content -->
+                                            <!-- BEGIN profile-header-tab -->
+
+                                            <!-- END profile-header-tab -->
+                                        </div>
+                                    </div>
+                                    <!-- end profile -->
+                                    <!-- begin profile-content -->
+                                    <div class="profile-content">
+                                        <!-- begin tab-content -->
+                                        <div class="tab-content p-0">
+
+                                            <!-- begin #profile-about tab -->
+                                            <div class="tab-pane fade in active show" id="profile-about">
+                                                <!-- begin table -->
+                                                <div class="table-responsive">
+                                                    <table class="table table-profile">
+                                                        <thead>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th>
+                                                                    <h4> <small></small>
+                                                                    </h4>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="highlight">
+                                                                <td></td>
+                                                                <td><strong> A-RENSEIGNEMENTS GENEREAUX</strong>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="divider">
+                                                                <td colspan="4"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="field">Surveillant :</td>
+                                                                <td>{{loginService.loggedUser}}.......... <a
+                                                                        href="javascript:;"
+                                                                        class="m-l-5">...........<strong>Code
+                                                                            projet......</strong></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="field">Entreprise</td>
+                                                                <td><a href="javascript:;">...........<strong>Adresse
+                                                                            chantier ........</strong></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="field">Office {{organisation?.tel}}</td>
+                                                                <td><a href="javascript:;"></a></td>
+                                                            </tr>
+                                                            <tr class="divider">
+                                                                <td colspan="2"></td>
+                                                            </tr>
+                                                            <tr class="highlight">
+                                                                <td class="field"></td>
+                                                                <td><strong>B-PRESTATION DUES A
+                                                                        L'ENTREPRISE</strong></td>
+                                                            </tr>
+
+
+
+                                                            <tr class="highlight">
+                                                                <td class="field"></td>
+                                                                <td class="p-t-10 p-b-10">
+                                                                    <h4>1- Liste des ordres de traveaux</h4>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="highlight">
+                                                                <td class="field"></td>
+                                                                <td class="p-t-10 p-b-10">
+                                                                    <div class="col-md-12">
+                                                                        <table class="table table-striped">
+                                                                            <thead>
+                                                                                <tr class="table-title">
+                                                                                    <th><span>id </span></th>
+                                                                                    <th><span>code </span></th>
+                                                                                    <th><span>date ordre </span></th>
+                                                                                    <th><span>date début</span></th>
+                                                                                    <th><span>delai</span></th>
+                                                                                    <th><span>Montant</span></th>
+                                                                               
+                                                            
+                                                                                </tr>
+                                                            
+                                                            
+                                                                            </thead>
+                                                                            <tbody>
+                                                            
+                                                                                <tr *ngFor="let ot of listeOT">
+                                                                                    <td>
+                                                            
+                                                                                        <span class="label label-default">{{ot.id}}</span>
+                                                                                    </td>
+                                                            
+                                                                                    <td>
+                                                                                        <span class="label label-default">{{ot.codeOrdre}}</span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <span class="label label-default">{{ot.dateDebutOrdre}}</span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <span class="label label-default">{{ot.dateOrdre}}</span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <span class="label label-default">{{ot.delais}}</span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <span class="label label-default">{{ot.montant}}</span>
+                                                                                    </td>
+                                                                                   
+                                                            
+                                                            
+                                                            
+                                                            
+                                                                                </tr> <!--  -->
+                                                            
+                                                                            </tbody>
+                                                                            
+                                                                        </table>
+                                                                    </div>
+
+                                                                </td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <!-- end table -->
+                                            </div>
+                                            <!-- end #profile-about tab -->
+                                        </div>
+                                        <!-- end tab-content -->
+                                    </div>
+                                    <!-- end profile-content -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    le surveillant__________________________le chef de zone
+                    _________________l'entrepreneur________________le chef division
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" [useExistingCss]="true" printTitle="Attachement"
+                        printSectionId="print" ngxPrint>Imprimer</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--liiiste ot-->
+    

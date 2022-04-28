@@ -11,7 +11,7 @@ export class BondeCommande{
     nomEntrep!: string;
     valide:boolean=false;
     listeArticles:Article[]=[];
-
-    constructor(){}
+    
+     constructor(){}
     
 }

@@ -58,6 +58,7 @@ listesMarcheeProjet:Marchee[]=[]
        this.bcservice.getBCsByMarchee(this.marchee.id).subscribe({
         next: (response:BondeCommande[]) => {
           this.totalLength=response.length;
+          this.totalLength=response.length;
           this.bondeCommandes=response  
           console.log("bbbbbbbbbbbb")
         },
@@ -102,6 +103,12 @@ getOrganisationAndMarchee(id:number){
       this.servMarchee.getMarcheesbyorganisationId(this.organisation.id).subscribe({
         next: (response:Marchee[]) => {
           this.marchees=response
+          this.marchees.forEach((curMarchee) => {
+            if(curMarchee.type=="Projet"){
+              this.listesMarcheeProjet.push(curMarchee)
+            }
+        
+          })
         },
         error: (error:HttpErrorResponse) => {
           console.log(error.message);
@@ -120,14 +127,7 @@ getOrganisationAndMarchee(id:number){
   })
 }
 //trouver la liste des marchees de type projet
-MarcheeProjet(){
-  this.marchees.forEach((curMarchee) => {
-    if(curMarchee.type=="Projet"){
-      this.listesMarcheeProjet.push(curMarchee)
-    }
 
-  })
-}
 
 detailBondeCommande(id:number){
   this.router.navigate(['mycpm/detailBondeCommande',id])

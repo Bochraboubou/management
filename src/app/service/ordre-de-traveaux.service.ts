@@ -8,9 +8,21 @@ import { OrdreDeTraveaux } from '../model/OrdreDeTraveaux';
   providedIn: 'root'
 })
 export class OrdreDeTraveauxService {
-  private apiServeUrl =environment.apiBaseUrl;
+
+  apiServeUrl=environment.apiBaseUrl
 
   constructor(private http: HttpClient) { }
+  public getOrdreDeTraveauById(id:number): Observable<OrdreDeTraveaux>
+  {
+    return this.http.get<OrdreDeTraveaux>(`${this.apiServeUrl}/admin/OrdreById/${id}`);
+  }
+  // find liste of ordre de traveau by bon de commende id 
+  public getOTbyBCid(bcID:number): Observable<OrdreDeTraveaux[]>
+  {
+    return this.http.get<OrdreDeTraveaux[]>(`${this.apiServeUrl}/admin/findBYBC/${bcID}`);
+  }
+
+
   
   //récuperer le total des montant des OT
   public getTotalMontantOT(bcId:number): Observable<number>
@@ -38,4 +50,5 @@ export class OrdreDeTraveauxService {
      return this.http.get<OrdreDeTraveaux[]>(`${this.apiServeUrl}/admin/bc/${bcID}/ots`);
    }
  
+
 }

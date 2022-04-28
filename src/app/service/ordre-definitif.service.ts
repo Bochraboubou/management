@@ -8,12 +8,20 @@ import { OrdreDefinitif } from '../model/OrdreDefinitif';
   providedIn: 'root'
 })
 export class OrdreDefinitifService {
-  private apiServeUrl =environment.apiBaseUrl;
 
-  constructor(private http: HttpClient) { }
+  apiServeUrl=environment.apiBaseUrl
+  constructor(private http:HttpClient) { }
+
+  public getOTbyOTid(ordreID:number): Observable<OrdreDefinitif[]>
+  {
+    return this.http.get<OrdreDefinitif[]>(`${this.apiServeUrl}/admin/listeOrdreDefByOTid/${ordreID}`);
+  }
+ 
+
 //ajouter un ordre definitif à un OT
   public addOrdreDefinitif(OTId:number,articleId:number,ordreDefinitif:OrdreDefinitif): Observable<OrdreDefinitif>
 {
   return this.http.post<OrdreDefinitif>(`${this.apiServeUrl}/admin/ordreTraveaux/${OTId}/article/${articleId}/ordreDefintif`,ordreDefinitif);
 }
+
 }

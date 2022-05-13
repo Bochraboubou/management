@@ -1,0 +1,72 @@
+<div class="container" id="main-container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-6">
+        <h1 style="font-family:Marker Felt, fantasy; font-size: 28px; color:midnightblue">Consulter les attachements</h1>
+      </div>
+    </div>
+      <div class="row">
+        <div class="col-md-4">
+            <div>
+                <h2 style="font-family: Comic Sans MS; color: midnightblue;">Tou dabord choisissez le code du marché</h2>
+                <select ngModel (ngModelChange)="getMarcheeChoisis($event)" name="marchee" id="marchee" class="form-select" placeholder="code du marché" aria-label="Default select example" required #marchee="ngModel"  [class.is-invalid]="marchee.invalid && marchee.touched">
+                  <option selected value="" >choisir le code du marché</option>-->
+                  <option   *ngFor="let marchee of marchees let i=index"
+                  [value]="i">
+                  {{marchee.code}}
+                </option>
+                </select>
+            </div>
+
+            <div>
+              <h2 style="font-family: Comic Sans MS; color: midnightblue;">choisissez le code du bon de commande</h2>
+              <select ngModel (ngModelChange)="getBondeCommandeChoisis($event)" name="bondeCommande" id="bondeCommande" class="form-select" placeholder="code Bon de Commande" aria-label="Default select example" required #bondeCommande="ngModel"  [class.is-invalid]="bondeCommande.invalid && bondeCommande.touched">
+                <option selected value="">choisir le code du bon de Commande</option>-->
+                <option   *ngFor="let bc of bonsdeCommandes let i=index"
+                [value]="i">
+                {{bc.codebc}}
+              </option>
+              </select>
+          </div>
+               
+        </div>
+        <div>
+
+        
+        </div>
+    </div>
+    <br>
+
+    <div>
+        <h2 style="font-family: Comic Sans MS; color: midnightblue;">materiel livrés pour la bon de commande {{bondeCommandeC}}</h2>
+        <table class="table table-primary table-hover table-striped">
+          <thead>
+            <tr>
+              <th scope="col" class="bg-primary">N°</th>
+              <th scope="col" class="bg-primary">CodeMateriel</th>
+              <th scope="col" class="bg-primary">Designiation</th>
+              <th scope="col" class="bg-primary">Unité</th>
+              <th scope="col" class="bg-primary">prix matériel</th>
+              <th scope="col" class="bg-primary">Quantité livré</th>
+              <th scope="col" class="bg-primary">Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let materiel of materiels ,let i= index">
+              <th scope="row">{{i}}</th>
+              <td>{{materiel.code}}</td>
+              <td>{{materiel.designation}}</td>
+              <td>{{materiel.unitee}}</td>
+              <td>{{materiel.prix}}</td>
+              <td>{{materiel.quantitee}}</td>
+              <td>{{materiel.typeLib}}</td>
+            </tr>
+          </tbody>
+        </table>
+       </div>
+
+
+
+
+ 
+ 
+  

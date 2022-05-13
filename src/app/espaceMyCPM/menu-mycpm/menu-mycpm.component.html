@@ -6,7 +6,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">Management des projets</span>
+        <span class="d-none d-lg-block">Espace MyCPM</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -256,16 +256,7 @@
         <li>
           <a routerLink="/mycpm/metiers">
             <i class="bi bi-circle"></i><span>Metiers</span></a>
-
-                <a *ngIf="loginService.isAdminMYCPM()" 
-                routerLink="/mycpm/marchee">
-                </a>
               </li>
-          <li><!---->
-            <a *ngIf="loginService.isAdminCPM()" routerLink="/mycpm/marchee">
-              <i class="bi bi-circle"></i><span>gérer les métiers</span>
-              </a> 
-          </li>
           <li>
             <a routerLink="/mycpm/entreprises">
               <i class="bi bi-circle"></i><span>Entreprises</span>
@@ -429,7 +420,7 @@
         </ul>
       </li>
 
-      <li class="nav-heading">Pages</li>
+     <!-- <li class="nav-heading">Pages</li>-->
 
       <li class="nav-item">
         <a  routerLink="userProfilemycpm"  class="nav-link collapsed">
@@ -438,63 +429,22 @@
         </a>
       </li><!-- End Profile Page Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-faq.html">
-          <i class="bi bi-question-circle"></i>
-          <span>F.A.Q</span>
-        </a>
-      </li><!-- End F.A.Q Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-contact.html">
-          <i class="bi bi-envelope"></i>
-          <span>Contact</span>
-        </a>
-      </li><!-- End Contact Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-register.html">
-          <i class="bi bi-card-list"></i>
-          <span>Register</span>
-        </a>
-      </li><!-- End Register Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
-          <i class="bi bi-box-arrow-in-right"></i>
-          <span>Login</span>
-        </a>
-      </li><!-- End Login Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-error-404.html">
-          <i class="bi bi-dash-circle"></i>
-          <span>Error 404</span>
-        </a>
-      </li><!-- End Error 404 Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-blank.html">
-          <i class="bi bi-file-earmark"></i>
-          <span>Blank</span>
-        </a>
-      </li><!-- End Blank Page Nav -->
-
     </ul>
 
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main" style="width: 2000px;">
 
-    <div class="pagetitle">
+  <!-- <div class="pagetitle">
       <h1>Tableau de bord</h1>
-     <!-- <nav>
+      <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
           <li class="breadcrumb-item active">Tableau de bord</li>
         </ol>
-      </nav>-->
-    </div><!-- End Page Title -->
+      </nav>
+    </div>-->
+    <!-- End Page Title -->
 
     <section class="section dashboard">
       <div class="row">

@@ -5,7 +5,7 @@
       </div>
     </div>
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4" style="width: 350px;">
           <div>
               <h2 style="font-family: Comic Sans MS; color: midnightblue;">Tou dabord choisissez un secteur d'activité</h2>
               <select ngModel (ngModelChange)="getSecteurChoisis($event)" name="secteur_d_activite" id="secteur_d_activite" class="form-select" placeholder="secteur_d_activite" aria-label="Default select example" required #secteur_d_activite="ngModel"  [class.is-invalid]="secteur_d_activite.invalid && secteur_d_activite.touched">
@@ -26,15 +26,16 @@
                 {{metier.nomMetier}}
               </option>
               </select>
-              <br>
-              <div *ngIf="alerteSupArticleUtilisee" class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Attention</strong> Impossible de supprimer l article"{{deletedArticle.designation" car il est deja utilisé par des marchés
-                <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
-              </div>
-              <div *ngIf="alerteModifArticleUtilisee" class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Attention</strong> Impossible de modifier l article "{{editArticle.designation}}" car il est deja utilisé par des marchés
-                <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
-              </div>
+             
+          </div>
+          <br>
+          <div  *ngIf="alerteSupArticleUtilisee" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Attention</strong> Impossible de supprimer l article"{{deletedArticle?.designation}}" car il est deja utilisé par des marchés
+            <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+          </div>
+          <div   *ngIf="alerteModifArticleUtilisee" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Attention</strong> Impossible de modifier ou supprimer l article "{{editArticle?.designation}}" car il est deja utilisé par des marchés
+            <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
           </div>
           <br>
 
@@ -82,12 +83,12 @@
          
           </div>
           
-       
         </div>
 
         <div *ngIf="metier.dirty" class="col-md-2">
           <button type="button" class="btn btn-primary" (click)="onOpenAddArticleModal()" style="background-color: navy;"><i class="fa fa-plus" aria-hidden="true"></i></button>
         </div>
+       
       
     </div>
   
@@ -140,6 +141,10 @@
                   <input class="form-check-input" type="radio" ngModel="" name="classe" id="materielFournisseur" value="materielFournisseur"  required/>
                   <label class="form-check-label" for="mc">materiel fournisseur</label>
               </div>
+              <div class="choice">
+                <input class="form-check-input" type="radio" ngModel name="classe" id="materiel En Regie" value="materielEnRegie"   required/>
+                <label class="form-check-label" for="projet">materiel en regie</label>
+            </div>
               </div> 
               </div>
               <br>

@@ -1,4 +1,3 @@
-
 <div class="col-xl-12">
 
     <div class="card mb-4">
@@ -6,41 +5,155 @@
         <div class="card-body">
             <div class="alert alert-success" *ngIf="notification==1">
                 <strong>demande envoyer..</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
 
 
-            <div class="alert alert-warning alert-dismissible fade show" role="alert"*ngIf="alertNomOrg==1" >
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alertNomOrg==1">
                 <strong>attention !</strong>NOM organisation utulisé !
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
-              </div>
-              
-              <div class="alert alert-warning alert-dismissible fade show" role="alert"*ngIf="alertUser==1" >
+            </div>
+
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alertUser==1">
                 <strong>attention !</strong>L'Email de l'admin est utulisé !
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
-              </div>
-              <div class="alert alert-warning alert-dismissible fade show" role="alert"*ngIf="demandeAlerte==1" >
+            </div>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="demandeAlerte==1">
                 <strong>attention !</strong>L'Email de l'admin est utulisé !
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
-              </div>
-            <div class="alert alert-warning alert-dismissible fade show" role="alert"*ngIf="alertcodeOrgExiste==1" >
+            </div>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alertcodeOrgExiste==1">
                 <strong>attention !</strong>CODE organisation utulisé !
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
-              </div>
+            </div>
             <div class="alert alert-success" *ngIf="alertOrganisation==1">
                 <strong>organisation cpm ajouter avec succée..</strong>
             </div>
+            <!--aleeeeertes-->
+            <!--Nom directeur generale courte -->
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alertNomDG==1">
+                <strong> nom directeur generale trés courte </strong> !
+                <button (click)="closeAlerte()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--Nom directeur generale longue -->
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alertNomDGLong==1">
+                <strong> nom directeur générale longue </strong> !
+                <button (click)="closeAlerte()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--numero de tel -->
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alerttelDG==1">
+                <strong> Numéro de téléphone directeur générale doit contenir 8 chiffre </strong> !
+                <button (click)="closeAlerte()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--Vérifier l'adresse -->
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alerAddresseCourteDG==1">
+                <strong> Adresse directeur générale trés courte </strong> !
+                <button (click)="closeAlerte()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!--Vérifier l'adresse -->
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alerAddresseLongDG==1">
+                <strong> Adresse directeur générale trop longue </strong> !
+                <button (click)="closeAlerte()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--Vérifier info admin -->
+            <!--Vérifier l'adresse -->
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alerNomAdminCourte==1">
+                <strong> Le nom de l'admin est trés courte </strong> !
+                <button (click)="closeAlerte()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--nom admin long-->
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alerNomAdminLongue==1">
+                <strong> Le nom de l'admin est trop longue </strong> !
+                <button (click)="closeAlerte()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--tel admin -->
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alertTelAdmin==1">
+                <strong> Numéro de telephone admin doit contenir 8 chiffre </strong> !
+                <button (click)="closeAlerte()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--INFO ORGANISTION  -->
+            <div class="alert alert-warning alert-dismissible fade show" role="alert"
+                *ngIf="alertNomORGLengthCourte==1">
+                <strong> Le nom de l'organisation est trés courte </strong> !
+                <button (click)="closeAlerte()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--nom long  -->
+            <div class="alert alert-warning alert-dismissible fade show" role="alert"
+                *ngIf="alertNomORGLengthLongue==1">
+                <strong> Le nom de l'organisation est trop long </strong> !
+                <button (click)="closeAlerte()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--code longue  -->
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alerteCodeLongue==1">
+                <strong> Le code de l'organisation est trop long </strong> !
+                <button (click)="closeAlerte()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--code longue  -->
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alerteCodeCourte==1">
+                <strong> Le code de l'organisation est trés courte </strong> !
+                <button (click)="closeAlerte()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--nom region courte-->
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alertRegionCourte==1">
+                <strong>Le nom de la region est trés courte </strong> !
+                <button (click)="closeAlerte()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--region -->
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alertRegionLongue==1">
+                <strong>Le nom de la region est trop long </strong> !
+                <button (click)="closeAlerte()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+               <!--TEl org -->
+               <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alrtTelOrg==1">
+                <strong>Le numéro de tel de l'organisation doit contenir 8chiffre ! </strong> !
+                <button (click)="closeAlerte()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            
             <form #addForm="ngForm" (ngSubmit)="onAddDemande(addForm)">
 
                 <div class="card mb-4 mb-xl-0">
-                  
+
                     <div class="card-body text-center">
 
 
@@ -49,14 +162,14 @@
                             <!-- Form Group (first name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputFirstName"> Nom: </label>
-                                <input [(ngModel)]="demande.nomDG" name="nomDG" class="form-control" id="nomDG" type="text"
-                                    placeholder="nom Directeur generale " required>
+                                <input [(ngModel)]="demande.nomDG" name="nomDG" class="form-control" id="nomDG"
+                                    type="text" placeholder="nom Directeur generale " required>
                             </div>
                             <!-- Form Group (last name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputLastName">tel: </label>
-                                <input [(ngModel)]="demande.telDG"  name="telDG" class="form-control" id="telDG" type="tel"
-                                    placeholder="tel directeur generale" required>
+                                <input [(ngModel)]="demande.telDG" name="telDG" class="form-control" id="telDG"
+                                    type="number" placeholder="tel directeur generale" required>
                             </div>
 
 
@@ -65,14 +178,14 @@
                             <!-- Form Group (first name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputFirstName">Email </label>
-                                <input [(ngModel)]="demande.emailDG" name="emailDG" class="form-control" id="emailDG" type="email"
-                                    placeholder="Enterer address email " required>
+                                <input [(ngModel)]="demande.emailDG" name="emailDG" class="form-control" id="emailDG"
+                                    type="email" placeholder="Enterer address email " required>
                             </div>
                             <!-- Form Group (last name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputLastName">Adresse </label>
-                                <input [(ngModel)]="demande.adresse" name="adresse" class="form-control" id="adresse" type="text"
-                                    placeholder="Enterer adresse du directeur generale" required>
+                                <input [(ngModel)]="demande.adresse" name="adresse" class="form-control" id="adresse"
+                                    type="text" placeholder="Enterer adresse du directeur generale" required>
                             </div>
 
 
@@ -87,14 +200,14 @@
                                 <!-- Form Group (first name)-->
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputFirstName"> Nom Admin </label>
-                                    <input  [(ngModel)]="demande.nomAdmin" name="nomAdmin" class="form-control" id="nomAdmin" type="text"
-                                        placeholder="Enternom admin">
+                                    <input [(ngModel)]="demande.nomAdmin" name="nomAdmin" class="form-control"
+                                        id="nomAdmin" type="text" placeholder="Enternom admin">
                                 </div>
                                 <!-- Form Group (last name)-->
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputLastName">tel Admin </label>
-                                    <input  [(ngModel)]="demande.telAdmin" name="telAdmin" class="form-control" id="telAdmin" type="tel"
-                                        placeholder="Enter tel Admin " required>
+                                    <input [(ngModel)]="demande.telAdmin" name="telAdmin" class="form-control"
+                                        id="telAdmin" type="number" placeholder="Enter tel Admin " required>
                                 </div>
 
 
@@ -103,8 +216,8 @@
                                 <!-- Form Group (first name)-->
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputFirstName"> Admin Email </label>
-                                    <input [(ngModel)]="demande.emailAdmin"name="emailAdmin" class="form-control" id="emailAdmin" type="email"
-                                        placeholder="Enter Admin email" required>
+                                    <input [(ngModel)]="demande.emailAdmin" name="emailAdmin" class="form-control"
+                                        id="emailAdmin" type="email" placeholder="Enter Admin email" required>
                                 </div>
                                 <!-- Form Group (last name)-->
 
@@ -146,7 +259,8 @@
                         <!-- Form Group (last name)-->
                         <div class="col-md-6">
                             <label class="small mb-1" for="inputLastName">Secteur d'ativité</label>
-                            <select [(ngModel)]="demande.secteur_d_activite" name="secteur_d_activite" class="form-control" id="secteur_d_activite">
+                            <select [(ngModel)]="demande.secteur_d_activite" name="secteur_d_activite"
+                                class="form-control" id="secteur_d_activite">
                                 <option *ngFor="let sect of secteurs" [value]="sect.nomSecteur">
                                     {{sect.nomSecteur}}
                                 </option>
@@ -482,19 +596,19 @@
                         <!-- Form Group (phone number)-->
                         <div class="col-md-6">
                             <label class="small mb-1" for="inputPhone">Tel Organisation</label>
-                            <input [(ngModel)]="demande.telOrg" name="telOrg" class="form-control" id="telOrg" type="tel"
-                                placeholder="Enterer le numero du telephone" required>
+                            <input [(ngModel)]="demande.telOrg" name="telOrg" class="form-control" id="telOrg"
+                                type="number" placeholder="Enterer le numero du telephone" required>
                         </div>
 
-                       
+
                         <div class="col-md-4 mb-3">
                             <label for="code"> Type</label>
                             <select [(ngModel)]="demande.type" name="type" id="type" class="form-select" required>
 
-                                <option >main-d'oeuvre</option>
-                                    <option >main d'oeuvrage</option>
-                                </select>
-                                </div>
+                                <option>main-d'oeuvre</option>
+                                <option>main d'oeuvrage</option>
+                            </select>
+                        </div>
                     </div>
                     <div>
 
@@ -502,8 +616,8 @@
                         <br>
                         <div class="form-group">
                             <label> Logo </label>
-                            <input [(ngModel)]="demande.fileName" type="file" name="fileName" id="fileName" accept="image/*" (change)="onSelectFile($event)"
-                                required>
+                            <input [(ngModel)]="demande.fileName" type="file" name="fileName" id="fileName"
+                                accept="image/*" (change)="onSelectFile($event)" required>
                             <img [src]="imgURL" height="200" *ngIf="imgURL">
                         </div>
 

@@ -62,7 +62,7 @@ export class AjouterOTComponent implements OnInit {
 
    //récuperer la liste des marchhees dans l'organisation connecté
    public onGetmarchees():void{
-    this.marcheeService.getMarcheestypeMCbyorganisationId(this.idOrgan).subscribe({
+    this.marcheeService.getMarcheestypeMCbyorganisationId(this.organisationConnectee.id).subscribe({
       next: (response:Marchee[]) => {
         this.marchees=response;
         console.log("marchees de l'organisation connecté"+this.marchees)

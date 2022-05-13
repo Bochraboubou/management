@@ -102,7 +102,8 @@ const routes: Routes = [
     {path:'gestionUtulisateur',component:GestionUtulisateurComponent},
     {path:'table',component:FileUploadComponent},
      {path:'metiers',component:GestionMetiersComponent},
-    {path:'secteurs',component:SecteursComponent}
+    {path:'secteurs',component:SecteursComponent},
+    { path:'userProfilecpm',component:UserProfileComponent},
     
    
 

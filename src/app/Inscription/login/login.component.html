@@ -1,30 +1,31 @@
 <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"
     integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
-<div class="container">
+
+    <div class="container">
     <div class="row">
         <div class="col-md-9 mt-60 mx-md-auto">
             <div class="login-box bg-white pl-lg-5 pl-0">
                 <div class="row no-gutters align-items-center">
                     <div class="col-md-6">
                         <div class="form-wrap bg-white">
-                            
-               <!--message d'alerte-->
-                            <div class="alert alert-danger" *ngIf="erreur==1">
-                            <strong>login ou mot de passe erronés..</strong>
-                        </div>
-                        <div class="alert alert-danger" *ngIf="alertstop==1">
-                            <strong>chér utulisateur vous n'avez pas encore un role..</strong>
-                        </div>
-                        <form class="form" method="post" action="#" #loginform="ngForm" (ngSubmit)="loginUser()">
 
-                            <small class="text-danger">{{msg}}</small>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group position-relative">
-                                        <span class="zmdi zmdi-account"></span>
-                                        <!-- c'est lorigine //champ email-->
-                                        <!--<input type="email"  class="form-control" placeholder="Email Address" [(ngModel)]="user.email" name="email" required pattern="^\w+@[a-zA-Z]+?\.[a-zA-Z]{2,3}$"
+                            <!--message d'alerte-->
+                            <div class="alert alert-danger" *ngIf="erreur==1">
+                                <strong>premier nom ou mot de passe erronés..</strong>
+                            </div>
+                            <div class="alert alert-danger" *ngIf="alertstop==1">
+                                <strong>chér utulisateur vous n'avez pas encore un role..</strong>
+                            </div>
+                            <form class="form" method="post" action="#" #loginform="ngForm" (ngSubmit)="loginUser()">
+
+                                <small class="text-danger">{{msg}}</small>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group position-relative">
+                                            
+                                            <!-- c'est lorigine //champ email-->
+                                            <!--<input type="email"  class="form-control" placeholder="Email Address" [(ngModel)]="user.email" name="email" required pattern="^\w+@[a-zA-Z]+?\.[a-zA-Z]{2,3}$"
                                                      #email="ngModel" 
                                                     [class.is-invalid]="email.invalid && email.touched" >
                                                    <small class="text-danger" [class.d-none]="email.valid || email.untouched"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AA   Email is required field</small>
@@ -35,27 +36,30 @@
                                                     -->
 
 
-                                        <input type="text" class="form-control" placeholder="premier nom"
-                                            [(ngModel)]="user.username" name="username"  id="username" required #username="ngModel"  [class.is-invalid]="username.invalid && username.touched">
-                                            <div class="invalid-feedback">Please, enter your name!</div>
-                                       <!-- <small class="text-danger"    [class.is-invalid]="username.invalid && username.touched">premier nom invalide</small>-->
+                                            <input type="text" class="form-control" placeholder="premier nom"
+                                                [(ngModel)]="user.username" name="username" id="username" required
+                                                #username="ngModel"
+                                                [class.is-invalid]="username.invalid && username.touched">
+                                            <div class="invalid-feedback">SVP, enter votre premier nom!</div>
+                                            <!-- <small class="text-danger"    [class.is-invalid]="username.invalid && username.touched">premier nom invalide</small>-->
+                                        </div>
                                     </div>
-                                </div>
-                                <br>
-                                <div><br></div>
-                                <div class="col-12">
-                                    <div class="form-group position-relative">
-                                        <span class="zmdi zmdi-email"></span>
-                                        <input type="password" id="password" class="form-control"
-                                            placeholder="mot de passe " [(ngModel)]="user.password" name="password"
-                                            required #password="ngModel"
-                                            [class.is-invalid]="password.invalid && password.touched">
-                                        <small class="text-danger"
-                                            [class.d-none]="password.valid || password.untouched">mot de passe
-                                            invalide</small>
+                                    <br>
+                                    <div><br></div>
+                                    <div class="col-12">
+                                        <div class="form-group position-relative">
+                                          
+
+                                            <input type="password" id="password" class="form-control"
+                                                placeholder="mot de passe " [(ngModel)]="user.password" name="password"
+                                                required #password="ngModel"
+                                                [class.is-invalid]="password.invalid && password.touched">
+                                            <small class="text-danger"
+                                                [class.d-none]="password.valid || password.untouched">mot de passe
+                                                invalide</small>
+                                        </div>
                                     </div>
-                                </div>
-                                <!--
+                                    <!--
                                             <div class="col-12">
                                                 <div class="form-group position-relative">
                                                     <span class="zmdi zmdi-account"></span>
@@ -67,47 +71,49 @@
                                                 </div>
                                             </div>
                                         -->
-                                <div class="col-12 text-lg-right">
-                                    <a class="c-black" [routerLink]="['sendEmail']">mot de passe oblié?</a>
-                                </div>
-                                <div class="col-12 mt-30">
-                                    <button [disabled]="loginform.form.invalid" type="submit" id="submit"
-                                        class="btn btn-lg btn-custom btn-dark btn-block">Valider
-                                    </button>
+                                    <div class="col-12 text-lg-right">
+                                        <a class="c-black" [routerLink]="['sendEmail']">mot de passe oblié?</a>
+                                    </div>
+                                    <div class="col-12 mt-30">
+                                        <button [disabled]="loginform.form.invalid" type="submit" id="submit"
+                                            class="btn btn-lg btn-custom btn-dark btn-block">Valider
+                                        </button>
 
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="content text-center">
-                        <div class="border-bottom pb-5 mb-5">
-                            <h3 class="c-black">vous êtes là pour la premiere fois ?</h3>
-                            <!--  <a  class="btn btn-custom" (click)="gotoregistration()" >Sign up</a>-->
-                            <a class="btn btn-custom" [routerLink]="['/register']">Inscription mycpm</a>
-                            <br>
-                            <a class="btn btn-custom" [routerLink]="['/register']">Inscription Employées</a>
+                    <div class="col-md-6">
+                        <div class="content text-center">
+                            <div class="border-bottom pb-5 mb-5">
+                                <h3 class="c-black">vous êtes là pour la premiere fois ?</h3>
+                                <!--  <a  class="btn btn-custom" (click)="gotoregistration()" >Sign up</a>-->
+                                <br>
+                           
+                                <div class="socials">
+
+                                    <a [routerLink]="['/register']" class="fa fa-address-card"></a> Inscription  Admin mycpm
+                                </div>
+                                <br>
+                                <div class="socials">
+                                    <a routerLink="/inscritEmployee" class="fa fa-address-card"></a> Inscription Employée
+                                </div>
+                            
+           
+
                         </div>
-                        <h5 class="c-black mb-4 mt-n1">Ou S'inscrire avec </h5>
-                        <div class="socials">
-                            <a href="#" class="zmdi zmdi-facebook"></a>
-                            <a href="#" class="zmdi zmdi-twitter"></a>
-                            <a href="#" class="zmdi zmdi-google"></a>
-                            <a href="#" class="zmdi zmdi-instagram"></a>
-
-
-                        </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="border-bottom pb-5 mb-5">
-    <h3 class="c-black"></h3>
-    
+   <!--
+        <div class="border-bottom pb-5 mb-5">
+        <h3 class="c-black"></h3>
 
+
+    </div>
+   -->
 </div>
 </div>

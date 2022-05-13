@@ -39,7 +39,7 @@ public RedirectToOrganisation(organId:number): Observable<Organisation>
 
 public envoyerUnEmail(email:Email): Observable<any>
 {let headers = new Headers({ 'Content-Type': 'application/json' });
-  return this._http.post<any>("http://localhost:8080/api/sendEmail",email,{responseType: "json"});
+  return this._http.post<any>(`${this.apiServeUrl}/api/sendEmail`,email,{responseType: "json"});
 }
 
 

@@ -166,42 +166,7 @@ okk(){
 
 }
 
-/*
 
-public onGetRoles(id:number):void{
-    this.roleService.findRoleOfUser(this.user.id).subscribe({
-      next: (response:Role[]) => {
-        this.roles=response;
-        this.nomRole=this.roles[0]?.name
-        console.log("votre roleeeeeeeeeeeeee est "+this.nomRole)
-      },
-      error: (error:HttpErrorResponse) => {
-        alert(error.message);
-  
-       },
-      complete: () => console.info('complete') 
-  })
-  } 
-*/
-
-
-/*
-  public roleOfUser(id:number):any{
-    this.roleService.findRoleOfUser(id).subscribe({
-      next: (response:Role[]) => {
-        this.roles=response;
-        this.nomRole=this.roles[0]?.name
-        return this.nomRole;
-        
-      },
-      error: (error:HttpErrorResponse) => {
-        alert(error.message);
-        return"nn"
-  
-       },
-      complete: () => console.info('complete') 
-  })
-  } */
   public onGetroleUser(user:User){
     let id=user.id
     console.log("iiiiiiiiiii"+id)

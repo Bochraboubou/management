@@ -103,6 +103,7 @@ ok(){
      this.organisation.emailAdmin=this.demande.emailAdmin
      this.organisation.fileName=this.demande.fileName
      this.organisation.document=this.demande.documentpath;
+     this.organisation.d_id=this.demande.id;
       console.log(this.organisation)
    //
 
@@ -160,8 +161,8 @@ this.prospectService.addProspect(prospect).subscribe(
   
   (data:Prospect)=>{console.log(data);
 
-  this.  alertnewProspect=1
-    alert(" new user bien enregistrer")
+  //this.  alertnewProspect=1
+   // alert(" new user bien enregistrer")
  
 },
  ( error: any) =>{
@@ -178,7 +179,7 @@ saveNewOrganisation(organisation:Organisation){
       console.log(data);
       this.alertOrganisation=1
       console.log("organisation enregistrer")
-
+      this.updateDemande(this.id,this.demande)
       console.log(" l id de l'organisation est"+this.organisation.id)
        //ajouter email,code ,idORG,idRole a la table prospect
        this.prospect.id_org=this.organisation.id;

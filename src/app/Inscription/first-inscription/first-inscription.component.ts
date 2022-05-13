@@ -37,94 +37,37 @@ codeOrg!:string
  alerttel=0
  notificationAdmin=0
  ORGnexistepas=0
+ altPremiernomCourt=0
+ altPremiernomLong=0
+ altnomCourte=0
+ altnomLong=0
+ alerteTel=0
+ altPassCourte=0
+ altPassLong=0
   constructor(private organisationser:OrganisationServiceService,private _service:RegisterService,private serviceProspect:ProspectService) { }
 
   ngOnInit(): void {
 
     
   }
-  /*RegistryUser(){
-    this.verifier(this.user.email,this.user.username)
-   
+  closeAlerte(){
+    this.adminmycpm=0
+    this.codeorgani=0
+    this.emailutulise=0
+    this.erreur=0
+    this.notification=0
+    this.good=0;
+    this. alerttel=0
+    this.notificationAdmin=0
+    this.ORGnexistepas=0
+    this.altnomLong=0
+    this.altnomCourte=0
+    this.altPremiernomLong=0
+    this.altPremiernomCourt=0
+    this.alerteTel=0
+    this.altPassCourte=0
+    this.altPassLong=0
   }
-*/
-
- verifier(emailll:string,username:string ){
-   
-  console.log(this.id_org)
-  this.id_role=7;
-    this._service.findByUserName(username).subscribe({
-      next: (response:User) => {
-       this.user2=response;
-        console.log("user"+response);
-        //console.log("user"+this.user2.id);
-        if(this.user2!=null){
-          //alert(" username deja exisete");
-          this.good=1
-        }else{
-          console.log("username n existe pas ");
-          this._service.findByEmail(emailll).subscribe({
-            next: (response:User) => {
-              this.user2=response;
-              console.log("user"+response);
-              if (this.user2!=null){
-               
-               this.emailutulise=1;
-              }
-              else {
-                console.log("email n existe pas ")
-                this.serviceProspect.trouverParEmail(emailll).subscribe({
-                  next: (response:Prospect) => {
-                    this.prospect=response;
-                    console.log("prospect"+response);
-                    if (this.prospect==null){
-                      console.log("vous n avez pas faire une demande")
-                      this._service.RegisterSimpleUser(this.user,this.id_org,this.id_role).subscribe({
-                        next: (response:User) => {
-                          console.log(this.user) 
-                          this.user=response;
-                         this.notification=1
-                         /* if(this.user!=null){
-                            alert( "inscription avec suucces ")
-                          console.log("user"+response+"bien ajouter ");
-                        }else {
-                          console.log("user"+response+"n'est pas ajouter ajouter ");
-                        }*/
-                        },
-                        error: (error:HttpErrorResponse) => {
-                         // alert(error.message);
-                         this.codeorgani=1
-                         },
-                        complete: () => console.info('complete') 
-                    })
-                  }
-                    else{
-                      this.adminmycpm=1
-                      console.log("vos etes l'admin d'une organisation qui a fait une  demande l!!!")
-                     
-                    }
-                  },
-                  error: (error:HttpErrorResponse) => {
-                    alert(error.message);
-                   },
-                  complete: () => console.info('complete') 
-              })
-  
-              }
-            },
-            error: (error:HttpErrorResponse) => {
-              alert(error.message);
-             },
-            complete: () => console.info('complete') 
-        })
-        }
-      },
-      error: (error:HttpErrorResponse) => {
-        alert(error.message);
-       },
-      complete: () => console.info('complete') 
-  })
-}
 
 public onAddUser(addForm: NgForm): void {
 
@@ -135,6 +78,59 @@ public onAddUser(addForm: NgForm): void {
   formData.append('file',this.userFile)
 console.log(user);
 console.log(user.code)
+
+
+  console.log(user.tel)
+  let ch1=""+user.username
+  let size1=ch1.length
+  if(size1<3){
+   this.altPremiernomCourt=1
+  } 
+  if(size1>20){
+    this.altPremiernomLong=1
+   }
+   else {
+       
+    // controle sur le nom 
+   let ch2=user.name
+   let size2=ch2.length
+if(size2<3){
+this.altnomCourte=1
+} else{
+  if(size2>20){
+    this.altnomLong=1
+    
+  }else{
+        // controle sur le numero de tel 
+        let chaine=user.tel
+        let size=chaine.length
+        console.log(size)
+        console.log(chaine)
+        if(size!=8){
+          //alert("gggg")
+         this.alerteTel=1}
+         else{
+          let ch3=user.password
+          let sizePass=ch3.length
+          console.log(sizePass)
+          if( sizePass<6){
+           // alert("mot de passe tres courte")
+           this.altPassCourte=1
+          }else{
+            if (sizePass>12)
+            {
+              this.altPassLong=1
+            }
+
+          }
+         }
+  }
+  
+}
+   }
+
+
+
 
 if(user.code=="CPMGROUP"){
   this.organisationser.getOrganisationbyCode(user.code).subscribe({
@@ -194,8 +190,8 @@ this.organisationser.getOrganisationbyCode(user.code).subscribe({
                     console.log("prospect"+response);
 
                     if (this.prospect==null){
-                      console.log(user.tel)
-                      console.log(user.tel.length)
+                      //console.log(user.tel)
+                      //console.log(user.tel.length)
                       
                      this._service.createUser(formData,this.organisation.id,this.id_role).subscribe({
                         next: (response:User) => {
@@ -215,6 +211,8 @@ this.organisationser.getOrganisationbyCode(user.code).subscribe({
                   
                         
 
+                    }else{
+                    this.emailutulise=1 
                     }
 
 

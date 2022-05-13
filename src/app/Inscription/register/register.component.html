@@ -12,38 +12,104 @@
             <!--  </a>-->
           </div><!-- End Logo -->
 
+         
           <div class="card mb-3">
 
             <div class="card-body">
 
               <div class="pt-4 pb-2">
                 <h5 class="card-title text-center pb-0 fs-4">Creer un compte</h5>
-                <p class="text-center small">Enter vos données personnel pour crée un compte</p>
+                <p class="text-center small">Enter vos données personnel pour créer un compte</p>
               </div>
+
+
+              <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alerteTel==1">
+                <strong>Attention !</strong> numero de telephone doit contenir 8 chiffre
+                <button  (click)="closeAlerte()"    type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">x</span></button>
+              </div>
+
+
               <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alertemailutulise==1">
                 <strong>Attention !</strong> l'adresse email est deja utulisé.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <button  (click)="closeAlerte()" type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alertUsernameexiste==1">
                 <strong>Attention !</strong> premier nom deja existe .
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <button  (click)="closeAlerte()" type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="alert alert-success" role="alert" *ngIf="notification==1">
                 inscription avec succés <a routerLink="/login" class="alert-link">login</a>. cliquer si vous voulez
                 s'authentifier.
+                <button  (click)="closeAlerte()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
               </div>
               <div class="alert alert-danger" *ngIf="erreur==1">
-                <strong>echec d'inscription..</strong>
+                <strong>échec d'inscription..</strong>
+                <button  (click)="closeAlerte()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
               </div>
               <div class="alert alert-danger" *ngIf="alertInscrire==1">
-                <strong>vous n'avez pas envoyer une demande !..</strong>
-              </div>
+                <strong>Echec d'inscription  !..</strong>si vous n'avez pas encore passer une demande cliquer 
+                <a routerLink="/passerdemande" class="alert-link">ici</a>. 
+                <button  (click)="closeAlerte()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+ 
+            </div>
+                  <!--mot de passe courte -->
+<div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="altPassCourte==1">
+  <strong>Attention !</strong> mot de passe doit contenir au moin 6 caractere 
+  <button  (click)="closeAlerte()"    type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">x</span></button>
+</div>
+<!--mot de passelongue  -->
+<div class="alert alert-warning alert-dismissible fade show" role="alert"  *ngIf="altPassLong==1">
+  <strong>Attention !</strong> mot de passe trop longue 
+  <button  (click)="closeAlerte()"    type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">x</span></button>
+</div>
+
+<!--premier nom court -->
+<div class="alert alert-warning alert-dismissible fade show" role="alert"  *ngIf="altPremiernomCourt==1">
+  <strong>Attention !</strong> premier nom doit contenir au moin 3 caractere 
+  <button  (click)="closeAlerte()"    type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">x</span></button>
+</div>
+<!--premier nom long -->
+<div class="alert alert-warning alert-dismissible fade show" role="alert"  *ngIf="altPremiernomLong==1">
+  <strong>Attention !</strong> premier nom trop long
+  <button  (click)="closeAlerte()"    type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">x</span></button>
+</div>
+
+<!--adresse courte  -->
+<div class="alert alert-warning alert-dismissible fade show" role="alert"  *ngIf="altAdresseLong==1">
+  <strong>Attention !</strong> adresse doit contenir au moin 5 caractere .
+  <button  (click)="closeAlerte()"    type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">x</span></button>
+</div>
+<!--adresse LONGE  -->
+<div class="alert alert-warning alert-dismissible fade show" role="alert"  *ngIf="altAdresseLong==1">
+  <strong>Attention !</strong> adreese trés longue.
+  <button  (click)="closeAlerte()"  type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">x</span></button>
+</div>
+
+<!-- nom court -->
+<div class="alert alert-warning alert-dismissible fade show" role="alert"  *ngIf="altnomCourte==1">
+  <strong>Attention !</strong> nom doit contenir au moin 3 caractere !
+  <button  (click)="closeAlerte()"    type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">x</span></button>
+</div>
+<!-- nom long -->
+<div class="alert alert-warning alert-dismissible fade show" role="alert"  *ngIf="altnomLong==1">
+  <strong>Attention !</strong> nom trop long
+  <button  (click)="closeAlerte()"    type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">x</span></button>
+</div>
+
+
               <form class="row g-3 needs-validation" novalidate #formRegistration="ngForm"
-                (ngSubmit)="RegistryUser(formRegistration)">
+                (ngSubmit)="RegisterUser(formRegistration)">
                 <small class="text-danger">{{msg}}</small>
                 <div class="col-12">
                   <label for="yourName" class="form-label">premier nom</label>
@@ -113,7 +179,7 @@
                       </div>-->
                 <div class="col-12">
                   <label for="yourName" class="form-label">tel</label>
-                  <input [(ngModel)]="user.tel" name="tel" type="tel" class="form-control" id="tel" required
+                  <input [(ngModel)]="user.tel" name="tel" type="number" class="form-control" id="tel" required
                     #tel="ngModel" [class.is-invalid]="tel.invalid && tel.touched">
                   <div class="invalid-feedback">Entrer votre numero de telephone !</div>
                 </div>
@@ -124,6 +190,13 @@
                   #adresse="ngModel" 
                 [class.is-invalid]="adresse.invalid && adresse.touched">
                   <div class="invalid-feedback">Entrer votre  adresse</div>
+                </div>
+                <div class="col-12">
+                  <label for="yourName" class="form-label">Date de naissance</label>
+                  <input  [(ngModel)]="user.datenaissance" type="date" name="datenaissance" class="form-control" id="datenaissance"   required 
+                  #datenaissance="ngModel" 
+                [class.is-invalid]="datenaissance.invalid && datenaissance.touched">
+                  <div class="invalid-feedback">entrer votre date de naissance </div>
                 </div>
                 <div class="col-12">
                   <label for="yourPassword" class="form-label">Mot de passe</label>
@@ -155,14 +228,14 @@
                   </div>
                 </div>
                 <div class="col-12">
-                  <button [disabled]="formRegistration.form.invalid" class="btn btn-primary w-100" type="submit">Creer
+                  <button [disabled]="formRegistration.form.invalid" class="btn btn-primary w-100" type="submit">Créer
                     un compte</button>
                 </div>
                 <!-- <div class="col-12">
                         <button  (click)="trouverProspect(user.email,user.codeConfirmation,user.username)" class="btn btn-primary w-100" type="submit">Create Account</button>
                       </div>-->
                 <div class="col-12">
-                  <p class="small mb-0">avez vous deja un compte? <a [routerLink]="['/login']">Log in</a></p>
+                  <p class="small mb-0">avez vous dèja un compte? <a [routerLink]="['/login']">Connexion</a></p>
                 </div>
               </form>
 

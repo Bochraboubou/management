@@ -33,12 +33,40 @@ userFile:any;
 codeOrg!:string
 message:string='';
 public imagePath:any;
+alerteTel=0
+altPassLong=0
+altPassCourte=0
+altPremiernomCourt=0
+altPremiernomLong=0
+altnomCourte=0
+altnomLong=0
+altAdresseCourt=0
+altAdresseLong=0
 
   constructor( private serviceProspect:ProspectService,private _service :RegisterService) { }
 
   ngOnInit(): void {
+
   }
-  RegistryUser(formRegistration:NgForm){
+closeAlerte(){
+  this.alerteTel=0
+  this.notification=0
+  this. erreur=0
+  this. good=0
+  this.alertInscrire=0
+  this. alertUsernameexiste=0
+  this. alertemailutulise=0
+  this. altPassLong=0
+  this.altPassCourte=0
+  this. altPremiernomCourt=0
+  this.altPremiernomLong=0
+ this. altnomCourte=0
+this.altnomLong=0
+this.altAdresseCourt=0
+this.altAdresseLong=0
+}
+
+RegisterUser(formRegistration:NgForm){
    
 
     const formData=new FormData();
@@ -47,6 +75,73 @@ public imagePath:any;
     formData.append('file',this.userFile)
   console.log(user);
 
+  // controle sur premier nom
+  let ch1=user.username
+  let size1=ch1.length
+  if(size1<4){
+   this. altPremiernomCourt=1
+  }
+   else{
+     if(size1>20){
+      this. altPremiernomLong=1
+     }else {
+       
+       // controle sur le nom 
+      let ch2=user.name
+      let size2=ch2.length
+  if(size2<4){
+  
+  this.altnomCourte=1
+  } else 
+  {
+if(size2>20){
+    this.altnomLong=1
+  }
+  else {
+    
+       // controle sur le numero de tel 
+    let chaine=""+user.tel
+    let size=chaine.length
+    console.log(size)
+    if(size!=8){
+     this.alerteTel=1
+    }else{
+      // controle sur le mot de passe 
+      let ch3=user.password
+      let sizePass=ch3.length
+      console.log(sizePass)
+      if( sizePass<6){
+       // alert("mot de passe tres courte")
+       this.altPassCourte=1
+      }else{
+        if( sizePass>12){
+          //alert("mot de passe trop longue")
+          this.altPassLong=1
+        }
+        else{
+          let ch4=user.adresse
+         let sizeAdresse=ch4.length
+         if ( sizeAdresse<5){
+          //this.altAdresseCourt=1
+          alert("adresse courte")
+         }
+         else{
+          if( sizeAdresse>15){
+           // this.altAdresseLong=1
+           alert("adresse longue")
+          }
+        }
+        
+        }
+        
+        
+      }
+    }
+  }
+}
+
+ }
+}
 
   this._service.findByUserName(user.username).subscribe({
     next: (response:User) => {
@@ -133,7 +228,7 @@ public imagePath:any;
     complete: () => console.info('complete') 
 })
 
-
+  
 //this.trouverProspect(this.user.email,this.user.codeConfirmation,this.user.username)
    
 

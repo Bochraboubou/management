@@ -1,14 +1,16 @@
 
+
 .container{
-  background-color: #4e63d7;
+ /* background-color: #f8f8fb;*/
+  /*background-color:#4e63d7;*/
   margin-top:50px;
   margin-bottom: 50px;
   margin-left: 50px;
   margin-right: 50px;
-  
+ 
 }
 body{
-       
+    background-color: #4e63d7;   
       margin-top:20px;}
   
   /* ===== LOGIN PAGE ===== */

@@ -1,0 +1,84 @@
+/*
+  /*RegistryUser(){
+    this.verifier(this.user.email,this.user.username)
+   
+  }
+*/
+/*
+verifier(emailll:string,username:string ){
+   
+    console.log(this.id_org)
+    this.id_role=7;
+      this._service.findByUserName(username).subscribe({
+        next: (response:User) => {
+         this.user2=response;
+          console.log("user"+response);
+          //console.log("user"+this.user2.id);
+          if(this.user2!=null){
+            //alert(" username deja exisete");
+            this.good=1
+          }else{
+            console.log("username n existe pas ");
+            this._service.findByEmail(emailll).subscribe({
+              next: (response:User) => {
+                this.user2=response;
+                console.log("user"+response);
+                if (this.user2!=null){
+                 
+                 this.emailutulise=1;
+                }
+                else {
+                  console.log("email n existe pas ")
+                  this.serviceProspect.trouverParEmail(emailll).subscribe({
+                    next: (response:Prospect) => {
+                      this.prospect=response;
+                      console.log("prospect"+response);
+                      if (this.prospect==null){
+                        console.log("vous n avez pas faire une demande")
+                        this._service.RegisterSimpleUser(this.user,this.id_org,this.id_role).subscribe({
+                          next: (response:User) => {
+                            console.log(this.user) 
+                            this.user=response;
+                           this.notification=1
+                           /* if(this.user!=null){
+                              alert( "inscription avec suucces ")
+                            console.log("user"+response+"bien ajouter ");
+                          }else {
+                            console.log("user"+response+"n'est pas ajouter ajouter ");
+                          }*/
+                          /*
+                          },
+                          error: (error:HttpErrorResponse) => {
+                           // alert(error.message);
+                           this.codeorgani=1
+                           },
+                          complete: () => console.info('complete') 
+                      })
+                    }
+                      else{
+                        this.adminmycpm=1
+                        console.log("vos etes l'admin d'une organisation qui a fait une  demande l!!!")
+                       
+                      }
+                    },
+                    error: (error:HttpErrorResponse) => {
+                      alert(error.message);
+                     },
+                    complete: () => console.info('complete') 
+                })
+    
+                }
+              },
+              error: (error:HttpErrorResponse) => {
+                alert(error.message);
+               },
+              complete: () => console.info('complete') 
+          })
+          }
+        },
+        error: (error:HttpErrorResponse) => {
+          alert(error.message);
+         },
+        complete: () => console.info('complete') 
+    })
+  }*/

@@ -6,7 +6,9 @@
         	<div class="module-inner">
         		<div class="side-bar">
         			<div class="user-info">
-        				<img class="img-profile img-circle img-responsive center-block" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+        				<!--<img class="img-profile img-circle img-responsive center-block" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">-->
+						<img src="{{this.demandeService.apiServeUrl+'/api/Imgdemande/'+demande.id}}"
+                                style="height :70px;width:fil-content" alt="">
         				<ul class="meta list list-unstyled">
         					<li class="name"><h3>nom:{{demande.nom}}</h3>
         						<label class="label label-info"><h3>adresse:{{demande.adresse}}</h3></label>
@@ -25,17 +27,7 @@
                             
                         </div>
                        </div>
-        			<nav class="side-menu">
-        				<ul class="nav">
-        					<li><a href="#"><span class="fa fa-user"></span> Profile</a></li>
-        					<li><a href="#"><span class="fa fa-cog"></span> Settings</a></li>
-        					<li class="active"><a href="#"><span class="fa fa-credit-card"></span> Billing</a></li>
-        					<li><a href="#"><span class="fa fa-envelope"></span> Messages</a></li>
-        					
-        					<li><a href="user-drive.html"><span class="fa fa-th"></span> Drive</a></li>
-        					<li><a href="#"><span class="fa fa-clock-o"></span> Reminders</a></li>
-        				</ul>
-        			</nav>
+        		
         		</div>
         		
         		<div class="content-panel">
@@ -91,14 +83,14 @@
         					</div>
         					<hr>
                             <div class="action-btn">
-                                <button  (click)="onAfficheDetailWorning(demande.id)"type="button" class="btn btn-warning btn-lg">
-                                    Warning
-                                    <i class="fa fa-chevron-right"></i>
+                                <button  (click)="onAfficheDetailWorning(demande.id)"type="button" class="btn btn-warning btn-lg" *ngIf="demande.demandeStatus==false">
+                                    Envoyer un email de vérification
+                                   <!-- <i class="fa fa-chevron-right"></i>--->
                                     </button>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <button  (click)="onAfficheDetailConfirmer(demande.id)" class="btn btn-success btn-lg">
+                                    <button  (click)="onAfficheDetailConfirmer(demande.id)" class="btn btn-success btn-lg" *ngIf="demande.demandeStatus==false">
                                         Confirmer!
-                                        <i class="fa fa-chevron-right"></i>
+                                        
                                     </button>
 
                                 </div>

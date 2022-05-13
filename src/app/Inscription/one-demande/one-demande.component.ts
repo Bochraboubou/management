@@ -14,7 +14,7 @@ id!:number;
 demande !:Demande;
 demande2!:Demande;
 
-  constructor(private route:ActivatedRoute,private router:Router, private demandeService:DemandeService) { }
+  constructor(private route:ActivatedRoute,private router:Router, public demandeService:DemandeService) { }
 
   ngOnInit(): void {
  

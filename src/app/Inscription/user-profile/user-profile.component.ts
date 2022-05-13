@@ -33,7 +33,7 @@ organisation!:Organisation
             this.roles=response;
             this.user.nomRole=this.roles[0]?.name
             console.log(this.user.nomRole)
-            //this.onGetCodeOrganisation()
+            this.onGetCodeOrganisation()
         },
                   error: (error:HttpErrorResponse) => {
                     alert(error.message);
@@ -52,6 +52,7 @@ organisation!:Organisation
               complete: () => console.info('complete') 
           })
           
+//this.onGetCodeOrganisation();
        
 }  
 
@@ -66,7 +67,7 @@ public onGetCodeOrganisation(){
     },
     error: (error:HttpErrorResponse) => {
       alert(error.message);
-      alert("ttttttttt")
+     
 
      },
     complete: () => console.info('complete') 

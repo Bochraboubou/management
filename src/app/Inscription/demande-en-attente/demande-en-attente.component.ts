@@ -22,25 +22,89 @@ export class DemandeEnAttenteComponent implements OnInit {
   terme:any;
   page:number = 1;
   totalLength:any;
+  sppalerte=0;
 
   enAttenteListe:Demande[]=[]
   
  
-  constructor(public _servicedemande:DemandeService, private router:Router) { }
+  constructor(public _servicedemande:DemandeService,
+     private router:Router) { }
 
   ngOnInit(): void {
     
-    this.getListeDesDemandes();
+    this.getListDemandeAttente();
    //console.log("")
    
   }
 
 
+  public onOpenDeleteModal(id:number):void{
+    this._servicedemande.getDemandeById(id).subscribe({
+      next: (response:Demande) => {
+        this.demande=response;
+        const container=document.getElementById('main-container');
+        const button=document.createElement('button');
+        button.type='button';
+        button.style.display='none';
+        button.setAttribute('data-toggle','modal');
+        button.setAttribute('data-target','#delete');
+        container?.appendChild(button);
+        button.click();
+        
+      },
+      error: (error:HttpErrorResponse) => {
+        alert(error.message);
+       },
+      complete: () => console.info('complete') 
+     
+    })
+  
+  }
+  supprimer(id:number){
+   
+    this._servicedemande.deleteDemande(id).subscribe({
+       next: (response:void) => {
+       console.log("suuuuup")
+         this.sppalerte=1
+
+
+         this.enAttenteListe.forEach((currDemande) => {
+          if(currDemande.id ==id) {
+           let index= this.enAttenteListe.findIndex(currDemande=>
+            currDemande.id==id)
+        console.log(index)
+        this.enAttenteListe.splice(index,1);
+       // this.alertSuppression=1
+      // alert("c'est bien c'est supprimer de la liset")
+          }
+          
+        }
+        );
+        
+       },
+       error: (error:HttpErrorResponse) => {
+        
+         alert("echec de suppression ")
+        },
+       complete: () => console.info('complete') 
+      
+     })
+     
+   
+   }
+  
 
 
 
 
-  public getListeDesDemandes():void
+
+
+
+
+
+
+
+  public getListDemandeAttente():void
   {
    
     this. _servicedemande.getDemandes().subscribe(
@@ -68,39 +132,14 @@ export class DemandeEnAttenteComponent implements OnInit {
 
      
     
-      public onAddDemande(addForm: NgForm): void {
-       // document.getElementById('add-employee-form').click();
-        this._servicedemande.addDemande(addForm.value).subscribe(
-          (response: Demande) => {
-            console.log(response);
-            this.getListeDesDemandes();
-            addForm.reset();
-          },
-          (error: HttpErrorResponse) => {
-            alert(error.message);
-            addForm.reset();
-          }
-        );
-      }
-      
-    //on commentaire car j ai changé la methode updata
-     /* public onUpdateEmloyee(demande: Demande): void {
-        this._servicedemande.updateDemande(demande).subscribe(
-          (response: Demande) => {
-            console.log(response);
-            this.getListeDesDemandes();
-          },
-          (error: HttpErrorResponse) => {
-            alert(error.message);
-          }
-        );
-      }*/
+     
+    
     
       public onDeleteDemande(demandeId:number): void {
         this._servicedemande.deleteDemande(demandeId).subscribe(
           (response: void) => {
             console.log(response);
-            this.getListeDesDemandes();
+            this.getListDemandeAttente();
           },
           (error: HttpErrorResponse) => {
             alert(error.message);
@@ -123,7 +162,7 @@ export class DemandeEnAttenteComponent implements OnInit {
         }
     this.demandes = results;
         if (results.length === 0 || !key) {
-          this.getListeDesDemandes();
+          this.getListDemandeAttente();
         }
       }
       /***************************************** */
@@ -134,17 +173,10 @@ export class DemandeEnAttenteComponent implements OnInit {
           button.type = 'button';
           button.style.display = 'none';
           button.setAttribute('data-toggle', 'modal');
-          if (mode === 'send') {
-             this.sendDemande = demande;
-            button.setAttribute('data-target', '#SendDemandeModal');
-          }
-          if (mode === 'edit') {
-            this.editDemande = demande;
-            button.setAttribute('data-target', '#updateDemandeModal');
-          }
-          if (mode === 'delete') {
-            this.deleteDDemande = demande;
-            button.setAttribute('data-target', '#deleteDemandeModal');
+          
+          if (mode === 'supprimerTous') {
+           // this.deleteDDemande = demande;
+            button.setAttribute('data-target', '#deleteAllDemandeModal');
           }
          container?.appendChild(button);
           button.click();
@@ -154,12 +186,12 @@ export class DemandeEnAttenteComponent implements OnInit {
 
 
         DeleteDemande(id:number){
-          alert("vous etes sure de supprimer le demande num "+id+"?");
+          //alert("vous etes sure de supprimer le demande num "+id+"?");
           this._servicedemande.deleteDemande(id).subscribe(
             (response: void) => {
               console.log(response);
               console.log("deleted");
-              this.getListeDesDemandes();
+              this.getListDemandeAttente();
             
             },
             (error: HttpErrorResponse) => {
@@ -176,5 +208,27 @@ export class DemandeEnAttenteComponent implements OnInit {
         trueDemande(id:number){
           this.demande.demandeStatus=true;
         }
+
+        onOpenDeleteOneDemandeModal(id:number):void{
+          this._servicedemande.getDemandeById(id).subscribe({
+            next: (response:Demande) => {
+          const container = document.getElementById('main-container');
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.style.display = 'none';
+          button.setAttribute('data-toggle', 'modal');
+          button.setAttribute('data-target', '#supprimerDemande');
+          container?.appendChild(button);
+          button.click();
+        
+          
+    },
+    error: (error:HttpErrorResponse) => {
+      alert(error.message);
+     },
+    complete: () => console.info('complete') 
+   
+  })
+}
 }
 

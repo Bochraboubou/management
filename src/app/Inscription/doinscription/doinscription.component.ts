@@ -36,6 +36,21 @@ userFile:any;
  alertNomOrg=0
  demandeAlerte=0
  alertUser=0;
+ alertNomDG=0
+ alertNomDGLong=0
+ alerttelDG=0
+ alerAddresseCourteDG=0
+ alerAddresseLongDG=0
+ alerNomAdminLongue=0
+ alerNomAdminCourte=0
+ alertTelAdmin=0
+ alertNomORGLengthCourte=0
+ alertNomORGLengthLongue=0
+ alerteCodeCourte=0
+ alerteCodeLongue=0
+ alertRegionCourte=0
+ alertRegionLongue=0
+ alrtTelOrg=0
 public imagePath:any;
   constructor(private register:RegisterService,private serviceProspect:ProspectService, private orgService:OrganisationServiceService,private _servicedemande:DemandeService, private secteurService:SecteurService) { }
 
@@ -43,6 +58,143 @@ public imagePath:any;
     this.getSecteurs();
 
   }
+closeAlerte(){
+  this.alertOrganisation=0
+  this.alertcodeOrgExiste=0
+  
+  this.alertNomOrg=0
+  this.demandeAlerte=0
+  this.alertUser=0;
+  this.alertNomDG=0
+  this.alertNomDGLong=0
+  this.alerttelDG=0
+  this.alerAddresseCourteDG=0
+  this.alerAddresseLongDG=0
+  this.alertOrganisation=0
+  this.alertcodeOrgExiste=0
+  this.alerNomAdminLongue=0
+ this. alertTelAdmin=0
+ this. alertNomORGLengthCourte=0
+ this.alertNomORGLengthLongue=0
+ this.alerteCodeCourte=0
+ this.alerteCodeLongue=0
+ this.alertRegionCourte=0
+ this.alrtTelOrg=0
+ this.alerNomAdminCourte=0
+}
+  Gess(addForm:NgForm){
+   const demande =addForm.value
+   console.log(demande) 
+   // controle sur le champ nom directeur generale 
+   let ch1=demande.nomDG
+   let size1=ch1.length
+   console.log(size1)
+   if (size1<3){
+    this.alertNomDG=1 
+   }
+   else {
+     if (size1>12){
+      this.alertNomDGLong=1
+     }
+     // controle sur num tel DG
+     else {
+      let ch2=""+demande.telDG
+      let size2=ch2.length
+      console.log(size2)
+       if (size2!=8){
+        this.alerttelDG=1
+       }
+       // controle sur l'adresse
+       let ch3=demande.adresse
+      let size3=ch3.length
+      if (size3<5){
+       this. alerAddresseCourteDG=1
+      }
+      else{
+        if(size3>15){
+          this. alerAddresseLongDG=1 
+        } 
+        // controle sur les champs Admin 
+
+        else{
+          let ch4=demande.nomAdmin
+          let size4=ch4.length
+          if (size4<3){
+            this.alerNomAdminCourte=1
+          }else{
+            if (size4>12){
+              this.alerNomAdminLongue=1
+            }
+            else{
+              // controle sur tel admin 
+              let ch5=""+demande.telAdmin
+              let size5=ch5.length
+
+              if(size5!=8){
+              this.  alertTelAdmin=1
+
+              }
+              // controle info organisation 
+              else{
+                //nom
+                let ch6=demande.nom
+                let size6=ch6.length
+                if (size6<3){
+                  this.alertNomORGLengthCourte=1
+                }
+                else{
+                  if (size6>20){
+                    this.alertNomORGLengthLongue=1
+                  } 
+                  //verif code 
+                  else{
+                    let ch7=demande.code
+                    let size7=ch7.length
+                    if (size7<3){
+                      this.alerteCodeCourte=1
+                    }else{
+                      if (size7>12){
+                        this.alerteCodeLongue=1
+                      }
+                      else{
+                        //region 
+                        let ch8=demande.region
+                        let size8=ch8.length
+                        if (size8<6){
+                          this.alertRegionCourte=1
+
+                        }else{
+                          if (size8>15){
+                            this.alertRegionLongue=1
+  
+                          }
+                          else{
+                            //tel organisation
+                            let ch9=""+demande.telOrg
+                           let size9=ch9.length
+                           if (size9!=8)
+                           {
+                             this.alrtTelOrg=1
+                           }
+                          }
+                        }
+                      }
+
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+        }
+      }
+     }
+   }
+  }
+
+
+
 
 
 
@@ -54,7 +206,7 @@ public imagePath:any;
 
   public onAddDemande(addForm: NgForm): void {
 
-
+this.Gess(addForm);
     const formData=new FormData();
     const demande=addForm.value;
     formData.append('demande',JSON.stringify(demande));

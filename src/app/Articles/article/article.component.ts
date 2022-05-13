@@ -49,7 +49,7 @@ export class ArticleComponent implements OnInit {
     this.onGetSecteurs();
   }
 
-   //Modal pour l'ajout d'un metier
+   //Modal pour l'ajout d'un article
    public onOpenAddArticleModal():void{
     const container=document.getElementById('main-container');
      const button=document.createElement('button');

@@ -127,7 +127,7 @@
       
            <!--tableau de bondes commande-->
         <div>
-          <table class="table table-success table-striped">
+          <table class="table table-success table-striped" style="width: 1000px;">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -151,7 +151,7 @@
                 <td>{{bc.nomEntrep}}</td>
                 <td><button type="button" [ngClass]="{'btn btn-success':bc.valide ,'btn btn-danger':!bc.valide}" (click)="onOpenArticlesModal(i)" [disabled]="!BCsvalides">Articles</button></td>
                 <td>
-                  <button *ngIf="BCsvalides" type="button" id="validerCommandeButton" class="btn btn-primary" (click)="validerArticles(newMarchee.listeBondeCommandes[i],i)" style="background-color: midnightblue;" [disabled]="bc.valide" >Valider la BC</button>
+                  <button *ngIf="BCsvalides" type="button" id="validerCommandeButton" class="btn btn-primary" (click)="validerArticles(newMarchee.listeBondeCommandes[i],i)" style="background-color: midnightblue;" [disabled]="bc.valide" >Valider les articles du BC</button>
                   <button *ngIf="!BCsvalides" type="button"  class="btn btn-success btn-sm" (click)="onOpeneditBCModal(i)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>&nbsp;
                   <button  *ngIf="!BCsvalides"type="button" class="btn btn-danger btn-sm" (click)="onOpendeleteBCModal(i)"><i class="fa fa-trash" aria-hidden="true"></i></button>
                 </td>

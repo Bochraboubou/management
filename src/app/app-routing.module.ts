@@ -61,6 +61,8 @@ import { ConsulterOTComponent } from './attachement/MarcheeMC/consulter-ot/consu
 import { ListeOTComponent } from './attachement/MarcheeMC/liste-ot/liste-ot.component';
 import { MCattachementComponent } from './attachement/mcattachement/mcattachement.component';
 import { MCMarcheeComponent } from './attachement/mcmarchee/mcmarchee.component';
+import { ConsulterMaterielComponent } from './espaceMyCPM/consulter-materiel/consulter-materiel.component';
+import { ConsulterMaterielsMCComponent } from './espaceMyCPM/consulter-materiels-mc/consulter-materiels-mc.component';
 
 
 const routes: Routes = [
@@ -141,6 +143,8 @@ const routes: Routes = [
     { path:'ajouterOT',component:AjouterOTComponent},
     { path:'detailOT/:id',component:DetailOTComponent},
     { path:'consulterAttachementsMC',component:ConsulterAttachementMCComponent},
+    { path:'consulterBonsdeLivraisonsdeProjet',component:ConsulterMaterielComponent},
+    { path:'consulterBonsdeLivraisonsdeMC',component:ConsulterMaterielsMCComponent}
 
   ]},
    {path:'',redirectTo:'premierPage',pathMatch:'full'}

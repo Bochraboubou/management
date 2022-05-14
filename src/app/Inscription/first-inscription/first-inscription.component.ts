@@ -80,8 +80,8 @@ console.log(user);
 console.log(user.code)
 
 
-  console.log(user.tel)
-  let ch1=""+user.username
+  
+  let ch1=user.username
   let size1=ch1.length
   if(size1<3){
    this.altPremiernomCourt=1
@@ -102,12 +102,12 @@ this.altnomCourte=1
     
   }else{
         // controle sur le numero de tel 
-        let chaine=user.tel
+        let chaine=""+user.tel
         let size=chaine.length
         console.log(size)
         console.log(chaine)
         if(size!=8){
-          //alert("gggg")
+         
          this.alerteTel=1}
          else{
           let ch3=user.password

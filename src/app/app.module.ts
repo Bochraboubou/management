@@ -91,6 +91,9 @@ import { ConnsulterAttachementComponent } from './attachement/connsulter-attache
 import { ConsulterMaterielComponent } from './espaceMyCPM/consulter-materiel/consulter-materiel.component';
 import { ConsulterMaterielsMCComponent } from './espaceMyCPM/consulter-materiels-mc/consulter-materiels-mc.component';
 
+import { AjouterBLmaCComponent } from './BonLivraisonMC/ajouter-blma-c/ajouter-blma-c.component';
+import { AjouterBlmProjetComponent } from './BonLivraisonProjet/ajouter-blm-projet/ajouter-blm-projet.component';
+
 
 
 @NgModule({
@@ -191,6 +194,9 @@ DetailOTComponent,
 ConsulterAttachementMCComponent,
 ConsulterMaterielComponent,
 ConsulterMaterielsMCComponent,
+AjouterBLmaCComponent,
+AjouterBlmProjetComponent,
+
 
 
 

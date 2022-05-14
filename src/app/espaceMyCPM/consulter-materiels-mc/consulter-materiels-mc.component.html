@@ -30,7 +30,7 @@
 
           <div>
             <h2 style="font-family: Comic Sans MS; color: midnightblue;">choisissez le code de l'ordre de traveaux</h2>
-            <select ngModel (ngModelChange)="getOrdreTraveauxChoisis($event)" name="bondeCommande" id="bondeCommande" class="form-select" placeholder="code Bon de Commande" aria-label="Default select example" required #bondeCommande="ngModel"  [class.is-invalid]="bondeCommande.invalid && bondeCommande.touched">
+            <select ngModel (ngModelChange)="getOrdreTraveauxChoisis($event)" name="ordredeTraveaux" id="" class="form-select" placeholder="code OT" aria-label="Default select example" required #ordredeTraveaux="ngModel"  [class.is-invalid]="ordredeTraveaux.invalid && ordredeTraveaux.touched">
               <option selected value="">choisir le code de l'ordre de traveaux</option>-->
               <option   *ngFor="let ot of ordresDeTraveaux let i=index"
               [value]="i">
@@ -45,8 +45,8 @@
           <input type="search" [(ngModel)]="searchBL" class="form-control" id="searchBL" name="searchBL"  placeholder="rechercher un BL">
         </div>
 
-        <div class="col-md-4">
-          <button type="button" class="btn btn-primary" style="background-color:midnightblue; border-radius: 12px;">Ajouter un bon de livraison <i class="fa fa-plus" aria-hidden="true"></i></button>
+        <div *ngIf="ordredeTraveaux.dirty" class="col-md-4">
+          <button type="button" class="btn btn-primary" style="background-color:midnightblue; border-radius: 12px;" routerLink="/mycpm/ajouterBLmMC/{{ordreDeTraveauxC?.id}}/{{metierC?.id}}">Ajouter un bon de livraison <i class="fa fa-plus" aria-hidden="true"></i></button>
         </div>
 
         <div>

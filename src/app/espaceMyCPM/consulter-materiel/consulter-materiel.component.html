@@ -33,6 +33,11 @@
           <h2 style="font-family: Comic Sans MS; color: midnightblue;">chercher un BL</h2>
           <input type="search" [(ngModel)]="searchBL" class="form-control" id="searchBL" name="searchBL"  placeholder="rechercher un BL">
         </div>
+
+        <div *ngIf="bondeCommande.dirty" class="col-md-4">
+          <button type="button" class="btn btn-primary" style="background-color:midnightblue; border-radius: 12px;" routerLink="/mycpm/ajouterBLmP/{{bondeCommandeC?.id}}/{{metierC?.id}}">Ajouter un bon de livraison <i class="fa fa-plus" aria-hidden="true"></i></button>
+        </div>
+
         <div>
 
         

@@ -4,12 +4,14 @@ import { Article } from 'src/app/model/Article';
 import { BondeCommande } from 'src/app/model/BondeCommande';
 import { BonDeLivraisonProjet } from 'src/app/model/Bon_De_Livraison';
 import { Marchee } from 'src/app/model/Marchee';
+import { Metier } from 'src/app/model/Metier';
 import { Organisation } from 'src/app/model/Organisation';
 import { ArticleRService } from 'src/app/service/article-r.service';
 import { BonLivraisonProjetService } from 'src/app/service/bon-livraison-projet.service';
 import { BondeCommandeService } from 'src/app/service/bonde-commande.service';
 import { LoginService } from 'src/app/service/login.service';
 import { MarcheeService } from 'src/app/service/marchee.service';
+import { MetierService } from 'src/app/service/metier.service';
 import { OrganisationServiceService } from 'src/app/service/organisation-service.service';
 
 @Component({
@@ -27,6 +29,7 @@ export class ConsulterMaterielComponent implements OnInit {
   idMarcheeC!: number;
   marcheeC!: Marchee;
   bondeCommandeC!: BondeCommande;
+  metierC!: Metier;
   bonsDelivraison!: BonDeLivraisonProjet[];
 
   searchBL:any;
@@ -35,8 +38,9 @@ export class ConsulterMaterielComponent implements OnInit {
   BLpage:number = 1;
 
 
+
  
-  constructor(private loginService:LoginService,private organisationService:OrganisationServiceService,private marcheeService:MarcheeService,private bondeCommandeService:BondeCommandeService,private bondeLivraisonService:BonLivraisonProjetService) { }
+  constructor(private loginService:LoginService,private organisationService:OrganisationServiceService,private marcheeService:MarcheeService,private bondeCommandeService:BondeCommandeService,private bondeLivraisonService:BonLivraisonProjetService,private metierService :MetierService) { }
 
   ngOnInit(): void {
     this.onGetOrganisationbyUser();
@@ -78,6 +82,7 @@ export class ConsulterMaterielComponent implements OnInit {
     console.log("indice du marchee choisis"+marcheeIndice);
     this.marcheeC=this.marchees[marcheeIndice];
     this.getBondesCommandes(this.marcheeC.id); 
+    this.getMetierByMarchee(this.marchees[marcheeIndice].id);
   }
 
   //event lors du choix du code du bon de Commande
@@ -101,6 +106,23 @@ export class ConsulterMaterielComponent implements OnInit {
       complete: () => console.info('complete') 
   })
   }
+
+    //recuperer le metier du marché
+    public getMetierByMarchee(idMarchee:number):void{
+      this.metierService.getMetierbyMarchee(idMarchee).subscribe({
+       next: (response:Metier) =>{
+         this.metierC = response;
+         console.log("metier du marché"+this.metierC.nomMetier);
+         
+       },
+       error: (error:HttpErrorResponse) => {
+         alert(error.message);
+  
+        },
+      complete: () => console.info('get metier by marchee complete') 
+   })  
+  
+   }
 
    //recuperer les bon de commandes du marchee choisis
    public getBondesCommandes(idMarchee:number):void{

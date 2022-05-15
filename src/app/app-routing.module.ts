@@ -61,7 +61,12 @@ import { ConsulterOTComponent } from './attachement/MarcheeMC/consulter-ot/consu
 import { ListeOTComponent } from './attachement/MarcheeMC/liste-ot/liste-ot.component';
 import { MCattachementComponent } from './attachement/mcattachement/mcattachement.component';
 import { MCMarcheeComponent } from './attachement/mcmarchee/mcmarchee.component';
+
+import { ConsulterMaterielComponent } from './espaceMyCPM/consulter-materiel/consulter-materiel.component';
+import { ConsulterMaterielsMCComponent } from './espaceMyCPM/consulter-materiels-mc/consulter-materiels-mc.component';
 import { AjouterBlmProjetComponent } from './BonLivraisonProjet/ajouter-blm-projet/ajouter-blm-projet.component';
+import { AjouterBLmaCComponent } from './BonLivraisonMC/ajouter-blma-c/ajouter-blma-c.component';
+
 
 
 const routes: Routes = [
@@ -142,9 +147,16 @@ const routes: Routes = [
     { path:'ajouterOT',component:AjouterOTComponent},
     { path:'detailOT/:id',component:DetailOTComponent},
     { path:'consulterAttachementsMC',component:ConsulterAttachementMCComponent},
-    { path:'ajouterBLmP',component:AjouterBlmProjetComponent},
+    { path:'consulterBonsdeLivraisonsdeProjet',component:ConsulterMaterielComponent},
+    { path:'consulterBonsdeLivraisonsdeMC',component:ConsulterMaterielsMCComponent},
+    { path:'ajouterBLmP/:idBC/:idM',component:AjouterBlmProjetComponent},
+    { path:'ajouterBLmMC/:idOT/:idM',component:AjouterBLmaCComponent}
+
   ]},
+  
+
    {path:'',redirectTo:'premierPage',pathMatch:'full'}
+  
 
 
 ];

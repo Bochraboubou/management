@@ -3,34 +3,39 @@ import { Component, OnInit } from '@angular/core';
 import { Article } from 'src/app/model/Article';
 import { BondeCommande } from 'src/app/model/BondeCommande';
 import { BonDeLivraisonProjet } from 'src/app/model/Bon_De_Livraison';
+import { BonDeLivraisonMC } from 'src/app/model/Bon_De_livraisonMC';
 import { Marchee } from 'src/app/model/Marchee';
 import { Metier } from 'src/app/model/Metier';
+import { OrdreDeTraveaux } from 'src/app/model/OrdreDeTraveaux';
 import { Organisation } from 'src/app/model/Organisation';
-import { ArticleRService } from 'src/app/service/article-r.service';
+import { BonLivraisonMCService } from 'src/app/service/bon-livraison-mc.service';
 import { BonLivraisonProjetService } from 'src/app/service/bon-livraison-projet.service';
 import { BondeCommandeService } from 'src/app/service/bonde-commande.service';
 import { LoginService } from 'src/app/service/login.service';
 import { MarcheeService } from 'src/app/service/marchee.service';
 import { MetierService } from 'src/app/service/metier.service';
+import { OrdreDeTraveauxService } from 'src/app/service/ordre-de-traveaux.service';
 import { OrganisationServiceService } from 'src/app/service/organisation-service.service';
 
 @Component({
-  selector: 'app-consulter-materiel',
-  templateUrl: './consulter-materiel.component.html',
-  styleUrls: ['./consulter-materiel.component.css']
+  selector: 'app-consulter-materiels-mc',
+  templateUrl: './consulter-materiels-mc.component.html',
+  styleUrls: ['./consulter-materiels-mc.component.css']
 })
-export class ConsulterMaterielComponent implements OnInit {
+export class ConsulterMaterielsMCComponent implements OnInit {
 
   organisationConnectee!: Organisation;
   username!: string;
   marchees!: Marchee[];
   bonsdeCommandes!: BondeCommande[];
+  ordresDeTraveaux!: OrdreDeTraveaux[];
+  bonsDelivraison!: BonDeLivraisonMC[];
 
   idMarcheeC!: number;
   marcheeC!: Marchee;
-  bondeCommandeC!: BondeCommande;
   metierC!: Metier;
-  bonsDelivraison!: BonDeLivraisonProjet[];
+  bondeCommandeC!: BondeCommande;
+  ordreDeTraveauxC!: OrdreDeTraveaux;
 
   searchBL:any;
 
@@ -38,9 +43,8 @@ export class ConsulterMaterielComponent implements OnInit {
   BLpage:number = 1;
 
 
-
  
-  constructor(private loginService:LoginService,private organisationService:OrganisationServiceService,private marcheeService:MarcheeService,private bondeCommandeService:BondeCommandeService,private bondeLivraisonService:BonLivraisonProjetService,private metierService :MetierService) { }
+  constructor(private loginService:LoginService,private organisationService:OrganisationServiceService,private marcheeService:MarcheeService,private bondeCommandeService:BondeCommandeService,private bondeLivraisonService:BonLivraisonMCService,private ordreTraveauxService:OrdreDeTraveauxService,private metierService:MetierService) { }
 
   ngOnInit(): void {
     this.onGetOrganisationbyUser();
@@ -89,12 +93,22 @@ export class ConsulterMaterielComponent implements OnInit {
   getBondeCommandeChoisis(bondeCommandeIndice:number){
     console.log("indice du bc choisis"+bondeCommandeIndice);
     this.bondeCommandeC=this.bonsdeCommandes[bondeCommandeIndice];
-    this.getBonsdeLivraison(this.bonsdeCommandes[bondeCommandeIndice].id);
+    this.getOrdresTraveaux(this.bonsdeCommandes[bondeCommandeIndice].id);
+   
+  }
+
+  
+   //event lors du choix du code d'orde de traveaux
+   getOrdreTraveauxChoisis(otIndice:number){
+    console.log("indice du ot choisis"+otIndice);
+    this.ordreDeTraveauxC=this.ordresDeTraveaux[otIndice];
+    this.getBonsdeLivraison(this.ordresDeTraveaux[otIndice].id);
+  
   }
 
    //récuperer la liste des marchhees dans l'organisation connecté
    public onGetmarchees():void{
-    this.marcheeService.getMarcheestypeProjetbyorganisationId(this.organisationConnectee.id).subscribe({
+    this.marcheeService.getMarcheestypeMCbyorganisationId(this.organisationConnectee.id).subscribe({
       next: (response:Marchee[]) => {
         this.marchees=response;
         console.log("marchees de l'organisation connecté"+this.marchees)
@@ -107,22 +121,22 @@ export class ConsulterMaterielComponent implements OnInit {
   })
   }
 
-    //recuperer le metier du marché
-    public getMetierByMarchee(idMarchee:number):void{
-      this.metierService.getMetierbyMarchee(idMarchee).subscribe({
-       next: (response:Metier) =>{
-         this.metierC = response;
-         console.log("metier du marché"+this.metierC.nomMetier);
-         
-       },
-       error: (error:HttpErrorResponse) => {
-         alert(error.message);
-  
-        },
-      complete: () => console.info('get metier by marchee complete') 
-   })  
-  
-   }
+  //recuperer le metier du marché
+  public getMetierByMarchee(idMarchee:number):void{
+    this.metierService.getMetierbyMarchee(idMarchee).subscribe({
+     next: (response:Metier) =>{
+       this.metierC = response;
+       console.log("metier du marché"+this.metierC.nomMetier);
+       
+     },
+     error: (error:HttpErrorResponse) => {
+       alert(error.message);
+
+      },
+    complete: () => console.info('get metier by marchee complete') 
+ })  
+
+ }
 
    //recuperer les bon de commandes du marchee choisis
    public getBondesCommandes(idMarchee:number):void{
@@ -141,10 +155,27 @@ export class ConsulterMaterielComponent implements OnInit {
 
  }
 
+  //recuperer les ordres de traveaux du bc choisis
+  public getOrdresTraveaux(idBC:number):void{
+    this.ordreTraveauxService.getOTsBybcID(idBC).subscribe({
+     next: (response:OrdreDeTraveaux[]) =>{
+       this.ordresDeTraveaux=response;
+       console.log("ots du bc choisis "+this.bondeCommandeC?.codebc+" sont les suivants"+this.ordresDeTraveaux);
+       
+     },
+     error: (error:HttpErrorResponse) => {
+       alert(error.message);
+
+      },
+     complete: () => console.info('get ots by bc complete') 
+ })  
+
+ }
+
   //recuperer les bon de livraison du BC choisis
-  public getBonsdeLivraison(idBC:number):void{
-    this.bondeLivraisonService.getAllbonsdelivraisonsBybcId(idBC).subscribe({
-     next: (response:BonDeLivraisonProjet[]) =>{
+  public getBonsdeLivraison(idOT:number):void{
+    this.bondeLivraisonService.getAllbonsdelivraisonsByotId(idOT).subscribe({
+     next: (response:BonDeLivraisonMC[]) =>{
        this.bonsDelivraison=response;
        for (let i = 0; i < this.bonsDelivraison.length; i++) {
         this.getMaterielslivrés(this.bonsDelivraison[i]);
@@ -157,31 +188,27 @@ export class ConsulterMaterielComponent implements OnInit {
        alert(error.message);
 
       },
-     complete: () => console.info('get bons de livraisons by BC complete') 
+     complete: () => console.info('get bons de livraisons by OT complete') 
  })  
 
  }
 
   //recuperer le materiels livré du BL
-  public getMaterielslivrés(BL:BonDeLivraisonProjet):void{
-    this.bondeLivraisonService.getMaterielsBuBL(BL.bl_id).subscribe({
+  public getMaterielslivrés(BL:BonDeLivraisonMC):void{
+    this.bondeLivraisonService.getMaterielsBuBL(BL.id).subscribe({
      next: (response:Article[]) =>{
        BL.listeMateriel = response;
-       console.log("get materiel du BL"+BL.codeBonLivraisonProj);
+       console.log("get materiel du BL"+BL.codeBonLivraisonMC);
        
      },
      error: (error:HttpErrorResponse) => {
        alert(error.message);
 
       },
-    complete: () => console.info('get materiels by BL complete') 
+     complete: () => console.info('get materiels by BL complete') 
  })  
 
  }
-
- 
-
-
 
 
 }

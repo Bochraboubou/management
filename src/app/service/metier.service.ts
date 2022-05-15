@@ -43,5 +43,11 @@ export class MetierService {
     {
       return this.http.get<Metier>(`${this.apiServeUrl}/admin/metierbyid/${idMetier}`);
     }
+
+     //récuperer le metier par Marchee
+   public getMetierbyMarchee(marcheeId:number): Observable<Metier>
+   {
+     return this.http.get<Metier>(`${this.apiServeUrl}/admin/metierbyMarchee/${marcheeId}`);
+   }
  
 }

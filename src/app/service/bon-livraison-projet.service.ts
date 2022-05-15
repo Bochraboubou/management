@@ -34,6 +34,12 @@ export class BonLivraisonProjetService {
     {
       return this.http.get<Article[]>(`${this.apiServeUrl}/admin/materielLivreeJoinProjetbyBC/bl/${blId}`);
     }
+    // get bl by code 
+    
+    public getBLbyCode(code:String): Observable<BonDeLivraisonProjet>
+    {
+      return this.http.get<BonDeLivraisonProjet>(`${this.apiServeUrl}/admin/getByCodeBL/${code}`);
+    }
 
 }
 

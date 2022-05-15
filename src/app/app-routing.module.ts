@@ -147,6 +147,11 @@ const routes: Routes = [
     { path:'ajouterOT',component:AjouterOTComponent},
     { path:'detailOT/:id',component:DetailOTComponent},
     { path:'consulterAttachementsMC',component:ConsulterAttachementMCComponent},
+
+    { path:'ajouterBLmP',component:AjouterBlmProjetComponent},
+    
+    { path:'ajouterBLmP/ajouterBLmP',component:AjouterBlmProjetComponent},
+
     { path:'consulterBonsdeLivraisonsdeProjet',component:ConsulterMaterielComponent},
     { path:'consulterBonsdeLivraisonsdeMC',component:ConsulterMaterielsMCComponent},
     { path:'ajouterBLmP/:idBC/:idM',component:AjouterBlmProjetComponent},

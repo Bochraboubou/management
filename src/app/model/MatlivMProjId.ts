@@ -1,4 +1,4 @@
 export class MatLivMProjetId{
-    BonLivraisonMC_id !:number
+    BonLivraisonMP_id !:number
     article_id!:number
 }

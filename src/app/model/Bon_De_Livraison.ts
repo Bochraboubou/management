@@ -6,6 +6,7 @@ export class BonDeLivraisonProjet{
    dateSystemeBLProj!:Date
    dateLivraisonBLProj!:Date
    montant!: number
+   montantBL!:number
    listeMateriel!: Article[]
 
    constructor(){

@@ -331,31 +331,7 @@ complete: () => console.info('complete')
 })
 
 
-
-/*
-this.attachementService.addAttachement(this.attachement1,this.id).subscribe({
-next:(response:Attachement)=>{
-this.attachement=response
-this.attachementId=this.attachement.id
-console.log(this.attachement) 
-this.notificatideCreation=1
-form.reset()
-//this.notificatideCreation=0
-//remplir  l id de l'article realisee
-this.articleRealiseeID.attachement_id=this.attachement.id
-},
-error: (error:HttpErrorResponse) => {
-console.log(error.message);
-this.erreur=1;
-},
-complete: () => console.info('complete') 
-})*/
-
 }
-
-
-
-
 
 
 RemplirListeArticleRealisee(){
@@ -463,6 +439,7 @@ complete: () => console.info('complete')
   
 
 //////juste
+//trouver les article de la bon de commande 
   trouverArticles(){
     this.articleUtuliseeService.getArticlesUtiliseesbyBC(this.id).subscribe({
      next: (response:ArticleUtilisee[]) => {

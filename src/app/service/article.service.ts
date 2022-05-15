@@ -58,4 +58,11 @@ export class ArticleService {
   {
     return this.http.delete<void>(`${this.apiServeUrl}/admin/articles/${articleId}`);
   }
+
+//trouver tous les articles de type "materiel en rigie" dans une métier
+ public getArticleTMatbyMetierId(metierId:number): Observable<Article[]>
+   {
+     return this.http.get<Article[]>(`${this.apiServeUrl}/admin/tousArticlesTypeMateriel/${metierId}`);
+   }
+
 }

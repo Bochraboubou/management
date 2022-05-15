@@ -20,11 +20,7 @@ export class BonLivraisonProjetService {
 {
   return this.http.post<BonDeLivraisonProjet>(`${this.apiServeUrl}/admin/addBonLivraison/${idBC}`,blp);
 }
-}
 
-  private apiServeUrl =environment.apiBaseUrl;
-
-  constructor(private http: HttpClient) { }
 
 
   //récuperer les bons de livraison by bcId

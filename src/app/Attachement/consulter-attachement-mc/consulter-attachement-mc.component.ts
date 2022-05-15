@@ -38,6 +38,11 @@ export class ConsulterAttachementMCComponent implements OnInit {
   attachementsGlobalsMFs!: Article[];
   attachementsJournaliersMFs!: Article[];
   attachementsParPeriodeMFs!: Article[];
+
+  attachementsGlobalsMateriels!: Article[];
+  attachementsJournaliersMateriels!: Article[];
+  attachementsParPeriodeMateriels!: Article[];
+
   dateA!: Date;
   date1!: Date;
   date2!: Date;
@@ -87,6 +92,7 @@ export class ConsulterAttachementMCComponent implements OnInit {
     this.ordreDeTraveauxC=this.ordresDeTraveaux[otIndice];
     this.getAttachementGlobalPrestations(this.ordreDeTraveauxC.id);
     this.getAttachementGlobalMFs();
+    this.getAttachementGlobalMateriels();
   }
 
    //event lors du choix du date d'attachement journalier
@@ -94,6 +100,7 @@ export class ConsulterAttachementMCComponent implements OnInit {
     console.log("date d'attachement journalier"+dateAjournalier);
     this.getAttachementJournalierPrestations(this.ordreDeTraveauxC?.id,dateAjournalier);
     this.getAttachementJournalierMFs(dateAjournalier);
+    this.getAttachementJournalierMateriels(dateAjournalier);
   }
 
 
@@ -200,6 +207,8 @@ public getAttachementParPeriodePrestations(date1:Date,date2:Date):void{
 public getAllAttachementsParPeriode(date1:Date,date2:Date):void{
   this.getAttachementParPeriodePrestations(date1,date2);
   this.getAttachementParPeriodeMFs(date1,date2);
+  this.getAttachementParPeriodeMateriels(date1,date2);
+
 }
 
  //recuperer les attachements globals (MFs)
@@ -240,6 +249,56 @@ public getAttachementParPeriodeMFs(date1:Date,date2:Date):void{
 this.articleRealiseeMCService.getArticlesRealiseesMFbyotIdparPeriode(this.ordreDeTraveauxC.id,date1,date2).subscribe({
  next: (response:Article[]) =>{
    this.attachementsParPeriodeMFs=response.sort((a, b) => (a.typeLib > b.typeLib) ? 1 : -1);
+   
+ },
+ error: (error:HttpErrorResponse) => {
+   alert(error.message);
+
+  },
+ complete: () => console.info('get attachements par periode by ot complete') 
+})  
+
+}
+
+
+ //recuperer les attachements globals (MFs)
+ public getAttachementGlobalMateriels():void{
+  this.articleRealiseeMCService.getArticlesRealiseesMaterielbyotId(this.ordreDeTraveauxC.id).subscribe({
+   next: (response:Article[]) =>{
+     this.attachementsGlobalsMateriels=response.sort((a, b) => (a.typeLib > b.typeLib) ? 1 : -1);
+    // this.attachementsGlobals = this.attachementsGlobals.sort((a,b) => a.typeLib > b.typeLib ? 1 : -1);
+     
+   },
+   error: (error:HttpErrorResponse) => {
+     alert(error.message);
+
+    },
+   complete: () => console.info('get attachements globals by ot complete') 
+})  
+
+}
+
+//recuperer les attachements journaliers (MFs)
+public getAttachementJournalierMateriels(dateA:Date):void{
+this.articleRealiseeMCService.getArticlesRealiseesMaterielJournalierbyotId(this.ordreDeTraveauxC.id,dateA).subscribe({
+ next: (response:Article[]) =>{
+   this.attachementsJournaliersMateriels=response.sort((a, b) => (a.typeLib > b.typeLib) ? 1 : -1);
+   
+ },
+ error: (error:HttpErrorResponse) => {
+   alert(error.message);
+
+  },
+ complete: () => console.info('get attachements journaliers by ot complete') 
+})  
+
+}
+
+//recuperer les attachements par periode(MFs)
+public getAttachementParPeriodeMateriels(date1:Date,date2:Date):void{
+this.articleRealiseeMCService.getArticlesRealiseesMaterielbyotIdparPeriode(this.ordreDeTraveauxC.id,date1,date2).subscribe({
+ next: (response:Article[]) =>{
+   this.attachementsParPeriodeMateriels=response.sort((a, b) => (a.typeLib > b.typeLib) ? 1 : -1);
    
  },
  error: (error:HttpErrorResponse) => {

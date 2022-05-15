@@ -46,7 +46,7 @@
     <br>
 
    
-        <h2 style="font-family: Comic Sans MS; color: midnightblue;">Liste  des bons de livraisns pour la  BC de code "{{bondeCommandeC?.codebc}}"</h2>
+        <h2 *ngIf="bonsDelivraison?.length!=0" style="font-family: Comic Sans MS; color: midnightblue;">Liste  des bons de livraisns pour la  BC de code "{{bondeCommandeC?.codebc}}"</h2>
         <div *ngIf="bonsDelivraison?.length==0"><h2>Aucun bon de livraison pour la BC de code "{{bondeCommandeC.codebc}}"</h2></div>
        <div *ngFor="let bl of bonsDelivraison | filter:searchBL | paginate : {
         itemsPerPage:4,
@@ -55,20 +55,21 @@
         } let i = index" class="card col-sm-9 marcheeCard">
           <h2 style="font-weight:bold; text-align: center;"> Bon de livraison N°{{i+1}}</h2>
          <div class="card-body">
-          <h3><strong>Code : </strong>{{bl.codeBonLivraisonProj}}</h3>
+          <h3><strong>Code BL : </strong>{{bl?.codeBonLivraisonProj}}</h3>
+          <h3><strong>montant : </strong>{{bl?.montant}}</h3>
           <div class="row">
-            <div class="col-md-4"><strong>Date création :</strong>{{bl.dateSystemeBLProj}}</div>
-            <div class="col-md-4"><strong>Date de livraison:</strong>{{bl.dateLivraisonBLProj}}</div>
+            <div class="col-md-4"><strong>Date création :</strong>{{bl?.dateSystemeBLProj}}</div>
+            <div class="col-md-4"><strong>Date de livraison:</strong>{{bl?.dateLivraisonBLProj}}</div>
           </div>
             </div>
          <div class="card-body">
            <div>
-            <button class="btn btn-primary" type="button" (click)="onOpenBCCollapse(i)"  style="background-color: navy;">
+            <button class="btn btn-primary" type="button" (click)="onOpenBLCollapse(i)"  style="background-color: navy;">
               materiels livrés
             </button>
            </div>
            <br>
-           <div class="collapse" id="bCommande{{i}}">
+           <div class="collapse" id="materielsLivrees{{i}}">
              <div>
               <h2 style="font-family: Comic Sans MS; color: midnightblue;">Materiels livrés</h2>
               <table class="table table-primary table-hover table-striped">
@@ -95,6 +96,8 @@
                   </tr>
                 </tbody>
               </table>
+              <br>
+              <button type="button" class="btn btn-dark" (click)="onOpenPrintBLModal(i)">Imprimer <i class="fa fa-print" aria-hidden="true"></i></button>
              </div>
            
            </div>
@@ -107,6 +110,95 @@
       <pagination-controls (pageChange)="BLpage = $event" class="text-center pagination"></pagination-controls>
     
        </div>
+
+         <!-- print BL modal -->
+         <div class="modal fade" id="printBLModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Informations BL à imprimer</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body" id="PrintBLSection">
+                  <div class="row">
+                    <div class="col-md-4"><h4><strong>Organisation :</strong>{{organisationConnectee?.nom}}</h4></div>
+                  <h2 style="font-family:Marker Felt, fantasy; font-size: 28px; text-align: center; color: black;"> Bon-De commande</h2>
+                  <div>
+                   <h4><strong>Code BC : </strong>{{bondeCommandeC?.codebc}}</h4>
+                   <div class="row">
+                     <div class="col-md-4"><h4><strong>Date debut traveaux :</strong> {{bondeCommandeC?.dateDebutTraveaux}}</h4></div>
+                     <div class="col-md-4"><h4><strong>Delais :</strong>{{bondeCommandeC?.delais}}</h4></div>
+                     <div class="col-md-4"><h4><strong>montant :</strong>{{bondeCommandeC?.montant}}</h4></div>
+                  </div>
+                   <div class="col-md-4"><h4><strong>Entreprise(Fournisseur) </strong> {{bondeCommandeC?.nomEntrep}}</h4></div>
+                     </div>
+                     <h2 style="font-family:Marker Felt, fantasy; font-size: 28px; text-align: center; color: black;"> Bon de livraison</h2>
+                     <div>
+                      <h4><strong>Code BL : </strong>{{printedBL?.codeBonLivraisonProj}}</h4>
+                      <div class="row">
+                        <div class="col-md-4"><h4><strong>Date création :</strong> {{printedBL?.dateSystemeBLProj}}</h4></div>
+                        <div class="col-md-4"><h4><strong>Date de livraison :</strong>{{printedBL?.dateLivraisonBLProj}}</h4></div>
+                     </div>
+                        </div>
+                    <br>
+                    <h4><strong>materiels livrés du BL :</strong></h4>
+                   <div>
+                       <table class="table table-primary table-hover table-striped w-75">
+                         <thead>
+                           <tr>
+                             <th scope="col" class="bg-primary">N°</th>
+                             <th scope="col" class="bg-primary">Code</th>
+                             <th scope="col" class="bg-primary">Designation</th>
+                             <th scope="col" class="bg-primary">Unité</th>
+                             <th scope="col" class="bg-primary">Type</th>
+                             <th scope="col" class="bg-primary">Prix</th>
+                             <th scope="col" class="bg-primary">Quantité</th>
+                             <th scope="col" class="bg-primary">Total HT</th>
+                             <th scope="col" class="bg-primary">Observation</th>
+                           </tr>
+                         </thead>
+                         <tbody>
+                           <tr *ngFor="let materiel of printedBL?.listeMateriel ,let i= index">
+                             <th scope="row">{{i}}</th>
+                             <td>{{materiel.code}}</td>
+                             <td>{{materiel.designation}}</td>
+                             <td>{{materiel.unitee}}</td>
+                             <td>{{materiel.typeLib}}</td>
+                             <td>{{materiel.prix}}</td>
+                             <td>{{materiel.quantitee}}</td>
+                             <td>{{materiel.prix * materiel.quantitee}}</td>
+                             <td>                </td>
+                           </tr>
+                         </tbody>
+                        
+                       </table>
+                       <br>
+                       <div class="col-md-4"><h4><strong>Montant :</strong>{{printedBL?.montant}}</h4></div>
+                       <div class="col-md-4"><h4><strong>TVA :</strong>19% </h4></div>
+                       <div class="col-md-4"><h4><strong>Montant avec TVA :</strong>{{printedBL.montant + (printedBL.montant * 0.19)}}</h4></div>
+                    </div>
+                </div>
+                <br style="height: 100px;">
+                <div class="row">
+                  <div class="col"><h4>Observations :</h4></div>
+                  <div class="col"><h4>Signature :</h4></div>
+                </div> 
+                <div class="modal-footer">
+                  <button type="button" id="closeConfirmModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                  <button  type="submit" class="btn btn-dark"
+                  [useExistingCss]="true"
+                  printTitle="Attachement"  
+                  printSectionId="PrintBLSection"  
+                  ngxPrint 
+                  >Imprimer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
 
 
 

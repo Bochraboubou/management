@@ -9,6 +9,7 @@ import { Marchee } from 'src/app/model/Marchee';
 import { Metier } from 'src/app/model/Metier';
 import { Organisation } from 'src/app/model/Organisation';
 import { Secteur } from 'src/app/model/Secteur';
+import { Type } from 'src/app/model/Type';
 import { UniteeMonnee } from 'src/app/model/UniteeMonnee';
 import { User } from 'src/app/model/User';
 import { ArticleUtiliseeService } from 'src/app/service/article-utilisee.service';
@@ -21,6 +22,7 @@ import { MetierService } from 'src/app/service/metier.service';
 import { OrganisationServiceService } from 'src/app/service/organisation-service.service';
 import { RegisterService } from 'src/app/service/register.service';
 import { SecteurService } from 'src/app/service/secteur.service';
+import { TypeService } from 'src/app/service/type.service';
 import { UniteeMonneeService } from 'src/app/service/unitee-monnee.service';
 import { ArticlespecifieeComponent } from '../articlespecifiee/articlespecifiee.component';
 
@@ -57,10 +59,12 @@ export class MarcheeComponent implements OnInit {
   modifiedArticle!: Article;
   modifiedBC!: BondeCommande;
   deleteArticleIndice!: number;
+  idType!: number;
   //tableaux et listes
   //tableaux et listes
   metiers!: Metier[];
   secteurs!: Secteur[];
+  types!: Type[];
   articlesParMetier!: Article[];
   listeUniteesMontant!: UniteeMonnee[];
   //variables boolean
@@ -76,6 +80,7 @@ export class MarcheeComponent implements OnInit {
   alerteDelaisBCs:boolean=false;
   alerteArticleExisteDeja:boolean=false;
   alertecodeBCexiste=false;
+  alerteCodeArticleutilisee:boolean = false;
   montantTotaldeBCs!: number;
   username!: string;
   montantAvecTVAPrintedBC!: number;
@@ -94,6 +99,7 @@ export class MarcheeComponent implements OnInit {
     public loginService:LoginService,
     private uniteeMonneeService:UniteeMonneeService
     ,private register:RegisterService,
+    private typeService:TypeService
    ) { }
 
   ngOnInit(): void {
@@ -193,6 +199,19 @@ export class MarcheeComponent implements OnInit {
        container?.appendChild(button);
        button.click();
     }
+
+    //Modal pour l'ajout d'un article
+   public onOpenAddArticleInexistantModal():void{
+    const container=document.getElementById('main-container');
+     const button=document.createElement('button');
+     button.type='button';
+     button.style.display='none';
+     button.setAttribute('data-toggle','modal');
+     button.setAttribute('data-target','#addArticleModal');
+     container?.appendChild(button);
+     button.click();
+ 
+   }
 
   // ajouter une bonde commande
   public addBC(addBCForm:NgForm):void{
@@ -546,6 +565,7 @@ public getArticlesByMetier(idMetier:number){
       this.articlesParMetier=response;
       console.log("articles par metier"+response);
       this.totalLength=response.length;
+     this.getTypes(idMetier);
       
     },
     error: (error:HttpErrorResponse) => {
@@ -555,6 +575,22 @@ public getArticlesByMetier(idMetier:number){
 })  
 
 }
+
+ //récuperer la liste des types du metier du marché
+ public getTypes(idMetier:number):void{
+  this.typeService.getTypessByMetier(idMetier).subscribe({
+    next: (response:Type[]) => {
+    this.types=response;
+      console.log("types par metiers"+this.types);
+    },
+    error: (error:HttpErrorResponse) => {
+      alert(error.message);
+
+     },
+    complete: () => console.info('complete') 
+})
+}
+
 //event lors de chois du metier pour recuperer la liste d'articles par metier
 ArticlesByMetier(metierId:number){
   this.getArticlesByMetier(metierId);
@@ -652,6 +688,40 @@ public deleteArticle(){
       complete: () => console.info('complete') 
   })
   }
+
+   //ajouter un article
+   public addArticle(idMetier:number,idType:number,article:Article):void{
+    this.articleService.addArticle(idMetier,idType,article).subscribe({
+     next: (response:Article) =>{
+       console.log("id du article ajoutee "+response.id);
+       this.getArticlesByMetier(idMetier);
+       
+     },
+     error: (error:HttpErrorResponse) => {
+      alert(error.message);
+
+      },
+     complete: () => console.info(' add article complete') 
+ }) 
+ }
+
+//ajout d'article apres le clic du bouton ajouter
+ public ajouterArticle(articleForm:NgForm):void{
+  this.articleService.getArticlebyCode(articleForm.value.code).subscribe({
+    next: (response:Article) => {
+      this.alerteCodeArticleutilisee=true;
+      console.log(" nom du type :   "+articleForm.value.code+"  est deja utilisee");
+     
+    },
+    error: (error:HttpErrorResponse) => {
+      this.addArticle(this.idMetier,this.idType,articleForm.value);
+      document.getElementById('closeAjoutModal')?.click();
+      articleForm.reset();
+     },
+    complete: () => console.info('complete') 
+})
+ 
+ }
 
 
   

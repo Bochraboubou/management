@@ -36,6 +36,8 @@ export class ConsulterMaterielsMCComponent implements OnInit {
   metierC!: Metier;
   bondeCommandeC!: BondeCommande;
   ordreDeTraveauxC!: OrdreDeTraveaux;
+  printBLindice!: number;
+  printedBL: BonDeLivraisonMC = new BonDeLivraisonMC();
 
   searchBL:any;
 
@@ -61,8 +63,21 @@ export class ConsulterMaterielsMCComponent implements OnInit {
     button.setAttribute('data-target','#bCommande'+i);
     container?.appendChild(button);
     button.click();
-
   }
+
+    //Modal pour imprimer une BL
+    public onOpenPrintBLModal(indiceBL:number):void{
+      const container=document.getElementById('main-container');
+       const button=document.createElement('button');
+       button.type='button';
+       button.style.display='none';
+       button.setAttribute('data-toggle','modal');
+       this.printBLindice = indiceBL;
+       this.printedBL = this.bonsDelivraison[this.printBLindice];
+       button.setAttribute('data-target','#printBLModal');
+       container?.appendChild(button);
+       button.click();
+     }
 
    //récuperer l'organisation connecté actuellement
    public onGetOrganisationbyUser():void{

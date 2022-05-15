@@ -395,8 +395,15 @@
       
                             <!--espace pour chercher les articles -->
                             <div class="tab-pane fade" id="pills-apps" role="tabpanel" aria-labelledby="pills-apps-tab" >
+                             <div class="row">
                               <legend>Chercher un article</legend>
-                              <input type="search" [(ngModel)]="key"  name="search"  class="form-control" id="search" placeholder="search">
+                              <div class="col">
+                                <input type="search" [(ngModel)]="key"  name="search"  class="form-control" id="search" placeholder="search">
+                                </div>
+                              <div class="col-md-2">
+                                <button type="button" class="btn btn-primary" style="background-color:sandybrown ;" (click)="onOpenAddArticleInexistantModal()">Ajouter un article inexistant <i class="fa fa-plus" aria-hidden="true"></i></button>
+                             </div>
+                              </div>
                               <br>
                               <div>
                                 <table class="table table-success table-striped">
@@ -688,6 +695,78 @@
         </div>
     
          </div>
+
+
+          <!-- Add  Article modal -->
+     <div class="modal fade" id="addArticleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="exampleModalLongTitle">Ajouter un  nouveau article "</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <form #addArticleInexistantForm="ngForm">
+                <div>
+                  <h2 style="font-family: Comic Sans MS; color: midnightblue;">choisissez un type</h2>
+                  <select [(ngModel)]="idType" name="type" id="type" class="form-select" placeholder="type" aria-label="Default select example" required #type="ngModel"  [class.is-invalid]="type.invalid && type.touched">
+                    <option selected value="">choisir un type</option>-->
+                    <option   *ngFor="let type of types"
+                    [value]="type.id">
+                    {{type.typeLib}}
+                  </option>
+                  </select>
+              </div>
+
+               <div>
+                <label for="code">Code d'article</label>
+                <input type="text"ngModel name="code"  class="form-control" id="code" placeholder="code du nouveau article" required #code="ngModel"  [class.is-invalid]="code.invalid && code.touched">
+               </div>
+               
+               <div>
+                <label for="montant">Designation</label>
+                <input type="text"ngModel name="designation"  class="form-control" id="designation" placeholder="designation du nouveau article" required #designation="ngModel"  [class.is-invalid]="designation.invalid && designation.touched">
+              </div>
+
+              <div>
+                <label for="montant">Unité</label>
+                <input type="text"ngModel name="unitee"  class="form-control" id="unitee" placeholder="unité du nouveau article" required #unitee="ngModel"  [class.is-invalid]="unitee.invalid && unitee.touched">
+              </div>
+
+              <div>
+                <label for="classe">classe</label>
+                <div class="form-check">
+                  <div class="choice">
+                    <input class="form-check-input" type="radio" ngModel name="classe" id="prestation" value="prestation"   required/>
+                    <label class="form-check-label" for="projet">prestation</label>
+                </div>
+                <div class="choice">
+                  <input class="form-check-input" type="radio" ngModel="" name="classe" id="materielFournisseur" value="materielFournisseur"  required/>
+                  <label class="form-check-label" for="mc">materiel fournisseur</label>
+              </div>
+              <div class="choice">
+                <input class="form-check-input" type="radio" ngModel name="classe" id="materiel En Regie" value="materielEnRegie"   required/>
+                <label class="form-check-label" for="projet">materiel en regie</label>
+            </div>
+              </div> 
+              </div>
+              <br>
+              <div *ngIf="alerteCodeArticleutilisee" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Attention</strong> Code d'article déja utilisée
+                <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+              </div>
+              
+                  <div class="modal-footer">
+                     <button type="button" id="closeAjoutModal" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                     <button [disabled]="addArticleInexistantForm.invalid" type="submit" class="btn btn-primary" (click)="ajouterArticle(addArticleInexistantForm)"  style="background-color: navy;">Ajouter l'article</button>
+                  </div>
+                  </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
        

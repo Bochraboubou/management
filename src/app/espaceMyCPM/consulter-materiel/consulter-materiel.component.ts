@@ -25,12 +25,16 @@ export class ConsulterMaterielComponent implements OnInit {
   username!: string;
   marchees!: Marchee[];
   bonsdeCommandes!: BondeCommande[];
+  bonsDelivraison!: BonDeLivraisonProjet[];
 
   idMarcheeC!: number;
   marcheeC!: Marchee;
   bondeCommandeC!: BondeCommande;
   metierC!: Metier;
-  bonsDelivraison!: BonDeLivraisonProjet[];
+  printBLindice!: number;
+  printedBL: BonDeLivraisonProjet = new BonDeLivraisonProjet();
+ 
+  
 
   searchBL:any;
 
@@ -48,17 +52,31 @@ export class ConsulterMaterielComponent implements OnInit {
   }
 
    //Collapse pour l'affichage du amteriels livrés
-   public onOpenBCCollapse(i:number):void{
+   public onOpenBLCollapse(i:number):void{
     const container=document.getElementById('main-container');
     const button=document.createElement('button');
     button.type='button';
     button.style.display='none';
     button.setAttribute('data-toggle','collapse');
-    button.setAttribute('data-target','#bCommande'+i);
+    button.setAttribute('data-target','#materielsLivrees'+i);
     container?.appendChild(button);
     button.click();
 
   }
+
+   //Modal pour imprimer une BL
+   public onOpenPrintBLModal(indiceBL:number):void{
+    const container=document.getElementById('main-container');
+     const button=document.createElement('button');
+     button.type='button';
+     button.style.display='none';
+     button.setAttribute('data-toggle','modal');
+     this.printBLindice = indiceBL;
+     this.printedBL = this.bonsDelivraison[this.printBLindice];
+     button.setAttribute('data-target','#printBLModal');
+     container?.appendChild(button);
+     button.click();
+   }
 
    //récuperer l'organisation connecté actuellement
    public onGetOrganisationbyUser():void{

@@ -87,7 +87,7 @@
                             <!--espace pour ajouter les attachements global-->
                               <div class="tab-pane fade" id="Aglobal" role="tabpanel" aria-labelledby="pills-cloud-tab">
                                 <div>
-                                  <h2 style="font-family: Comic Sans MS; color: midnightblue;">Traveaux et prestations exécutés par attachements dans cette ordre de traveaux</h2>
+                                  <h2 style="font-family: Comic Sans MS; color: midnightblue;">Prestations exécutés par attachements dans cette ordre de traveaux</h2>
                                   <table class="table table-primary table-hover table-striped">
                                     <thead>
                                       <tr>
@@ -139,6 +139,33 @@
                                       </tbody>
                                     </table>
                                   </div>
+
+                                  <div>
+                                    <h2 style="font-family: Comic Sans MS; color: midnightblue;">Materiels en regie realisés par attachements dans cette ordre de traveaux</h2>
+                                    <table class="table table-primary table-hover table-striped">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col" class="bg-primary">N°</th>
+                                          <th scope="col" class="bg-primary">CodeArticle</th>
+                                          <th scope="col" class="bg-primary">Designiation</th>
+                                          <th scope="col" class="bg-primary">Unité</th>
+                                          <th scope="col" class="bg-primary">Quantité total réalisée</th>
+                                          <th scope="col" class="bg-primary">Type</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr *ngFor="let attach of attachementsGlobalsMateriels ,let i= index">
+                                          <th scope="row">{{i}}</th>
+                                          <td>{{attach.code}}</td>
+                                          <td>{{attach.designation}}</td>
+                                          <td>{{attach.unitee}}</td>
+                                          <td>{{attach.quantiteeRealisee}}</td>
+                                          <td>{{attach.typeLib}}</td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+
                                   <div>
                                     <button type="button" class="btn btn-dark"
                                      [useExistingCss]="true"
@@ -158,7 +185,7 @@
                                     <input type="date"   name="dateA" (ngModelChange)="getDateAttachementJournalier($event)" [(ngModel)]="dateA" class="form-control" id="dateA" placeholder="date" required>
                                   </div>
                                   <br>
-                                  <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size:large;">Traveaux et prestations exécutés par attachements dans cette ordre de traveaux à la date "{{dateA}}"</h2>
+                                  <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size:large;">Prestations exécutés par attachements dans cette ordre de traveaux à la date "{{dateA}}"</h2>
                                   <table class="table table-primary table-hover table-striped">
                                     <thead>
                                       <tr>
@@ -210,6 +237,33 @@
                                     </tbody>
                                   </table>
                                 </div>
+
+                                <div>
+                                  <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size:large;">Materiels en regie realisés par attachements dans cette ordre de traveaux à la date "{{dateA}}"</h2>
+                                  <table class="table table-primary table-hover table-striped">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col" class="bg-primary">N°</th>
+                                        <th scope="col" class="bg-primary">CodeArticle</th>
+                                        <th scope="col" class="bg-primary">Designiation</th>
+                                        <th scope="col" class="bg-primary">Unité</th>
+                                        <th scope="col" class="bg-primary">Quantité  totalréalisée</th>
+                                        <th scope="col" class="bg-primary">Type</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let attach of attachementsJournaliersMateriels ,let i= index">
+                                        <th scope="row">{{i}}</th>
+                                        <td>{{attach.code}}</td>
+                                        <td>{{attach.designation}}</td>
+                                        <td>{{attach.unitee}}</td>
+                                        <td>{{attach.quantiteeRealisee}}</td>
+                                        <td>{{attach.typeLib}}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+
                                 <div>
                                   <button type="button" class="btn btn-dark"
                                    [useExistingCss]="true"
@@ -239,7 +293,7 @@
                                     <button type="button" class="btn btn-dark" (click)="getAllAttachementsParPeriode(date1,date2)">OK</button>
                                   </div>
                                   <br>
-                                  <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size: large;">Traveaux et prestations exécutés dans les attachements par ordre de traveaux à la periode :(de "{{date1}}" à "{{date2}}" )</h2>
+                                  <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size: large;">Prestations exécutés dans les attachements par ordre de traveaux à la periode :(de "{{date1}}" à "{{date2}}" )</h2>
                                   <table class="table table-primary table-hover table-striped">
                                     <thead>
                                       <tr>
@@ -291,6 +345,33 @@
                                     </tbody>
                                   </table>
                                 </div>
+
+                                <div>
+                                  <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size: large;">Materiels en regie realisés dans les attachements par ordre de traveaux à la periode :(de "{{date1}}" à "{{date2}}" )</h2>
+                                  <table class="table table-primary table-hover table-striped">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col" class="bg-primary">N°</th>
+                                        <th scope="col" class="bg-primary">CodeArticle</th>
+                                        <th scope="col" class="bg-primary">Designiation</th>
+                                        <th scope="col" class="bg-primary">Unité</th>
+                                        <th scope="col" class="bg-primary">Quantité total réalisée</th>
+                                        <th scope="col" class="bg-primary">Type</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let attach of attachementsParPeriodeMateriels ,let i= index">
+                                        <th scope="row">{{i}}</th>
+                                        <td>{{attach.code}}</td>
+                                        <td>{{attach.designation}}</td>
+                                        <td>{{attach.unitee}}</td>
+                                        <td>{{attach.quantiteeRealisee}}</td>
+                                        <td>{{attach.typeLib}}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+
                                 <div>
                                   <button type="button" class="btn btn-dark"
                                    [useExistingCss]="true"
@@ -320,7 +401,7 @@
         <h3><strong>Code de l ordre de traveaux : </strong>{{ordreDeTraveauxC?.codeOrdre}}</h3>
         <h3><strong >Entreprise(Fournisseur) </strong> {{bondeCommandeC?.nomEntrep}}</h3>
           </div>
-      <h4 style="font-family: Comic Sans MS; color: midnightblue;">Traveaux et prestations exécutés par attachements dans cette ordre de traveaux</h4>
+      <h4 style="font-family: Comic Sans MS; color: midnightblue;">Prestations exécutés par attachements dans cette ordre de traveaux</h4>
       <table class="table table-primary table-hover table-striped">
         <thead>
           <tr>
@@ -372,6 +453,33 @@
           </tbody>
         </table>
       </div>
+
+      <div>
+        <h4 style="font-family: Comic Sans MS; color: midnightblue;">Materiels en regie realisés par attachements dans cette ordre de traveaux</h4>
+        <table class="table table-primary table-hover table-striped">
+          <thead>
+            <tr>
+              <th scope="col" class="bg-primary">N°</th>
+              <th scope="col" class="bg-primary">CodeArticle</th>
+              <th scope="col" class="bg-primary">Designiation</th>
+              <th scope="col" class="bg-primary">Unité</th>
+              <th scope="col" class="bg-primary">Quantité total réalisée</th>
+              <th scope="col" class="bg-primary">Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let attach of attachementsGlobalsMateriels ,let i= index">
+              <th scope="row">{{i}}</th>
+              <td>{{attach.code}}</td>
+              <td>{{attach.designation}}</td>
+              <td>{{attach.unitee}}</td>
+              <td>{{attach.quantiteeRealisee}}</td>
+              <td>{{attach.typeLib}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <br style="height: 100px;">
       <div class="row">
         <div class="col"><h4>Observations :</h4></div>
@@ -391,7 +499,7 @@
     <div>
       <div><h4><strong>Date :</strong> {{dateA}}</h4></div>
       <br>
-      <h4 style="font-family: Comic Sans MS; color: midnightblue; font-size:large;">Traveaux et prestations exécutés par attachements dans cette ordre de traveaux à la date "{{dateA}}"</h4>
+      <h4 style="font-family: Comic Sans MS; color: midnightblue; font-size:large;">Prestations exécutés par attachements dans cette ordre de traveaux à la date "{{dateA}}"</h4>
       <table class="table table-primary table-hover table-striped">
         <thead>
           <tr>
@@ -443,6 +551,33 @@
         </tbody>
       </table>
     </div>
+
+    <div>
+      <h4 style="font-family: Comic Sans MS; color: midnightblue; font-size:large;">Materiels en regie realisés par attachements dans cette ordre de traveaux à la date "{{dateA}}"</h4>
+      <table class="table table-primary table-hover table-striped">
+        <thead>
+          <tr>
+            <th scope="col" class="bg-primary">N°</th>
+            <th scope="col" class="bg-primary">CodeArticle</th>
+            <th scope="col" class="bg-primary">Designiation</th>
+            <th scope="col" class="bg-primary">Unité</th>
+            <th scope="col" class="bg-primary">Quantité  totalréalisée</th>
+            <th scope="col" class="bg-primary">Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let attach of attachementsJournaliersMateriels ,let i= index">
+            <th scope="row">{{i}}</th>
+            <td>{{attach.code}}</td>
+            <td>{{attach.designation}}</td>
+            <td>{{attach.unitee}}</td>
+            <td>{{attach.quantiteeRealisee}}</td>
+            <td>{{attach.typeLib}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
     <br style="height: 100px;">
       <div class="row">
         <div class="col"><h4>Observations :</h4></div>
@@ -461,7 +596,7 @@
         <div class="col-md-4"><h4><strong>Journée du :</strong>{{date1}}<strong> à :{{date2}}</strong></h4></div>
     <br>
     <div>
-      <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size: large;">Traveaux et prestations exécutés dans les attachements par ordre de traveaux à la periode :(de "{{date1}}" à "{{date2}}" )</h2>
+      <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size: large;">Prestations exécutés dans les attachements par ordre de traveaux à la periode :(de "{{date1}}" à "{{date2}}" )</h2>
       <table class="table table-primary table-hover table-striped">
         <thead>
           <tr>
@@ -513,6 +648,33 @@
         </tbody>
       </table>
     </div>
+
+    <div>
+      <h4 style="font-family: Comic Sans MS; color: midnightblue; font-size: large;">Materiels en regie realisés dans les attachements par ordre de traveaux à la periode :(de "{{date1}}" à "{{date2}}" )</h4>
+      <table class="table table-primary table-hover table-striped">
+        <thead>
+          <tr>
+            <th scope="col" class="bg-primary">N°</th>
+            <th scope="col" class="bg-primary">CodeArticle</th>
+            <th scope="col" class="bg-primary">Designiation</th>
+            <th scope="col" class="bg-primary">Unité</th>
+            <th scope="col" class="bg-primary">Quantité total réalisée</th>
+            <th scope="col" class="bg-primary">Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let attach of attachementsParPeriodeMateriels ,let i= index">
+            <th scope="row">{{i}}</th>
+            <td>{{attach.code}}</td>
+            <td>{{attach.designation}}</td>
+            <td>{{attach.unitee}}</td>
+            <td>{{attach.quantiteeRealisee}}</td>
+            <td>{{attach.typeLib}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
     <br style="height: 100px;">
       <div class="row">
         <div class="col"><h4>Observations :</h4></div>

@@ -58,6 +58,7 @@ alerteMontantSuperieur=0
 articleAjouter=0
 boutonValider=0
 boutonAjouter=0
+nouvelleInterface=0
 d1=new Date()
 bonLivrai2!:BonDeLivraisonProjet
   constructor(  private materielLivreeProjService:MateriellivreeProjetService, private blPService:BonLivraisonProjetService, private artService:ArticleService,private bonCommandeService:BondeCommandeService,  private metierService:MetierService) { }
@@ -382,12 +383,14 @@ this.materielLivreeProjService.addMaterielProjet(blid,curArticle.id,materielLivr
   next: (response:MLivProj) =>{
     console.log("ajouterrr")
    this.alertSUCCEE=1
+   this.nouvelleInterface=1
+   this.boutonValider=0
 
    },
    error: (error:HttpErrorResponse) => {
      console.log(error.message);
      console.log("nnnn")
-     this.alertecodeArticle=1
+     
     // alert("vous n'etes plus attaché a une organisation")
     },
    complete: () => console.info('complete')  

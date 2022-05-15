@@ -143,6 +143,8 @@ const routes: Routes = [
     { path:'detailOT/:id',component:DetailOTComponent},
     { path:'consulterAttachementsMC',component:ConsulterAttachementMCComponent},
     { path:'ajouterBLmP',component:AjouterBlmProjetComponent},
+    
+    { path:'ajouterBLmP/ajouterBLmP',component:AjouterBlmProjetComponent},
   ]},
    {path:'',redirectTo:'premierPage',pathMatch:'full'}
 

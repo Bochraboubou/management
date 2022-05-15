@@ -159,12 +159,34 @@ onOpenListeRealiseeModal():void{
 }
 // initiallement on cree une bon de commande qui contient un montant ...
 //pour ensuite si elle est valide on stoke cette bl
-createNewBL(){
+createNewBL(addBLForm:NgForm){
  
- this.bondeLivraisonMp.codeBonLivraisonProj=this.codeBL
- this.bondeLivraisonMp.dateSystemeBLProj=this.d1
- this.bondeLivraisonMp.dateLivraisonBLProj=this.datalivraisonNewBL
- this.bondeLivraisonMp.montantBL=this.montantBL
+
+//test code existe #
+let blpTest=new BonDeLivraisonProjet()
+this.blPService.getBLbyCode(this.codeBL).subscribe({
+  next: (response:BonDeLivraisonProjet) =>{
+    blpTest=response 
+   if( blpTest==null){
+    this.bondeLivraisonMp.codeBonLivraisonProj=this.codeBL
+    this.bondeLivraisonMp.dateSystemeBLProj=this.d1
+    this.bondeLivraisonMp.dateLivraisonBLProj=this.datalivraisonNewBL
+    this.bondeLivraisonMp.montantBL=this.montantBL
+   }
+   else{
+    addBLForm.reset()
+    alert("attt")
+   }
+  },
+  error: (error:HttpErrorResponse) => {
+    console.log(error.message);
+    this.alertecodeArticle=1
+   // alert("vous n'etes plus attaché a une organisation")
+   },
+  complete: () => console.info('complete')  
+  })
+
+
  this.boutonAjouter=1
  this.SommeArticles()
 
@@ -216,7 +238,7 @@ if(this.modifiable==1){
       error: (error:HttpErrorResponse) => {
         console.log(error.message);
         this.alertecodeArticle=1
-       // alert("vous n'etes plus attaché a une organisation")
+       
        },
       complete: () => console.info('complete')  
       })

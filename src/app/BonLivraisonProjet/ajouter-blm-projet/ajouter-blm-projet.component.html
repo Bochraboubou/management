@@ -485,7 +485,7 @@
 				</div>
 				<div class="modal-body">
 
-					<form #addBLForm="ngForm" (ngSubmit)="createNewBL()">
+					<form #addBLForm="ngForm" (ngSubmit)="createNewBL(addBLForm)">
 						<div>
 							<label for="delais">code</label>
 							<input type="text" [(ngModel)]="codeBL" name="codeBL" class="form-control" id="codeBL"

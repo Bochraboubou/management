@@ -1,7 +1,7 @@
 <div class="container" id="main-container">
     <div class="row d-flex justify-content-center">
       <div class="col-md-6">
-        <h1 style="font-family:Marker Felt, fantasy; font-size: 28px; color:midnightblue">Gérer les bons de livraisons</h1>
+        <h1 style="font-family:Marker Felt, fantasy; font-size: 28px; color:midnightblue">Gérer les bons de livraison</h1>
       </div>
     </div>
       <div class="row">
@@ -27,6 +27,17 @@
               </option>
               </select>
           </div>
+
+          <div>
+            <h2 style="font-family: Comic Sans MS; color: midnightblue;">choisissez le code de l'ordre de traveaux</h2>
+            <select ngModel (ngModelChange)="getOrdreTraveauxChoisis($event)" name="ordredeTraveaux" id="" class="form-select" placeholder="code OT" aria-label="Default select example" required #ordredeTraveaux="ngModel"  [class.is-invalid]="ordredeTraveaux.invalid && ordredeTraveaux.touched">
+              <option selected value="">choisir le code de l'ordre de traveaux</option>-->
+              <option   *ngFor="let ot of ordresDeTraveaux let i=index"
+              [value]="i">
+              {{ot.codeOrdre}}
+            </option>
+            </select>
+        </div>
                
         </div>
         <div class="col-md-4">
@@ -34,8 +45,8 @@
           <input type="search" [(ngModel)]="searchBL" class="form-control" id="searchBL" name="searchBL"  placeholder="rechercher un BL">
         </div>
 
-        <div *ngIf="bondeCommande.dirty" class="col-md-4">
-          <button type="button" class="btn btn-primary" style="background-color:midnightblue; border-radius: 12px;" routerLink="/mycpm/ajouterBLmP/{{bondeCommandeC?.id}}/{{metierC?.id}}">Ajouter un bon de livraison <i class="fa fa-plus" aria-hidden="true"></i></button>
+        <div *ngIf="ordredeTraveaux.dirty" class="col-md-4">
+          <button type="button" class="btn btn-primary" style="background-color:midnightblue; border-radius: 12px;" routerLink="/mycpm/ajouterBLmMC/{{ordreDeTraveauxC?.id}}/{{metierC?.id}}">Ajouter un bon de livraison <i class="fa fa-plus" aria-hidden="true"></i></button>
         </div>
 
         <div>

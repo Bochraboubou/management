@@ -3,6 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
+import { Chart } from 'chart.js';
 import { ArticleUtilisee } from 'src/app/model/ArticleUtilisee';
 import { Organisation } from 'src/app/model/Organisation';
 import { User } from 'src/app/model/User';
@@ -66,8 +67,8 @@ this.register.findByUserName(this.username).subscribe(
   onAfficheDetailOrganisation(id:number){
     this.router.navigate(['DetailOrg',id])
   }
-  
 
+ 
     
   }
 

@@ -1,7 +1,7 @@
 <div class="container" id="main-container">
     <div class="row d-flex justify-content-center">
       <div class="col-md-6">
-        <h1 style="font-family:Marker Felt, fantasy; font-size: 28px; color:midnightblue">Gérer les bons de livraisons</h1>
+        <h1 style="font-family:Marker Felt, fantasy; font-size: 28px; color:midnightblue">Gérer les bons de livraison</h1>
       </div>
     </div>
       <div class="row">
@@ -27,6 +27,17 @@
               </option>
               </select>
           </div>
+
+          <div>
+            <h2 style="font-family: Comic Sans MS; color: midnightblue;">choisissez le code de l'ordre de traveaux</h2>
+            <select ngModel (ngModelChange)="getOrdreTraveauxChoisis($event)" name="ordredeTraveaux" id="" class="form-select" placeholder="code OT" aria-label="Default select example" required #ordredeTraveaux="ngModel"  [class.is-invalid]="ordredeTraveaux.invalid && ordredeTraveaux.touched">
+              <option selected value="">choisir le code de l'ordre de traveaux</option>-->
+              <option   *ngFor="let ot of ordresDeTraveaux let i=index"
+              [value]="i">
+              {{ot.codeOrdre}}
+            </option>
+            </select>
+        </div>
                
         </div>
         <div class="col-md-4">
@@ -34,8 +45,8 @@
           <input type="search" [(ngModel)]="searchBL" class="form-control" id="searchBL" name="searchBL"  placeholder="rechercher un BL">
         </div>
 
-        <div *ngIf="bondeCommande.dirty" class="col-md-4">
-          <button type="button" class="btn btn-primary" style="background-color:midnightblue; border-radius: 12px;" routerLink="/mycpm/ajouterBLmP/{{bondeCommandeC?.id}}/{{metierC?.id}}">Ajouter un bon de livraison <i class="fa fa-plus" aria-hidden="true"></i></button>
+        <div *ngIf="ordredeTraveaux.dirty" class="col-md-4">
+          <button type="button" class="btn btn-primary" style="background-color:midnightblue; border-radius: 12px;" routerLink="/mycpm/ajouterBLmMC/{{ordreDeTraveauxC?.id}}/{{metierC?.id}}">Ajouter un bon de livraison <i class="fa fa-plus" aria-hidden="true"></i></button>
         </div>
 
         <div>
@@ -46,7 +57,7 @@
     <br>
 
    
-        <h2 *ngIf="bonsDelivraison?.length!=0" style="font-family: Comic Sans MS; color: midnightblue;">Liste  des bons de livraisns pour la  BC de code "{{bondeCommandeC?.codebc}}"</h2>
+        <h2  *ngIf="bonsDelivraison?.length!=0" style="font-family: Comic Sans MS; color: midnightblue;">Liste  des bons de livraisns pour la  BC de code "{{bondeCommandeC?.codebc}}"</h2>
         <div *ngIf="bonsDelivraison?.length==0"><h2>Aucun bon de livraison pour la BC de code "{{bondeCommandeC.codebc}}"</h2></div>
        <div *ngFor="let bl of bonsDelivraison | filter:searchBL | paginate : {
         itemsPerPage:4,
@@ -55,21 +66,21 @@
         } let i = index" class="card col-sm-9 marcheeCard">
           <h2 style="font-weight:bold; text-align: center;"> Bon de livraison N°{{i+1}}</h2>
          <div class="card-body">
-          <h3><strong>Code BL : </strong>{{bl?.codeBonLivraisonProj}}</h3>
-          <h3><strong>montant : </strong>{{bl?.montant}}</h3>
+          <h3><strong>Code BL : </strong>{{bl?.codeBonLivraisonMC}}</h3>
+          <div class="col-md-4"><strong>Montant:</strong>{{bl?.montant}}</div>
           <div class="row">
-            <div class="col-md-4"><strong>Date création :</strong>{{bl?.dateSystemeBLProj}}</div>
-            <div class="col-md-4"><strong>Date de livraison:</strong>{{bl?.dateLivraisonBLProj}}</div>
+            <div class="col-md-4"><strong>Date création :</strong>{{bl?.ddateSystemeBLMC}}</div>
+            <div class="col-md-4"><strong>Date de livraison:</strong>{{bl?.dateLivraisonBLMC}}</div>
           </div>
             </div>
          <div class="card-body">
            <div>
-            <button class="btn btn-primary" type="button" (click)="onOpenBLCollapse(i)"  style="background-color: navy;">
+            <button class="btn btn-primary" type="button" (click)="onOpenBCCollapse(i)"  style="background-color: navy;">
               materiels livrés
             </button>
            </div>
            <br>
-           <div class="collapse" id="materielsLivrees{{i}}">
+           <div class="collapse" id="bCommande{{i}}">
              <div>
               <h2 style="font-family: Comic Sans MS; color: midnightblue;">Materiels livrés</h2>
               <table class="table table-primary table-hover table-striped">
@@ -124,22 +135,22 @@
               <div class="modal-body" id="PrintBLSection">
                   <div class="row">
                     <div class="col-md-4"><h4><strong>Organisation :</strong>{{organisationConnectee?.nom}}</h4></div>
-                  <h2 style="font-family:Marker Felt, fantasy; font-size: 28px; text-align: center; color: black;"> Bon-De commande</h2>
+                  <h2 style="font-family:Marker Felt, fantasy; font-size: 28px; text-align: center; color: black;"> Ordre de traveaux</h2>
                   <div>
-                   <h4><strong>Code BC : </strong>{{bondeCommandeC?.codebc}}</h4>
+                   <h4><strong>Code OT : </strong>{{bondeCommandeC?.codebc}}</h4>
                    <div class="row">
-                     <div class="col-md-4"><h4><strong>Date debut traveaux :</strong> {{bondeCommandeC?.dateDebutTraveaux}}</h4></div>
-                     <div class="col-md-4"><h4><strong>Delais :</strong>{{bondeCommandeC?.delais}}</h4></div>
-                     <div class="col-md-4"><h4><strong>montant :</strong>{{bondeCommandeC?.montant}}</h4></div>
+                     <div class="col-md-4"><h4><strong>Date debut traveaux :</strong> {{ordreDeTraveauxC?.dateDebutOrdre}}</h4></div>
+                     <div class="col-md-4"><h4><strong>Delais :</strong>{{ordreDeTraveauxC?.delais}}</h4></div>
+                     <div class="col-md-4"><h4><strong>montant :</strong>{{ordreDeTraveauxC?.montant}}</h4></div>
                   </div>
                    <div class="col-md-4"><h4><strong>Entreprise(Fournisseur) </strong> {{bondeCommandeC?.nomEntrep}}</h4></div>
                      </div>
                      <h2 style="font-family:Marker Felt, fantasy; font-size: 28px; text-align: center; color: black;"> Bon de livraison</h2>
                      <div>
-                      <h4><strong>Code BL : </strong>{{printedBL?.codeBonLivraisonProj}}</h4>
+                      <h4><strong>Code BL : </strong>{{printedBL?.codeBonLivraisonMC}}</h4>
                       <div class="row">
-                        <div class="col-md-4"><h4><strong>Date création :</strong> {{printedBL?.dateSystemeBLProj}}</h4></div>
-                        <div class="col-md-4"><h4><strong>Date de livraison :</strong>{{printedBL?.dateLivraisonBLProj}}</h4></div>
+                        <div class="col-md-4"><h4><strong>Date création :</strong> {{printedBL?.dateSystemeBLMC}}</h4></div>
+                        <div class="col-md-4"><h4><strong>Date de livraison :</strong>{{printedBL?.dateLivraisonBLMC}}</h4></div>
                      </div>
                         </div>
                     <br>
@@ -198,7 +209,6 @@
             </div>
           </div>
         </div>
-
 
 
 

@@ -89,6 +89,8 @@ import { DetailOTComponent } from './attachement/detail-ot/detail-ot.component';
 import { DatePipe } from '@angular/common';
 import { ConnsulterAttachementComponent } from './attachement/connsulter-attachement/connsulter-attachement.component';
 import { ConsulterMaterielComponent } from './espaceMyCPM/consulter-materiel/consulter-materiel.component';
+import { ConsulterMaterielsMCComponent } from './espaceMyCPM/consulter-materiels-mc/consulter-materiels-mc.component';
+
 import { AjouterBLmaCComponent } from './BonLivraisonMC/ajouter-blma-c/ajouter-blma-c.component';
 import { AjouterBlmProjetComponent } from './BonLivraisonProjet/ajouter-blm-projet/ajouter-blm-projet.component';
 
@@ -191,8 +193,10 @@ AjouterOTComponent,
 DetailOTComponent,
 ConsulterAttachementMCComponent,
 ConsulterMaterielComponent,
+ConsulterMaterielsMCComponent,
 AjouterBLmaCComponent,
 AjouterBlmProjetComponent,
+
 
 
 

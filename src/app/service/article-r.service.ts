@@ -66,4 +66,24 @@ export class ArticleRService {
       return this.http.get<Article[]>(`${this.apiServeUrl}/admin/articlesRealiseesJoinParPeriode/MF/${bcId}/${date1}/${date2}`);
     }
 
+     //récuperer le materiels realisees par bc
+   public getArticlesRealiseesMaterielbybcId(bcId:number): Observable<Article[]>
+   {
+     return this.http.get<Article[]>(`${this.apiServeUrl}/admin/articlesRealiseesJoinGlobalbyBC/Materiel/${bcId}`);
+   }
+
+    //récuperer le materiels realisees journalier par bc
+    public getArticlesRealiseesMaterielJournalierbybcId(bcId:number,dateA:Date): Observable<Article[]>
+    {
+      return this.http.get<Article[]>(`${this.apiServeUrl}/admin/articlesRealiseesJoinbydate/Materiel/${bcId}/date/${dateA}`);
+    }
+
+    
+    //récuperer le materiels realisees journalier par bc
+    public getArticlesRealiseesMaterielbybcIdparPeriode(bcId:number,date1:Date,date2:Date): Observable<Article[]>
+    {
+      return this.http.get<Article[]>(`${this.apiServeUrl}/admin/articlesRealiseesJoinParPeriode/Materiel/${bcId}/${date1}/${date2}`);
+    }
+
+
 }

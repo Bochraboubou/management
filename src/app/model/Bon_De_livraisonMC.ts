@@ -6,6 +6,7 @@ export class BonDeLivraisonMC{
   dateSystemeBLMC!:Date
   dateLivraisonBLMC!: Date
   montant!: number
+  montantBL!:number
   listeMateriel!: Article[]
 
   constructor(){

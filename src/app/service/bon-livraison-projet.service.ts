@@ -15,7 +15,7 @@ export class BonLivraisonProjetService {
   constructor( private http:HttpClient) { }
 
   //ajouter BL
-  //addBonLivraison
+  
   public addBLProjet(blp:BonDeLivraisonProjet,idBC:number): Observable<BonDeLivraisonProjet>
 {
   return this.http.post<BonDeLivraisonProjet>(`${this.apiServeUrl}/admin/addBonLivraison/${idBC}`,blp);

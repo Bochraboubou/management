@@ -25,5 +25,15 @@ export class BonLivraisonMCService {
     {
       return this.http.get<Article[]>(`${this.apiServeUrl}/admin/materielLivreeJoinMCbyOT/bl/${blId}`);
     }
+    public getBLMCbyCode(code:String): Observable<BonDeLivraisonMC>
+    {
+      return this.http.get<BonDeLivraisonMC>(`${this.apiServeUrl}/admin/getBLbyCode/${code}`);
+    }
+  //ajouter BL
+  
+  public addblMC(blMC:BonDeLivraisonMC,idBC:number): Observable<BonDeLivraisonMC>
+{
+  return this.http.post<BonDeLivraisonMC>(`${this.apiServeUrl}/admin/addBonLivraisonMc/${idBC}`,blMC);
+}
 
 }

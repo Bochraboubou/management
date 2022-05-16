@@ -7,11 +7,16 @@ import { BonDeLivraisonProjet } from 'src/app/model/Bon_De_Livraison';
 import { MatLivMProjetId } from 'src/app/model/MatlivMProjId';
 import { Metier } from 'src/app/model/Metier';
 import { MLivProj } from 'src/app/model/MLivProj';
+import { Organisation } from 'src/app/model/Organisation';
+import { User } from 'src/app/model/User';
 import { ArticleService } from 'src/app/service/article.service';
 import { BonLivraisonProjetService } from 'src/app/service/bon-livraison-projet.service';
 import { BondeCommandeService } from 'src/app/service/bonde-commande.service';
+import { LoginService } from 'src/app/service/login.service';
 import { MateriellivreeProjetService } from 'src/app/service/materiellivree-projet.service';
 import { MetierService } from 'src/app/service/metier.service';
+import { OrganisationServiceService } from 'src/app/service/organisation-service.service';
+import { RegisterService } from 'src/app/service/register.service';
 
 @Component({
   selector: 'app-ajouter-blm-projet',
@@ -26,6 +31,7 @@ bondeCommande!:BondeCommande
 metier!:Metier
 listeArticles!: Article[]
 listeMaterielLivree: Article[]=[]
+idOrgan!:number
 x=0
 y=0
 codeBL!:string;
@@ -42,6 +48,7 @@ article2=new Article()
 alertModifierArticle=0
 echecModification=0
 echecSuppression=0
+alertCreerBL=0
 modifArticleVar=new Article()
 bondeLivraisonMp=new  BonDeLivraisonProjet()
 supArticle!:string
@@ -54,14 +61,21 @@ modifiable=0
 montantDesArticles!:0
 Somme!:number
 Reste!:number
+alertCodeBL=0
 alerteMontantSuperieur=0
 articleAjouter=0
 boutonValider=0
 boutonAjouter=0
 nouvelleInterface=0
+transparent=0
 d1=new Date()
 bonLivrai2!:BonDeLivraisonProjet
-  constructor(  private materielLivreeProjService:MateriellivreeProjetService, private blPService:BonLivraisonProjetService, private artService:ArticleService,private bonCommandeService:BondeCommandeService,  private metierService:MetierService) { }
+username!:string 
+existe=""
+user!:User
+organisation=new Organisation()
+alertBLtExiste=0
+  constructor(public loginService :LoginService,public  organisationService :OrganisationServiceService,private register:RegisterService,  private materielLivreeProjService:MateriellivreeProjetService, private blPService:BonLivraisonProjetService, private artService:ArticleService,private bonCommandeService:BondeCommandeService,  private metierService:MetierService) { }
 
   ngOnInit(): void {
     let Bc_id=1
@@ -69,6 +83,8 @@ bonLivrai2!:BonDeLivraisonProjet
     this.getBonDeCommande(Bc_id);
     this.getMetier(met_id)
     this.SommeArticles()
+    this.username=this.loginService.loggedUser
+    this.findOrganisation(this.username)
 
   }
  
@@ -82,8 +98,8 @@ this.listeMaterielLivree.forEach((curArticle) => {
 this.Reste= this.bondeLivraisonMp.montantBL- this.Somme
 
 }
-  getBonDeCommande(id:number){
-    this.bonCommandeService.getBCbyId(id).subscribe({
+   getBonDeCommande(id:number){
+     this.bonCommandeService.getBCbyId(id).subscribe({
      
       next: (response:BondeCommande) => {
          this.bondeCommande=response
@@ -157,40 +173,42 @@ onOpenListeRealiseeModal():void{
   container?.appendChild(button);
   button.click();
 }
-// initiallement on cree une bon de commande qui contient un montant ...
+// initiallement on cree une bon de BL qui contient un montant ...
 //pour ensuite si elle est valide on stoke cette bl
 createNewBL(addBLForm:NgForm){
- 
-
-//test code existe #
+  console.log(addBLForm.value.codeBL)
+ //test code existe #
 let blpTest=new BonDeLivraisonProjet()
-this.blPService.getBLbyCode(this.codeBL).subscribe({
+this.blPService.getBLbyCode(addBLForm.value.codeBL).subscribe({
   next: (response:BonDeLivraisonProjet) =>{
     blpTest=response 
+    console.log(blpTest)
    if( blpTest==null){
+     this.boutonAjouter=1
+    this. alertCreerBL=1
+ this.SommeArticles()
+ this.y=1
     this.bondeLivraisonMp.codeBonLivraisonProj=this.codeBL
     this.bondeLivraisonMp.dateSystemeBLProj=this.d1
     this.bondeLivraisonMp.dateLivraisonBLProj=this.datalivraisonNewBL
     this.bondeLivraisonMp.montantBL=this.montantBL
    }
    else{
-    addBLForm.reset()
-    alert("attt")
+    this.alertCodeBL=1
+    
    }
   },
+
   error: (error:HttpErrorResponse) => {
-    console.log(error.message);
-    this.alertecodeArticle=1
+  console.log(error.message);
+  this.alertecodeArticle=1
    // alert("vous n'etes plus attaché a une organisation")
    },
   complete: () => console.info('complete')  
   })
 
 
- this.boutonAjouter=1
- this.SommeArticles()
 
- this.y=1
 
 }
 //chercher code article utulisee
@@ -341,6 +359,7 @@ ModifierForm(form:NgForm){
      
      console.log(curArticle)
      curArticle.quantitee=this.modifArticleVar.quantitee
+     curArticle.prix=this.modifArticleVar.prix
      this.alertModifierArticle=1
      form.reset()
   console.log(index)
@@ -359,9 +378,10 @@ EnregistrerBL(){
   this.blPService.addBLProjet(this.bondeLivraisonMp,bcId).subscribe({
   next: (response:BonDeLivraisonProjet) =>{
     this.bonLivrai2=response
+    this.existe="aaa"
     console.log(this.bonLivrai2)
     console.log("bien")
-    alert("biiien")
+    
     console.log(this.bonLivrai2.bl_id)
     let Blid=this.bonLivrai2.bl_id
     this.SaveMateriel(Blid)
@@ -371,7 +391,7 @@ EnregistrerBL(){
      console.log(error.message);
      console.log("nnnn")
      this.alertecodeArticle=1
-    // alert("vous n'etes plus attaché a une organisation")
+   
     },
    complete: () => console.info('complete')  
  })
@@ -422,6 +442,50 @@ this.materielLivreeProjService.addMaterielProjet(blid,curArticle.id,materielLivr
  console.log(" tous les articles sont ajouter") 
 }
 
+findOrganisation(username:string){
+  this.register.findByUserName(this.username).subscribe(
+    data=>{
+      this.user=data;
+      this.organisationService.getOrganisationbyUser(this.user.id).subscribe({
+        next: (response:Organisation) => {
+          this.organisation=response;
+          console.log("organisation"+response);
+          this.idOrgan=this.organisation.id;
+          console.log(this.organisation.id)
+        },
+        error: (error:HttpErrorResponse) => {
+          console.log(error.message);
+         
+         },
+        complete: () => console.info('complete') 
+      })
+   }
+  )
+}
+verif(){
+
+  console.log("imprimer")
+ 
+
+ if(this.existe==""){
+   this.alertBLtExiste=1
+
+ }
+ else{
+   this.openImprimerModal();
+ }
+}
+openImprimerModal(){
+  const container=document.getElementById('container');
+  const button=document.createElement('button');
+  button.type='button';
+  button.style.display='none';
+  button.setAttribute('data-toggle','modal');
+  button.setAttribute('data-target','#imprimer');
+  container?.appendChild(button);
+  button.click();
+}
+
 
 
   closeAlerts(){
@@ -435,5 +499,8 @@ this.materielLivreeProjService.addMaterielProjet(blid,curArticle.id,materielLivr
     this.articleAjouter=0
     this. alertDernierVerif=0
     this.alertSUCCEE=0
+    this.alertCodeBL=0
+    this.alertCreerBL=0
+    this.alertBLtExiste=0
   }
 }

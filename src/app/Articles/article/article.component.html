@@ -138,7 +138,7 @@
                     <label class="form-check-label" for="projet">prestation</label>
                 </div>
                 <div class="choice">
-                  <input class="form-check-input" type="radio" ngModel="" name="classe" id="materielFournisseur" value="materielFournisseur"  required/>
+                  <input class="form-check-input" type="radio" ngModel name="classe" id="materielFournisseur" value="materielFournisseur"  required/>
                   <label class="form-check-label" for="mc">materiel fournisseur</label>
               </div>
               <div class="choice">
@@ -216,6 +216,24 @@
                   <label for="uniteeM">Unitéc</label>
                   <input type="text" ngModel="{{editArticle?.unitee}}" name="unitee"  class="form-control" id="uniteeM" placeholder="unitee" required>
                 </div>
+
+                <div>
+                  <label for="classe">classe</label>
+                  <div class="form-check">
+                    <div class="choice">
+                      <input class="form-check-input" type="radio" ngModel="{{editArticle?.classe}}" name="classe" id="prestation" value="prestation"   required/>
+                      <label class="form-check-label" for="projet">prestation</label>
+                  </div>
+                  <div class="choice">
+                    <input class="form-check-input" type="radio" ngModel="{{editArticle?.classe}}" name="classe" id="materielFournisseur" value="materielFournisseur"  required/>
+                    <label class="form-check-label" for="mc">materiel fournisseur</label>
+                </div>
+                <div class="choice">
+                  <input class="form-check-input" type="radio" ngModel="{{editArticle?.classe}}" name="classe" id="materiel En Regie" value="materielEnRegie"   required/>
+                  <label class="form-check-label" for="projet">materiel en regie</label>
+              </div>
+              </div>
+              </div>
 
                 <br>
                 <div *ngIf="alerteCodeArticleutilisee" class="alert alert-danger alert-dismissible fade show" role="alert">

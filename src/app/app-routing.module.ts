@@ -66,6 +66,8 @@ import { ConsulterMaterielComponent } from './espaceMyCPM/consulter-materiel/con
 import { ConsulterMaterielsMCComponent } from './espaceMyCPM/consulter-materiels-mc/consulter-materiels-mc.component';
 import { AjouterBlmProjetComponent } from './BonLivraisonProjet/ajouter-blm-projet/ajouter-blm-projet.component';
 import { AjouterBLmaCComponent } from './BonLivraisonMC/ajouter-blma-c/ajouter-blma-c.component';
+import { DashboarsdMyCPMComponent } from './espaceMyCPM/dashboarsd-my-cpm/dashboarsd-my-cpm.component';
+import { DashboardsCPMComponent } from './espaceMyCPM/dashboards-cpm/dashboards-cpm.component';
 
 
 
@@ -96,6 +98,7 @@ const routes: Routes = [
 
 
    { path:'cpm',component:MenuComponent,children:[
+    { path:'',component:DashboardsCPMComponent},
     { path:'userProfile',component:UserProfileComponent},
     { path:'addOrganisation',component:AjouterOrganisationComponent,canActivate:[AdminCPMGuard]},
     { path:'organisations',component:OrganisationComponent,canActivate:[AdminCPMGuard]},
@@ -119,6 +122,7 @@ const routes: Routes = [
   ]},
  
   { path:'mycpm',component:MenuMycpmComponent,children:[
+    { path:'',component:DashboarsdMyCPMComponent},
     { path:'marchee',component:MarcheeComponent},
     { path:'detailOrganisation',component:DetailOrganisationComponent},
     {path:'gererComptes',component:GererComptesComponent},

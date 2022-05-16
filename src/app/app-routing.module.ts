@@ -155,6 +155,9 @@ const routes: Routes = [
     { path:'ajouterBLmP',component:AjouterBlmProjetComponent},
     
     { path:'ajouterBLmP/ajouterBLmP',component:AjouterBlmProjetComponent},
+    { path:'ajouterBlMc',component:AjouterBLmaCComponent},
+    { path:'ajouterBlMc/ajouterBlMc',component:AjouterBLmaCComponent},
+
 
     { path:'consulterBonsdeLivraisonsdeProjet',component:ConsulterMaterielComponent},
     { path:'consulterBonsdeLivraisonsdeMC',component:ConsulterMaterielsMCComponent},

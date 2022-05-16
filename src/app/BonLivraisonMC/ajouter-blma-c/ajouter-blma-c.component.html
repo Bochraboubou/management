@@ -1,1 +1,842 @@
-<p>ajouter-blma-c works!</p>
+<div class="container" id="container" >
+
+	<div class="container-fluid">
+
+		<h5 style="font-family:Marker Felt, fantasy; font-size: 28px; color:#2919d9;position:center;"> <strong>Ajouter
+				bon
+				de livraison</strong> </h5>
+
+
+
+		<div class="alert alert-success" role="alert" *ngIf="alertSUCCEE==1">
+			Bon de livraison ajoutée avec succée...
+			<button (click)="closeAlerts()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="container">
+			<!-- Title -->
+			<div class="d-flex justify-content-between align-items-center py-3">
+
+			</div>
+
+			<!-- Main content -->
+			<div class="row">
+				<div class="col-lg-8">
+					<!-- Details -->
+
+					<div class="card mb-4">
+						<div class="card-body">
+							<div class="mb-3 d-flex justify-content-between">
+								<div class="row">
+									<div class="col-lg-12">
+										<h3 class="h6">Code ordre de traveau
+											:<strong>{{OT.codeOrdre}}</strong><br></h3>
+										<h3 class="h6">Code métier :<strong>{{metier.nomMetier}}</strong><br></h3>
+
+
+										<div *ngIf="boutonAjouter==0">
+											<button (click)="onOpenAddBLMoale()" type="button"
+												class="btn btn-primary">Ajouter Bon de livraison </button>
+										</div>
+										<div *ngIf="nouvelleInterface==1">
+											<button routerLink="ajouterBlMc" type="button"
+												class="btn btn-primary">Ajouter une nouvelle bon de livraison </button>
+										</div>
+									</div>
+									<!--<div class="col-lg-6">
+										
+										<br>
+										
+										<address>
+											
+										
+										</address>
+									</div>-->
+
+
+									<div><br></div>
+									<div *ngIf="boutonValider==1"><br><br></div>
+									<div *ngIf="y==1">
+
+										<strong>Somme des articles dans la BL courante :</strong> {{Somme}} <br>
+										<strong>Reste:</strong> {{Reste}}
+										<div *ngIf="boutonValider==1"><br><br></div>
+									</div>
+
+
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+
+
+				</div>
+				<div class="col-lg-4">
+					<!--Detail bon de livraison -->
+					<div class="card mb-4">
+						<div class="card-body">
+							<h3 class="h6"><strong>Bon de livraison courante</strong> </h3>
+							<strong>code:{{codeBL}}</strong><br>
+							<strong>Montant:{{montantBL}}</strong><br>
+
+							<strong>Date de livraison:{{datalivraisonNewBL}}</strong><br>
+							<strong>Date de création:{{dateSystNewBL}}</strong><br>
+							{{d1}}
+
+
+							<div *ngIf="boutonValider==1"> <br><button (click)="EnregistrerBL()" type="button"
+									class="btn btn-primary">Enregistrer Bon de livraison </button>
+							</div>
+						</div>
+
+
+						<div *ngIf="y==1"><br></div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+	<!---------------------------------->
+
+	<!--*ngIf="y==1"-->
+	<div class="container" id="container" *ngIf="y==1">
+
+    <div><br></div>
+		<div class="row">
+			<div class="col-lg-7">
+				<div class="contact">
+
+
+					<!--addAraticleRealisee-->
+
+					<div class="alert alert-warning alert-dismissible fade show" role="alert"
+						*ngIf="alertecodeArticle==1">
+						<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+						<strong>Attention !</strong> code article n'existe pas !.
+						<button type="button" (click)="closeAlerts()" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="alert alert-warning alert-dismissible fade show" role="alert"
+						*ngIf="	alertBLtExiste==1">
+						<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+						<strong>Attention !</strong> vous devez stoker la bon de livraison initiallement !.
+						<button type="button" (click)="closeAlerts()" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				
+					<div class="alert alert-warning alert-dismissible fade show" role="alert"
+						*ngIf="alertDernierVerif==1">
+						<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+						<strong>Attention !</strong> vérifier le montant totale des articles !.
+
+						<button type="button" (click)="closeAlerts()" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+
+					</div>
+
+
+					<div class="alert alert-warning alert-dismissible fade show" role="alert"
+						*ngIf="alerteMontantSuperieur==1">
+						<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+						<strong>Attention !</strong> le total des saisis est superieur au montant de bon de
+						livraison !.
+
+						<button type="button" (click)="closeAlerts()" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+
+					</div>
+					<div class="alert alert-warning alert-dismissible fade show" role="alert"
+						*ngIf="alerteModification==1">
+						<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+						<strong>Attention !</strong>article ajouter , seulement la modification est accessible !.
+
+						<button type="button" (click)="closeAlerts()" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="alert alert-success" role="alert" *ngIf="articleAjouter==1">
+						Article ajouter...
+						<button type="button" (click)="closeAlerts()" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<form #addBL="ngForm" (ngSubmit)="addMateriel(addBL)">
+
+						<div class="row gx-2 mb-2">
+							<div class="col-md-6">
+
+								<label>Code article:</label>
+								<input [(ngModel)]="code" name="code" class="form-control" id="code">
+
+							</div>
+							<div class="col-md-3">
+								<div (click)="recherche2()" class="single_address">
+									<i class="fa fa-search" aria-hidden="true"></i>
+
+
+								</div>
+							</div>
+
+						</div>
+
+
+
+
+						<br>
+
+						<div class="row gx-3 mb-3">
+
+							<div class="col-md-6">
+
+								<label class="small mb-1" for="inputLastName">Désigniation</label>
+								<input [(ngModel)]="article2.designation" name="designation" id="designation"
+									class="form-control" readonly>
+
+							</div>
+
+							<div class="col-md-6">
+
+								<label class="small mb-1" for="inputLastName">Unité</label>
+								<input [(ngModel)]="article2.unitee" name="unitee" id="unitee" class="form-control"
+									readonly>
+
+							</div>
+
+						</div>
+
+						<div class="row gx-3 mb-3">
+
+							<div class="col-md-6">
+
+								<label class="small mb-1" for="inputLastName">Quantité livrée
+								</label>
+								<input [(ngModel)]="article2.quantitee" name="quantitee" id="quantitee" type="number"
+									class="form-control" required>
+
+							</div>
+
+							<div class="col-md-6">
+
+								<label class="small mb-1" for="inputLastName">prix</label>
+								<input [(ngModel)]="article2.prix" name="prix" id="prix" type="number"
+									class="form-control" required>
+
+							</div>
+						</div>
+
+
+
+						<div class="col-md-12 text-center">
+							<button type="submit" name="submit" id="submitButton" class="btn btn-contact-bg">Article
+								suivant
+								<i class="fa fa-chevron-right"></i></button>
+						</div>
+
+					</form>
+
+
+				</div>
+			</div>
+			<!--- END COL -->
+			<div class="col-lg-5">
+				<div class="single_address">
+					<i (click)="onOpenChercherArticleMoale()" class="fa fa-bars"></i>
+
+					<h4>Chercher matériel</h4>
+             </div>
+
+				<div class="single_address">
+					<i (click)="onOpenListeRealiseeModal()" class="fa fa-list-ol" aria-hidden="true"></i>
+					<h4>Liste des materiaux livrés </h4>
+
+
+				</div>
+
+				<!---->
+
+				<!--(click)="openImprimerModal()"     (click)="openImprimerModal()" -->
+				<div class="single_address">
+					
+					<i  (click)="verif()" class="fa fa-print" aria-hidden="true"></i>
+
+					<h4>Imprimer BL</h4>
+
+				</div>
+
+				<div class="single_address">
+					<i routerLink="ajouterBlMc" class="fa fa-sign-out" aria-hidden="true"></i>
+
+					<h4>Retour</h4>
+				</div>
+
+
+				<div>
+
+					<!--	<button  [useExistingCss]="true" class="fa fa-print" aria-hidden="true" printSectionId="mytodosItemsId" 
+				printTitle="Attachement journalier"  printSectionId="print-section" ngxPrint>Print</button>
+				-->
+
+
+
+				</div>
+
+			</div>
+			<!--- END COL -->
+		</div>
+		<!--- END ROW -->
+	</div>
+	<!--- END CONTAINER -->
+
+</div>
+
+
+	<div class="modal fade" id="chercherArticles" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="largeModalLabel">Liste des materiaux dans {{metier.nomMetier}}</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div>
+								recherche
+								<input [(ngModel)]="terme" name="terme" type="search" data-toggle="modal" />
+							</div>
+
+							<br>
+							<table class="table table-striped">
+								<thead>
+									<tr class="table-title">
+										<th><span>id </span></th>
+										<th><span>code </span></th>
+										<th><span>designation</span></th>
+										<th><span>Unité</span></th>
+										&nbsp;
+
+
+
+									</tr>
+
+
+								</thead>
+								<tbody>
+
+									<tr *ngFor="let a of listeArticles    | filter:terme | paginate : {
+									itemsPerPage:4,
+									currentPage:page,
+									totalItems:totalLength
+									}, let i=index">
+										<td>
+
+											<span class="label label-default">{{a.id}}</span>
+										</td>
+										<td>
+
+											<span class="label label-default">{{a.code}}</span>
+										</td>
+
+										<td>
+											<span class="label label-default">{{a.designation}}</span>
+										</td>
+
+										<td>
+											<span class="label label-default">{{a.unitee}}</span>
+										</td>
+									</tr>
+
+								</tbody>
+							</table>
+							<pagination-controls (pageChange)="page = $event" class="text-center entreprisePagination">
+							</pagination-controls>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-deep-orange" data-dismiss="modal">Retour</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="modal fade" id="listeRealisee" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="largeModalLabel">Liste des materiaux dans {{metier.nomMetier}}</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div>
+								recherche
+								<input [(ngModel)]="terme" name="terme" type="search" data-toggle="modal" />
+							</div>
+
+							<br>
+							<table class="table table-striped">
+								<thead>
+									<tr class="table-title">
+										<th><span>id </span></th>
+										<th><span>code </span></th>
+										<th><span>Qte</span></th>
+										<th><span>prix </span></th>
+										<th><span>Action</span></th>
+										&nbsp;
+
+
+
+									</tr>
+
+
+								</thead>
+								<tbody>
+
+									<tr *ngFor="let a of listeMaterielLivree    | filter:terme | paginate : {
+									itemsPerPage:4,
+									currentPage:page,
+									totalItems:totalLength
+									}, let i=index">
+										<td>
+
+											<span class="label label-default">{{a.id}}</span>
+										</td>
+										<td>
+
+											<span class="label label-default">{{a.code}}</span>
+										</td>
+
+										<td>
+											<span class="label label-default">{{a.quantitee}}</span>
+										</td>
+
+										<td>
+											<span class="label label-default">{{a.prix}}</span>
+										</td>
+										<td>
+											<span class="label label-default">
+												<a (click)="updateArticleModal(a.code)" class="btn btn-success">
+													<i class="fa fa-bars" aria-hidden="true"></i>
+												</a>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<a (click)="onOpenDelateArticleModal(a.code)" class="btn btn-danger"
+													aria-label="Delete">
+													<i class="fa fa-trash-o" aria-hidden="true"></i>
+												</a>
+											</span>
+										</td>
+									</tr>
+
+								</tbody>
+							</table>
+							<pagination-controls (pageChange)="page = $event" class="text-center entreprisePagination">
+							</pagination-controls>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-deep-orange" data-dismiss="modal">Retour</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Add Bon de livraison  modal -->
+	<div class="modal fade" id="ajouterBL" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title" id="exampleModalLongTitle">Ajouter une Bon-de livraison</h3>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alertCodeBL==1">
+						<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+						<strong>Attention !</strong> code Bon de livraison déja éxiste!.
+						<button type="button" (click)="closeAlerts()" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<div class="alert alert-success" role="alert" *ngIf="alertCreerBL==1">
+						Ajout avec succée...
+						<button (click)="closeAlerts()" type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<form #addBLForm="ngForm" (ngSubmit)="createNewBL(addBLForm)">
+						<div>
+							<label for="delais">code</label>
+							<input type="text" [(ngModel)]="codeBL" name="codeBL" class="form-control" id="codeBL"
+								placeholder="code bon de livraison" required>
+						</div>
+
+
+						<div>
+							<label for="delais">Date de livraison</label>
+							<input type="date" [(ngModel)]="datalivraisonNewBL" name="date livraison"
+								class="form-control" id="delais" placeholder="delais" required>
+						</div>
+
+						<div>
+							<label for="delais">Montant</label>
+							<input type="number" [(ngModel)]="montantBL" name="montantBL" class="form-control"
+								id="montantBL" placeholder="montant" required>
+						</div>
+
+						<br>
+						<!--
+                    <div *ngIf="alerteCodeInexistant" class="alert alert-danger alert-dismissible fade show" role="alert">
+                      <strong>Attention</strong> code entreprise introubable.
+                      <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+                    </div>
+                    <div *ngIf="alertecodeBCexiste" class="alert alert-danger alert-dismissible fade show" role="alert">
+                      <strong>Attention</strong> le code du bon-de commande est deja utilisee
+                      <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+                    </div>
+                    <div *ngIf="alerteDelaisBCs" class="alert alert-danger alert-dismissible fade show" role="alert">
+                      <strong>Attention</strong> le delai maximale des bon_de commandes est superieur au delais du marchee
+                      <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
+                    </div>
+                    -->
+						<div class="modal-footer">
+							<button type="button" id="add-entrep-form" class="btn btn-secondary"
+								data-dismiss="modal">Fermer</button>
+							<button [disabled]="addBLForm.invalid" type="submit" class="btn btn-primary"
+								style="background-color: navy;">Enreistrer</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!------------------------------>
+	<div id="supprimer" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<form>
+					<div class="modal-header">
+						<h4 class="modal-title">Suprimer article</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="alert alert-success" role="alert" *ngIf="alertSuppression==1">
+						Suppression avec succée...
+						<button (click)="closeAlerts()" type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="alert alert-danger" *ngIf="echecSuppression==1">
+						<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+						<strong>Echec de suppression </strong>
+						<button (click)="closeAlerts()" type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>Vous etes sure de supprimer cette article ?</p>
+
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Retour">
+						<input (click)="SupprimerArticle()" type="submit" class="btn btn-danger" value="Supprimer">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!--UPDATE MODAL-->
+	<div id="Modifier" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<form #ModifForm="ngForm" (ngSubmit)="ModifierForm(ModifForm)">
+
+					<div class="modal-header">
+						<h4 class="modal-title">Modifier article </h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="alert alert-success" role="alert" *ngIf="alertModifierArticle==1">
+						Modification avec succée...
+						<button (click)="closeAlerts()" type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="alert alert-danger" *ngIf="echecModification==1">
+						<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+						<strong>Echec de modification </strong>
+						<button (click)="closeAlerts()" type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+
+
+						<div class="row gx-3 mb-3">
+
+							<div class="col-md-6">
+
+								<label class="small mb-1" for="inputLastName">code du matériel</label><br>
+								<label class="small mb-1" for="inputLastName"> <strong>{{ModifArticle}}</strong>
+								</label>
+
+							</div>
+
+							<div class="col-md-6">
+
+								<label class="small mb-1" for="inputLastName">Quantité</label>
+								<input [(ngModel)]="modifArticleVar.quantitee" name="quantitee" id="quantitee"
+									class="form-control">
+
+							</div>
+
+						</div>
+
+
+						<div class="row gx-3 mb-3">
+
+							<div class="col-md-6">
+
+								<label class="small mb-1" for="inputLastName" *ngIf="transparent==1">code</label>
+								<input [(ngModel)]="ModifArticle" name="code" id="code" class="form-control"
+									*ngIf="transparent==1">
+
+							</div>
+
+							<div class="col-md-6">
+
+								<label class="small mb-1" for="inputLastName">Prix</label>
+								<input [(ngModel)]="modifArticleVar.prix" name="prix" id="prix" class="form-control">
+
+							</div>
+
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Retour">
+						<input [disabled]="ModifForm.form.invalid" type="submit" class="btn btn-danger"
+							value="Modifier">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+<!------------------------------------------------>
+
+<div class="modal fade" id="imprimer"  tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="largeModalLabel">Bon de livraison</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				
+<div  id="print" class="container">
+	<div class="row">
+      <div class="profile-header-img">
+				<img src="{{this.organisationService.apiServeUrl+'/admin/ImgOrganisation/'+organisation.id}}"
+				style="height :100px;width:fil-content" alt=""
+					class="img-responsive" alt="img">
+					
+			  </div>
+			 
+			 <!-- end profile -->
+			 <!-- begin profile-content -->
+			 <div class="profile-content">
+				<!-- begin tab-content -->
+				<div class="tab-content p-0">
+ 
+				   <!-- begin #profile-about tab -->
+				   <div class="tab-pane fade in active show" id="profile-about">
+					  <!-- begin table -->
+					  <div class="table-responsive">
+						 <table class="table table-profile">
+							<thead>
+							   <tr>
+								  <th></th>
+								  <th>
+									 <h4>BON DE LIVRAISON<small></small></h4>
+								  </th>
+							   </tr>
+							</thead>
+							<tbody>
+							   <tr class="highlight">
+								 <td></td> 
+								  <td><strong> A-RENSEIGNEMENTS GENEREAUX</strong> </td>
+							   </tr>
+							   <tr class="divider">
+								  <td colspan="4"><strong>ORGANISATION</strong></td>
+							   </tr>
+							   <tr>
+								<td class="field">Code :</td>
+								<td> <a href="javascript:;" class="m-l-5"><strong>{{organisation.code}}</strong></a></td>
+							 </tr>
+							 <tr>
+								<td class="field">Nom:</td>
+								<td><a href="javascript:;" class="m-l-5"><strong>{{organisation.nom}}</strong></a></td>
+							 </tr>
+							 <tr>
+								<td class="field">Admin:</td>
+								<td><a href="javascript:;" class="m-l-5"><strong>{{loginService.loggedUser}}</strong></a></td>
+							 </tr>
+							 
+							   <tr class="divider">
+								<td colspan="4"><strong>Ordre de traveau </strong></td>
+							 </tr>
+							   <tr>
+								  <td class="field">Code  :</td>
+								  <td>  <a href="javascript:;" class="m-l-5"><strong>{{OT.codeOrdre}}</strong></a></td>
+							   </tr>
+							   <tr class="divider">
+								<td colspan="4"><strong>Bon de livraison </strong></td>
+							 </tr>
+							 <tr>
+								<td class="field">Code</td>
+								<td><a href="javascript:;"><strong>{{bondeLivraisonMC.codeBonLivraisonMC}} </strong></a></td>
+							 </tr>
+							   <tr>
+								  <td class="field">Date de création</td>
+								  <td><a href="javascript:;"><strong>{{bondeLivraisonMC.dateSystemeBLMC}} </strong></a></td>
+							   </tr>
+							   <tr>
+								<td class="field">Date de livraison</td>
+								<td><a href="javascript:;"><strong>{{bondeLivraisonMC.dateLivraisonBLMC}} </strong></a></td>
+							 </tr>
+							
+							   <tr class="divider">
+								  <td colspan="2"></td>
+							   </tr>
+							   <tr class="highlight">
+								  <td class="field"></td>
+								  <td><strong>B-PRESTATION DUES A L'ENTREPRISE</strong></td>
+							   </tr>
+							   
+							   
+							  
+							   <tr class="highlight">
+								  <td class="field"></td>
+								  <td class="p-t-10 p-b-10">
+									 <h4>1-Materiel livré </h4>
+								  </td>
+							   </tr>
+							   <tr class="highlight">
+								 <td class="field"></td>
+								 <td class="p-t-10 p-b-10">
+									 <div class="col-md-12">
+										 <table class="table table-striped">
+											 <thead>
+												 <tr>
+													 <th><span>ID </span></th>
+													 <th><span>CODE </span></th>
+													 <th><span>PRIX</span></th>
+													 <th><span>QUANTITE</span></th>
+													 <th><span>OBSERVATION</span></th>
+												 </tr>
+								
+								
+											 </thead>
+											 <tbody>
+								<!---->
+												 <tr *ngFor="let c of listeMaterielLivree">
+													 <td>
+								<!---->
+														 <span class="label label-default">{{c.id}}</span>
+													 </td>
+								
+													 <td>
+														 <span class="label label-default">{{c.code}}</span>
+													 </td>
+													 <td>
+														<span class="label label-default">{{c.prix}}</span>
+													</td>
+													 <td>
+														 <span class="label label-default">{{c?.quantitee}}</span>
+													 </td>
+													 <td>
+														 <span class="label label-default"></span>
+													 </td>
+													
+												 </tr>
+								
+											 </tbody>
+										 </table>
+									 </div>
+								
+								 </td>
+							  </tr>
+							   
+							</tbody>
+						 </table>
+					  </div>
+					  <!-- end table -->
+				   </div>
+				   <!-- end #profile-about tab -->
+				</div>
+				<!-- end tab-content -->
+			
+	   </div>
+	</div>
+ </div>
+		 
+le surveillant__________________________le chef de zone _________________l'entrepreneur________________le chef division
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-dark" [useExistingCss]="true" printTitle="Attachement" printSectionId="print" ngxPrint>Imprimer</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+

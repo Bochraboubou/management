@@ -139,7 +139,7 @@ body{
         -webkit-transition: all 0.3s ease 0s;
         -o-transition: all 0.3s ease 0s;
         transition: all 0.3s ease 0s;
-        background: #7564e5;
+        background: #1e1ba4;
         font-family: 'poppins', sans-serif;
         cursor: pointer;
         width: 100%;
@@ -167,7 +167,7 @@ body{
     
     .single_address i {
         background: #f6f6f6;
-        color: #0f83ff;
+        color: #2919d9;
         border-radius: 30px;
         width: 60px;
         height: 60px;
@@ -185,7 +185,7 @@ body{
     }
     
     .single_address:hover i {
-        background: #0f83ff;
+        background: #2919d9;
         color: #fff;
     }
     
@@ -1030,7 +1030,7 @@ body{
         -webkit-transition: all 0.3s ease 0s;
         -o-transition: all 0.3s ease 0s;
         transition: all 0.3s ease 0s;
-        background: #7564e5;
+        background: #2919d9;
         font-family: 'poppins', sans-serif;
         cursor: pointer;
         width: 100%;
@@ -1058,7 +1058,7 @@ body{
     
     .single_address i {
         background: #f6f6f6;
-        color: #7564e5;
+        color: #2919d9;
         border-radius: 30px;
         width: 60px;
         height: 60px;
@@ -1076,7 +1076,7 @@ body{
     }
     
     .single_address:hover i {
-        background: #7564e5;
+        background: #2919d9;
         color: #fff;
     }
     

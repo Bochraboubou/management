@@ -5,7 +5,6 @@ export class BonDeLivraisonMC{
   codeBonLivraisonMC!:string
   dateSystemeBLMC!:Date
   dateLivraisonBLMC!: Date
-  montant!: number
   montantBL!:number
   listeMateriel!: Article[]
 

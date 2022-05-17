@@ -111,7 +111,7 @@ constructor( private router:Router, public loginService:LoginService,private att
     this.trouverArticles()
 
     // trouver la liste des materiels livrés
-    this.AllMaterielArticleInBondeCommande(this.bondeCommande.id )
+   
   }
 
 sumDesArticles(){
@@ -557,46 +557,6 @@ this.x=0
 //chaque bl contient plusieur article :
 
 // trouver tous les articles de type materielle de cette bon de commande 
-
-AllMaterielArticleInBondeCommande(idBC:number ) :void{
-//   .1/trouver tous les bon de livraison d'une bon de commande 
- this.bonLivraisonProjetService.getAllbonsdelivraisonsBybcId(idBC).subscribe({
-     next: (response:BonDeLivraisonProjet[]) =>{
-       this.bonsDelivraisonliste=response;
-       for (let i = 0; i < this.bonsDelivraisonliste.length; i++) {
-        this.getMaterielslivrés(this.bonsDelivraisonliste[i]);
-      }
-      // this.BLstotalLength = response.length;
-       console.log("bons de livraison du BC choisis "+this.bondeCommande?.codebc+" sont les suivants"+this.bonsDelivraisonliste);
-       
-     },
-     error: (error:HttpErrorResponse) => {
-       alert(error.message);
-
-      },
-     complete: () => console.info('get bons de livraisons by BC complete') 
- }) 
-
-}
-  //recuperer le materiels livré du BL
-  public getMaterielslivrés(BL:BonDeLivraisonProjet):void{
-    this.bonLivraisonProjetService.getMaterielsBuBL(BL.bl_id).subscribe({
-     next: (response:Article[]) =>{
-       BL.listeMateriel =response;
-       console.log("get materiel du BL"+BL.codeBonLivraisonProj);
-       console.log(  BL.listeMateriel)
-      },
-     error: (error:HttpErrorResponse) => {
-       alert(error.message);
-
-      },
-    complete: () => console.info('get materiels by BL complete') 
- }) 
-
-  }
-
-
-
 
 
 closeAlerts(){

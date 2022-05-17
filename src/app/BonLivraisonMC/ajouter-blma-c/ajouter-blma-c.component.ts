@@ -30,11 +30,11 @@ listeArticles!:Article[]
 listeMaterielLivree: Article[]=[]
 bondeLivraisonMC=new  BonDeLivraisonMC()
 Somme=0
-Reste=0
+
 codeBL!:string;
 dateSystNewBL!:Date
 datalivraisonNewBL!:Date
-montantBL!:0
+montantBL=0
 code!:string
 d1=new Date()
 article!:Article
@@ -51,6 +51,8 @@ organisation= new Organisation()
 idOrgan!:number
 user!:User
 existe=""
+blTerminer=0
+seraTransparente=1
 // alertes
 alertCreerBL=0
 alertecodeArticle=0
@@ -201,12 +203,13 @@ this.blMCService.getBLMCbyCode(addBLForm.value.codeBL).subscribe({
 
 SommeArticles(){
   this.Somme=0
-  this.Reste=0
+ 
   this.listeMaterielLivree.forEach((curArticle) => {
     this.Somme=this.Somme+(curArticle.quantitee * curArticle.prix)
     
   })
-  this.Reste= this.bondeLivraisonMC.montantBL- this.Somme
+  this.montantBL=this.Somme
+  this.bondeLivraisonMC.montantBL=this.montantBL
   
   }
 //chercher code article utulisee
@@ -281,17 +284,15 @@ addMateriel(addf:NgForm){
  console.log(articleSauvgarder)
  let somme22=this.Somme+(articleSauvgarder.prix *articleSauvgarder.quantitee )
  console.log(somme22)
- if(somme22 >this.bondeLivraisonMC.montantBL){
-   this.alerteMontantSuperieur=1
- }else{
+
+
  this.listeMaterielLivree.push(articleSauvgarder)
  this.SommeArticles()
  this.articleAjouter=1
  addf.reset()
- }
- if(this.Somme==this.bondeLivraisonMC.montantBL){
+
    this.boutonValider=1
- }
+ 
  }
  
  onOpenDelateArticleModal(code:string):void{
@@ -367,7 +368,7 @@ this.SommeArticles()
 EnregistrerBL(){
   let OTid=this.OT.id
   console.log(this.bondeLivraisonMC)
-  if(this.bondeLivraisonMC.montantBL==this.Somme){
+ 
     //add bl p
    this.blMCService.addblMC(this.bondeLivraisonMC,OTid).subscribe({
    next: (response:BonDeLivraisonMC) =>{
@@ -379,6 +380,8 @@ EnregistrerBL(){
      console.log(this.bonLivrai2.id)
      let Blid=this.bonLivrai2.id
      this.SaveMateriel(Blid)
+    
+this.seraTransparente=0
  
     },
     error: (error:HttpErrorResponse) => {
@@ -389,10 +392,8 @@ EnregistrerBL(){
      },
     complete: () => console.info('complete')  
   })
-  }
-  else{
-  this. alertDernierVerif=1
-  }
+  
+ 
  //
  
  }

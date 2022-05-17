@@ -33,7 +33,7 @@
 										<h3 class="h6">Code bon de commande
 											:<strong>{{bondeCommande.codebc}}</strong><br></h3>
 										<h3 class="h6">Code métier :<strong>{{metier.nomMetier}}</strong><br></h3>
-
+<button (click)="okk()">okk</button>
 
 										<div *ngIf="boutonAjouter==0">
 											<button (click)="onOpenAddBLMoale()" type="button"
@@ -60,7 +60,7 @@
 									<div *ngIf="y==1">
 
 										<strong>Somme des articles dans la BL courante :</strong> {{Somme}} <br>
-										<strong>Reste:</strong> {{Reste}}
+										
 										<div *ngIf="boutonValider==1"><br><br></div>
 									</div>
 
@@ -240,6 +240,7 @@
 									class="form-control" required>
 
 							</div>
+							
 
 							<div class="col-md-6">
 
@@ -252,11 +253,12 @@
 
 
 
-						<div class="col-md-12 text-center">
-							<button type="submit" name="submit" id="submitButton" class="btn btn-contact-bg">Article
+						<div class="col-md-12 text-center" *ngIf="boutonTransparente==0" >
+							<button [disabled]="addBL.form.invalid" type="submit" name="submit" id="submitButton" class="btn btn-contact-bg">Article
 								suivant
 								<i class="fa fa-chevron-right"></i></button>
 						</div>
+					
 
 					</form>
 

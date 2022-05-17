@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Article } from 'src/app/model/Article';
 import { BondeCommande } from 'src/app/model/BondeCommande';
 import { BonDeLivraisonProjet } from 'src/app/model/Bon_De_Livraison';
@@ -37,9 +38,11 @@ y=0
 codeBL!:string;
 dateSystNewBL!:Date
 datalivraisonNewBL!:Date
-montantBL!:0
+montantBL=0
 code!:string
 alertecodeArticle=0
+boutonTransparente=0
+
 // partie materielle
 materielLivreeProj=new MLivProj()
 materielleLivreeProjId=new MatLivMProjetId()
@@ -60,7 +63,7 @@ alertSUCCEE=0
 modifiable=0
 montantDesArticles!:0
 Somme!:number
-Reste!:number
+
 alertCodeBL=0
 alerteMontantSuperieur=0
 articleAjouter=0
@@ -75,28 +78,42 @@ existe=""
 user!:User
 organisation=new Organisation()
 alertBLtExiste=0
-  constructor(public loginService :LoginService,public  organisationService :OrganisationServiceService,private register:RegisterService,  private materielLivreeProjService:MateriellivreeProjetService, private blPService:BonLivraisonProjetService, private artService:ArticleService,private bonCommandeService:BondeCommandeService,  private metierService:MetierService) { }
+idBC!:number
+idM!:number
+bondeCommandeTransferer=new BondeCommande
+  constructor( private activeRoute:ActivatedRoute ,public loginService :LoginService,public  organisationService :OrganisationServiceService,private register:RegisterService,  private materielLivreeProjService:MateriellivreeProjetService, private blPService:BonLivraisonProjetService, private artService:ArticleService,private bonCommandeService:BondeCommandeService,  private metierService:MetierService) { }
 
   ngOnInit(): void {
-    let Bc_id=1
-    let met_id=1
-    this.getBonDeCommande(Bc_id);
-    this.getMetier(met_id)
+
+this.idBC=this.activeRoute.snapshot.params['idBC'];
+console.log("l id du bon de commande  ")
+console.log(this.idBC)
+
+ this.idM=this.activeRoute.snapshot.params['idM'];
+ console.log("le id du metier est : ")
+ console.log(this.idM)
+    
+
+    this.getBonDeCommande(this.idBC);
+    this.getMetier(this.idM)
     this.SommeArticles()
     this.username=this.loginService.loggedUser
     this.findOrganisation(this.username)
 
   }
- 
+  okk(){
+    console.log(this.idBC)
+  }
 SommeArticles(){
 this.Somme=0
-this.Reste=0
+
 this.listeMaterielLivree.forEach((curArticle) => {
   this.Somme=this.Somme+(curArticle.quantitee * curArticle.prix)
   
 })
-this.Reste= this.bondeLivraisonMp.montantBL- this.Somme
 
+this.montantBL=this.Somme
+this.bondeLivraisonMp.montantBL=this.montantBL
 }
    getBonDeCommande(id:number){
      this.bonCommandeService.getBCbyId(id).subscribe({
@@ -187,6 +204,7 @@ this.blPService.getBLbyCode(addBLForm.value.codeBL).subscribe({
      this.boutonAjouter=1
     this. alertCreerBL=1
  this.SommeArticles()
+ 
  this.y=1
     this.bondeLivraisonMp.codeBonLivraisonProj=this.codeBL
     this.bondeLivraisonMp.dateSystemeBLProj=this.d1
@@ -284,19 +302,15 @@ articleSauvgarder.prix=article3.prix
 articleSauvgarder.quantitee=article3.quantitee
 console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
 console.log(articleSauvgarder)
-let somme22=this.Somme+(articleSauvgarder.prix *articleSauvgarder.quantitee )
-console.log(somme22)
-if(somme22 >this.bondeLivraisonMp.montantBL){
-  this.alerteMontantSuperieur=1
-}else{
+
 this.listeMaterielLivree.push(articleSauvgarder)
 this.SommeArticles()
 this.articleAjouter=1
 addf.reset()
-}
-if(this.Somme==this.bondeLivraisonMp.montantBL){
+
+
   this.boutonValider=1
-}
+
 }
 
 onOpenDelateArticleModal(code:string):void{
@@ -373,7 +387,7 @@ this.SommeArticles()
 EnregistrerBL(){
  let bcId=this.bondeCommande.id
  console.log(this.bondeLivraisonMp)
- if(this.bondeLivraisonMp.montantBL==this.Somme){
+
    //add bl p
   this.blPService.addBLProjet(this.bondeLivraisonMp,bcId).subscribe({
   next: (response:BonDeLivraisonProjet) =>{
@@ -385,6 +399,7 @@ EnregistrerBL(){
     console.log(this.bonLivrai2.bl_id)
     let Blid=this.bonLivrai2.bl_id
     this.SaveMateriel(Blid)
+    this.boutonTransparente=1
 
    },
    error: (error:HttpErrorResponse) => {
@@ -395,10 +410,8 @@ EnregistrerBL(){
     },
    complete: () => console.info('complete')  
  })
- }
- else{
- this. alertDernierVerif=1
- }
+ 
+
 //
 
 }

@@ -70,5 +70,10 @@ export class OrganisationServiceService {
   createOrganisation(formData:FormData): Observable<any> {
     return this.http.post(`${this.apiServeUrl}/admin/NewOrganisation`,formData);
   }
+
+  public countEntreprises(orgId:number): Observable<any[]>
+  {
+    return this.http.get<any[]>(`${this.apiServeUrl}/admin/entreprises/organisation/${orgId}`);
+  }
   
 }

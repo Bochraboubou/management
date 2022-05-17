@@ -66,6 +66,12 @@ public getMarcheestypeProjetbyorganisationId(organId:number): Observable<Marchee
    return this.http.get<Marchee[]>(`${this.apiServeUrl}/admin/organisations/${organId}/marcheestypeMC`);
  }
 
+  // count marchees by metier
+  public countMarcheeByMetier(orgId:number): Observable<Array<any>>
+  {
+    return this.http.get<Array<any>>(`${this.apiServeUrl}/admin/nombresMarcheesParMetier/organisation/${orgId}`);
+  }
+
   
    
 

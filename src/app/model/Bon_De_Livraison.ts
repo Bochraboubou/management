@@ -5,7 +5,6 @@ export class BonDeLivraisonProjet{
    codeBonLivraisonProj!:string
    dateSystemeBLProj!:Date
    dateLivraisonBLProj!:Date
-   montant!: number
    montantBL!:number
    listeMateriel!: Article[]
 

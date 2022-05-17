@@ -158,7 +158,9 @@ const routes: Routes = [
     { path:'consulterBonsdeLivraisonsdeProjet',component:ConsulterMaterielComponent},
     { path:'consulterBonsdeLivraisonsdeMC',component:ConsulterMaterielsMCComponent},
     { path:'ajouterBLmP/:idBC/:idM',component:AjouterBlmProjetComponent},
-    { path:'ajouterBLmMC/:idOT/:idM',component:AjouterBLmaCComponent}
+    { path:'ajouterBLmMC/:idOT/:idM',component:AjouterBLmaCComponent},
+    { path:'ajouterBLmP/:idBC/:idM/ajouterBLmP/:idBC/:idM',component:AjouterBlmProjetComponent},
+    { path:'ajouterBLmMC/:idOT/:idM/ajouterBLmMC/:idOT/:idM',component:AjouterBLmaCComponent}
 
   ]},
   

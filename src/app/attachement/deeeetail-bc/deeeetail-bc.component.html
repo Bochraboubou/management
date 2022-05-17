@@ -1,11 +1,92 @@
 <div class="container" id="container"  >
-	<br>
-	<h1> <strong>Ajouter attachement</strong> </h1>
-	<br>
-
 	
+<!----------------------------------------->
+	
+<div class="container-fluid">
+
+	<h5 style="font-family:Marker Felt, fantasy; font-size: 28px; color:#2919d9;position:center;"> <strong>
+		Ajouter attachement </strong> </h5>
+
+
+	<div class="container">
+		<!-- Title -->
+		<div class="d-flex justify-content-between align-items-center py-3">
+
+		</div>
+
+		<!-- Main content -->
+		<div class="row">
+			<div class="col-lg-7">
+				<!-- Details -->
+
+				<div class="card mb-4">
+					<div class="card-body">
+						<div class="mb-3 d-flex justify-content-between">
+							<div class="row">
+								<div class="col-lg-12">
+									<h3 class="h6"><strong>Code  bon de commande :</strong>{{bondeCommande.codebc}}
+										<br></h3>
+									<h3 class="h6"><strong>Date de création  : </strong> {{d}}<br></h3>
+                                  
+									<button (click)="AllMaterielArticleInBondeCommande(bondeCommande.id)">okk</button>
+									<div >
+										-------------------------<button  type="button"
+											class="btn btn-primary">Sauvegarder Attachement</button>
+									</div>
+									<!--
+									<div *ngIf="nouvelleInterface==1">
+										<button routerLink="ajouterBlMc" type="button"
+											class="btn btn-primary">Ajouter une nouvelle bon de livraison </button>
+									</div>
+								</div>
+								-->
+								<!--<div class="col-lg-6">
+									
+									<br>
+									
+									<address>
+										
+									
+									</address>
+								</div>-->
+
+
+								<div><br></div>
+								<!--<div *ngIf="boutonValider==1"><br><br></div>
+								<div *ngIf="y==1">
+
+									<strong>Somme des articles dans la BL courante :</strong> {{Somme}} <br>
+									
+									<div *ngIf="boutonValider==1"><br><br></div>
+								</div>
+							-->
+
+
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+
+
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+	<!---------------------------------------------->
 	<div><br></div>
-	<div class="row">
+	<div class="row" *ngIf="attachementNormale==1">
 		<div class="col-lg-7">
 			<div class="contact">
 				
@@ -38,6 +119,9 @@
 						class="alert-link"> ICI</a>pour reconnecté
 				</div>
 				 <!--addAraticleRealisee-->
+Attachement normale 
+<div><br></div>
+			
 				<form #addattachement="ngForm" (ngSubmit)="remplirTableau(addattachement)">
 
 					<div class="row gx-2 mb-2">
@@ -109,20 +193,25 @@
 
 				</form>
 
-				<button type="button" class="btn btn-success" disabled>Success</button>
-				<button type="button" class="btn btn-primary btn-lg active">Primary</button>
-				<div><button type="button" class="btn btn-outline-primary btn-lg active">Article  suivant	<i class="fa fa-chevron-right"></i></button></div>
+
 			</div>
 		</div>
 		<!--- END COL -->
-		<div class="col-lg-5">
+          <div class="col-lg-5">
+
+			<div><button (click)="attachemenMateriel()" type="button" class="btn btn-success" >Attachement materiel</button>
+				<br>
+			<br>
+		
+		</div>
+		
 			<div class="single_address">
 				<i (click)="onOpenListeArticleUtuliseeModal()" class="fa fa-bars"></i>
 
-				<h4>Liste des articles utulisées</h4>
+				<h4>Chercher article </h4>
 
 
-			</div>
+			 </div>
 
 			<div class="single_address">
 				<i (click)="listedesArticlesRealiseeModal()" class="fa fa-list-ol" aria-hidden="true"></i>
@@ -145,6 +234,165 @@
 		       </div>
 
 
+			<div>
+				
+			<!--	<button  [useExistingCss]="true" class="fa fa-print" aria-hidden="true" printSectionId="mytodosItemsId" 
+				printTitle="Attachement journalier"  printSectionId="print-section" ngxPrint>Print</button>
+				-->
+					
+					
+			
+			</div>
+
+		</div>
+		<!--- END COL -->
+	</div>
+
+<!-- deuxieme attaxhement :attachement materielle -->
+	<div class="row"  *ngIf="x==1">
+		<div class="col-lg-7">
+			<div class="contact">
+				
+				<div class="alert alert-success" role="alert" *ngIf="articleAjouter==1">
+				Article ajouter...
+					<button type="button"  (click)="closeAlerts()"class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alertecodeArticle==1">
+					<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+					<strong>Attention !</strong> code article n'existe pas !.
+
+					<button type="button"  (click)="closeAlerts()" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+
+				</div>
+				<div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="  this.alertAttachementExiste==1">
+					<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+					<strong>Attention !</strong> vous devez ajouter un attachement !.
+
+					<button type="button"  (click)="closeAlerts()" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+
+				</div>
+				<div class="alert alert-danger" role="alert" *ngIf="alertAttachemnt==1">
+					vous devez crérer un attachement en premier!!..cliquer <a routerLink="mycpm/ajouterAttachement"
+						class="alert-link"> ICI</a>pour reconnecté
+				</div>
+				 <!--addAraticleRealisee-->
+
+				
+			Attachement materielle
+			
+				<form #addattachement="ngForm" (ngSubmit)="remplirTableau(addattachement)">
+
+					<div class="row gx-2 mb-2">
+						<div class="col-md-6">
+
+							<label>Code article:</label>
+							<input [(ngModel)]="code" name="code" class="form-control" id="code">
+
+						</div>
+						<div class="col-md-3">
+							<div class="single_address">
+								<i (click)="recherche2()" class="fa fa-search" aria-hidden="true"></i>
+
+
+							</div>
+						</div>
+
+					</div>
+
+
+
+
+					<br>
+
+					<div class="row gx-3 mb-3">
+
+						<div class="col-md-6">
+
+							<label class="small mb-1" for="inputLastName">Désigniation</label>
+							<input [(ngModel)]="article2.designation" name="designation" id="designation"
+								class="form-control" readonly>
+
+						</div>
+
+						<div class="col-md-6">
+
+							<label class="small mb-1" for="inputLastName">Unité</label>
+							<input [(ngModel)]="article2.unitee" name="unitee" id="unitee" class="form-control"
+								readonly>
+
+						</div>
+
+					</div>
+
+					<div class="row gx-3 mb-3">
+
+						<div class="col-md-6">
+
+							<label class="small mb-1" for="inputLastName">Quantité réalisée durant les autres attachements</label>
+							<input [(ngModel)]="sommeAff" name="sommeAff" id="sommeAff" type="number" class="form-control" readonly>
+
+						</div>
+
+						<div class="col-md-6">
+
+							<label class="small mb-1" for="inputLastName">Quantité réalisée</label>
+							<input [(ngModel)]="Qte" name="Qte" id="Qte" type="number" class="form-control" required>
+
+						</div>
+					</div>
+
+
+
+					<div class="col-md-12 text-center">
+						<button [disabled]="addattachement.form.invalid" type="submit" name="submit" id="submitButton"
+							class="btn btn-contact-bg">Article suivant
+							<i class="fa fa-chevron-right"></i></button>
+					</div>
+                    </form>
+                   </div>
+		</div>
+		<!--- END COL -->
+		<div class="col-lg-5">
+
+			
+			<div><button (click)="attachementNormaleONN()" type="button" class="btn btn-success" >Attachement ..... </button>
+				<br>
+			<br>
+		</div>
+			<div class="single_address">
+				<i (click)="onOpenListeArticleUtuliseeModal()" class="fa fa-bars"></i>
+
+				<h4>Chercher Materiel</h4>
+
+
+			 </div>
+
+			<div class="single_address">
+				<i (click)="listedesArticlesRealiseeModal()" class="fa fa-list-ol" aria-hidden="true"></i>
+				<h4>Liste des materiaux utilisés</h4>
+
+
+			</div>
+
+			<div class="single_address">
+				<i (click)="onOpenAddAttachementModal()" class="fa fa-database" aria-hidden="true"></i>
+
+				<h4>Sauvegarder attachement</h4>
+			</div>
+			<!--(click)="openImprimerModal()"-->
+			<div class="single_address"><!--(click)="imprimer(attachementId)" -->
+				<i (click)="verifier()" class="fa fa-print" aria-hidden="true"></i>
+
+				<h4>Imprimer attachement</h4>
+				
+		       </div>
+
 
 			<div>
 				
@@ -159,6 +407,12 @@
 		</div>
 		<!--- END COL -->
 	</div>
+
+
+
+
+
+
 	<!--- END ROW -->
  </div>
  <!--- END CONTAINER -->

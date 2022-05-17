@@ -60,7 +60,7 @@
 									<div *ngIf="y==1">
 
 										<strong>Somme des articles dans la BL courante :</strong> {{Somme}} <br>
-										<strong>Reste:</strong> {{Reste}}
+										
 										<div *ngIf="boutonValider==1"><br><br></div>
 									</div>
 
@@ -245,11 +245,12 @@
 
 
 
-						<div class="col-md-12 text-center">
-							<button type="submit" name="submit" id="submitButton" class="btn btn-contact-bg">Article
+						<div class="col-md-12 text-center" *ngIf="seraTransparente==1">
+							<button  [disabled]="addBL.form.invalid" type="submit" name="submit" id="submitButton" class="btn btn-contact-bg">Article
 								suivant
 								<i class="fa fa-chevron-right"></i></button>
 						</div>
+					
 
 					</form>
 
@@ -752,6 +753,11 @@
 								<td class="field">Date de livraison</td>
 								<td><a href="javascript:;"><strong>{{bondeLivraisonMC.dateLivraisonBLMC}} </strong></a></td>
 							 </tr>
+							 <tr>
+								<td class="field">montant totale </td>
+								<td><a href="javascript:;"><strong>{{bondeLivraisonMC.montantBL}}
+										</strong></a></td>
+							</tr>
 							
 							   <tr class="divider">
 								  <td colspan="2"></td>

@@ -8,12 +8,14 @@ import { ArticleRealiseeId } from 'src/app/model/ArticleRealiseeId';
 import { ArticleUtilisee } from 'src/app/model/ArticleUtilisee';
 import { Attachement } from 'src/app/model/Attachement';
 import { BondeCommande } from 'src/app/model/BondeCommande';
+import { BonDeLivraisonProjet } from 'src/app/model/Bon_De_Livraison';
 import { Organisation } from 'src/app/model/Organisation';
 import { User } from 'src/app/model/User';
 import { ArticleRealiseeService } from 'src/app/service/article-realisee.service';
 import { ArticleUtiliseeService } from 'src/app/service/article-utilisee.service';
 import { ArticleService } from 'src/app/service/article.service';
 import { AttachementService } from 'src/app/service/attachement.service';
+import { BonLivraisonProjetService } from 'src/app/service/bon-livraison-projet.service';
 import { BondeCommandeService } from 'src/app/service/bonde-commande.service';
 import { LoginService } from 'src/app/service/login.service';
 import { OrganisationServiceService } from 'src/app/service/organisation-service.service';
@@ -74,13 +76,21 @@ listeArtR!:ArticleRealisee[]
 artID!:number
 //la somme a afficher
 sommeAff!:number
+// afficher le div attachemnt normale 
+attachementNormale=1
+// pour afficher div materielle 
+x=0
+d=new Date()
+bonsDelivraisonliste!:BonDeLivraisonProjet[]
+
 constructor( private router:Router, public loginService:LoginService,private attachementService:AttachementService,
   private artService:ArticleService,
   private articleUtuliseeService:ArticleUtiliseeService,
   private route:ActivatedRoute,
   private BCService:BondeCommandeService
   ,private articleRealService:ArticleRealiseeService,private register:RegisterService,
- public organisationService:OrganisationServiceService) { }
+ public organisationService:OrganisationServiceService
+ ,private bonLivraisonProjetService:BonLivraisonProjetService) { }
 
 
   ngOnInit(): void {
@@ -95,9 +105,13 @@ constructor( private router:Router, public loginService:LoginService,private att
        
       }
     )
+
    // this.initialiserAttachementModal()
    this.findOrganisation(this.username);
     this.trouverArticles()
+
+    // trouver la liste des materiels livrés
+    this.AllMaterielArticleInBondeCommande(this.bondeCommande.id )
   }
 
 sumDesArticles(){
@@ -523,6 +537,68 @@ openImprimerModal(){
   container?.appendChild(button);
   button.click();
 }
+
+
+attachemenMateriel(){
+  alert("Vous etes dans l'interface attachement materielle")
+  // afficher le div attachemnt normale 
+  this.attachementNormale=0
+// pour afficher div materielle 
+this.x=1
+}
+attachementNormaleONN(){
+  alert("Vous etes dans l'interface attachement normale  ")
+  // afficher le div attachemnt normale 
+  this.attachementNormale=1
+// pour afficher div materielle 
+this.x=0
+}
+// une bon de commande contient plusieurs bl
+//chaque bl contient plusieur article :
+
+// trouver tous les articles de type materielle de cette bon de commande 
+
+AllMaterielArticleInBondeCommande(idBC:number ) :void{
+//   .1/trouver tous les bon de livraison d'une bon de commande 
+ this.bonLivraisonProjetService.getAllbonsdelivraisonsBybcId(idBC).subscribe({
+     next: (response:BonDeLivraisonProjet[]) =>{
+       this.bonsDelivraisonliste=response;
+       for (let i = 0; i < this.bonsDelivraisonliste.length; i++) {
+        this.getMaterielslivrés(this.bonsDelivraisonliste[i]);
+      }
+      // this.BLstotalLength = response.length;
+       console.log("bons de livraison du BC choisis "+this.bondeCommande?.codebc+" sont les suivants"+this.bonsDelivraisonliste);
+       
+     },
+     error: (error:HttpErrorResponse) => {
+       alert(error.message);
+
+      },
+     complete: () => console.info('get bons de livraisons by BC complete') 
+ }) 
+
+}
+  //recuperer le materiels livré du BL
+  public getMaterielslivrés(BL:BonDeLivraisonProjet):void{
+    this.bonLivraisonProjetService.getMaterielsBuBL(BL.bl_id).subscribe({
+     next: (response:Article[]) =>{
+       BL.listeMateriel =response;
+       console.log("get materiel du BL"+BL.codeBonLivraisonProj);
+       console.log(  BL.listeMateriel)
+      },
+     error: (error:HttpErrorResponse) => {
+       alert(error.message);
+
+      },
+    complete: () => console.info('get materiels by BL complete') 
+ }) 
+
+  }
+
+
+
+
+
 closeAlerts(){
   this.notificatideCreation=0
 this.echecCreationAttachement=0

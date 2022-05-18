@@ -68,6 +68,8 @@ import { AjouterBlmProjetComponent } from './BonLivraisonProjet/ajouter-blm-proj
 import { AjouterBLmaCComponent } from './BonLivraisonMC/ajouter-blma-c/ajouter-blma-c.component';
 import { DashboarsdMyCPMComponent } from './espaceMyCPM/dashboarsd-my-cpm/dashboarsd-my-cpm.component';
 import { DashboardsCPMComponent } from './espaceMyCPM/dashboards-cpm/dashboards-cpm.component';
+import { StatistiquesProjetsComponent } from './espaceMyCPM/statistiques-projets/statistiques-projets.component';
+import { StatistiquesMCsComponent } from './espaceMyCPM/statistiques-mcs/statistiques-mcs.component';
 
 
 
@@ -163,9 +165,12 @@ const routes: Routes = [
     { path:'consulterBonsdeLivraisonsdeMC',component:ConsulterMaterielsMCComponent},
     { path:'ajouterBLmP/:idBC/:idM',component:AjouterBlmProjetComponent},
     { path:'ajouterBLmMC/:idOT/:idM',component:AjouterBLmaCComponent},
-    { path:'ajouterBLmP/:idBC/:idM/ajouterBLmP/:idBC/:idM',component:AjouterBlmProjetComponent},
-    { path:'ajouterBLmMC/:idOT/:idM/ajouterBLmMC/:idOT/:idM',component:AjouterBLmaCComponent}
-
+   /* { path:'ajouterBLmP/:idBC/:idM/ajouterBLmP/:idBC/:idM',component:AjouterBlmProjetComponent},
+    { path:'ajouterBLmMC/:idOT/:idM/ajouterBLmMC/:idOT/:idM',component:AjouterBLmaCComponent},
+    */
+    { path:'statistiquesProjets',component:StatistiquesProjetsComponent},
+    { path:'statistiquesMCs',component:StatistiquesMCsComponent}
+    
   ]},
   
 

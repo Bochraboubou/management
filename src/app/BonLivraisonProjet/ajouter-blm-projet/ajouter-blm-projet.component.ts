@@ -230,7 +230,7 @@ this.blPService.getBLbyCode(addBLForm.value.codeBL).subscribe({
 
 }
 //chercher code article utulisee
-recherche2(){
+recherche2(addBL:NgForm){
   let res=""
   //let artUltulTab=new ArticleUtilisee()
   console.log(this.code)
@@ -243,18 +243,19 @@ recherche2(){
    if(res=="")
    {
     this.alertecodeArticle=1
+    addBL.reset()
+
   }
   else{
     this.listeMaterielLivree.forEach((curArticle) => {
       if(curArticle.code ==this.code) {
         this.modifiable=1
-        
-       // alert("modifiable")
+   
       }
     })}
 
 if(this.modifiable==1){
-  //alert("modifiable")
+
   this.alerteModification=1
   this.modifiable=0
 }
@@ -268,7 +269,7 @@ if(this.modifiable==1){
              this.article2.code=this.article.code
           this.article2.designation=this.article.designation
              this.article2.unitee=this.article.unitee
-            // this.article2.quantitee=artUltulTab.quantitee
+           
              
       },
       error: (error:HttpErrorResponse) => {

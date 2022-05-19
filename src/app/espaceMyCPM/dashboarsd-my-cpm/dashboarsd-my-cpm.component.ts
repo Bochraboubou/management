@@ -67,20 +67,21 @@ export class DashboarsdMyCPMComponent implements OnInit {
        let countMarchees :number[]=[];
        let couleursMetier :string[]=[];
        for (var obj of response) {
-        metiersdesMarchees.push(obj[0]);
-        countMarchees.push(obj[1]);
+        metiersdesMarchees.push(obj[0]);//nom
+        countMarchees.push(obj[1]);//qte
         couleursMetier.push(this.getRandomColor());
        }
         this.marcheeParMetierChart= new Chart('countMarcheeByMetier', {
           type: 'bar',
-          data: {
+          data: { 
             labels: metiersdesMarchees,
             datasets: [{
               label: 'nombre de marchés par métier',
               data: countMarchees,
               backgroundColor: 
               couleursMetier
-              , borderColor: [
+              , borderColor:
+               [
                 'rgb(255, 99, 132)',
               ],
               borderWidth: 1

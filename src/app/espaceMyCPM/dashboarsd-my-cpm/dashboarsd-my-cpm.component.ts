@@ -18,13 +18,11 @@ export class DashboarsdMyCPMComponent implements OnInit {
 
 
   nombreMarcheesChart:any;
+  countEntreprisesChart:any;
 
 
  
   username!: string;
-  listCountMarchees!: Array<any>;
-  metiersdesMarchees: string[] =[];
-  countMarchees: number[] =[];
   bochraData:number[]=[1,5,7,8,13,45];
   organisationConnectee!: Organisation;
   typesMarchee!: string[];
@@ -45,6 +43,7 @@ export class DashboarsdMyCPMComponent implements OnInit {
         console.log("organisation conectee"+this.organisationConnectee);
         this.countMarcheesparMetier();
         this.getNombreMarchees();
+        this.countEntreprises();
       },
       error: (error:HttpErrorResponse) => {
         alert(error.message);
@@ -54,26 +53,34 @@ export class DashboarsdMyCPMComponent implements OnInit {
   })
   }
 
+  getRandomColor() {
+    var color = Math.floor(0x1000000 * Math.random()).toString(16);
+    return '#' + ('000000' + color).slice(-6);
+  }
+
    //count marchees by metier
    public countMarcheesparMetier():void{
     this.marcheeService.countMarcheeByMetier(this.organisationConnectee.id).subscribe({
      next: (response:Array<any>) =>{
-       this.listCountMarchees=response;
-       console.log(" count marchees par metier "+this.listCountMarchees);
+       console.log(" count marchees par metier "+response);
+       let metiersdesMarchees :string[]=[];
+       let countMarchees :number[]=[];
+       let couleursMetier :string[]=[];
        for (var obj of response) {
-        this.metiersdesMarchees.push(obj[0]);
-        this.countMarchees.push(obj[1]);
+        metiersdesMarchees.push(obj[0]);
+        countMarchees.push(obj[1]);
+        couleursMetier.push(this.getRandomColor());
        }
         this.marcheeParMetierChart= new Chart('countMarcheeByMetier', {
           type: 'bar',
           data: {
-            labels: this.metiersdesMarchees,
+            labels: metiersdesMarchees,
             datasets: [{
               label: 'nombre de marchés par métier',
-              data: this.countMarchees,
-              backgroundColor: [
-               '#F8A893'
-              ], borderColor: [
+              data: countMarchees,
+              backgroundColor: 
+              couleursMetier
+              , borderColor: [
                 'rgb(255, 99, 132)',
               ],
               borderWidth: 1
@@ -81,7 +88,7 @@ export class DashboarsdMyCPMComponent implements OnInit {
     
           },
       })
-      console.log("metiers : "+this.metiersdesMarchees)
+      console.log("metiers : "+metiersdesMarchees)
        
      },
      error: (error:HttpErrorResponse) => {
@@ -97,7 +104,6 @@ export class DashboarsdMyCPMComponent implements OnInit {
  public getNombreMarchees(){
     this.marcheeService.countMarcheeByType(this.organisationConnectee.id).subscribe({
      next: (response:Array<any>) =>{
-      this.listCountMarchees=response;
       console.log(" count marchees par type "+response);
       let  typesMarchee:string[]=[];
       let nombreMarcheesParType:number[]=[];
@@ -120,7 +126,7 @@ export class DashboarsdMyCPMComponent implements OnInit {
             {
               label: 'nombre de marchés',
               data: nombreMarcheesParType,
-              backgroundColor:["#F53F1B","#1BBDF5"],
+              backgroundColor:[this.getRandomColor(),this.getRandomColor()],
             }
           ],
            
@@ -134,6 +140,53 @@ export class DashboarsdMyCPMComponent implements OnInit {
 
       },
     complete: () => console.info('count Projets complete') 
+ })  
+
+ }
+
+  //nombres de marchees de type projet et Marché cadre
+  public countEntreprises(){
+    this.organisationService.countEntreprises(this.organisationConnectee.id).subscribe({
+     next: (response:any[]) =>{
+      console.log(" count entreprises "+response);
+      let  nomEntreprises:string[]=[];
+      let countEntreprisesFournisseurs:number[]=[];
+      let colorsEntreprise:string[]=[];
+      
+      for (var obj of response) {
+       nomEntreprises.push(obj[0]);
+       countEntreprisesFournisseurs.push(obj[1]);
+       colorsEntreprise.push(this.getRandomColor());
+      }
+      this.countEntreprisesChart= new Chart('countEntreprises', {
+        type: 'doughnut',
+        options:{
+          responsive:true,
+         animation:{
+           animateScale:true,
+           animateRotate:true
+         },
+        },
+        data: {
+          labels: nomEntreprises,
+          datasets:  [
+            {
+              label: 'nombre des BC fournis par l entreprise',
+              data: countEntreprisesFournisseurs,
+              backgroundColor:colorsEntreprise,
+            }
+          ],
+           
+        },
+    });
+    
+       
+     },
+     error: (error:HttpErrorResponse) => {
+       alert(error.message);
+
+      },
+    complete: () => console.info('count entreprises complete') 
  })  
 
  }

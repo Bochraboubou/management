@@ -55,4 +55,10 @@ export class BondeCommandeService {
     {
       return this.http.get<BondeCommande>(`${this.apiServeUrl}/admin/bondeCommandesJoin/${bcId}`);
     }
+
+     //statistiques BCs
+   public getStatistiques(marcheeId:number): Observable<any[]>
+   {
+     return this.http.get<any[]>(`${this.apiServeUrl}/admin/statistiquesBCs/marchee/${marcheeId}`);
+   }
 }

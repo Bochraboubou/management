@@ -56,7 +56,7 @@ reste!:number
 codeArticleRealisee!:string
 attachement!:Attachement
 Qte!:number
-
+alerteFirstBeAttentionAttach=1
 
 notificatideCreation=0
 echecCreationAttachement=0
@@ -92,7 +92,8 @@ listeMaterielUtilisee:Article[]=[]
 listeMaterielRealisee:Article[]=[]
 modifiable=0
 alerteModification=0
-
+modifmat!:string
+supMateriel!:string
 constructor( private router:Router, public loginService:LoginService,private attachementService:AttachementService,
   private artService:ArticleService,
   private articleUtuliseeService:ArticleUtiliseeService,
@@ -280,19 +281,8 @@ sumDesArticles(){
  })
 }
 
- test(){
-  this.trouverArticlesUtilisee()
-  }
- 
 
-
-
-
-
-
-
-
-  verifier(){
+ verifier(){
 
      console.log("imprimer")
 
@@ -351,6 +341,7 @@ sumDesArticles(){
   onOpenDelateArticleModal(code:string):void{
   
     this.supArticle=code
+    console.log(code)
     for( let i=0;i<this.listeArticles.length;i++){
       if( this.listeArticles[i].code==code){
     const container=document.getElementById('container');
@@ -672,7 +663,7 @@ attachementMateriel.reset()
  }
 
 // similaire au somme des article 
- TotalDutilisation(){
+ SommUtilisationMateriel(){
   let somme=0
  this.attachementService.getAllAttachement().subscribe({
    next: (response:Attachement[]) => {
@@ -760,7 +751,9 @@ if(this.modifiable==1){
              this.article2.code=this.article.code
           this.article2.designation=this.article.designation
              this.article2.unitee=this.article.unitee
-             this.TotalDutilisation()
+             this.artID=this.article.id 
+             this.SommUtilisationMateriel()
+             console.log(this.sommeMat)
            
              
       },
@@ -805,10 +798,10 @@ addMateriel(addf:NgForm){
 
  onOpenDelateMaterielModal(code:string):void{
   
-  this.supArticle=code
-  for( let i=0;i<this.listeArticles.length;i++){
-    if( this.listeArticles[i].code==code){
-  const container=document.getElementById('container2');
+  this.supMateriel=code
+  for( let i=0;i<this.listeMaterielRealisee.length;i++){
+    if( this.listeMaterielRealisee[i].code==code){
+  const container=document.getElementById('container');
   const button=document.createElement('button');
   button.type='button';
   button.style.display='none';
@@ -821,11 +814,12 @@ addMateriel(addf:NgForm){
   }
 }
 SupprimerMateriel(){
-this.listeArticles.forEach((curArticle) => {
-  if(curArticle.code ==this.supArticle) {
-   let index= this.listeArticles.findIndex(curArticle=>curArticle.code==this.supArticle)
+  console.log("suuuuuuuuuuup")
+this.listeMaterielRealisee.forEach((curArticle) => {
+  if(curArticle.code ==this.supMateriel) {
+   let index= this.listeMaterielRealisee.findIndex(curArticle=>curArticle.code==this.supMateriel)
 console.log(index)
-this.listeArticles.splice(index,1);
+this.listeMaterielRealisee.splice(index,1);
 this.alertSuppression=1
   }
   
@@ -835,16 +829,17 @@ this.alertSuppression=1
 }
 
 updateMaterieleModal(code:string){
-this.ModifArticle=code
-console.log(this.ModifArticle)
-for( let i=0;i<this.listeArticles.length;i++){
-  if( this.listeArticles[i].code==code){
+  this.modifmat=code
+console.log(this.modifmat)
+for( let i=0;i<this.listeMaterielRealisee.length;i++){
+  if( this.listeMaterielRealisee[i].code==code){
+    
 const container=document.getElementById('container');
 const button=document.createElement('button');
 button.type='button';
 button.style.display='none';
 button.setAttribute('data-toggle','modal');
-button.setAttribute('data-target','#Modifier');
+button.setAttribute('data-target','#ModifierMateriel');
 container?.appendChild(button);
 button.click();
   }
@@ -854,16 +849,19 @@ button.click();
 ModifierMateriel(form:NgForm){
 this.modifArticleVar=form.value
 console.log(this.modifArticleVar)
-console.log(this.ModifArticle)
-this.listeArticles.forEach((curArticle) => {
-  if(curArticle.code ==this.ModifArticle) {
-   let index= this.listeArticles.findIndex(curArticle=>curArticle.code==this.ModifArticle)
+console.log(this.modifmat)
+this.listeMaterielRealisee.forEach((curArticle) => {
+  if(curArticle.code ==this.modifmat) {
+   let index= this.listeMaterielRealisee.findIndex(curArticle=>curArticle.code==this.modifmat)
    
    console.log(curArticle)
    curArticle.quantitee=this.modifArticleVar.quantitee
    this.alertModifierArticle=1
 console.log(index)
 }
+else(
+  alert("erreur de modification")
+)
   
 }
 );

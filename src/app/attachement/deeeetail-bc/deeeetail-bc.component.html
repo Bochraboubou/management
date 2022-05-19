@@ -7,8 +7,8 @@
 		<h5 style="font-family:Marker Felt, fantasy; font-size: 28px; color:#2919d9;position:center;"> <strong>
 				Ajouter attachement </strong> </h5>
 
-     <button (click)="test()">okk</button>
-		<div class="container">
+    
+		 <div class="container">
 			<!-- Title -->
 			<div class="d-flex justify-content-between align-items-center py-3">
 
@@ -70,6 +70,7 @@
 			</div>
 		</div>
 		
+</div>
 
 
 		<!---------------------------------------------->
@@ -255,10 +256,188 @@
 			<!--- END COL -->
 		</div>
 
+	
+
+<!------------------------------------------>
+
+	<div class="row" *ngIf="x==1">
+		<div class="col-lg-7">
+			<div class="contact">
+				<div class="alert alert-warning alert-dismissible fade show" role="alert"
+				*ngIf="alerteModification==1">
+				<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+				<strong>Attention !</strong>article ajouter , seulement la modification est accessible !.
+
+				<button type="button" (click)="closeAlerts()" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+				<div class="alert alert-success" role="alert" *ngIf="articleAjouter==1">
+					Article ajouter...
+					<button type="button" (click)="closeAlerts()" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="alert alert-warning alert-dismissible fade show" role="alert"
+					*ngIf="alertecodeArticle==1">
+					<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+					<strong>Attention !</strong> code article n'existe pas !.
+
+					<button type="button" (click)="closeAlerts()" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+
+				</div>
+				<div class="alert alert-warning alert-dismissible fade show" role="alert"
+					*ngIf="  this.alertAttachementExiste==1">
+					<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+					<strong>Attention !</strong> vous devez ajouter un attachement !.
+
+					<button type="button" (click)="closeAlerts()" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+
+				</div>
+				<div class="alert alert-danger" role="alert" *ngIf="alertAttachemnt==1">
+					vous devez crérer un attachement en premier!!..cliquer <a routerLink="mycpm/ajouterAttachement"
+						class="alert-link"> ICI</a>pour reconnecté
+				</div>
+				<!--addAraticleRealisee-->
+				<strong>Suivie de l'utilisation du materiéls  du BC :{{bondeCommande.codebc}}</strong>
+				<div><br></div>
+
+				<form #attachementMateriel="ngForm" (ngSubmit)="addMateriel(attachementMateriel)">
+
+					<div class="row gx-2 mb-2">
+						<div class="col-md-6">
+
+							<label>Code article:</label>
+							<input [(ngModel)]="code" name="code" class="form-control" id="code">
+
+						</div>
+						<div class="col-md-3">
+							<div class="single_address">
+								<i (click)="cherchermateriel(attachementMateriel)" class="fa fa-search" aria-hidden="true"></i>
+
+
+							</div>
+						</div>
+
+					</div>
+
+
+
+
+					<br>
+
+					<div class="row gx-3 mb-3">
+
+						<div class="col-md-6">
+
+							<label class="small mb-1" for="inputLastName">Désigniation</label>
+							<input [(ngModel)]="article2.designation" name="designation" id="designation"
+								class="form-control" readonly>
+
+						</div>
+
+						<div class="col-md-6">
+
+							<label class="small mb-1" for="inputLastName">Unité</label>
+							<input [(ngModel)]="article2.unitee" name="unitee" id="unitee" class="form-control"
+								readonly>
+
+						</div>
+
+					</div>
+
+					<div class="row gx-3 mb-3">
+
+						<div class="col-md-6">
+
+							<label class="small mb-1" for="inputLastName">Quantité réalisée durant les autres
+								attachements</label>
+							<input [(ngModel)]="sommeMat" name="sommeMat" id="sommeMat" type="number"
+								class="form-control" readonly>
+
+						</div>
+
+						<div class="col-md-6">
+
+							<label class="small mb-1" for="inputLastName">Quantité réalisée</label>
+							<input [(ngModel)]="Qte" name="Qte" id="Qte" type="number" class="form-control"
+								required>
+
+						</div>
+					</div>
+
+
+
+					<div class="col-md-12 text-center">
+						<button [disabled]="attachementMateriel.form.invalid" type="submit" name="submit"
+							id="submitButton" class="btn btn-contact-bg">Article suivant
+							<i class="fa fa-chevron-right"></i></button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!--- END COL -->
+		<div class="col-lg-5">
+
+
+			<div><button (click)="attachementNormaleONN(attachementMateriel)" type="button" class="btn btn-success">Attachement .....
+				</button>
+				<br>
+				<br>
+			</div>
+			<div class="single_address">
+				<i (click)="openListeMateriel()" class="fa fa-bars"></i>
+
+				<h4>Chercher Materiel</h4>
+
+
+			</div>
+
+			<div class="single_address">
+				<i (click)="openListeMaterielRealisee()" class="fa fa-list-ol" aria-hidden="true"></i>
+				<h4>Liste des materiaux utilisés</h4>
+
+
+			</div>
+
+			<div class="single_address">
+				<i (click)="onOpenAddAttachementModal()" class="fa fa-database" aria-hidden="true"></i>
+
+				<h4>Sauvegarder attachement</h4>
+			</div>
+			<!--(click)="openImprimerModal()"-->
+			<div class="single_address">
+				<!--(click)="imprimer(attachementId)" -->
+				<i (click)="verifier()" class="fa fa-print" aria-hidden="true"></i>
+
+				<h4>Imprimer attachement</h4>
+
+			</div>
+
+
+			<div>
+
+				<!--	<button  [useExistingCss]="true" class="fa fa-print" aria-hidden="true" printSectionId="mytodosItemsId" 
+			printTitle="Attachement journalier"  printSectionId="print-section" ngxPrint>Print</button>
+			-->
+
+
+
+			</div>
+
+		</div>
+		<!--- END COL -->
+	</div>
 
 </div>
-</div>
-
 	<!-- modal large -->
 	<div class="modal fade" id="getListeArticlesUtulisee" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
 		aria-hidden="true">
@@ -346,9 +525,21 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
+			
+					<div class="alert alert-warning alert-dismissible fade show" role="alert"
+					*ngIf="  this.alerteFirstBeAttentionAttach==1">
+					<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+					<strong>Attention !</strong>  l'enregistremen de l'attachement concerne les deux listes attachement BC et attachement matérielle !.
+
+					<button type="button" (click)="closeAlerts()" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+
+				</div>
 					<div class="alert alert-danger" *ngIf="echecCreationAttachement==1">
 						<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
-						<strong>Echec de creation</strong>
+						<strong>Echec de creation de l'attachement</strong>
 						<button (click)="closeAlerts()" type="button" class="close" data-dismiss="alert"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
@@ -426,7 +617,7 @@
 
 
 										<td>
-											<a (click)="updateArticleModal(c.code)" class="btn btn-primary">
+											<a (click)="updateArticleModal(c.code)" >
 												<i class="fa fa-bars" aria-hidden="true"></i>
 											</a>
 
@@ -715,6 +906,52 @@
 													</table>
 												</div>
 												<!-- end table -->
+
+
+
+                                       <tr>
+												liste des materiels 
+												
+														<table class="table table-striped">
+															<thead>
+																<tr>
+																	<th><span>Code-materiel</span></th>
+																	<th><span>Désignation</span></th>
+																	<th><span>Quantitée utilisés</span></th>
+									
+																	<th><span>Observation</span></th>
+									
+																</tr>
+									
+									
+															</thead>
+															<tbody>
+									
+																<tr *ngFor="let c of  listeMaterielRealisee">
+																	<td>
+									
+																		<span class="label label-default">{{c.code}}</span>
+																	</td>
+																	<td>
+																		<span class="label label-default">{{c.designation}}</span>
+																	</td>
+									
+									
+																	<td>
+																		<span class="label label-default">{{c.quantitee}}</span>
+																	</td>
+									
+									
+																	<td>
+														
+									
+																	</td>
+																</tr>
+									
+															</tbody>
+														</table>
+													
+											<!-------------->
 											</div>
 											<!-- end #profile-about tab -->
 										</div>
@@ -755,185 +992,7 @@
 <!----------------------------------------------------------->
 		<!-- deuxieme attaxhement :attachement materielle -->
 
-		<div class="container" id="container2">
-		<div class="row" *ngIf="x==1">
-			<div class="col-lg-7">
-				<div class="contact">
-					<div class="alert alert-warning alert-dismissible fade show" role="alert"
-					*ngIf="alerteModification==1">
-					<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
-					<strong>Attention !</strong>article ajouter , seulement la modification est accessible !.
 
-					<button type="button" (click)="closeAlerts()" class="close" data-dismiss="alert"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-					<div class="alert alert-success" role="alert" *ngIf="articleAjouter==1">
-						Article ajouter...
-						<button type="button" (click)="closeAlerts()" class="close" data-dismiss="alert"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="alert alert-warning alert-dismissible fade show" role="alert"
-						*ngIf="alertecodeArticle==1">
-						<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
-						<strong>Attention !</strong> code article n'existe pas !.
-
-						<button type="button" (click)="closeAlerts()" class="close" data-dismiss="alert"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-
-					</div>
-					<div class="alert alert-warning alert-dismissible fade show" role="alert"
-						*ngIf="  this.alertAttachementExiste==1">
-						<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
-						<strong>Attention !</strong> vous devez ajouter un attachement !.
-
-						<button type="button" (click)="closeAlerts()" class="close" data-dismiss="alert"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-
-					</div>
-					<div class="alert alert-danger" role="alert" *ngIf="alertAttachemnt==1">
-						vous devez crérer un attachement en premier!!..cliquer <a routerLink="mycpm/ajouterAttachement"
-							class="alert-link"> ICI</a>pour reconnecté
-					</div>
-					<!--addAraticleRealisee-->
-					<strong>Suivie de l'utilisation du materiéls  du BC :{{bondeCommande.codebc}}</strong>
-					<div><br></div>
-
-					<form #attachementMateriel="ngForm" (ngSubmit)="addMateriel(attachementMateriel)">
-
-						<div class="row gx-2 mb-2">
-							<div class="col-md-6">
-
-								<label>Code article:</label>
-								<input [(ngModel)]="code" name="code" class="form-control" id="code">
-
-							</div>
-							<div class="col-md-3">
-								<div class="single_address">
-									<i (click)="cherchermateriel(attachementMateriel)" class="fa fa-search" aria-hidden="true"></i>
-
-
-								</div>
-							</div>
-
-						</div>
-
-
-
-
-						<br>
-
-						<div class="row gx-3 mb-3">
-
-							<div class="col-md-6">
-
-								<label class="small mb-1" for="inputLastName">Désigniation</label>
-								<input [(ngModel)]="article2.designation" name="designation" id="designation"
-									class="form-control" readonly>
-
-							</div>
-
-							<div class="col-md-6">
-
-								<label class="small mb-1" for="inputLastName">Unité</label>
-								<input [(ngModel)]="article2.unitee" name="unitee" id="unitee" class="form-control"
-									readonly>
-
-							</div>
-
-						</div>
-
-						<div class="row gx-3 mb-3">
-
-							<div class="col-md-6">
-
-								<label class="small mb-1" for="inputLastName">Quantité réalisée durant les autres
-									attachements</label>
-								<input [(ngModel)]="sommeMat" name="sommeMat" id="sommeMat" type="number"
-									class="form-control" readonly>
-
-							</div>
-
-							<div class="col-md-6">
-
-								<label class="small mb-1" for="inputLastName">Quantité réalisée</label>
-								<input [(ngModel)]="Qte" name="Qte" id="Qte" type="number" class="form-control"
-									required>
-
-							</div>
-						</div>
-
-
-
-						<div class="col-md-12 text-center">
-							<button [disabled]="attachementMateriel.form.invalid" type="submit" name="submit"
-								id="submitButton" class="btn btn-contact-bg">Article suivant
-								<i class="fa fa-chevron-right"></i></button>
-						</div>
-					</form>
-				</div>
-			</div>
-			<!--- END COL -->
-			<div class="col-lg-5">
-
-
-				<div><button (click)="attachementNormaleONN(attachementMateriel)" type="button" class="btn btn-success">Attachement .....
-					</button>
-					<br>
-					<br>
-				</div>
-				<div class="single_address">
-					<i (click)="openListeMateriel()" class="fa fa-bars"></i>
-
-					<h4>Chercher Materiel</h4>
-
-
-				</div>
-
-				<div class="single_address">
-					<i (click)="openListeMaterielRealisee()" class="fa fa-list-ol" aria-hidden="true"></i>
-					<h4>Liste des materiaux utilisés</h4>
-
-
-				</div>
-
-				<div class="single_address">
-					<i (click)="onOpenAddAttachementModal()" class="fa fa-database" aria-hidden="true"></i>
-
-					<h4>Sauvegarder attachement</h4>
-				</div>
-				<!--(click)="openImprimerModal()"-->
-				<div class="single_address">
-					<!--(click)="imprimer(attachementId)" -->
-					<i (click)="verifier()" class="fa fa-print" aria-hidden="true"></i>
-
-					<h4>Imprimer attachement</h4>
-
-				</div>
-
-
-				<div>
-
-					<!--	<button  [useExistingCss]="true" class="fa fa-print" aria-hidden="true" printSectionId="mytodosItemsId" 
-				printTitle="Attachement journalier"  printSectionId="print-section" ngxPrint>Print</button>
-				-->
-
-
-
-				</div>
-
-			</div>
-			<!--- END COL -->
-		</div>
-
-	</div>
 
 
 
@@ -999,12 +1058,12 @@
 			</div>
 		</div>
 	</div>
-</div>
+ </div>
 
 <!-- materiel utilisee dans l'attachement -->
 
 <div class="modal fade" id="materielRealiseeDansAttach" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
-aria-hidden="true">
+   aria-hidden="true">
 <div class="modal-dialog modal-lg" role="document">
 	<div class="modal-content">
 		<div class="modal-header">
@@ -1047,11 +1106,11 @@ aria-hidden="true">
 
 
 								<td>
-									<a (click)="updateArticleModal(c.code)" class="btn btn-primary">
+									<a (click)="updateMaterieleModal(c.code)" >
 										<i class="fa fa-bars" aria-hidden="true"></i>
 									</a>
 
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--(click)="onOpenDelateMaterielModal(c.code)"-->
 									<a (click)="onOpenDelateMaterielModal(c.code)" class="btn btn-danger"
 										aria-label="Delete">
 										<i class="fa fa-trash-o" aria-hidden="true"></i>
@@ -1073,6 +1132,7 @@ aria-hidden="true">
 </div>
 </div>
 <!------------------------------>
+<!-------supprimer materielle modale -->
 <div id="supprimerMateriel" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -1103,7 +1163,7 @@ aria-hidden="true">
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Retour">
-					<input (click)="SupprimerArticle()" type="submit" class="btn btn-danger" value="Supprimer">
+					<input (click)="SupprimerMateriel()" type="submit" class="btn btn-danger" value="Supprimer">
 				</div>
 			</form>
 		</div>
@@ -1114,7 +1174,7 @@ aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 
-			<form #ModifForm="ngForm" (ngSubmit)="ModifierForm(ModifForm)">
+			<form #ModifForm="ngForm" (ngSubmit)="ModifierMateriel(ModifForm)">
 
 				<div class="modal-header">
 					<h4 class="modal-title">Modifier article </h4>
@@ -1143,7 +1203,7 @@ aria-hidden="true">
 						<div class="col-md-6">
 
 							<label class="small mb-1" for="inputLastName">code</label>
-							<input [(ngModel)]="ModifArticle" name="code" id="code" class="form-control">
+							<input [(ngModel)]="modifmat" name="code" id="code" class="form-control">
 
 						</div>
 

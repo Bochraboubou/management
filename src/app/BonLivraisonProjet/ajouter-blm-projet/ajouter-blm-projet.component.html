@@ -33,7 +33,7 @@
 										<h3 class="h6">Code bon de commande
 											:<strong>{{bondeCommande.codebc}}</strong><br></h3>
 										<h3 class="h6">Code métier :<strong>{{metier.nomMetier}}</strong><br></h3>
-<button (click)="okk()">okk</button>
+
 
 										<div *ngIf="boutonAjouter==0">
 											<button (click)="onOpenAddBLMoale()" type="button"
@@ -196,7 +196,7 @@
 
 							</div>
 							<div class="col-md-3">
-								<div (click)="recherche2()" class="single_address">
+								<div (click)="recherche2(addBL)" class="single_address">
 									<i class="fa fa-search" aria-hidden="true"></i>
 
 
@@ -527,27 +527,10 @@
 								class="form-control" id="delais" placeholder="delais" required>
 						</div>
 
-						<div>
-							<label for="delais">Montant</label>
-							<input type="number" [(ngModel)]="montantBL" name="montantBL" class="form-control"
-								id="montantBL" placeholder="montant" required>
-						</div>
+					
 
 						<br>
-						<!--
-                    <div *ngIf="alerteCodeInexistant" class="alert alert-danger alert-dismissible fade show" role="alert">
-                      <strong>Attention</strong> code entreprise introubable.
-                      <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
-                    </div>
-                    <div *ngIf="alertecodeBCexiste" class="alert alert-danger alert-dismissible fade show" role="alert">
-                      <strong>Attention</strong> le code du bon-de commande est deja utilisee
-                      <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
-                    </div>
-                    <div *ngIf="alerteDelaisBCs" class="alert alert-danger alert-dismissible fade show" role="alert">
-                      <strong>Attention</strong> le delai maximale des bon_de commandes est superieur au delais du marchee
-                      <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
-                    </div>
-                    -->
+			
 						<div class="modal-footer">
 							<button type="button" id="add-entrep-form" class="btn btn-secondary"
 								data-dismiss="modal">Fermer</button>

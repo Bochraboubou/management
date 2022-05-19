@@ -95,6 +95,8 @@ import { AjouterBLmaCComponent } from './BonLivraisonMC/ajouter-blma-c/ajouter-b
 import { AjouterBlmProjetComponent } from './BonLivraisonProjet/ajouter-blm-projet/ajouter-blm-projet.component';
 import { DashboarsdMyCPMComponent } from './espaceMyCPM/dashboarsd-my-cpm/dashboarsd-my-cpm.component';
 import { DashboardsCPMComponent } from './espaceMyCPM/dashboards-cpm/dashboards-cpm.component';
+import { StatistiquesProjetsComponent } from './espaceMyCPM/statistiques-projets/statistiques-projets.component';
+import { StatistiquesMCsComponent } from './espaceMyCPM/statistiques-mcs/statistiques-mcs.component';
 
 
 
@@ -200,6 +202,8 @@ AjouterBLmaCComponent,
 AjouterBlmProjetComponent,
 DashboarsdMyCPMComponent,
 DashboardsCPMComponent,
+StatistiquesProjetsComponent,
+StatistiquesMCsComponent,
 
 
 

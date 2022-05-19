@@ -76,4 +76,10 @@ export class OrganisationServiceService {
     return this.http.get<any[]>(`${this.apiServeUrl}/admin/entreprises/organisation/${orgId}`);
   }
   
+// get Organization and her employees
+public CountUsersOfOrg(): Observable<any[]>
+{
+  return this.http.get<any[]>(`${this.apiServeUrl}/admin/getOrgAndUsersCHART`);
+}
+
 }

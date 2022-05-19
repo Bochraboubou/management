@@ -45,4 +45,10 @@ export class DemandeService {
     return this.http.post(`${this.apiServeUrl}/api/demandenew`,formData);
   }
   
+  // récupérer la liste des demandes en attente 
+  DemandesEnAttente ():Observable<Demande[]>{
+    return this.http.get<Demande[]>(`${this.apiServeUrl}/api/DemandesEnAttente`);
+
+  }
+  
 }

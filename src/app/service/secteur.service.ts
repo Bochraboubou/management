@@ -48,6 +48,11 @@ export class SecteurService {
      return this.http.delete<void>(`${this.apiServeUrl}/admin/secteurs/${idSecteur}`);
    }
 
+// pour les statistique 
+// nombre des métiers dans chaque secteur 
 
-
+public CountMétierOfSecteur(): Observable<any[]>
+{
+  return this.http.get<any[]>(`${this.apiServeUrl}/admin/secteurParMetier`);
+}
 }

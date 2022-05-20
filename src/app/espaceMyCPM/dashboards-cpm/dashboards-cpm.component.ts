@@ -5,6 +5,7 @@ import { BonDeLivraisonProjet } from 'src/app/model/Bon_De_Livraison';
 import { Demande } from 'src/app/model/Demande';
 import { DemandeService } from 'src/app/service/demande.service';
 import { OrganisationServiceService } from 'src/app/service/organisation-service.service';
+import { SecteurService } from 'src/app/service/secteur.service';
 @Component({
   selector: 'app-dashboards-cpm',
   templateUrl: './dashboards-cpm.component.html',
@@ -12,11 +13,15 @@ import { OrganisationServiceService } from 'src/app/service/organisation-service
 })
 export class DashboardsCPMComponent implements OnInit {
 listeDemandes!:Demande[]
+totaleDemandes!:number
 OrgUserChart:any
-  constructor( private serviceDemande:DemandeService, private orgService:OrganisationServiceService) { }
+SecteurMetierChart:any
+  constructor( private secteurService:SecteurService,private serviceDemande:DemandeService, private orgService:OrganisationServiceService) { }
 
   ngOnInit(): void {
+    this.DemandesEnAttente()
     this.CountUsersOfOrg();
+   this. CountMétierofSecteur()
   }
 
   getRandomColor() {
@@ -71,7 +76,54 @@ CountUsersOfOrg(){
   
 
 }
+CountMétierofSecteur(){
+  this.secteurService.CountMétierOfSecteur().subscribe({
+    next: (response:any[]) =>{
+      console.log(" affichage du res"+response);
+      let NomSecteur:string[]=[];// nom des organisation
+      let countMetier :number[]=[];//numbre of  users
+      let couleursMetier :string[]=[];
+      for (var obj of response) {
+        console.log(obj)
+        NomSecteur.push(obj[0]);//nom
+        countMetier.push(obj[1]);//qte
+       couleursMetier.push(this.getRandomColor());
+      }
+       this.SecteurMetierChart= new Chart('countMetier', {
+         type: 'bar',
+         data: { 
+           labels: NomSecteur,
+           datasets: [{
+             label: 'nombre de métiers par secteur ',
+             data: countMetier,
+             backgroundColor: 
+             couleursMetier
+             , borderColor:
+              [
+               'rgb(255, 99, 132)',
+             ],
+             borderWidth: 1
+           }],
+   
+          },
+        })
+        console.log("organisations : "+NomSecteur)
+         
+ 
+   
+      },
+      error: (error:HttpErrorResponse) => {
+        console.log(error.message);
+        
+      
+       },
+      complete: () => console.info('complete')  
+    })
+ 
 
+  
+
+}
 
 
 
@@ -99,6 +151,7 @@ DemandesEnAttente(){
     next: (response:Demande[]) =>{
      this.listeDemandes=response
      console.log(this.listeDemandes)
+     this.totaleDemandes=this.listeDemandes.length
   
      },
      error: (error:HttpErrorResponse) => {

@@ -23,7 +23,7 @@ export class BonLivraisonMCService {
     //récuperer le materiel livré dans BL de MC
     public getMaterielsBuBL(blId:number): Observable<Article[]>
     {
-      return this.http.get<Article[]>(`${this.apiServeUrl}/admin/materielLivreeJoinMCbyOT/bl/${blId}`);
+      return this.http.get<Article[]>(`${this.apiServeUrl}/admin/materielLivreeJoinMCbyBL/bl/${blId}`);
     }
     public getBLMCbyCode(code:String): Observable<BonDeLivraisonMC>
     {

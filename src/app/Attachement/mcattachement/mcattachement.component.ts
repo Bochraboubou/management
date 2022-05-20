@@ -21,6 +21,7 @@ import { ArticleUtiliseeService } from 'src/app/service/article-utilisee.service
 import { ArticleService } from 'src/app/service/article.service';
 import { AttachementMCService } from 'src/app/service/attachement-mc.service';
 import { AttachementService } from 'src/app/service/attachement.service';
+import { BonLivraisonMCService } from 'src/app/service/bon-livraison-mc.service';
 import { BondeCommandeService } from 'src/app/service/bonde-commande.service';
 import { LoginService } from 'src/app/service/login.service';
 import { OrdreDeTraveauxService } from 'src/app/service/ordre-de-traveaux.service';
@@ -78,6 +79,7 @@ export class MCattachementComponent implements OnInit {
   organisation!:Organisation
   idOrgan!:number
   attachementMCliste!:AttachementMC[]
+  d=new Date()
   //liste des articles realisee mc
   listeArtRMC!:ArticleRealiseeMC[]
   artID!:number
@@ -85,6 +87,10 @@ export class MCattachementComponent implements OnInit {
   ordresDefinitives!:OrdreDefinitif[]
   //la somme a afficher
   sommeAff!:number
+  /**********Declaration attachement materielle ************** */
+  attachementNormale=1
+  x=0
+  materielDuBL!:Article[]
   constructor( private router:Router, public loginService:LoginService,private attachementService:AttachementService,
     private artService:ArticleService,
    private route:ActivatedRoute,
@@ -93,8 +99,10 @@ export class MCattachementComponent implements OnInit {
    private register:RegisterService,
    public organisationService:OrganisationServiceService,
    private ordreService:OrdreDeTraveauxService,
-   private attachementMCService:AttachementMCService
-   ) { }
+   private attachementMCService:AttachementMCService, 
+   private blMCService:BonLivraisonMCService
+  )
+    { }
   
   
     ngOnInit(): void {
@@ -103,7 +111,7 @@ export class MCattachementComponent implements OnInit {
       this.id=this.route.snapshot.params['id'];
       this.getOrdreDetraveauxById(this.id)
       this.findOrganisation(this.username)
-     
+      this.getMaterielBYBLMCid(this.id)
      
  
     
@@ -595,6 +603,52 @@ complete: () => console.info('complete')
     container?.appendChild(button);
     button.click();
   }
+
+/************************************************ */
+/************************Attachement materiels*********************** */
+/**************************************************** */
+getMaterielBYBLMCid(id:number){
+  this.blMCService.getMaterielsBuBL(id).subscribe({
+    next: (response:Article[]) => {
+      this. materielDuBL=response
+     alert("bien")
+      console.log(this.materielDuBL)
+   
+   },
+   error: (error:HttpErrorResponse) => {
+     console.log(error.message);
+     alert("erreur")
+    // alert("vous n'etes plus attaché a une organisation")
+    },
+   complete: () => console.info('materiel du BL MC ') 
+   })
+
+}
+attachemenMateriel( form:NgForm){
+  alert("Vous etes dans l'interface attachement materielle")
+  // afficher le div attachemnt normale 
+  this.attachementNormale=0
+// pour afficher div materielle 
+
+form.reset()
+
+}
+attachementNormaleONN(attachementMateriel:NgForm){
+  alert("Vous etes dans l'interface attachement normale  ")
+  // afficher le div attachemnt normale 
+  this.attachementNormale=1
+// pour afficher div materielle 
+
+attachementMateriel.reset()
+}
+
+recherche2Materiel(){
+
+}
+remplirTableauMateriel(form1:NgForm){
+
+}
+
   closeAlerts(){
     this.notificatideCreation=0
   this.echecCreationAttachement=0

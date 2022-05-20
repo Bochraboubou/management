@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Article } from 'src/app/model/Article';
 import { BonDeLivraisonMC } from 'src/app/model/Bon_De_livraisonMC';
 import { Metier } from 'src/app/model/Metier';
@@ -74,15 +75,21 @@ nouvelleInterface=0
 boutonValider=0
 transparent=0
 y=0
-  constructor(private register:RegisterService,public organisationService:OrganisationServiceService, public loginService:LoginService,private materielMCservice: MateriellivreeMCadreService,private blMCService :BonLivraisonMCService,private artService:ArticleService,private metierService:MetierService,private ordreDeTraveauService:OrdreDeTraveauxService, ) { }
+idOT!:number
+idM!:number
+  constructor(private activeRoute:ActivatedRoute,private register:RegisterService,public organisationService:OrganisationServiceService, public loginService:LoginService,private materielMCservice: MateriellivreeMCadreService,private blMCService :BonLivraisonMCService,private artService:ArticleService,private metierService:MetierService,private ordreDeTraveauService:OrdreDeTraveauxService, ) { }
 
   ngOnInit(): void {
     this.username=this.loginService.loggedUser
     this.findOrganisation(this.username)
-    let OTid=1 
-    let m_id=1
-    this.trouverOT(OTid)
-    this.getMetier(m_id);
+
+    this.idOT=this.activeRoute.snapshot.params['idOT'];
+    console.log(" l i de l' ot est "+this.idOT)
+    this.trouverOT(this.idOT)
+    this.idM=this.activeRoute.snapshot.params['idM'];
+    console.log(" l i de l' ot est "+this.idM)
+    this.getMetier( this.idM);
+
     this.SommeArticles()
   
 
@@ -109,6 +116,7 @@ y=0
      
       next: (response:Metier) => {
          this.metier=response
+         console.log(this.metier)
          this.getAllMaterielArticles(id);
      },
       error: (error:HttpErrorResponse) => {

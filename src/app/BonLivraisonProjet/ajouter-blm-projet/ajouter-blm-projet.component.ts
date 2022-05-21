@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -80,8 +81,10 @@ organisation=new Organisation()
 alertBLtExiste=0
 idBC!:number
 idM!:number
+DateBL:any
 bondeCommandeTransferer=new BondeCommande
-  constructor( private activeRoute:ActivatedRoute ,public loginService :LoginService,public  organisationService :OrganisationServiceService,private register:RegisterService,  private materielLivreeProjService:MateriellivreeProjetService, private blPService:BonLivraisonProjetService, private artService:ArticleService,private bonCommandeService:BondeCommandeService,  private metierService:MetierService) { }
+  constructor( private datePipe: DatePipe, private activeRoute:ActivatedRoute 
+    ,public loginService :LoginService,public  organisationService :OrganisationServiceService,private register:RegisterService,  private materielLivreeProjService:MateriellivreeProjetService, private blPService:BonLivraisonProjetService, private artService:ArticleService,private bonCommandeService:BondeCommandeService,  private metierService:MetierService) { }
 
   ngOnInit(): void {
 
@@ -99,7 +102,7 @@ console.log(this.idBC)
     this.SommeArticles()
     this.username=this.loginService.loggedUser
     this.findOrganisation(this.username)
-
+    this.DateBL= this.datePipe.transform(new Date(), 'dd/MM/yyyy');
   }
   okk(){
     console.log(this.idBC)

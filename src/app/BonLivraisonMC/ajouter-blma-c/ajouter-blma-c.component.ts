@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -77,7 +78,8 @@ transparent=0
 y=0
 idOT!:number
 idM!:number
-  constructor(private activeRoute:ActivatedRoute,private register:RegisterService,public organisationService:OrganisationServiceService, public loginService:LoginService,private materielMCservice: MateriellivreeMCadreService,private blMCService :BonLivraisonMCService,private artService:ArticleService,private metierService:MetierService,private ordreDeTraveauService:OrdreDeTraveauxService, ) { }
+DateBL:any
+  constructor(private datePipe: DatePipe,private activeRoute:ActivatedRoute,private register:RegisterService,public organisationService:OrganisationServiceService, public loginService:LoginService,private materielMCservice: MateriellivreeMCadreService,private blMCService :BonLivraisonMCService,private artService:ArticleService,private metierService:MetierService,private ordreDeTraveauService:OrdreDeTraveauxService, ) { }
 
   ngOnInit(): void {
     this.username=this.loginService.loggedUser
@@ -91,6 +93,7 @@ idM!:number
     this.getMetier( this.idM);
 
     this.SommeArticles()
+    this.DateBL= this.datePipe.transform(new Date(), 'dd/MM/yyyy');
   
 
   }

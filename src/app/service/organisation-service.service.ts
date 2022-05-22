@@ -81,5 +81,9 @@ public CountUsersOfOrg(): Observable<any[]>
 {
   return this.http.get<any[]>(`${this.apiServeUrl}/admin/getOrgAndUsersCHART`);
 }
-
+// trouver le nombre des marchee dans chaque organisation 
+public CountMarcheesOfOrg(): Observable<any[]>
+{
+  return this.http.get<any[]>(`${this.apiServeUrl}/admin/getOrgAndMarcheeCHART`);
+}
 }

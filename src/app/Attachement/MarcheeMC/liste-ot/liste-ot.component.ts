@@ -23,6 +23,7 @@ export class ListeOTComponent implements OnInit {
   article!:Article
   x=this.ordresDefinitives?.length
   terme:any;
+  terme2:any
   page:number= 1;
   totalLength:any;
   constructor( private articleService:ArticleService, private ordrDefService:OrdreDefinitifService,private router:Router,private ordreService:OrdreDeTraveauxService,private route:ActivatedRoute, private BCService:BondeCommandeService) { }
@@ -73,6 +74,9 @@ this.articleService.getArticlebyId(this.ordresDefinitives[i].id.article_id).subs
    this. article=response
  console.log (this.article.code)
  this.ordresDefinitives[i].code=this.article.code
+ this.ordresDefinitives[i].designiation=this.article.designation
+ this.ordresDefinitives[i].unitee=this.article.unitee
+ this.ordresDefinitives[i].quantiteeOrderee
 },
 error: (error:HttpErrorResponse) => {
   console.log(error.message);
@@ -90,7 +94,7 @@ complete: () => console.info('complete')
 })
   }
 
-  OpenModalListeORdreDeffinitive(id:number){
+  ListeORdreDeffinitiveModal(id:number){
     this.getListeOrdresDeffinitives(id)
     const container=document.getElementById('container');
     const button=document.createElement('button');
@@ -101,6 +105,8 @@ complete: () => console.info('complete')
     container?.appendChild(button);
     button.click();
   }
+ 
+
   versAttachemntMC(id:number){
     this.router.navigate(['mycpm/MCattachement',id])
   }

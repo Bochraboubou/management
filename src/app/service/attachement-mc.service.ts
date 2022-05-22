@@ -29,4 +29,9 @@ export class AttachementMCService {
  {
    return this.http.post<AttachementMC>(`${this.apiServeUrl}/admin/ordreTraveaux/${ordreTraveauxId}/attachementMC`,attachementMC);
  }
+ // get attachementMC by ot id 
+ public AttachementByOtId(idOt:number): Observable<AttachementMC[]>
+ {
+   return this.http.get<AttachementMC[]>(`${this.apiServeUrl}/admin/getAttachementMcByOT/${idOt}`);
+ }
 }

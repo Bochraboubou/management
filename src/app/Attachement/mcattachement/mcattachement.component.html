@@ -92,7 +92,16 @@
 	<div class="row"  *ngIf="attachementNormale==1">
 		<div class="col-lg-7">
 			<div class="contact">
-				
+				<div class="alert alert-warning alert-dismissible fade show" role="alert"
+				*ngIf="alerteModification==1">
+				<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+				<strong>Attention !</strong>article ajouter , seulement la modification est accessible !.
+
+				<button type="button" (click)="closeAlerts()" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
 				<div class="alert alert-success" role="alert" *ngIf="articleAjouter==1">
 				Article ajouter...
 					<button type="button"  (click)="closeAlerts()"class="close" data-dismiss="alert" aria-label="Close">
@@ -117,10 +126,10 @@
 					</button>
 
 				</div>
-				<div class="alert alert-danger" role="alert" *ngIf="alertAttachemnt==1">
+			<!--<div class="alert alert-danger" role="alert" *ngIf="alertAttachemnt==1">
 					vous devez crérer un attachement en premier!!..cliquer <a routerLink="mycpm/ajouterAttachement"
 						class="alert-link"> ICI</a>pour reconnecté
-				</div>
+				</div>-->	
 				<!--addAraticleRealisee-->
 				
 				<form #addattachement="ngForm" (ngSubmit)="remplirTableau(addattachement)">
@@ -200,8 +209,9 @@
 		<!--- END COL -->
 		<div class="col-lg-5">
 			
-			<div><button (click)="attachemenMateriel(addattachement)" type="button" class="btn btn-success" *ngIf="attachementNormale==1">Attachement
-				materiel</button>
+			<div><button (click)="attachemenMateriel(addattachement)" type="button" class="btn btn-success" *ngIf="attachementNormale==1">Créer attachement des articles materiels
+
+			</button>
 			<br>
 			<br>
 
@@ -275,6 +285,19 @@
 				</button>
 
 			</div>
+
+			<div class="alert alert-warning alert-dismissible fade show" role="alert"
+			*ngIf="alerteModification==1">
+			<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+			<strong>Attention !</strong>article ajouté , seulement la modification est accessible !.
+
+			<button type="button" (click)="closeAlerts()" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+             </div>
+
+
 			<div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="  this.alertAttachementExiste==1">
 				<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
 				<strong>Attention !</strong> vous devez ajouter un attachement !.
@@ -284,15 +307,15 @@
 				</button>
 
 			</div>
-			<div class="alert alert-danger" role="alert" *ngIf="alertAttachemnt==1">
+			<!--<div class="alert alert-danger" role="alert" *ngIf="alertAttachemnt==1">
 				vous devez crérer un attachement en premier!!..cliquer <a routerLink="mycpm/ajouterAttachement"
 					class="alert-link"> ICI</a>pour reconnecté
-			</div>
+			</div>-->
 			<!--addAraticleRealisee-->
 			<strong>Suivie de l'utilisation du materiéls  du OT :{{OrdreDeTraveau.codeOrdre}}</strong>
 				<div><br></div>
 			
-			<form #addattachement="ngForm" (ngSubmit)="remplirTableauMateriel(addattachement)">
+			<form #addattachement="ngForm" (ngSubmit)="addMateriel(addattachement)">
 
 				<div class="row gx-2 mb-2">
 					<div class="col-md-6">
@@ -303,7 +326,7 @@
 					</div>
 					<div class="col-md-3">
 						<div class="single_address">
-							<i (click)="recherche2Materiel()" class="fa fa-search" aria-hidden="true"></i>
+							<i (click)="recherche2Materiel(addattachement)" class="fa fa-search" aria-hidden="true"></i>
 
 
 						</div>
@@ -369,13 +392,13 @@
 	<!--- END COL -->
 	<div class="col-lg-5">
 		
-		<div><button (click)="attachementNormaleONN(addattachement)" type="button" class="btn btn-success" *ngIf="attachementNormale==0" >Attachement .....</button>
+		<div><button (click)="attachementNormaleONN(addattachement)" type="button" class="btn btn-success" *ngIf="attachementNormale==0" >Créer attachement des articles MF et prestation</button>
 		<br>
 		<br>
 
 	</div>
 		<div class="single_address">
-			<i (click)="onOpenListeArticleUtuliseeModal()" class="fa fa-bars"></i>
+			<i (click)="onOpenListeMaterieDansBL()" class="fa fa-bars"></i>
 
 			<h4>chercher materiel </h4>
 
@@ -383,7 +406,7 @@
 		</div>
 
 		<div class="single_address">
-			<i (click)="listedesArticlesRealiseeModal()" class="fa fa-list-ol" aria-hidden="true"></i>
+			<i (click)="MaterielsRealiseeModal()" class="fa fa-list-ol" aria-hidden="true"></i>
 			<h4>Liste des materiéls réalisée</h4>
 
 
@@ -410,24 +433,8 @@
 
 	</div>
 
-
-
-
-
-
-
-
  </div>
  <!--- END CONTAINER -->
-
- 
-
-
-
-
-
-
-
 
 <!-- modal large -->
 <div class="modal fade" id="getListeArticlesUtulisee" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
@@ -494,13 +501,13 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 
-			<form #addAttachement="ngForm" (ngSubmit)="ajouterAttachemet(addAttachement)">
+			<form #addAttachement="ngForm" (ngSubmit)="ajouterAttachement(addAttachement)">
 				<div class="modal-header">
 					<h4 class="modal-title">Enregistrer attachement </h4>
 
 				</div>
 				<div class="alert alert-success" role="alert" *ngIf="notificatideCreation==1">
-					Attachement enregistrer avec succée...
+					Attachement enregistré avec succée...
 					<button  (click)="closeAlerts()"type="button" class="close" data-dismiss="alert" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -962,46 +969,258 @@ le surveillant__________________________le chef de zone _________________l'entre
 		</div>
 	</div>
 </div>
+<!--------------------------------------------->
+<!-----Les tables de l'attachement materiels mc--------------->
+<!--------------------------------------------->
 
-
-<!------------------------------>
-
-
-<!------------------------------>
-
-
-
-
-
-<!--
-<div class="modal fade" id="attachementAlerte" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel"
-	aria-hidden="true" data-backdrop="static">
-	<div class="modal-dialog modal-sm" role="document">
+<!-- modal large -->
+<div class="modal fade" id="listMaterielRetournee" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="staticModalLabel">nouveau attachement</h5>
+				<h5 class="modal-title" id="largeModalLabel">Liste des materiels dans les Bons de livraison d l'OT :{{OrdreDeTraveau.codeOrdre}}</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
+			<div class="modal-body">
+				<div class="row">
+
+					<div class="col-md-12">
+						<div>
+							recherche
+							<input [(ngModel)]="terme" name="terme" type="search" data-toggle="modal" />
+						</div>
+
+						<br>
+						<table class="table table-striped">
+							<thead>
+								<tr class="table-title">
+									
+									<th><span>Id article</span></th>
+									<th><span>Code article  </span></th>
+									<th><span>Désigniation </span></th>
+									
+								</tr>
+
+
+							</thead>
+							<tbody>
+
+								<tr *ngFor="let c of listeFinaleArticle  | filter:terme | paginate : {
+									itemsPerPage:4,
+									currentPage:page,
+									totalItems:totalLength
+									}, let i=index">
+									<td>
+
+										<span class="label label-default">{{c.id}}</span>
+									</td>
+									<td>
+
+										<span class="label label-default">{{c.code}}</span>
+									</td>
 	
-		
-			<form >
-				<div class="modal-body">
-					<div class="alert alert-success" role="alert" *ngIf="notificatideCreation==1">
-						Attachement enregistrer avec sucée
-	
-					</div>
-					<div class="alert alert-danger" *ngIf="erreur==1">
-						<strong>echec d'enregistrement..</strong>
+
+									<td>
+										<span class="label label-default">{{c.designation}}</span>
+									</td>
+								
+								</tr>
+
+							</tbody>
+						</table>
+						<pagination-controls (pageChange)="page = $event" class="text-center entreprisePagination">
+						</pagination-controls>
 					</div>
 				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+<!--------------------------->
+
+
+<div class="modal fade" id="materielsRealisee" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="largeModalLabel">Liste des materiels réalisées</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<div>
+							recherche
+							<input [(ngModel)]="terme" name="terme" type="search" data-toggle="modal" />
+						</div>
+
+						<br>
+						<table class="table table-striped">
+							<thead>
+								<tr  class="table-title">
+									<th><span>Code-article</span></th>
+									<th><span>Désignation</span></th>
+									<th><span>Quantitée réalisée</span></th>
+
+									<th><span>Action</span></th>
+
+								</tr>
+
+
+							 </thead>
+							 <tbody>
+
+								<tr *ngFor="let c of listeMaterielRealisee  | filter:terme | paginate : {
+									itemsPerPage:4,
+									currentPage:page,
+									totalItems:totalLength
+									}, let i=index " >
+									<td>
+
+										<span class="label label-default">{{c.code}}</span>
+									</td>
+									<td>
+										<span class="label label-default">{{c.designation}}</span>
+									</td>
+
+
+									<td>
+										<span class="label label-default">{{c.quantitee}}</span>
+									</td>
+
+
+									<td>
+										<a (click)="updateMaterieleModal(c.code)" >
+											<i class="fa fa-bars" aria-hidden="true"></i>
+										</a>
+
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<a (click)="DelateMaterielModal(c.code)" class="btn btn-danger"
+											aria-label="Delete">
+											<i class="fa fa-trash-o" aria-hidden="true"></i>
+										</a>
+
+									</td>
+								</tr>
+
+							</tbody>
+						</table>
+						<pagination-controls (pageChange)="page = $event" class="text-center entreprisePagination">
+						</pagination-controls>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<!----------Supprimer materiel realisee -->
+
+<!------------------------------>
+<div id="supprimerMateriel" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<form>
+				<div class="modal-header">
+					<h4 class="modal-title">Suprimer article</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="alert alert-success" role="alert" *ngIf="alertSuppression==1">
+					Suppression avec succée...
+					<button  (click)="closeAlerts()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="alert alert-danger" *ngIf="echecSuppression==1">
+					<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+					<strong>Echec de suppression </strong>
+					<button  (click)="closeAlerts()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>Vous etes sure de supprimer cette article ?</p>
+
+				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
-				
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Retour">
+					<input (click)="SupprimerMateriel()" type="submit" class="btn btn-danger" value="Supprimer">
 				</div>
 			</form>
 		</div>
 	</div>
-</div>-->
-<!-- end modal static -->
+</div>
+<!--UPDATE  materiel realisee -->
+<div id="ModifierMateriel" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<form #ModifForm="ngForm" (ngSubmit)="ModifierMateriel(ModifForm)">
+
+				<div class="modal-header">
+					<h4 class="modal-title">Modifier article </h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="alert alert-success" role="alert" *ngIf="alertModifierArticle==1">
+					Modification avec succée...
+					<button  (click)="closeAlerts()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="alert alert-danger" *ngIf="echecModification==1">
+					<i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+					<strong>Echec de modification </strong>
+					<button  (click)="closeAlerts()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+
+					<div class="row gx-3 mb-3">
+
+						<div class="col-md-6">
+
+							<label class="small mb-1" for="inputLastName">code</label>
+							<input [(ngModel)]="modifmat" name="code" id="code" class="form-control">
+
+						</div>
+
+						<div class="col-md-6">
+
+							<label class="small mb-1" for="inputLastName">Quantité</label>
+							<input [(ngModel)]="modifArticleVar.quantitee" name="quantitee" id="quantitee"
+								class="form-control">
+
+						</div>
+
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Retour">
+					<input [disabled]="ModifForm.form.invalid" type="submit" class="btn btn-danger" value="Modifier">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+
+

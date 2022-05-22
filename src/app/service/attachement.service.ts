@@ -41,4 +41,11 @@ public getAllAttachement(): Observable<Attachement[]>
  {
    return this.http.get<Attachement[]>(`${this.apiServeUrl}/admin/allAttachement`);
  }
+
+ // find attachement by BC id
+ public AttachementByBCommande(id:number): Observable<Attachement[]>
+ {
+   return this.http.get<Attachement[]>(`${this.apiServeUrl}/admin/findByBCId/${id}`);
+ }
+
 }

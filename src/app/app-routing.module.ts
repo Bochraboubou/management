@@ -115,11 +115,8 @@ const routes: Routes = [
      {path:'metiers',component:GestionMetiersComponent},
     {path:'secteurs',component:SecteursComponent},
     { path:'userProfilecpm',component:UserProfileComponent},
+    { path:'dashbord',component:DashboardsCPMComponent},
     
-   
-
-   
-
 
   ]},
  
@@ -169,7 +166,8 @@ const routes: Routes = [
     { path:'ajouterBLmMC/:idOT/:idM/ajouterBLmMC/:idOT/:idM',component:AjouterBLmaCComponent},
     
     { path:'statistiquesProjets',component:StatistiquesProjetsComponent},
-    { path:'statistiquesMCs',component:StatistiquesMCsComponent}
+    { path:'statistiquesMCs',component:StatistiquesMCsComponent},
+   
     
   ]},
   

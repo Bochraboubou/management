@@ -5,7 +5,13 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a routerLink="dashbord"  class="logo d-flex align-items-center">
-        <img src="assets/menu/assets/img/logo.png" alt="">
+        <img src="assets/menu/assets/img/logo.png" alt="">idOrgan
+
+<!---<img src="{{this.organisationService.apiServeUrl+'/admin/ImgOrganisation/'+organisation.id}}"
+				style="height :100px;width:fil-content" alt=""
+					class="img-responsive" alt="img">-->
+
+
         <span  class="d-none d-lg-block">Espace CPM</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -177,10 +183,8 @@
             <h2>{{loginService.loggedUser}}</h2>
             <span class="d-none d-md-block dropdown-toggle ps-2"></span>
 
-            <span class="d-none d-md-block dropdown-toggle ps-2">{{this.loginService.loggedUser}}</span>
+      
 
-            <h2>{{loginService.loggedUser}}</h2>
-            <span class="d-none d-md-block dropdown-toggle ps-2"></span>
 
           </a><!-- End Profile Iamge Icon -->
 
@@ -342,17 +346,7 @@
         </a>
       </li><!-- End Profile Page Nav -->
 
-
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-contact.html">
-          <i class="bi bi-envelope"></i>
-          <span>Contact</span>
-        </a>
-      </li><!-- End Contact Page Nav -->
-
-      
-
-      
+     
 
     </ul>
 
@@ -399,3 +393,4 @@
 
 
 </div>
+

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -11,6 +12,7 @@ import { ArticleUtilisee } from 'src/app/model/ArticleUtilisee';
 import { Attachement } from 'src/app/model/Attachement';
 import { AttachementMC } from 'src/app/model/AttachementMC';
 import { BondeCommande } from 'src/app/model/BondeCommande';
+import { BonDeLivraisonMC } from 'src/app/model/Bon_De_livraisonMC';
 import { OrdreDefinitif } from 'src/app/model/OrdreDefinitif';
 import { OrdreDeTraveaux } from 'src/app/model/OrdreDeTraveaux';
 import { Organisation } from 'src/app/model/Organisation';
@@ -32,7 +34,8 @@ import { RegisterService } from 'src/app/service/register.service';
 @Component({
   selector: 'app-mcattachement',
   templateUrl: './mcattachement.component.html',
-  styleUrls: ['./mcattachement.component.css']
+  styleUrls: ['./mcattachement.component.css'],
+  providers: [DatePipe]
 })
 export class MCattachementComponent implements OnInit {
   id!:number
@@ -57,17 +60,17 @@ export class MCattachementComponent implements OnInit {
   attachement1=new AttachementMC()
   articleRealiseef!:ArticleRealisee
   articleRealisee=new ArticleRealisee()
-  articleRealiseeMCID=new ArticleRealiseeMCId()
+  
   attachementId!:number
   reste!:number
   codeArticleRealisee!:string
   attachement!:AttachementMC
   Qte!:number
   
-  articleRealiseeMCT=new ArticleRealiseeMC()
+ 
   notificatideCreation=0
   echecCreationAttachement=0
-  alertAttachemnt=0
+ 
   alertSuppression=0
   echecSuppression=0
   echecModification=0
@@ -79,7 +82,7 @@ export class MCattachementComponent implements OnInit {
   organisation!:Organisation
   idOrgan!:number
   attachementMCliste!:AttachementMC[]
-  d=new Date()
+  
   //liste des articles realisee mc
   listeArtRMC!:ArticleRealiseeMC[]
   artID!:number
@@ -91,6 +94,21 @@ export class MCattachementComponent implements OnInit {
   attachementNormale=1
   x=0
   materielDuBL!:Article[]
+  listeBonLivraison!:BonDeLivraisonMC[]
+  listeGlobalesMaterielle!:Article[]
+  materiels:Article[]=[]
+  listeFinaleArticle :Article[]=[]
+  terme:any;
+  page:number = 1;
+  totalLength:any;
+  modifiable=0
+  alerteModification=0
+  sommeMat=0
+  listeMaterielRealisee:Article[]=[]
+  supMateriel!:string
+  modifmat!:string
+  OTid!:number
+  d:any
   constructor( private router:Router, public loginService:LoginService,private attachementService:AttachementService,
     private artService:ArticleService,
    private route:ActivatedRoute,
@@ -100,7 +118,8 @@ export class MCattachementComponent implements OnInit {
    public organisationService:OrganisationServiceService,
    private ordreService:OrdreDeTraveauxService,
    private attachementMCService:AttachementMCService, 
-   private blMCService:BonLivraisonMCService
+   private blMCService:BonLivraisonMCService,
+   private datePipe: DatePipe
   )
     { }
   
@@ -111,8 +130,9 @@ export class MCattachementComponent implements OnInit {
       this.id=this.route.snapshot.params['id'];
       this.getOrdreDetraveauxById(this.id)
       this.findOrganisation(this.username)
-      this.getMaterielBYBLMCid(this.id)
-     
+     this.getMaterielBYBLMCid(this.id)
+    
+    this.d = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
  
     
      // this.trouverArticles()
@@ -131,6 +151,7 @@ getOrdreDetraveauxById(id:number){
     next: (response:OrdreDeTraveaux) => {
       this.OrdreDeTraveau=response
       console.log(this.OrdreDeTraveau.id)
+      this.OTid=this.OrdreDeTraveau.id
       this.getListeOrdresDeffinitives(this.OrdreDeTraveau.id)
      // this.findOrganisation(this.username);
 
@@ -143,9 +164,8 @@ getOrdreDetraveauxById(id:number){
   })
 }
 
-  //liste des ordes definitif
-
-  getListeOrdresDeffinitives(id:number){
+//liste des ordes definitif
+getListeOrdresDeffinitives(id:number){
     this.ordrDefService.getOTbyOTid(id).subscribe({
       next: (response:OrdreDefinitif[]) => {
         this.ordresDefinitives=response
@@ -173,10 +193,11 @@ getOrdreDetraveauxById(id:number){
      },
     complete: () => console.info('complete') 
     })
-      }
+    }
 
 //chercher code article utulisee
-recherche2(){
+recherche2()
+{
   let res=""
   let artUltulTab=new ArticleUtilisee()
   for (let i=0;i<this.ordresDefinitives.length;i++){
@@ -192,9 +213,22 @@ recherche2(){
   // un test sur res si elle est vide donc code n'existe pas snn oui existe 
   if(res==""){
     this.alertecodeArticle=1 
+  }
+  else{ 
+    this.listeArticles.forEach((curArticle) => {
+    if(curArticle.code==this.code) {
+      this.modifiable=1
+ }
+  })
+  if(this.modifiable==1){
+    this.alerteModification=1
+    this.modifiable=0
+
   }else{
-    console.log(" code existe")
+
   
+    
+    console.log(" code existe")
     this.codeArticleRealisee=this.code
     //pour remplir designiation et unitee
 this.artService.getArticlebyCode(this.code).subscribe({
@@ -206,14 +240,14 @@ this.artID=this.article.id
 //
 
 //remplir le champ  quantite realisee dans les autres attachement 
-this.sumDesArticles();
+this.sumDesArticles(this.OTid);
 //remplir les champ designiation et unitee
 this.article2.designation=this.article.designation
 this.article2.unitee=this.article.unitee
 this.article2.quantitee=artUltulTab.quantitee
 // ****
 //pour remplir  article realiseeId 
-this.articleRealiseeMCID.article_id=this.article.id
+//this.articleRealiseeMCID.article_id=this.article.id
 
 },
 error: (error:HttpErrorResponse) => {
@@ -224,12 +258,12 @@ this.alertecodeArticle=1
 complete: () => console.info('complete')  
 })
 
-}
+}}
 }
 
-  sumDesArticles(){
+  sumDesArticles(id:number){
      let somme=0
-    this.attachementMCService.getAllAttachementMC().subscribe({
+    this.attachementMCService.AttachementByOtId(id).subscribe({
       next: (response:AttachementMC[]) => {
         this.attachementMCliste=response
         console.log("liste attachement MC"+this.attachementMCliste )
@@ -408,10 +442,10 @@ complete: () => console.info('complete')
   }
   
   // partie attachement:
-  ajouterAttachemet(form:NgForm){
+  ajouterAttachement(form:NgForm){
   
     this.attachement1=form.value
-   // this.attachement1.BCid=this.id
+  
   
     
   console.log("le code de l'attachement est "+this.attachement1.codeAttachementMC)
@@ -453,39 +487,52 @@ complete: () => console.info('complete')
   },
   complete: () => console.info('complete') 
   })
-  
-  
-  
-  
-  }
-  
-  
-  
-  
-  
+
+ } 
   
   RemplirListeArticleRealisee(){
     console.log(this.listeArticles)
-  this.listeArticles.forEach((curArticle) => {
+     this.listeArticles.forEach((curArticle) => {
+       let articleRealiseeMCT=new ArticleRealiseeMC()
+       let articleRealiseeMCID=new ArticleRealiseeMCId()
   
-     // console.log(curArticle)
-      this.articleRealiseeMCID.article_id=curArticle.id;
-      this.articleRealiseeMCID.attachementMC_id=this.attachementId
-      this.articleRealiseeMCT.id=this.articleRealiseeMCID
-      //console.log(this.articleRealiseeMCID)
-      this.articleRealiseeMCT.quantiteeRealisee=curArticle.quantitee
-      console.log(this.articleRealiseeMCT)
+  
+       articleRealiseeMCID.article_id=curArticle.id;
+       articleRealiseeMCID.attachementMC_id=this.attachementId
+       articleRealiseeMCT.id=articleRealiseeMCID
+   
+       articleRealiseeMCT.quantiteeRealisee=curArticle.quantitee
+       console.log(articleRealiseeMCT)
     
-      this.listeArticlesRealiseeMC.push(this.articleRealiseeMCT)
-      this.articleRealiseeMCT=new ArticleRealiseeMC()
-      this.articleRealiseeMCID=new ArticleRealiseeMCId()
+       this.listeArticlesRealiseeMC.push(articleRealiseeMCT)
+      
     
   })
-  
+ this.adddToGlobalListe()
     console.log(this.listeArticlesRealiseeMC)
     console.log(this.listeArticlesRealiseeMC.length)
     this.AddListeArticesRtoBD();
    }
+
+
+   
+adddToGlobalListe(){
+  //ajouter materiel:
+this.listeMaterielRealisee.forEach((curArticle) => {
+ 
+  let materielRealisee=new ArticleRealiseeMC()
+ let MaterielRaliseeID=new ArticleRealiseeMCId() 
+ //remplir id
+ MaterielRaliseeID.article_id=curArticle.id;
+ MaterielRaliseeID.attachementMC_id=this.attachementId
+ // remplir l'article realisee
+ materielRealisee.id=MaterielRaliseeID
+ materielRealisee.quantiteeRealisee=curArticle.quantitee
+ this.listeArticlesRealiseeMC.push(materielRealisee)
+
+})
+
+}
   
   //Ajouter la liste des articles realisee a la base de donnée
   AddListeArticesRtoBD(){
@@ -510,29 +557,6 @@ complete: () => console.info('complete')
   }
   
   
-    
-  
-  //////juste
-  //liste des articles dans OT
-   /* trouverArticles(){
-
-
-      /*
-      this.articleUtuliseeService.getArticlesUtiliseesbyBC(this.id).subscribe({
-       next: (response:ArticleUtilisee[]) => {
-         this.articlesUtulisees=response;
-         for( let i=0;i<this.articlesUtulisees.length;i++){
-           this.trouvercode(this.articlesUtulisees[i]);
-         }
-         },
-           error: (error:HttpErrorResponse) => {
-             console.log(error.message);
-            // alert("vous n'etes plus attaché a une organisation")
-            },
-           complete: () => console.info('complete') 
-         })
-     }*/
-   
      trouvercode(artUtl:ArticleUtilisee){
        this.artService.getArticlebyId(artUtl.id.article_id).subscribe({
          next: (response:Article) => {
@@ -607,23 +631,79 @@ complete: () => console.info('complete')
 /************************************************ */
 /************************Attachement materiels*********************** */
 /**************************************************** */
-getMaterielBYBLMCid(id:number){
-  this.blMCService.getMaterielsBuBL(id).subscribe({
+ getMaterielBYBLMCid(id:number){
+
+ // 1)trouver la liste des bon de livraison dans cette OT
+ this.blMCService.getAllbonsdelivraisonsByotId(id).subscribe({
+  next: (response:BonDeLivraisonMC[]) => {
+    this. listeBonLivraison=response
+    for ( let i=0; i<this.listeBonLivraison.length;i++){
+     this. ListeMatByBLid(this.listeBonLivraison[i].id)
+    }
+
+   console.log("aaaaaaaaaaa")
+    console.log(this.listeBonLivraison)
+ 
+ },
+ error: (error:HttpErrorResponse) => {
+   console.log(error.message);
+   alert("erreur")
+ 
+  },
+ complete: () => console.info('materiel du BL MC ') 
+ })
+
+}
+
+ListeMatByBLid(id:number){
+ this.blMCService.getMaterielsBuBL(id).subscribe({
     next: (response:Article[]) => {
       this. materielDuBL=response
-     alert("bien")
-      console.log(this.materielDuBL)
+      for ( let i=0; i<this.materielDuBL.length;i++){
+        this.materiels.push(this.materielDuBL[i])
+      }
+      console.log("la liste retournee est"+this.materiels)
+     this.verifArticle( this.materiels)
+     console.log("la liste inale est "+this.listeFinaleArticle)
+     console.log(this.listeFinaleArticle)
+    
+  
    
-   },
+   
+  },
    error: (error:HttpErrorResponse) => {
      console.log(error.message);
      alert("erreur")
-    // alert("vous n'etes plus attaché a une organisation")
     },
    complete: () => console.info('materiel du BL MC ') 
    })
 
 }
+  verifArticle(listeArticles1:Article[]){
+    let existe=false
+    this.listeFinaleArticle
+    listeArticles1.forEach((curArticle) => {
+      let codeArticle =curArticle.code
+      this.listeFinaleArticle.forEach((currArtiiicle)=>{
+        if (currArtiiicle.code==codeArticle){
+            existe=true
+        }
+        else{
+          existe=false
+        }
+      })
+      // end first for each
+      if (existe==false ){
+        this.listeFinaleArticle.push(curArticle)
+      }
+
+    })
+console.log(this.listeFinaleArticle)
+
+}
+
+
+
 attachemenMateriel( form:NgForm){
   alert("Vous etes dans l'interface attachement materielle")
   // afficher le div attachemnt normale 
@@ -642,17 +722,194 @@ attachementNormaleONN(attachementMateriel:NgForm){
 attachementMateriel.reset()
 }
 
-recherche2Materiel(){
 
+recherche2Materiel(addForm:NgForm){
+
+ 
+  let res=""
+
+
+  for (let i=0;i<this.listeFinaleArticle.length;i++){
+  console.log(this.listeFinaleArticle[i].code)
+   if(this.listeFinaleArticle[i].code==this.code)   {
+    res=res+this.listeFinaleArticle[i].code
+   }
+   }
+   if(res=="")
+   {
+    this.alertecodeArticle=1
+    addForm.reset()
+
+  }
+  else{
+    this.listeMaterielRealisee.forEach((curArticle) => {
+      if(curArticle.code ==this.code) {
+        this.modifiable=1
+   
+      }
+    })}
+
+if(this.modifiable==1){
+
+  this.alerteModification=1
+  this.modifiable=0
 }
+ else{ 
+
+          this.artService.getArticlebyCode(this.code).subscribe({
+            next: (response:Article) =>{
+             this.article=response
+             console.log(this.article)
+             this.article2.id=this.article.id
+             this.article2.code=this.article.code
+          this.article2.designation=this.article.designation
+             this.article2.unitee=this.article.unitee
+             this.artID=this.article.id 
+             this.sumDesArticles(this.OTid)
+             console.log(this.sommeMat)
+           
+             
+      },
+      error: (error:HttpErrorResponse) => {
+        console.log(error.message);
+        this.alertecodeArticle=1
+       
+       },
+      complete: () => console.info('complete')  
+      })
+        
+    
+    }
+}
+// remplir le tableau par les materiel realiseee dans l 'attachement
+addMateriel(addf:NgForm){
+  // console.log(this.article2)
+   let article3=addf.value
+  
+ console.log(this.article2)
+ 
+ let articleSauvgarder=new Article()
+ articleSauvgarder.id=this.article2.id
+ articleSauvgarder.code=this.article2.code
+ articleSauvgarder.designation=article3.designation
+ articleSauvgarder.unitee=article3.unitee
+ articleSauvgarder.prix=article3.prix
+ articleSauvgarder.quantitee=this.Qte
+ console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+ console.log(articleSauvgarder)
+ 
+ this.listeMaterielRealisee.push(articleSauvgarder)
+ 
+ this.articleAjouter=1
+ addf.reset()
+
+ 
+ }
+
 remplirTableauMateriel(form1:NgForm){
 
 }
+// pour afficher la liste des materiel dans la liste des BL
+public onOpenListeMaterieDansBL():void{
+  const container=document.getElementById('container');
+  const button=document.createElement('button');
+  button.type='button';
+  button.style.display='none';
+  button.setAttribute('data-toggle','modal');
+  button.setAttribute('data-target','#listMaterielRetournee');
+  container?.appendChild(button);
+  button.click();
+}
+//materielsRealisee
+public MaterielsRealiseeModal():void{
+  const container=document.getElementById('container');
+  const button=document.createElement('button');
+  button.type='button';
+  button.style.display='none';
+  button.setAttribute('data-toggle','modal');
+  button.setAttribute('data-target','#materielsRealisee');
+  container?.appendChild(button);
+  button.click();
+}
+
+DelateMaterielModal(code:string):void{
+  
+  this.supMateriel=code
+  for( let i=0;i<this.listeMaterielRealisee.length;i++){
+    if( this.listeMaterielRealisee[i].code==code){
+  const container=document.getElementById('container');
+  const button=document.createElement('button');
+  button.type='button';
+  button.style.display='none';
+  button.setAttribute('data-toggle','modal');
+  button.setAttribute('data-target','#supprimerMateriel');
+  container?.appendChild(button);
+  button.click();
+    }
+    console.log("dans "+i+"n existe pas ")
+  }
+}
+SupprimerMateriel(){
+  console.log("suuuuuuuuuuup")
+this.listeMaterielRealisee.forEach((curArticle) => {
+  if(curArticle.code ==this.supMateriel) {
+   let index= this.listeMaterielRealisee.findIndex(curArticle=>curArticle.code==this.supMateriel)
+console.log(index)
+this.listeMaterielRealisee.splice(index,1);
+this.alertSuppression=1
+  }
+  
+}
+);
+
+}
+
+updateMaterieleModal(code:string){
+  this.modifmat=code
+console.log(this.modifmat)
+for( let i=0;i<this.listeMaterielRealisee.length;i++){
+  if( this.listeMaterielRealisee[i].code==code){
+    
+const container=document.getElementById('container');
+const button=document.createElement('button');
+button.type='button';
+button.style.display='none';
+button.setAttribute('data-toggle','modal');
+button.setAttribute('data-target','#ModifierMateriel');
+container?.appendChild(button);
+button.click();
+  }
+  console.log("dans "+i+"n existe pas ")
+}
+}
+ModifierMateriel(form:NgForm){
+this.modifArticleVar=form.value
+console.log(this.modifArticleVar)
+console.log(this.modifmat)
+this.listeMaterielRealisee.forEach((curArticle) => {
+  if(curArticle.code ==this.modifmat) {
+   let index= this.listeMaterielRealisee.findIndex(curArticle=>curArticle.code==this.modifmat)
+   
+   console.log(curArticle)
+   curArticle.quantitee=this.modifArticleVar.quantitee
+   this.alertModifierArticle=1
+console.log(index)
+}
+else(
+  alert("erreur de modification")
+)
+  
+}
+);
+}
+
+
+
 
   closeAlerts(){
     this.notificatideCreation=0
   this.echecCreationAttachement=0
-  this.alertAttachemnt=0
+  
   this.alertSuppression=0
   this.echecSuppression=0
   this.echecModification=0
@@ -661,5 +918,6 @@ remplirTableauMateriel(form1:NgForm){
     this.alertecodeArticle=0
     this.articleAjouter=0;
     this.alertAttachementExiste=0
+    this.alerteModification=0
   }
 }

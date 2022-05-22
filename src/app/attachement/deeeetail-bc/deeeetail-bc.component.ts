@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -82,7 +83,7 @@ sommeMat=0
 attachementNormale=1
 // pour afficher div materielle 
 x=0
-d=new Date()
+d:any
 ListebonsDelivraison!:BonDeLivraisonProjet[]
 BLstotalLength!:number
 
@@ -94,6 +95,7 @@ modifiable=0
 alerteModification=0
 modifmat!:string
 supMateriel!:string
+BCid!:number
 constructor( private router:Router, public loginService:LoginService,private attachementService:AttachementService,
   private artService:ArticleService,
   private articleUtuliseeService:ArticleUtiliseeService,
@@ -101,7 +103,8 @@ constructor( private router:Router, public loginService:LoginService,private att
   private BCService:BondeCommandeService
   ,private articleRealService:ArticleRealiseeService,private register:RegisterService,
  public organisationService:OrganisationServiceService
- ,private bondeLivraisonService:BonLivraisonProjetService) { }
+ ,private bondeLivraisonService:BonLivraisonProjetService,
+ private datePipe: DatePipe) { }
 
 
   ngOnInit(): void {
@@ -114,6 +117,7 @@ constructor( private router:Router, public loginService:LoginService,private att
 
     // trouver la liste des materiels livrés
     this.getBonsdeLivraison(this.id)
+    this.d = this.datePipe.transform(new Date(), 'dd/MM/yyyy');
   }
    
  //récupéreu la bon de commande 
@@ -122,6 +126,7 @@ getBondeCommande(id:number){
   this.BCService.getBCbyId(this.id).subscribe(
     data=>{
       this.bondeCommande=data;
+     this. BCid=this.bondeCommande.id
       console.log(this.bondeCommande)
      
     }
@@ -215,7 +220,7 @@ this.article=response
 this.artID=this.article.id       
 //
 //remplir le champ  quantite realisee dans les autres attachement 
-this.sumDesArticles();
+this.somDesArticles(this.BCid);
 //remplir les champ designiation et unitee
 this.article2.designation=this.article.designation
 this.article2.unitee=this.article.unitee
@@ -234,9 +239,9 @@ complete: () => console.info('complete')
   }
 }
 
-sumDesArticles(){
+somDesArticles(bcId:number){
   let somme=0
- this.attachementService.getAllAttachement().subscribe({
+ this.attachementService.AttachementByBCommande(bcId).subscribe({
    next: (response:Attachement[]) => {
      this.attachementliste=response
      console.log(this.attachementliste )
@@ -661,6 +666,7 @@ attachementMateriel.reset()
  })  
 
  }
+ /*
 
 // similaire au somme des article 
  SommUtilisationMateriel(){
@@ -696,7 +702,7 @@ attachementMateriel.reset()
 
 
 
-//end for
+
      })
       
        
@@ -708,7 +714,7 @@ attachementMateriel.reset()
     },
    complete: () => console.info('complete') 
  })
-}
+}*/
 
  // chercher le code du materiel
  cherchermateriel(addForm:NgForm){
@@ -752,7 +758,7 @@ if(this.modifiable==1){
           this.article2.designation=this.article.designation
              this.article2.unitee=this.article.unitee
              this.artID=this.article.id 
-             this.SommUtilisationMateriel()
+             this.somDesArticles(this.BCid);
              console.log(this.sommeMat)
            
              
@@ -803,9 +809,9 @@ addMateriel(addf:NgForm){
     if( this.listeMaterielRealisee[i].code==code){
   const container=document.getElementById('container');
   const button=document.createElement('button');
-  button.type='button';
-  button.style.display='none';
-  button.setAttribute('data-toggle','modal');
+  button.type='button' ;
+  button.style.display='none' ;
+  button.setAttribute('data-toggle','modal') ;
   button.setAttribute('data-target','#supprimerMateriel');
   container?.appendChild(button);
   button.click();

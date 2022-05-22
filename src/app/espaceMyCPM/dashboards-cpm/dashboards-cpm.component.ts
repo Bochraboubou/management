@@ -90,21 +90,23 @@ CountMétierofSecteur(){
        couleursMetier.push(this.getRandomColor());
       }
        this.SecteurMetierChart= new Chart('countMetier', {
-         type: 'bar',
-         data: { 
-           labels: NomSecteur,
-           datasets: [{
-             label: 'nombre de métiers par secteur ',
-             data: countMetier,
-             backgroundColor: 
-             couleursMetier
-             , borderColor:
-              [
-               'rgb(255, 99, 132)',
-             ],
-             borderWidth: 1
-           }],
-   
+        type: 'pie',
+    options:{
+      responsive:true,
+     animation:{
+       animateScale:true,
+       animateRotate:true
+     }
+    },
+    data: {
+      labels: NomSecteur,
+      datasets:  [
+        {
+          label: 'nombre des métiers par secteur ',
+          data: countMetier,
+          backgroundColor:[this.getRandomColor(),this.getRandomColor()],
+        }
+      ],
           },
         })
         console.log("organisations : "+NomSecteur)
@@ -123,7 +125,38 @@ CountMétierofSecteur(){
 
   
 
+/*
+    type: 'pie',
+    options:{
+      responsive:true,
+     animation:{
+       animateScale:true,
+       animateRotate:true
+     }
+    },
+    data: {
+      labels: NomSecteur,
+      datasets:  [
+        {
+          label: 'nombre des métiers par secteur ',
+          data: countMetier,
+          backgroundColor:[this.getRandomColor(),this.getRandomColor()],
+        }
+      ],
+       
+    },
+});
+
+   
+ },
+ error: (error:HttpErrorResponse) => {
+   alert(error.message);
+
+  },
+complete: () => console.info('count Projets complete') 
+}) */
 }
+
 
 
 

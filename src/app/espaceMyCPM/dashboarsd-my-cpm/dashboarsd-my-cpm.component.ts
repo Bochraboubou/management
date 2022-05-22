@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit,ViewChild } from '@angular/core';
 import Chart from 'chart.js/auto';
+import { Marchee } from 'src/app/model/Marchee';
 import { Organisation } from 'src/app/model/Organisation';
 import { LoginService } from 'src/app/service/login.service';
 import { MarcheeService } from 'src/app/service/marchee.service';
@@ -19,6 +20,7 @@ export class DashboarsdMyCPMComponent implements OnInit {
 
   nombreMarcheesChart:any;
   countEntreprisesChart:any;
+  montantsMarcheesChart:any;
 
 
  
@@ -44,6 +46,7 @@ export class DashboarsdMyCPMComponent implements OnInit {
         this.countMarcheesparMetier();
         this.getNombreMarchees();
         this.countEntreprises();
+        this.getMontantsMarchees();
       },
       error: (error:HttpErrorResponse) => {
         alert(error.message);
@@ -191,6 +194,49 @@ export class DashboarsdMyCPMComponent implements OnInit {
  })  
 
  }
+
+    //count marchees by metier
+    public getMontantsMarchees():void{
+      this.marcheeService.getMarcheesbyorganisationId(this.organisationConnectee.id).subscribe({
+       next: (response:Marchee[]) =>{
+         console.log(" marchees et leurs metiers "+response);
+         let designationsMarchees :string[]=response.map((marchee:Marchee) => marchee.code);
+         let montantsMarchees :number[]=response.map((marchee:Marchee) => marchee.montant);
+         let couleursMetier :string[]=[];
+
+         for (var obj of response) {
+          couleursMetier.push(this.getRandomColor());
+         }
+          this.montantsMarcheesChart= new Chart('montantsDesMarchees', {
+            type: 'bar',
+            data: { 
+              labels: designationsMarchees,
+              datasets: [{
+                label: 'montant du marché',
+                data: montantsMarchees,
+                backgroundColor: 
+                couleursMetier
+                , borderColor:
+                 [
+                  'rgb(255, 99, 132)',
+                ],
+                borderWidth: 1
+              }],
+      
+            },
+        })
+        console.log("designations marchees : "+designationsMarchees)
+         
+       },
+       error: (error:HttpErrorResponse) => {
+         alert(error.message);
+  
+        },
+       complete: () => console.info('count marchees complete') 
+   })  
+  
+   }
+   
 
   
   

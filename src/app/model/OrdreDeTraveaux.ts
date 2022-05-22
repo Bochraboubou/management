@@ -7,7 +7,7 @@ export class OrdreDeTraveaux{
     dateOrdre!: Date;
     dateDebutOrdre!: Date;
     delais!: number;
-    montant:number | undefined;
+    montant!: number;
     listeArticles:Article[]=[];
     listOrdreDefinitif:OrdreDefinitif[]=[];
 

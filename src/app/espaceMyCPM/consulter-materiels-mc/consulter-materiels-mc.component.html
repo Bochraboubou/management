@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col-md-4">
             <div>
-                <h2 style="font-family: Comic Sans MS; color: midnightblue;">Tou dabord choisissez le code du marché</h2>
+                <h2 style="font-family: Comic Sans MS; color: midnightblue;">Choisir le code du marché</h2>
                 <select ngModel (ngModelChange)="getMarcheeChoisis($event)" name="marchee" id="marchee" class="form-select" placeholder="code du marché" aria-label="Default select example" required #marchee="ngModel"  [class.is-invalid]="marchee.invalid && marchee.touched">
                   <option selected value="" >choisir le code du marché</option>-->
                   <option   *ngFor="let marchee of marchees let i=index"
@@ -17,19 +17,10 @@
                 </select>
             </div>
 
-            <div>
-              <h2 style="font-family: Comic Sans MS; color: midnightblue;">choisissez le code du bon de commande</h2>
-              <select ngModel (ngModelChange)="getBondeCommandeChoisis($event)" name="bondeCommande" id="bondeCommande" class="form-select" placeholder="code Bon de Commande" aria-label="Default select example" required #bondeCommande="ngModel"  [class.is-invalid]="bondeCommande.invalid && bondeCommande.touched">
-                <option selected value="">choisir le code du bon de Commande</option>-->
-                <option   *ngFor="let bc of bonsdeCommandes let i=index"
-                [value]="i">
-                {{bc.codebc}}
-              </option>
-              </select>
-          </div>
+          
 
           <div>
-            <h2 style="font-family: Comic Sans MS; color: midnightblue;">choisissez le code de l'ordre de traveaux</h2>
+            <h2 style="font-family: Comic Sans MS; color: midnightblue;">Choisir le code de l'OT</h2>
             <select ngModel (ngModelChange)="getOrdreTraveauxChoisis($event)" name="ordredeTraveaux" id="" class="form-select" placeholder="code OT" aria-label="Default select example" required #ordredeTraveaux="ngModel"  [class.is-invalid]="ordredeTraveaux.invalid && ordredeTraveaux.touched">
               <option selected value="">choisir le code de l'ordre de traveaux</option>-->
               <option   *ngFor="let ot of ordresDeTraveaux let i=index"
@@ -40,10 +31,18 @@
         </div>
                
         </div>
+
         <div class="col-md-4">
-          <h2 style="font-family: Comic Sans MS; color: midnightblue;">chercher un BL</h2>
-          <input type="search" [(ngModel)]="searchBL" class="form-control" id="searchBL" name="searchBL"  placeholder="rechercher un BL">
-        </div>
+          <h2 style="font-family: Comic Sans MS; color: midnightblue;">Choisir le code du BC</h2>
+          <select ngModel (ngModelChange)="getBondeCommandeChoisis($event)" name="bondeCommande" id="bondeCommande" class="form-select" placeholder="code Bon de Commande" aria-label="Default select example" required #bondeCommande="ngModel"  [class.is-invalid]="bondeCommande.invalid && bondeCommande.touched">
+            <option selected value="">choisir le code du bon de Commande</option>-->
+            <option   *ngFor="let bc of bonsdeCommandes let i=index"
+            [value]="i">
+            {{bc.codebc}}
+          </option>
+          </select>
+      </div>
+      
 
         <div *ngIf="ordredeTraveaux.dirty" class="col-md-4">
           <button type="button" class="btn btn-primary" style="background-color:midnightblue; border-radius: 12px;" routerLink="/mycpm/ajouterBLmMC/{{ordreDeTraveauxC?.id}}/{{metierC?.id}}">Ajouter un bon de livraison <i class="fa fa-plus" aria-hidden="true"></i></button>
@@ -57,8 +56,12 @@
     <br>
 
    
-        <h2  *ngIf="bonsDelivraison?.length!=0" style="font-family: Comic Sans MS; color: midnightblue;">Liste  des bons de livraisns pour la  BC de code "{{bondeCommandeC?.codebc}}"</h2>
-        <div *ngIf="bonsDelivraison?.length==0"><h2>Aucun bon de livraison pour la BC de code "{{bondeCommandeC.codebc}}"</h2></div>
+        <h2  *ngIf="ordredeTraveaux.dirty" style="font-family: Comic Sans MS; color: midnightblue;">Liste  des bons de livraisns pour l'OT de code "{{ordreDeTraveauxC?.codeOrdre}}"</h2>
+        <div class="col-md-4" style="width: 200px; margin-left: 300px;" *ngIf="ordredeTraveaux.dirty">
+          <input type="search" [(ngModel)]="searchBL" class="form-control" id="searchBL" name="searchBL"  placeholder="rechercher un BL">
+        </div>
+        <br>
+        <div *ngIf="bonsDelivraison?.length==0"><h2>Aucun bon de livraison pour l'OT de code "{{ordreDeTraveauxC.codeOrdre}}"</h2></div>
        <div *ngFor="let bl of bonsDelivraison | filter:searchBL | paginate : {
         itemsPerPage:4,
         currentPage:BLpage,
@@ -118,7 +121,7 @@
          </div>
         </div>
       </div>
-      <pagination-controls (pageChange)="BLpage = $event" class="text-center pagination"></pagination-controls>
+      <pagination-controls *ngIf="ordredeTraveaux.dirty" (pageChange)="BLpage = $event" class="text-center pagination"></pagination-controls>
     
        </div>
 

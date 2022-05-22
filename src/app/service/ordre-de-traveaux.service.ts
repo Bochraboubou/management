@@ -49,6 +49,21 @@ export class OrdreDeTraveauxService {
    {
      return this.http.get<OrdreDeTraveaux[]>(`${this.apiServeUrl}/admin/bc/${bcID}/ots`);
    }
+
+   
+   //récuperer les ots par marcheeId
+   public getOTsByMarcheeId(marcheeId:number): Observable<OrdreDeTraveaux[]>
+   {
+     return this.http.get<OrdreDeTraveaux[]>(`${this.apiServeUrl}/admin/marchee/${marcheeId}/ots`);
+   }
+
+
+   
+     //statistiques OTs
+     public getStatistiquesOTs(marcheeId:number): Observable<any[]>
+     {
+       return this.http.get<any[]>(`${this.apiServeUrl}/admin/statistiquesOTs/marchee/${marcheeId}`);
+     }
  
 
 }

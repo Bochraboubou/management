@@ -6,7 +6,7 @@
     </div>
       <div class="row">
         <div class="col-md-4">
-                <h2 style="font-family: Comic Sans MS; color: midnightblue;">Tou dabord choisissez le code du marché</h2>
+                <h2 style="font-family: Comic Sans MS; color: midnightblue;">Choisir le code du marché</h2>
                 <select ngModel (ngModelChange)="getMarcheeChoisis($event)" name="marchee" id="marchee" class="form-select" placeholder="code du marché" aria-label="Default select example" required #marchee="ngModel"  [class.is-invalid]="marchee.invalid && marchee.touched">
                   <option selected value="" >choisir le code du marché</option>-->
                   <option   *ngFor="let marchee of marchees let i=index"

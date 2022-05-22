@@ -82,7 +82,10 @@ this.articleService.getArticlebyId(this.ordresDefinitives[i].id.article_id).subs
   next: (response:Article) => {
    this. article=response
  console.log (this.article.code)
- this.ordresDefinitives[i].code=this.article.code
+ this.ordresDefinitives[i].code=this.article.code  
+ this.ordresDefinitives[i].designiation=this.article.designation
+ this.ordresDefinitives[i].unitee=this.article.unitee
+ 
 },
 error: (error:HttpErrorResponse) => {
   console.log(error.message);

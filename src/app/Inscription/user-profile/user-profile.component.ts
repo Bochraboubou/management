@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Organisation } from 'src/app/model/Organisation';
 import { Role } from 'src/app/model/Role';
 import { User } from 'src/app/model/User';
@@ -19,7 +20,7 @@ username!:string
 user=new User()
 roles!:Role[]
 organisation!:Organisation
-  constructor(private organisationservice:OrganisationServiceService, private roleService:RoleService,public Service:UserService,private registerServ:RegisterService,public loginService:LoginService) { }
+  constructor( private router :Router,private organisationservice:OrganisationServiceService, private roleService:RoleService,public Service:UserService,private registerServ:RegisterService,public loginService:LoginService) { }
 
   ngOnInit(): void {
     this.username=this.loginService.loggedUser
@@ -74,7 +75,9 @@ public onGetCodeOrganisation(){
 }) 
 }   
 
-
+onAfficheDetailUser(id:number){
+  this.router.navigate(['userDetail',id])
+}
 
 } 
       

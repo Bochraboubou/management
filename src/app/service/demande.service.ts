@@ -50,5 +50,11 @@ export class DemandeService {
     return this.http.get<Demande[]>(`${this.apiServeUrl}/api/DemandesEnAttente`);
 
   }
+
+  // récupérer la liste des demandes en attente 
+  DemandesApprouvee ():Observable<Demande[]>{
+    return this.http.get<Demande[]>(`${this.apiServeUrl}/api/DemandesApprouvee`);
+
+  }
   
 }

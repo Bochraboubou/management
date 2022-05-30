@@ -70,6 +70,7 @@ import { DashboarsdMyCPMComponent } from './espaceMyCPM/dashboarsd-my-cpm/dashbo
 import { DashboardsCPMComponent } from './espaceMyCPM/dashboards-cpm/dashboards-cpm.component';
 import { StatistiquesProjetsComponent } from './espaceMyCPM/statistiques-projets/statistiques-projets.component';
 import { StatistiquesMCsComponent } from './espaceMyCPM/statistiques-mcs/statistiques-mcs.component';
+import { InviterEntrepriseComponent } from './sectionOrganisation/inviter-entreprise/inviter-entreprise.component';
 
 
 
@@ -94,7 +95,7 @@ const routes: Routes = [
   {path:'mycpm/inscritEmployee',component:FirstInscriptionComponent},
   { path:'DetailOrg/:id',component:DetailOrganisationComponent},
   { path:'imprimerAttachement/:id',component:ImprimerAttachementComponent},
-
+  { path:'inviterEntreprise',component:InviterEntrepriseComponent},
 //cette page contient la nouvelle page login
   //{ path:'',component:ImprimerAttachementComponent},
 

@@ -97,6 +97,7 @@ import { DashboarsdMyCPMComponent } from './espaceMyCPM/dashboarsd-my-cpm/dashbo
 import { DashboardsCPMComponent } from './espaceMyCPM/dashboards-cpm/dashboards-cpm.component';
 import { StatistiquesProjetsComponent } from './espaceMyCPM/statistiques-projets/statistiques-projets.component';
 import { StatistiquesMCsComponent } from './espaceMyCPM/statistiques-mcs/statistiques-mcs.component';
+import { InviterEntrepriseComponent } from './sectionOrganisation/inviter-entreprise/inviter-entreprise.component';
 
 
 
@@ -204,6 +205,7 @@ DashboarsdMyCPMComponent,
 DashboardsCPMComponent,
 StatistiquesProjetsComponent,
 StatistiquesMCsComponent,
+InviterEntrepriseComponent,
 
 
 

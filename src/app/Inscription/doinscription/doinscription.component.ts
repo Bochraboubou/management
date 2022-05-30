@@ -52,7 +52,10 @@ userFile:any;
  alertRegionLongue=0
  alrtTelOrg=0
 public imagePath:any;
+userFile1:any
+imgURL1:any
   constructor(private register:RegisterService,private serviceProspect:ProspectService, private orgService:OrganisationServiceService,private _servicedemande:DemandeService, private secteurService:SecteurService) { }
+
 
   ngOnInit(): void {
     this.getSecteurs();
@@ -61,7 +64,6 @@ public imagePath:any;
 closeAlerte(){
   this.alertOrganisation=0
   this.alertcodeOrgExiste=0
-  
   this.alertNomOrg=0
   this.demandeAlerte=0
   this.alertUser=0;
@@ -211,6 +213,7 @@ this.Gess(addForm);
     const demande=addForm.value;
     formData.append('demande',JSON.stringify(demande));
     formData.append('file',this.userFile)
+    formData.append('file',this.userFile1)
     if((demande.nom=="CPMGROUP")&&(demande.code=="CPMGROUP")){
       this.organisation.nom=this.demande.nom;
       this.organisation.code=this.demande.code;
@@ -348,6 +351,7 @@ saveNewOrganisation(organisation:Organisation){
   )
       }
 
+
 onSelectFile(event:any){
   if (event.target.files.length>0){
     const file=event.target.files[0];
@@ -366,6 +370,25 @@ onSelectFile(event:any){
     }
   }
    }
+
+   onSelectFile1(event:any){
+    if (event.target.files.length>0){
+      const file=event.target.files[1];
+      this.userFile1=file;
+      //this.f['profile'].setValue(file);
+      var mimeType =event.target.files[1].type;
+      if(mimeType.match(/image\/*/)==null){
+   this.message="Only images are suported.";
+   return;
+      }
+      var reader= new FileReader();
+      this.imagePath=file;
+      reader.readAsDataURL(file);
+      reader.onload=(_event)=>{
+        this.imgURL1=reader.result;
+      }
+    }
+     }
    
 
 /*public onAddDemande(addForm: NgForm): void {

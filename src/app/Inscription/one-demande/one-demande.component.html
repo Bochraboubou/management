@@ -1,6 +1,6 @@
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<div class="container">
+<div class="container" id="main-container">
     <div class="view-account">
         <section class="module">
         	<div class="module-inner">
@@ -15,6 +15,7 @@
         					</li>
                             <label class="label label-info">Email</label>
         					<h3>{{demande.email}}</h3>
+							
         					<!--((((((((((((((((importnat))))))))))))))))
                                 <li class="activity">Last logged in: Today at 2:18pm</li>-->
                                 <label class="label label-info">Secteur:</label>
@@ -22,8 +23,13 @@
         				</ul>
         			</div>
                     <div class="form-group">
+						<button  (click)="onOpeAfficheModal()" type="button" class="btn btn-warning">
+							Afficher document officielle 
+						   <!-- <i class="fa fa-chevron-right"></i>--->
+							</button>
                         <div class="col-sm-5 col-sm-offset-3">
-                            <label class="col-sm-3 control-label">document:</label>
+                            
+						
                             
                         </div>
                        </div>
@@ -81,7 +87,8 @@
         						</div>
         						
         					</div>
-        					<hr>
+        					
+							<hr>
                             <div class="action-btn">
                                 <button  (click)="onAfficheDetailWorning(demande.id)"type="button" class="btn btn-warning btn-lg" *ngIf="demande.demandeStatus==false">
                                     Envoyer un email de vérification
@@ -111,4 +118,21 @@
         </section>
     </div>
 </div>
+      <!-- afficher document officielle -->
+      <div class="modal fade" id="affDocument" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLongTitle">Document officiel </h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <img src="{{this.demandeService.apiServeUrl+'/api/Documentdemande/'+demande.id}}"
+                                style="height :200px;width: fil-content" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
 

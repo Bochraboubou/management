@@ -71,7 +71,9 @@ export class EntreprisesComponent implements OnInit {
      
 
 
-         
+          onOpeAfficheModal(){
+            
+          }     
 
         
           

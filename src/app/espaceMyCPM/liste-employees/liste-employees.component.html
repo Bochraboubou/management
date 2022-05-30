@@ -1,5 +1,5 @@
 
-<div class="container" id="container">
+<div class="container" id="main-container">
 
 <div class="table-responsive">
       <div class="table-wrapper">
@@ -86,12 +86,12 @@
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           </div>
           <div class="modal-body">					
-            <p>Vous etes sure de supprimer cette employée ??</p>
+            <p>Vous êtes sure de supprimer cet employé ?</p>
             <p class="text-warning"><small>	Cette action ne peut pas être annulée..</small></p>
           </div>
           <div class="modal-footer">
-            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-            <input  (click)="supprimer(user.id)" type="submit" class="btn btn-danger" value="Delete">
+            <input type="button" class="btn btn-default" data-dismiss="modal" value="Retour">
+            <input  (click)="supprimer()" type="submit" class="btn btn-danger" value="Supprimer ">
           </div>
         </form>
       </div>
@@ -103,16 +103,16 @@
       <div class="modal-content">
         <form>
           <div class="modal-header">						
-            <h4 class="modal-title">Supprimer tout les Employee</h4>
+            <h4 class="modal-title">Supprimer tous  les employés</h4>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           </div>
           <div class="modal-body">					
-            <p>Vous etes sure de supprimer tous les  employees ??</p>
+            <p>Vous etes sure de supprimer tous les  employés ??</p>
             <p class="text-warning"><small>	Cette action ne peut pas être annulée..</small></p>
           </div>
           <div class="modal-footer">
-            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-            <input type="submit" class="btn btn-danger" value="Delete">
+            <input type="button" class="btn btn-default" data-dismiss="modal" value="Retour">
+            <input  (click)="SupprimerTous()"   type="submit" class="btn btn-danger" value="Supprimer touts">
           </div>
         </form>
       </div>

@@ -232,8 +232,7 @@ public onOpenDeleteModal(id:number):void{
     complete: () => console.info('complete') 
    
   })
- 
-    
+   
 }
 public onOpenDeleteAllModal():void{
   const container=document.getElementById('main-container');

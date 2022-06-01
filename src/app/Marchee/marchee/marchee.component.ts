@@ -215,13 +215,15 @@ export class MarcheeComponent implements OnInit {
 
   // ajouter une bonde commande
   public addBC(addBCForm:NgForm):void{
-    if(!this.validerDelaiBC(addBCForm.value.delais,this.newMarchee)){
-      this.alerteDelaisBCs=true;
-    }
     if(this.testExistCodeBC(this.codeNewBC,this.newMarchee.listeBondeCommandes)){
       this.alertecodeBCexiste=true;
 
     }
+
+    else if(!this.validerDelaiBC(addBCForm.value.delais,this.newMarchee)){
+      this.alerteDelaisBCs=true;
+    }
+   
    
     if(this.validerDelaiBC(addBCForm.value.delais,this.newMarchee)&&!this.testExistCodeBC(this.codeNewBC,this.newMarchee.listeBondeCommandes)){
       this.organService.getOrganisationbyCode(this.codeEntreprise).subscribe({
@@ -313,9 +315,16 @@ export class MarcheeComponent implements OnInit {
       next: (response:Article) =>{
         this.newArticle=response;
         console.log("new article"+response);
-        //(<HTMLInputElement>document.getElementById("designation")).value=response.designation;
+        if(this.testExistArticleBC(code,this.newMarchee.listeBondeCommandes[this.indiceBC].listeArticles)){
+            //(<HTMLInputElement>document.getElementById("designation")).value=response.designation;
         (<HTMLInputElement>document.getElementById("unitee")).value=response.unitee;
         (<HTMLInputElement>document.getElementById("designationArtc")).value=response.designation;
+        
+        }else{
+          this.alerteArticleExisteDeja=true;
+    
+        }
+      
        
 
 
@@ -337,20 +346,15 @@ export class MarcheeComponent implements OnInit {
     newArt.id=this.newArticle.id;
     newArt.designation=this.newArticle.designation;
     newArt.unitee=this.newArticle.unitee;
-    if(this.testExistArticleBC(newArt,this.newMarchee.listeBondeCommandes[this.indiceBC].listeArticles)){
-      this.newMarchee.listeBondeCommandes[this.indiceBC].listeArticles.push(newArt);
+    this.newMarchee.listeBondeCommandes[this.indiceBC].listeArticles.push(newArt);
       // this.newMarchee.listeBondeCommandes[this.indiceBC].montant += (newArt.prix*newArt.quantitee);
-       addArticleForm.reset();
-    }else{
-      this.alerteArticleExisteDeja=true;
-
-    }
+     addArticleForm.reset();
   }
 
   //tester si l'article est deja ajoutee dans la bondeCommande
-  public testExistArticleBC(article:Article,listeArticles:Article[]):boolean{
+  public testExistArticleBC(codeArt:string,listeArticles:Article[]):boolean{
     for (let i = 0; i < listeArticles?.length; i++){
-      if(article?.code == listeArticles[i]?.code){
+      if(codeArt== listeArticles[i]?.code){
         return false;
       }
     }

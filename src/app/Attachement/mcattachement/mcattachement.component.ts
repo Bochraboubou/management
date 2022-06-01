@@ -168,7 +168,7 @@ getOrdreDetraveauxById(id:number){
 getListeOrdresDeffinitives(id:number){
     this.ordrDefService.getOTbyOTid(id).subscribe({
       next: (response:OrdreDefinitif[]) => {
-        this.ordresDefinitives=response
+        this.ordresDefinitives = response
         console.log(this.ordresDefinitives)
         for(let i=0;i<this.ordresDefinitives.length;i++){
           console.log(this.ordresDefinitives[i].id.article_id)

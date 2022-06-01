@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Organisation } from 'src/app/model/Organisation';
 import { User } from 'src/app/model/User';
 import { LoginService } from 'src/app/service/login.service';
@@ -19,7 +20,8 @@ export class ListeEmployeesComponent implements OnInit {
   terme:any;
   page:number = 1;
   totalLength:any;
-  constructor(public  service:UserService,public loginService:LoginService,private orgService:OrganisationServiceService) { }
+  idUser!:number
+  constructor( private router :Router,public  service:UserService,public loginService:LoginService,private orgService:OrganisationServiceService) { }
 
   ngOnInit(): void {
    
@@ -78,17 +80,91 @@ getOrg(){
 
 }
 
-supprimer(id:number){
 
-}
 onOpenDetailModal(id:number){
+  this.router.navigate(['userDetail',id])
+}
 
-}
-onOpenDeleteModal(id:number){
-  
-}
+
 onOpenDeleteAllModal()
 {
 
+      const container=document.getElementById('main-container');
+      const button=document.createElement('button');
+      button.type='button';
+      button.style.display='none';
+      button.setAttribute('data-toggle','modal');
+      button.setAttribute('data-target','#deleteAllEmployeeModal');
+      container?.appendChild(button);
+      button.click();
+      
+  
+
 }
+
+
+public onOpenDeleteModal(id:number):void{
+  this.service.getUserById(id).subscribe({
+    next: (response:User) => {
+     this.user=response;
+      this.idUser=this.user.id
+      const container=document.getElementById('main-container');
+      const button=document.createElement('button');
+      button.type='button';
+      button.style.display='none';
+      button.setAttribute('data-toggle','modal');
+      button.setAttribute('data-target','#delete');
+      container?.appendChild(button);
+      button.click();
+      
+    },
+    error: (error:HttpErrorResponse) => {
+      alert(error.message);
+     },
+    complete: () => console.info('complete') 
+   
+  })
+   
+}
+
+
+supprimer(){
+ let id =this.idUser
+ this.service.DeleteUser(id).subscribe({
+    next: (response:void) => {
+    console.log("suuuuup")
+    this.getEmployeesOfOrg()
+    },
+    error: (error:HttpErrorResponse) => {
+      
+      alert("nnnnn")
+     },
+    complete: () => console.info('complete') 
+   
+  })
+  
+
+}
+
+
+SupprimerTous(){
+let x= this.userAff.length
+if ( x==null){
+alert(" deja liste vide ")
+}
+
+this.service.DeleteOrg_users(this.organisation.id).subscribe({
+    next: (response:void) => {
+      console.log("tous les element sont supprimé")
+      this.getEmployeesOfOrg()
+      alert("suppression avec succé")
+      },
+      error: (error:HttpErrorResponse) => {
+       
+        alert("supprimer tous invalide")
+       },
+      complete: () => console.info('complete') 
+  })
+}
+
   }

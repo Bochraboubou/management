@@ -47,4 +47,8 @@ findUsersORG():Observable<any>{
     return this.http.get<any>(`${this.apiServeUrl}/api/allusersBYQuery`);
 
 }
+// Supprimer tous les employés d'une organisation
+DeleteOrg_users(idOrg:number):Observable<void>{
+  return this.http.delete<void>(`${this.apiServeUrl}/api/DeleteAllOrg_User/${idOrg}`);
+}
 }

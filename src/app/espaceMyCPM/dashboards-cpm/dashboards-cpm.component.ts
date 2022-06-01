@@ -3,6 +3,7 @@ import { Component, OnInit ,ViewChild} from '@angular/core';
 import Chart from 'chart.js/auto';
 import { BonDeLivraisonProjet } from 'src/app/model/Bon_De_Livraison';
 import { Demande } from 'src/app/model/Demande';
+import { Organisation } from 'src/app/model/Organisation';
 import { DemandeService } from 'src/app/service/demande.service';
 import { OrganisationServiceService } from 'src/app/service/organisation-service.service';
 import { SecteurService } from 'src/app/service/secteur.service';
@@ -13,17 +14,21 @@ import { SecteurService } from 'src/app/service/secteur.service';
 })
 export class DashboardsCPMComponent implements OnInit {
 listeDemandes!:Demande[]
+ListDemandesApprouvee!:Demande[]
 totaleDemandes!:number
+nbOrg!:number
 OrgUserChart:any
 SecteurMetierChart:any
 OrgMarcheeChart:any
-  constructor( private secteurService:SecteurService,private serviceDemande:DemandeService, private orgService:OrganisationServiceService) { }
+organisations!:Organisation[]
+  constructor( private organisationservice:OrganisationServiceService, private secteurService:SecteurService,private serviceDemande:DemandeService, private orgService:OrganisationServiceService) { }
 
   ngOnInit(): void {
     this.DemandesEnAttente()
     this.CountUsersOfOrg();
    this. CountMétierofSecteur()
    this.MarcheeVsOrganisation()
+   
   }
 
   DemandesEnAttente(){
@@ -43,6 +48,22 @@ OrgMarcheeChart:any
      })
   
   }
+
+  getOrganisations(){
+    this.organisationservice.getOrganisations().subscribe({
+      next: (response:Organisation[]) => {
+        this.organisations=response;
+        this.nbOrg=this.organisations.length
+       console.log("il y des org")
+      },
+      error: (error:HttpErrorResponse) => {
+        alert(error.message);
+       },
+      complete: () => console.info('complete') 
+  })
+    
+  }
+
   getRandomColor() {
     var color = Math.floor(0x1000000 * Math.random()).toString(16);
     return '#' + ('000000' + color).slice(-6);
@@ -123,7 +144,7 @@ CountMétierofSecteur(){
         {
           label: 'nombre des métiers par secteur ',
           data: countMetier,
-          backgroundColor:[this.getRandomColor(),this.getRandomColor()],
+          backgroundColor:[this.getRandomColor(),this.getRandomColor(),this.getRandomColor()],
         }
       ],
           },

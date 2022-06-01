@@ -611,7 +611,13 @@
                         </div>
                     </div>
                     <div>
-
+                        <br>
+                        <div class="form-group">
+                            <label> document</label>
+                            <input [(ngModel)]="demande.documentpath" type="file" name="documentpath" id="documentpath"
+                                accept="image/*" (change)="onSelectFile1($event)" required>
+                            <img [src]="imgURL1"  height="200">
+                        </div>
 
                         <br>
                         <div class="form-group">
@@ -621,7 +627,7 @@
                             <img [src]="imgURL" height="200" *ngIf="imgURL">
                         </div>
 
-
+                      
                     </div>
 
                     <!--

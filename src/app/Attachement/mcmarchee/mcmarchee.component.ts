@@ -168,8 +168,8 @@ OpenModalListeOT(id:number){
 versListeOT(id:number){
   this.router.navigate(['mycpm/listeOT',id])
 }
-
+/*
 more(id:number){
   this.router.navigate(['mycpm/detailBC',id])
-}
+}*/
 }

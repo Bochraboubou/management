@@ -133,7 +133,7 @@ closeAlerte(){
               let size5=ch5.length
 
               if(size5!=8){
-              this.  alertTelAdmin=1
+              this.alertTelAdmin=1
 
               }
               // controle info organisation 
@@ -177,6 +177,15 @@ closeAlerte(){
                            if (size9!=8)
                            {
                              this.alrtTelOrg=1
+                           }
+                           else{
+                             //adresse organisation
+                            let ch10=""+demande.adresse_org
+                            let size10=ch10.length
+                             if(size10>50 ||(size10<5)){
+                               alert("adresse org invalide")
+                             }
+                             
                            }
                           }
                         }

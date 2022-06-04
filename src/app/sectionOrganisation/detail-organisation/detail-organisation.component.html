@@ -1,6 +1,6 @@
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<div class="container">
+<div class="container" id="main-container">
     <div class="view-account">
         <section class="module">
         	<div class="module-inner">
@@ -10,16 +10,19 @@
                         style="height :100px;width:fil-content"  alt="">
         			
         			</div>
-                    
-        			
+                     
+        			<button  (click)="onOpeAfficheModal()" type="button" class="btn btn-warning">
+						Afficher document officielle 
+					
+						</button>
         		</div>
         		
         		<div class="content-panel">
-        			<h1 >Detail organisation</h1>
+        			
                     <br><div><br></div>
                     <br><div><br></div>
 
-                    <h2>info organisation :</h2>
+					<h1 >Détail organisation</h1>
                     <div class="address">
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Nom</label>
@@ -34,13 +37,13 @@
                                 <input  ngModel="{{organisation.email}}" name="emailAdmin" id="emailAdmin" type="text" class="form-control" readonly>
                             </div>
                             <div class="col-sm-4">
-                                <label class="col-sm-3 control-label">tel</label>
+                                <label class="col-sm-3 control-label">tél</label>
                                 <input ngModel="{{organisation.tel}}" name="tel" id="tel" type="text" class="form-control" readonly>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <div class="col-sm-5 col-sm-offset-3">
+                           <div class="col-sm-5 col-sm-offset-3">
                                 <label class="col-sm-3 control-label">Document</label>
                                 <input  ngModel="{{organisation.document}}" name="emailAdmin" id="emailAdmin" type="text" class="form-control" readonly>
                             </div>
@@ -52,7 +55,7 @@
                         </div>
 
 
-                    <h2>info directeur generale </h2>
+                    <h2>info directeur général </h2>
         			<div class="billing">
         			
         				<form #infoForm="ngForm"  id="billing" class="form-horizontal" method="post" action="#" role="form">
@@ -122,3 +125,20 @@
         </section>
     </div>
 </div>
+  <!-- afficher document officielle -->
+  <div class="modal fade" id="affDocument" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h3 class="modal-title" id="exampleModalLongTitle">Document officiel </h3>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+			<img src="{{this.service.apiServeUrl+'/api/Documentdemande/'+organisation.id}}"
+							style="height :200px;width: fil-content" alt="">
+		</div>
+	  </div>
+	</div>
+  </div>

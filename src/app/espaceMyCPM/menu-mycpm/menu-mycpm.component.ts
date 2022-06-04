@@ -36,13 +36,13 @@ username!:string
     private route:ActivatedRoute,
     public loginService:LoginService,
     public Service:UserService,
-    private OrganisationService:OrganisationServiceService,
+    public  OrganisationService:OrganisationServiceService,
     private register:RegisterService, private router:Router) { }
 
   ngOnInit(): void {
 
     this.username=this.loginService.loggedUser
-this.register.findByUserName(this.username).subscribe(
+ this.register.findByUserName(this.username).subscribe(
   data=>{
     this.user=data;
     this.OrganisationService.getOrganisationbyUser(this.user.id).subscribe({
@@ -62,13 +62,29 @@ this.register.findByUserName(this.username).subscribe(
 
 
   }
-)
+  )
+  this.getOrganisation()
   }
+
   onAfficheDetailOrganisation(id:number){
     this.router.navigate(['DetailOrg',id])
   }
 
- 
+  getOrganisation(){
+    this.OrganisationService.getOrganisationbyUser(this.user.id).subscribe({
+      next: (response:Organisation) => {
+        this.organisation=response;
+        console.log("organisation"+response);
+        this.idOrganisation=this.organisation.id;
+      
+      },
+      error: (error:HttpErrorResponse) => {
+        console.log(error.message);
+       // alert("vous n'etes plus attaché a une organisation")
+       },
+      complete: () => console.info('complete') 
+    })
+  }
     
   }
 
@@ -86,31 +102,11 @@ this.userServi.getUserById(this.id).subscribe(
     console.log( "logged user is "+this.loginService.loggedUser);
 
 }
+*/
 
 
-  info(){
-    this.OrganisationService.getOrganisationbyUser(this.user.id).subscribe({
-      next: (response:Organisation) => {
-        this.organisation=response;
-        console.log("organisation"+response);
-        this.idOrganisation=this.organisation.id;
-        console.log(this.idOrganisation)
-        alert("vous etes attache a "+this.organisation.nom)
-        alert("l 'id de l'organisation est "+this.organisation.id)
-        //this.router.navigate(['mycpm',this.user.id]);
-      },
-      error: (error:HttpErrorResponse) => {
-        console.log(error.message);
-       // alert("vous n'etes plus attaché a une organisation")
-       },
-      complete: () => console.info('complete') 
-    })
 
-    console.log(this.id)
-    console.log(this.organisation)
-    console.log(this.user)
-    console.log("l id de lorganisation est :"+this.organisation.id)
-    console.log("l id du user est :"+this.user.id)
+ /*
    
   }
   showme():void{

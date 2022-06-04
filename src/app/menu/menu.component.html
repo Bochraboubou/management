@@ -5,7 +5,9 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a routerLink="dashbord"  class="logo d-flex align-items-center">
-        <img src="assets/menu/assets/img/logo.png" alt="">
+        <img src="{{this.organisationService.apiServeUrl+'/admin/ImgOrganisation/'+idOrgan}}"
+	style="height :100px;width:fil-content" alt=""
+	class="img-responsive" alt="img">
 
 <!--
   <img src="{{this.organisationService.apiServeUrl+'/admin/ImgOrganisation/'+organisation.id}}"
@@ -250,9 +252,9 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " routerLink="/cpm">
           <i class="bi bi-grid"></i>
-          <span>Tableau de Bord</span>
+          <span>Tableaux de Bord</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
@@ -279,17 +281,17 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>Demande</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-journal-text"></i><span>Demandes</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a routerLink="listeDemande">
-              <i class="bi bi-circle"></i><span>demandes approuvé</span>
+              <i class="bi bi-circle"></i><span>demandes approuvées</span>
             </a>
           </li>
           <li>
             <a routerLink="demandeEnAttente">
-              <i class="bi bi-circle"></i><span> demandes en attente </span>
+              <i class="bi bi-circle"></i><span> demandes en attentes </span>
             </a>  
           </li>
           
@@ -301,7 +303,7 @@
       <!--associer role -->
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-nav1" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span> comptes utulisateur  </span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-journal-text"></i><span> Comptes Admins </span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="forms-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>

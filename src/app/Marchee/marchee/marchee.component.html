@@ -21,7 +21,7 @@
            
     
               <div class="col-md-4">
-                  <label for="metier" style="color: navy"> Metier</label>
+                  <label for="metier" style="color: navy"> Métier</label>
                   <select [(ngModel)]="idMetier" (ngModelChange)="ArticlesByMetier($event)" name="metier" id="metier" class="form-select"  placeholder="Metier" aria-label="Default select example"  required #metier="ngModel"  [class.is-invalid]="metier.invalid && metier.touched">
                     <!--<option selected>choisir une option</option>-->
                     <option   *ngFor="let met of metiers"
@@ -127,7 +127,7 @@
       
            <!--tableau de bondes commande-->
         <div>
-          <table class="table table-striped">
+          <table class="table table-striped" style="width: 1000px;">
             <thead>
                 <tr class="table-title">
                 <th scope="col">#</th>
@@ -361,9 +361,9 @@
                             <div class="tab-pane fade" id="pills-smart" role="tabpanel" aria-labelledby="pills-smart-tab">
                               <div> 
                                 <div><h1 style="font-family:FreeMono, monospace; font-size: 28px; color:darkred;">liste articles ajoutés a la bonde commande</h1></div>
-                                <table class="table table-success table-striped">
+                                <table class="table table-striped">
                                   <thead>
-                                    <tr>
+                                    <tr class="table-title">
                                       <th scope="col">#</th>
                                       <th scope="col">Code</th>
                                       <th scope="col">designation</th>
@@ -406,9 +406,9 @@
                               </div>
                               <br>
                               <div>
-                                <table class="table table-success table-striped">
+                                <table class="table table-striped">
                                   <thead>
-                                    <tr>
+                                    <tr class="table-title">
                                       <th scope="col" >#</th>
                                       <th scope="col">Code</th>
                                       <th scope="col" >Designation</th>
@@ -480,9 +480,9 @@
                </div>
                <div>
                 <h2><strong>Articles :</strong></h2> 
-                <table class="table table-success table-striped">
+                <table class="table table-striped">
                   <thead>
-                    <tr>
+                    <tr class="table-title">
                       <th scope="col">#</th>
                       <th scope="col">Code</th>
                       <th scope="col">designation</th>

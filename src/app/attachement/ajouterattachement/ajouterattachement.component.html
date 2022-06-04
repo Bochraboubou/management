@@ -17,7 +17,7 @@
 
 <div class="container" id="container">
     <div class="col-md-6">
-        <div><h1 style="font-family:Marker Felt, fantasy; font-size: 28px; color:navy;position:center;">Liste des Marchées de type projet</h1></div>
+        <div><h1 style="font-family:Marker Felt, fantasy; font-size: 28px; color:navy;position:center;">Liste des Marchés de type projet</h1></div>
       </div>
 <br>
     <form action="">
@@ -35,7 +35,7 @@
         <div class="row gx-3 mb-3">
             <!-- Form Group (first name)-->
             <div class="col-md-4">
-                <label class="small mb-1" for="inputLastName">choisir un code du marchée</label>
+                <label class="small mb-1" for="inputLastName">choisir le code du marché</label>
                 <select [(ngModel)]="m.code" name="code" class="form-control" id="code">
                     <option *ngFor="let mm of listesMarcheeProjet
                     " [value]="mm.code">
@@ -59,9 +59,10 @@
         <br>
         <div class="row">
             <div class="col-md-10">
+                <h3>   liste des Bons des commandes du marché</h3>
                 <div class="table-title">
-                    
-                    liste des Bon de commande du marchée &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 
+                    recherche
+                  &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; 
                     <input [(ngModel)]="terme" name="terme" type="search" data-toggle="modal" /><i class="material-icons"></i>
                
                 </div>
@@ -106,7 +107,7 @@
 
 
                                     <a (click)="more(bc.id)" class="btn btn-default btn-sm">
-                                        <i class="fa fa-plus-circle" aria-hidden="true"></i> Attribuer un attachement
+                                        <i class="fa fa-plus-circle" aria-hidden="true"></i> Créer un attachement
                                     </a>
                                
                                 </div>

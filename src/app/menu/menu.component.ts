@@ -33,23 +33,14 @@ this.register.findByUserName(this.username).subscribe(
   data=>{
     this.user=data;
   }
+  
 )
+this.on()
 
-
-   /* this.id=this.route.snapshot.params['id'];
-    this.user=new User();
-    this.serviceUser.getUserById(this.id).subscribe(
-      data=>{
-        this.user=data;
+this.findOrganisation(this.username)
+   
+     }
      
-
-    }
-    )
-*/
-     }
-     on(){
-       console.log(this.loginService.isAdminCPM())
-     }
      
 findOrganisation(username:string){
   this.register.findByUserName(this.username).subscribe(
@@ -60,6 +51,8 @@ findOrganisation(username:string){
           this.organisation=response;
           console.log("organisation"+response);
           this.idOrgan=this.organisation.id;
+          console .log("iiiiiiiiiiiiiiii")
+          console.log(this.organisation)
           
         },
         error: (error:HttpErrorResponse) => {
@@ -71,5 +64,7 @@ findOrganisation(username:string){
    }
   )
 }
-
+on(){
+  console.log(this.loginService.isAdminCPM())
+}
 }

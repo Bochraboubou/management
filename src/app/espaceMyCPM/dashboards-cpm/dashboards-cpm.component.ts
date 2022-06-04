@@ -28,6 +28,7 @@ organisations!:Organisation[]
     this.CountUsersOfOrg();
    this. CountMétierofSecteur()
    this.MarcheeVsOrganisation()
+   this.getOrganisations()
    
   }
 
@@ -185,7 +186,7 @@ MarcheeVsOrganisation(){
        data: { 
          labels: NomOrgs,
          datasets: [{
-           label: 'nombre d utilisateur par organisation',
+           label: 'nombre des marchés par organisation',
            data: countMarchee,
            backgroundColor: 
            couleursMetier

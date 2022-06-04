@@ -24,6 +24,7 @@ export class ListeDemandesComponent implements OnInit {
   totalLength:any;
   sppalerte=0
   ListeApprouvee:Demande[]=[]
+  longueur!:number
   
  
   constructor(public _servicedemande:DemandeService, private router:Router) { }
@@ -35,8 +36,18 @@ export class ListeDemandesComponent implements OnInit {
    
   }
   public getListeDesDemandes():void
+
   {
-   
+    this._servicedemande.DemandesApprouvee().subscribe(
+      (response:Demande[])=>{
+        this.ListeApprouvee=response
+        this.totalLength=response.length;
+        this.longueur=this.ListeApprouvee.length
+      },
+      (error:HttpErrorResponse)=>{
+        alert(error.message);
+       })
+   /*
     this. _servicedemande.getDemandes().subscribe(
       (response:Demande[])=>{
         this.demandes=response;
@@ -45,16 +56,18 @@ export class ListeDemandesComponent implements OnInit {
           if (curDemande.demandeStatus==true){
             console.log("ouii")
            this. ListeApprouvee.push(curDemande)
+           this.totalLength=response.length;
           } else{
             console.log("nnnnnnnnnn")
           }
       
         })
+        this.longueur=this.ListeApprouvee.length
       },
       (error:HttpErrorResponse)=>{
         alert(error.message);
        }
-    )
+    )*/
       }
 
 

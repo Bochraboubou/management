@@ -19,6 +19,7 @@ export class Demande {
      documentpath!:string;
      demandeStatus:boolean=true;
      fileName!:string
+     adresse_org!:string
      constructor(){
          
      }

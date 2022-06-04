@@ -25,5 +25,6 @@ export class Organisation{
    users!:Array<User>;
     listmarchees!:Array<Marchee>;
     d_id!:number
+    adresse_org!:string
     constructor(){}
 }

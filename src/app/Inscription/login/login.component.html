@@ -12,7 +12,7 @@
 
                             <!--message d'alerte-->
                             <div class="alert alert-danger" *ngIf="erreur==1">
-                                <strong>premier nom ou mot de passe erronés..</strong>
+                                <strong>prénom ou mot de passe erronés..</strong>
                             </div>
                             <div class="alert alert-danger" *ngIf="alertstop==1">
                                 <strong>chér utulisateur vous n'avez pas encore un role..</strong>
@@ -36,11 +36,11 @@
                                                     -->
 
 
-                                            <input type="text" class="form-control" placeholder="premier nom"
+                                            <input type="text" class="form-control" placeholder="prénom"
                                                 [(ngModel)]="user.username" name="username" id="username" required
                                                 #username="ngModel"
                                                 [class.is-invalid]="username.invalid && username.touched">
-                                            <div class="invalid-feedback">SVP, enter votre premier nom!</div>
+                                            <div class="invalid-feedback">SVP, enter votre prénom!</div>
                                             <!-- <small class="text-danger"    [class.is-invalid]="username.invalid && username.touched">premier nom invalide</small>-->
                                         </div>
                                     </div>
@@ -72,7 +72,7 @@
                                             </div>
                                         -->
                                     <div class="col-12 text-lg-right">
-                                        <a class="c-black" [routerLink]="['sendEmail']">mot de passe oblié?</a>
+  <div><br></div>
                                     </div>
                                     <div class="col-12 mt-30">
                                         <button [disabled]="loginform.form.invalid" type="submit" id="submit"

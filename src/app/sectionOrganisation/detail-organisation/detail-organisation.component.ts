@@ -29,5 +29,15 @@ export class DetailOrganisationComponent implements OnInit {
   }
      
   
-
+  public onOpeAfficheModal():void{
+    const container=document.getElementById('main-container');
+     const button=document.createElement('button');
+     button.type='button';
+     button.style.display='none';
+     button.setAttribute('data-toggle','modal');
+     button.setAttribute('data-target','#affDocument');
+     container?.appendChild(button);
+     button.click();
+ 
+   }
 }

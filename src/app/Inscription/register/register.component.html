@@ -153,13 +153,13 @@
                       placeholder="Email Address" required #email="ngModel"
                       [class.is-invalid]="email.invalid && email.touched">
                     <small class="text-danger" [class.d-none]="email.valid || email.untouched">
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AA Email is required
-                      field</small>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;email invalide</small>
                     <div *ngIf="email.errors && (email.invalid && email.touched)">
-                      <small class="text-danger" *ngIf="email.errors['required']"> &nbsp;&nbsp; Email is required
-                        field</small>
-                      <small class="text-danger" *ngIf="email.errors['pattern']"> &nbsp;&nbsp; Enter the valid
-                        email</small>
+                      <small class="text-danger" *ngIf="email.errors['required']"> &nbsp;&nbsp;
+                        champ email obligatoire</small>
+                      <small class="text-danger" *ngIf="email.errors['pattern']"> &nbsp;&nbsp;
+                        email invalide
+                      </small>
                     </div>
                     <div class="invalid-feedback">Entrer un email valide!</div>
 

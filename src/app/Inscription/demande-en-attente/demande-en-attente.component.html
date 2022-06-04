@@ -15,7 +15,7 @@
                 <div>
 
                 </div>
-                <h2>liste <b>des demandes en attente</b>
+                <h2> {{langueur}} demandes<b> en attente</b>
                   
                 </h2>
                 <div class="row">
@@ -56,10 +56,10 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let demande of enAttenteListe   | filter:terme | paginate : {
-                            itemsPerPage:4,
+                            itemsPerPage:3,
                             currentPage:page,
                             totalItems:totalLength
-                            }, let i=index   ">
+                            }, let i=index">
                          
 
                          <th >
@@ -136,7 +136,7 @@
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Retour">
-                    <input type="submit" class="btn btn-danger" value="Supprimer">
+                    <input type="button" (click)="closeAlerte()" class="btn btn-danger" value="Supprimer">
                 </div>
             </form>
         </div>
@@ -168,7 +168,10 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="alert alert-success" role="alert" *ngIf="sppalerte==1">
-          supression avec succés <!--<a href="#" class="alert-link">an example lin</a>. Give it a click if you like.-->
+          supression avec succés 
+          <button (click)=" closeAlerte()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
           </div>
         <form>
           <div class="modal-header">						

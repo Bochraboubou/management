@@ -23,7 +23,7 @@ export class DemandeEnAttenteComponent implements OnInit {
   page:number = 1;
   totalLength:any;
   sppalerte=0;
-
+  langueur!:number
   enAttenteListe:Demande[]=[]
   
  
@@ -106,25 +106,17 @@ export class DemandeEnAttenteComponent implements OnInit {
 
   public getListDemandeAttente():void
   {
-   
-    this. _servicedemande.getDemandes().subscribe(
+
+    this._servicedemande.DemandesEnAttente().subscribe(
       (response:Demande[])=>{
-        this.demandes=response;
+        this.enAttenteListe=response
         this.totalLength=response.length;
-        this.demandes.forEach((curDemande) => {
-          if (curDemande.demandeStatus==false){
-            console.log("ouii")
-           this. enAttenteListe.push(curDemande)
-          } else{
-            console.log("nnnnnnnnnn")
-          }
-      
-        })
       },
       (error:HttpErrorResponse)=>{
         alert(error.message);
        }
     )
+  
       }
 
 
@@ -229,6 +221,9 @@ export class DemandeEnAttenteComponent implements OnInit {
     complete: () => console.info('complete') 
    
   })
+}
+closeAlerte(){
+  this.sppalerte=0
 }
 }
 

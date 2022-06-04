@@ -440,7 +440,7 @@ this.attachementService.addAttachement(this.attachement1,this.id).subscribe({
 
    
    },
-  complete: () => console.info('complete') 
+  complete: () =>  console.info('complete') 
   })
 
 }
@@ -500,7 +500,6 @@ this. listeMaterielRealisee.forEach((curArticle) => {
 })
 
 }
-
 
 //Ajouter la liste des articles realisee a la base de donnée
 AddListeArticesRtoBD(){

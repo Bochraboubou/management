@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col-md-4">
             <div>
-                <h2 style="font-family: Comic Sans MS; color: midnightblue;">Tou dabord choisissez le code du marché</h2>
+                <h2 style="font-family: Comic Sans MS; color: midnightblue;">Marché</h2>
                 <select ngModel (ngModelChange)="getMarcheeChoisis($event)" name="marchee" id="marchee" class="form-select" placeholder="code du marché" aria-label="Default select example" required #marchee="ngModel"  [class.is-invalid]="marchee.invalid && marchee.touched">
                   <option selected value="" >choisir le code du marché</option>-->
                   <option   *ngFor="let marchee of marchees let i=index"
@@ -18,7 +18,7 @@
             </div>
 
             <div>
-              <h2 style="font-family: Comic Sans MS; color: midnightblue;">choisissez le code du bon de commande</h2>
+              <h2 style="font-family: Comic Sans MS; color: midnightblue;">Bon de commande</h2>
               <select ngModel (ngModelChange)="getBondeCommandeChoisis($event)" name="bondeCommande" id="bondeCommande" class="form-select" placeholder="code Bon de Commande" aria-label="Default select example" required #bondeCommande="ngModel"  [class.is-invalid]="bondeCommande.invalid && bondeCommande.touched">
                 <option selected value="">choisir le code du bon de Commande</option>-->
                 <option   *ngFor="let bc of bonsdeCommandes let i=index"
@@ -29,7 +29,7 @@
           </div>
 
           <div>
-            <h2 style="font-family: Comic Sans MS; color: midnightblue;">choisissez le code de l'ordre de traveaux</h2>
+            <h2 style="font-family: Comic Sans MS; color: midnightblue;">Ordre de traveaux</h2>
             <select ngModel (ngModelChange)="getOrdreTraveauxChoisis($event)" name="bondeCommande" id="bondeCommande" class="form-select" placeholder="code Bon de Commande" aria-label="Default select example" required #bondeCommande="ngModel"  [class.is-invalid]="bondeCommande.invalid && bondeCommande.touched">
               <option selected value="">choisir le code de l'ordre de traveaux</option>-->
               <option   *ngFor="let ot of ordresDeTraveaux let i=index"

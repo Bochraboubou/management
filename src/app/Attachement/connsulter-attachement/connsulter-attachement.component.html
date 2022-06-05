@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col-md-4">
             <div>
-                <h2 style="font-family: Comic Sans MS; color: midnightblue;">Tou dabord choisissez le code du marché</h2>
+                <h2 style="font-family: Comic Sans MS; color: midnightblue;">Marché</h2>
                 <select ngModel (ngModelChange)="getMarcheeChoisis($event)" name="marchee" id="marchee" class="form-select" placeholder="code du marché" aria-label="Default select example" required #marchee="ngModel"  [class.is-invalid]="marchee.invalid && marchee.touched">
                   <option selected value="" >choisir le code du marché</option>-->
                   <option   *ngFor="let marchee of marchees let i=index"
@@ -18,7 +18,7 @@
             </div>
 
             <div>
-              <h2 style="font-family: Comic Sans MS; color: midnightblue;">choisissez le code du bon de commande</h2>
+              <h2 style="font-family: Comic Sans MS; color: midnightblue;">Bon de commande</h2>
               <select ngModel (ngModelChange)="getBondeCommandeChoisis($event)" name="bondeCommande" id="bondeCommande" class="form-select" placeholder="code Bon de Commande" aria-label="Default select example" required #bondeCommande="ngModel"  [class.is-invalid]="bondeCommande.invalid && bondeCommande.touched">
                 <option selected value="">choisir le code du bon de Commande</option>-->
                 <option   *ngFor="let bc of bonsdeCommandes let i=index"
@@ -48,7 +48,7 @@
                               <li class="nav-item mb-4 pt-2">
                                   <a class="nav-link rounded-pill" id="global" data-toggle="pill" href="#Aglobal" role="tab" aria-controls="Aglobal" aria-selected="false">
                                       <div class="screenshot text-center pt-2 pb-2">
-                                          <h4 class="title font-weight-normal mb-0">Attachements globals</h4>
+                                          <h4 class="title font-weight-normal mb-0">Attachement global</h4>
                                       </div>
                                   </a><!--end nav link-->
                               </li><!--end nav item-->
@@ -56,7 +56,7 @@
                               <li class="nav-item mb-4 pt-2">
                                   <a class="nav-link rounded-pill" id="journalier" data-toggle="pill" href="#Ajournalier" role="tab" aria-controls="Ajournalier" aria-selected="false">
                                       <div class="screenshot text-center pt-2 pb-2">
-                                          <h4 class="title font-weight-normal mb-0">Attachements journaliers</h4>
+                                          <h4 class="title font-weight-normal mb-0">Attachement journalier</h4>
                                       </div>
                                   </a><!--end nav link-->
                               </li><!--end nav item-->
@@ -64,7 +64,7 @@
                               <li class="nav-item mb-4 pt-2">
                                   <a class="nav-link rounded-pill" id="periode" data-toggle="pill" href="#Aparperiode" role="tab" aria-controls="Aparperiodes" aria-selected="false">
                                       <div class="screenshot text-center pt-2 pb-2">
-                                          <h4 class="title font-weight-normal mb-0">Attachements par périodes</h4>
+                                          <h4 class="title font-weight-normal mb-0">Attachement par période</h4>
                                       </div>
                                   </a><!--end nav link-->
                               </li><!--end nav item-->
@@ -76,10 +76,10 @@
                             <!--espace pour ajouter les attachements global-->
                               <div class="tab-pane fade" id="Aglobal" role="tabpanel" aria-labelledby="pills-cloud-tab">
                                 <div>
-                                  <h2 style="font-family: Comic Sans MS; color: midnightblue;">Prestations exécutés par attachements dans cette bon de commande</h2>
+                                  <h2 style="font-family: Comic Sans MS; color: midnightblue;">Prestations exécutés</h2>
                                   <table class="table table-primary table-hover table-striped">
                                     <thead>
-                                      <tr>
+                                      <tr class="table-title">
                                         <th scope="col" class="bg-primary">N°</th>
                                         <th scope="col" class="bg-primary">CodeArticle</th>
                                         <th scope="col" class="bg-primary">Designiation</th>
@@ -104,10 +104,10 @@
 
                               
                                   <div>
-                                    <h2 style="font-family: Comic Sans MS; color: midnightblue;">Materiels Fournisseur realisés par attachements dans cette bon de commande</h2>
+                                    <h2 style="font-family: Comic Sans MS; color: midnightblue;">Materiel Fournisseur consommés</h2>
                                     <table class="table table-primary table-hover table-striped">
                                       <thead>
-                                        <tr>
+                                        <tr class="table-title">
                                           <th scope="col" class="bg-primary">N°</th>
                                           <th scope="col" class="bg-primary">CodeArticle</th>
                                           <th scope="col" class="bg-primary">Designiation</th>
@@ -115,7 +115,7 @@
                                           <th scope="col" class="bg-primary">Quantité total réalisée</th>
                                           <th scope="col" class="bg-primary">Type</th>
                                         </tr>
-                                      </thead>
+                                      </thead> 
                                       <tbody>
                                         <tr *ngFor="let attach of attachementsGlobalsMFs ,let i= index">
                                           <th scope="row">{{i}}</th>
@@ -130,10 +130,10 @@
                                   </div>
 
                                   <div>
-                                    <h2 style="font-family: Comic Sans MS; color: midnightblue;">Materiels en regie par attachements dans cette bon de commande</h2>
+                                    <h2 style="font-family: Comic Sans MS; color: midnightblue;">Materiel en regie consommés</h2>
                                     <table class="table table-primary table-hover table-striped">
                                       <thead>
-                                        <tr>
+                                        <tr class="table-title">
                                           <th scope="col" class="bg-primary">N°</th>
                                           <th scope="col" class="bg-primary">CodeArticle</th>
                                           <th scope="col" class="bg-primary">Designiation</th>
@@ -174,10 +174,10 @@
                                     <input type="date"   name="dateA" (ngModelChange)="getDateAttachementJournalier($event)" [(ngModel)]="dateA" class="form-control" id="dateA" placeholder="date" required>
                                   </div>
                                   <br>
-                                  <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size:large;">Prestations exécutés par attachements dans cette bon de commande à la date "{{dateA}}"</h2>
+                                  <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size:large;">Prestations exécutés à la date :  "{{dateA}}"</h2>
                                   <table class="table table-primary table-hover table-striped">
                                     <thead>
-                                      <tr>
+                                      <tr class="table-title">
                                         <th scope="col" class="bg-primary">N°</th>
                                         <th scope="col" class="bg-primary">CodeArticle</th>
                                         <th scope="col" class="bg-primary">Designiation</th>
@@ -202,10 +202,10 @@
 
 
                                 <div>
-                                  <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size:large;">Materiels Fournisseur realisés par attachements dans cette bon de commande à la date "{{dateA}}"</h2>
+                                  <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size:large;">Materiels Fournisseur à la date  "{{dateA}}"</h2>
                                   <table class="table table-primary table-hover table-striped">
                                     <thead>
-                                      <tr>
+                                      <tr class="table-title">
                                         <th scope="col" class="bg-primary">N°</th>
                                         <th scope="col" class="bg-primary">CodeArticle</th>
                                         <th scope="col" class="bg-primary">Designiation</th>
@@ -228,10 +228,10 @@
                                 </div>
 
                                 <div>
-                                  <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size:large;">Materiels en regie realisés par attachements dans cette bon de commande à la date "{{dateA}}"</h2>
+                                  <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size:large;">Materiels en régie consommés à la date "{{dateA}}"</h2>
                                   <table class="table table-primary table-hover table-striped">
                                     <thead>
-                                      <tr>
+                                      <tr class="table-title">
                                         <th scope="col" class="bg-primary">N°</th>
                                         <th scope="col" class="bg-primary">CodeArticle</th>
                                         <th scope="col" class="bg-primary">Designiation</th>
@@ -282,10 +282,10 @@
                                     <button type="button" class="btn btn-dark" (click)="getAllAttachementsParPeriode(bondeCommandeC.id!,date1,date2)">OK</button>
                                   </div>
                                   <br>
-                                  <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size: large;">Prestations exécutés dans les attachements par bon de commande à la periode :(de "{{date1}}" à "{{date2}}" )</h2>
+                                  <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size: large;">Prestations exécutés à la periode :(de "{{date1}}" à "{{date2}}" )</h2>
                                   <table class="table table-primary table-hover table-striped">
                                     <thead>
-                                      <tr>
+                                      <tr class="table-title">
                                         <th scope="col" class="bg-primary">N°</th>
                                         <th scope="col" class="bg-primary">CodeArticle</th>
                                         <th scope="col" class="bg-primary">Designiation</th>
@@ -310,10 +310,10 @@
 
 
                                 <div>
-                                  <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size: large;">Materiels Fournisseur realisés dans les attachements par bon de commande à la periode :(de "{{date1}}" à "{{date2}}" )</h2>
+                                  <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size: large;">Materiels Fournisseur consommés à la periode :(de "{{date1}}" à "{{date2}}" )</h2>
                                   <table class="table table-primary table-hover table-striped">
                                     <thead>
-                                      <tr>
+                                      <tr class="table-title">
                                         <th scope="col" class="bg-primary">N°</th>
                                         <th scope="col" class="bg-primary">CodeArticle</th>
                                         <th scope="col" class="bg-primary">Designiation</th>
@@ -336,10 +336,10 @@
                                 </div>
 
                                 <div>
-                                  <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size: large;">Materiels en regie realisés dans les attachements par bon de commande à la periode :(de "{{date1}}" à "{{date2}}" )</h2>
+                                  <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size: large;">Materiels en regie consommés à la periode :(de "{{date1}}" à "{{date2}}" )</h2>
                                   <table class="table table-primary table-hover table-striped">
                                     <thead>
-                                      <tr>
+                                      <tr class="table-title">
                                         <th scope="col" class="bg-primary">N°</th>
                                         <th scope="col" class="bg-primary">CodeArticle</th>
                                         <th scope="col" class="bg-primary">Designiation</th>
@@ -390,16 +390,16 @@
         <h3><strong>Code du bon de commande : </strong>{{bondeCommandeC?.codebc}}</h3>
         <h3><strong >Entreprise(Fournisseur) </strong> {{bondeCommandeC?.nomEntrep}}</h3>
           </div>
-      <h4 style="font-family: Comic Sans MS; color: midnightblue;">Prestations exécutés par attachements dans cette bon de commande</h4>
-      <table class="table table-primary table-hover table-striped">
+      <h4 style="font-family: Comic Sans MS; color: midnightblue;">Prestations exécutés</h4>
+      <table class="table table-hover table-striped">
         <thead>
-          <tr>
-            <th scope="col" class="bg-primary">N°</th>
-            <th scope="col" class="bg-primary">CodeArticle</th>
-            <th scope="col" class="bg-primary">Designiation</th>
-            <th scope="col" class="bg-primary">Unité</th>
-            <th scope="col" class="bg-primary">Quantité total réalisée</th>
-            <th scope="col" class="bg-primary">Type</th>
+          <tr class="table-title">
+            <th scope="col">N°</th>
+            <th scope="col">CodeArticle</th>
+            <th scope="col">Designiation</th>
+            <th scope="col">Unité</th>
+            <th scope="col">Quantité total réalisée</th>
+            <th scope="col">Type</th>
           </tr>
         </thead>
         <tbody>
@@ -418,16 +418,16 @@
 
   
       <div>
-        <h4 style="font-family: Comic Sans MS; color: midnightblue;">Materiels Fournisseur realisés par attachements dans cette bon de commande</h4>
-        <table class="table table-primary table-hover table-striped">
+        <h4 style="font-family: Comic Sans MS; color: midnightblue;">Materiels Fournisseur consommés</h4>
+        <table class="table table-hover table-striped">
           <thead>
-            <tr>
-              <th scope="col" class="bg-primary">N°</th>
-              <th scope="col" class="bg-primary">CodeArticle</th>
-              <th scope="col" class="bg-primary">Designiation</th>
-              <th scope="col" class="bg-primary">Unité</th>
-              <th scope="col" class="bg-primary">Quantité total réalisée</th>
-              <th scope="col" class="bg-primary">Type</th>
+            <tr class="table-title">
+              <th scope="col">N°</th>
+              <th scope="col">CodeArticle</th>
+              <th scope="col">Designiation</th>
+              <th scope="col">Unité</th>
+              <th scope="col">Quantité total réalisée</th>
+              <th scope="col">Type</th>
             </tr>
           </thead>
           <tbody>
@@ -444,16 +444,16 @@
       </div>
 
       <div>
-        <h4 style="font-family: Comic Sans MS; color: midnightblue;">Materiels Fournisseur en regie par attachements dans cette bon de commande</h4>
-        <table class="table table-primary table-hover table-striped">
+        <h4 style="font-family: Comic Sans MS; color: midnightblue;">Materiels en régie consommés</h4>
+        <table class="table table-hover table-striped">
           <thead>
-            <tr>
-              <th scope="col" class="bg-primary">N°</th>
-              <th scope="col" class="bg-primary">CodeArticle</th>
-              <th scope="col" class="bg-primary">Designiation</th>
-              <th scope="col" class="bg-primary">Unité</th>
-              <th scope="col" class="bg-primary">Quantité total réalisée</th>
-              <th scope="col" class="bg-primary">Type</th>
+            <tr class="table-title">
+              <th scope="col">N°</th>
+              <th scope="col">CodeArticle</th>
+              <th scope="col">Designiation</th>
+              <th scope="col">Unité</th>
+              <th scope="col">Quantité total réalisée</th>
+              <th scope="col">Type</th>
             </tr>
           </thead>
           <tbody>
@@ -489,16 +489,16 @@
     <div>
       <div><h4><strong>Date :</strong> {{dateA}}</h4></div>
       <br>
-      <h4 style="font-family: Comic Sans MS; color: midnightblue; font-size:large;">Prestations exécutés par attachements dans cette bon de commande à la date "{{dateA}}"</h4>
-      <table class="table table-primary table-hover table-striped">
+      <h4 style="font-family: Comic Sans MS; color: midnightblue; font-size:large;">Prestations exécutés à la date :  "{{dateA}}"</h4>
+      <table class="table table-hover table-striped">
         <thead>
-          <tr>
-            <th scope="col" class="bg-primary">N°</th>
-            <th scope="col" class="bg-primary">CodeArticle</th>
-            <th scope="col" class="bg-primary">Designiation</th>
-            <th scope="col" class="bg-primary">Unité</th>
-            <th scope="col" class="bg-primary">Quantité  totalréalisée</th>
-            <th scope="col" class="bg-primary">Type</th>
+          <tr class="table-title">
+            <th scope="col">N°</th>
+            <th scope="col">CodeArticle</th>
+            <th scope="col">Designiation</th>
+            <th scope="col">Unité</th>
+            <th scope="col">Quantité  totalréalisée</th>
+            <th scope="col">Type</th>
           </tr>
         </thead>
         <tbody>
@@ -517,16 +517,16 @@
 
 
     <div>
-      <h4 style="font-family: Comic Sans MS; color: midnightblue; font-size:large;">Materiels Fournisseur realisés par attachements dans cette bon de commande à la date "{{dateA}}"</h4>
-      <table class="table table-primary table-hover table-striped">
+      <h4 style="font-family: Comic Sans MS; color: midnightblue; font-size:large;">Materiels Fournisseur consommés à la date  "{{dateA}}"</h4>
+      <table class="table table-hover table-striped">
         <thead>
-          <tr>
-            <th scope="col" class="bg-primary">N°</th>
-            <th scope="col" class="bg-primary">CodeArticle</th>
-            <th scope="col" class="bg-primary">Designiation</th>
-            <th scope="col" class="bg-primary">Unité</th>
-            <th scope="col" class="bg-primary">Quantité  totalréalisée</th>
-            <th scope="col" class="bg-primary">Type</th>
+          <tr class="table-title">
+            <th scope="col">N°</th>
+            <th scope="col">CodeArticle</th>
+            <th scope="col">Designiation</th>
+            <th scope="col">Unité</th>
+            <th scope="col">Quantité  totalréalisée</th>
+            <th scope="col">Type</th>
           </tr>
         </thead>
         <tbody>
@@ -543,16 +543,16 @@
     </div>
 
     <div>
-      <h4 style="font-family: Comic Sans MS; color: midnightblue; font-size:large;">Materiels en regie realisés par attachements dans cette bon de commande à la date "{{dateA}}"</h4>
-      <table class="table table-primary table-hover table-striped">
+      <h4 style="font-family: Comic Sans MS; color: midnightblue; font-size:large;">Materiels en régie consommés à la date "{{dateA}}"</h4>
+      <table class="table table-hover table-striped">
         <thead>
-          <tr>
-            <th scope="col" class="bg-primary">N°</th>
-            <th scope="col" class="bg-primary">CodeArticle</th>
-            <th scope="col" class="bg-primary">Designiation</th>
-            <th scope="col" class="bg-primary">Unité</th>
-            <th scope="col" class="bg-primary">Quantité  totalréalisée</th>
-            <th scope="col" class="bg-primary">Type</th>
+          <tr class="table-title">
+            <th scope="col">N°</th>
+            <th scope="col">CodeArticle</th>
+            <th scope="col">Designiation</th>
+            <th scope="col">Unité</th>
+            <th scope="col">Quantité  totalréalisée</th>
+            <th scope="col">Type</th>
           </tr>
         </thead>
         <tbody>
@@ -585,16 +585,16 @@
         <div class="col-md-4"><h4><strong>Journée du :</strong>{{date1}}<strong> à :{{date2}}</strong></h4></div>
     <br>
     <div>
-      <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size: large;">Prestations exécutés dans les attachements par bon de commande à la periode :(de "{{date1}}" à "{{date2}}" )</h2>
-      <table class="table table-primary table-hover table-striped">
+      <h2 style="font-family: Comic Sans MS; color: midnightblue; font-size: large;">Prestations exécutés à la periode :(de "{{date1}}" à "{{date2}}" )</h2>
+      <table class="table table-hover table-striped">
         <thead>
-          <tr>
-            <th scope="col" class="bg-primary">N°</th>
-            <th scope="col" class="bg-primary">CodeArticle</th>
-            <th scope="col" class="bg-primary">Designiation</th>
-            <th scope="col" class="bg-primary">Unité</th>
-            <th scope="col" class="bg-primary">Quantité total réalisée</th>
-            <th scope="col" class="bg-primary">Type</th>
+          <tr class="table-title">
+            <th scope="col">N°</th>
+            <th scope="col">CodeArticle</th>
+            <th scope="col">Designiation</th>
+            <th scope="col">Unité</th>
+            <th scope="col">Quantité total réalisée</th>
+            <th scope="col">Type</th>
           </tr>
         </thead>
         <tbody>
@@ -613,16 +613,16 @@
 
 
     <div>
-      <h4 style="font-family: Comic Sans MS; color: midnightblue; font-size: large;">Materiels Fournisseur realisés dans les attachements par bon de commande à la periode :(de "{{date1}}" à "{{date2}}" )</h4>
-      <table class="table table-primary table-hover table-striped">
+      <h4 style="font-family: Comic Sans MS; color: midnightblue; font-size: large;">Materiels Fournisseur consommés à la periode :(de "{{date1}}" à "{{date2}}" )</h4>
+      <table class="table table-hover table-striped">
         <thead>
-          <tr>
-            <th scope="col" class="bg-primary">N°</th>
-            <th scope="col" class="bg-primary">CodeArticle</th>
-            <th scope="col" class="bg-primary">Designiation</th>
-            <th scope="col" class="bg-primary">Unité</th>
-            <th scope="col" class="bg-primary">Quantité total réalisée</th>
-            <th scope="col" class="bg-primary">Type</th>
+          <tr class="table-title">
+            <th scope="col">N°</th>
+            <th scope="col">CodeArticle</th>
+            <th scope="col">Designiation</th>
+            <th scope="col">Unité</th>
+            <th scope="col">Quantité total réalisée</th>
+            <th scope="col">Type</th>
           </tr>
         </thead>
         <tbody>
@@ -639,16 +639,16 @@
     </div>
 
     <div>
-      <h4 style="font-family: Comic Sans MS; color: midnightblue; font-size: large;">Materiels en regie realisés dans les attachements par bon de commande à la periode :(de "{{date1}}" à "{{date2}}" )</h4>
-      <table class="table table-primary table-hover table-striped">
+      <h4 style="font-family: Comic Sans MS; color: midnightblue; font-size: large;">Materiels en regie consommés à la periode :(de "{{date1}}" à "{{date2}}" )</h4>
+      <table class="table table-hover table-striped">
         <thead>
-          <tr>
-            <th scope="col" class="bg-primary">N°</th>
-            <th scope="col" class="bg-primary">CodeArticle</th>
-            <th scope="col" class="bg-primary">Designiation</th>
-            <th scope="col" class="bg-primary">Unité</th>
-            <th scope="col" class="bg-primary">Quantité total réalisée</th>
-            <th scope="col" class="bg-primary">Type</th>
+          <tr class="table-title">
+            <th scope="col">N°</th>
+            <th scope="col">CodeArticle</th>
+            <th scope="col">Designiation</th>
+            <th scope="col">Unité</th>
+            <th scope="col">Quantité total réalisée</th>
+            <th scope="col">Type</th>
           </tr>
         </thead>
         <tbody>

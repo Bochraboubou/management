@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col-md-4">
             <div>
-                <h2 style="font-family: Comic Sans MS; color: midnightblue;">Tou dabord choisissez un secteur d'activité</h2>
+                <h2 style="font-family: Comic Sans MS; color: midnightblue;">Secteur d'activité</h2>
                 <select ngModel (ngModelChange)="getSecteurChoisis($event)" name="secteur_d_activite" id="secteur_d_activite" class="form-select" placeholder="secteur_d_activite" aria-label="Default select example" required #secteur_d_activite="ngModel"  [class.is-invalid]="secteur_d_activite.invalid && secteur_d_activite.touched">
                   <option selected value="" >choisir un secteur</option>-->
                   <option   *ngFor="let sect of secteurs"
@@ -18,7 +18,7 @@
                   </div>
                
             <div>
-                <h2 style="font-family: Comic Sans MS; color: midnightblue;">choisissez un metier</h2>
+                <h2 style="font-family: Comic Sans MS; color: midnightblue;">Metier</h2>
                 <select ngModel (ngModelChange)="getMetierChoisis($event)" name="metier" id="metier" class="form-select" placeholder="metier" aria-label="Default select example" required #metier="ngModel"  [class.is-invalid]="metier.invalid && metier.touched">
                   <option selected value="">choisir un metier</option>-->
                   <option   *ngFor="let metier of metiers"
